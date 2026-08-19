@@ -2,7 +2,7 @@
 <html lang="en">
 <head>
 <meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
 <title>Handware — Premium Watches</title>
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@500;600;700&family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
@@ -17,6 +17,8 @@
     --red:#c23b2c;
     --radius-card:8px;
     --radius-ui:6px;
+    --header-h:64px;
+    --catnav-h:47px;
   }
   *{box-sizing:border-box; margin:0; padding:0;}
   html{scroll-behavior:smooth;}
@@ -25,7 +27,9 @@
     background:var(--paper);
     color:var(--ink);
     -webkit-font-smoothing:antialiased;
+    overflow-x:hidden;
   }
+  body.lock{ overflow:hidden; }
   a{color:inherit; text-decoration:none;}
   img{display:block; max-width:100%;}
   button{font-family:inherit; cursor:pointer;}
@@ -44,29 +48,30 @@
   }
   .utility-bar strong{ color:var(--gold); }
 
-  /* ===== Header ===== */
+  /* ===== Header (compact) ===== */
   header.site-header{
-    position:sticky; top:0; z-index:50;
-    background:rgba(255,255,255,.92);
+    position:sticky; top:0; z-index:200;
+    background:rgba(255,255,255,.94);
     backdrop-filter:blur(10px);
     border-bottom:1px solid var(--line);
   }
   .header-inner{
     max-width:1360px; margin:0 auto;
     display:flex; align-items:center; justify-content:space-between;
-    padding:16px 28px; gap:24px;
-    position:relative;
+    padding:10px 28px; gap:18px;
+    height:var(--header-h);
   }
   .logo{
-    display:flex; align-items:center; gap:12px;
-    font-weight:800; letter-spacing:.02em; font-size:26px;
+    display:flex; align-items:center; gap:10px;
+    font-weight:800; letter-spacing:.02em; font-size:21px;
+    flex-shrink:0;
   }
   .logo-mark{
-    width:44px; height:44px; border-radius:6px;
+    width:36px; height:36px; border-radius:6px;
     background:var(--ink);
     display:flex; align-items:center; justify-content:center;
-    color:#fff; font-family:'Cormorant Garamond', serif; font-weight:700; font-size:22px;
-    position:relative;
+    color:#fff; font-family:'Cormorant Garamond', serif; font-weight:700; font-size:17px;
+    position:relative; flex-shrink:0;
   }
   .logo-mark::after{
     content:"";
@@ -75,130 +80,118 @@
     border-radius:4px;
   }
   .logo-text-sub{
-    display:block; font-size:9px; letter-spacing:.28em; text-transform:uppercase;
-    color:#8a8a86; font-weight:600; margin-top:2px;
+    display:block; font-size:8px; letter-spacing:.24em; text-transform:uppercase;
+    color:#8a8a86; font-weight:600; margin-top:1px;
   }
 
-  .search-wrap{
-    flex:1; max-width:520px;
-    display:flex; align-items:center;
-    background:var(--smoke);
-    border:1px solid var(--line);
-    border-radius:var(--radius-ui);
-    padding:11px 16px;
-    gap:10px;
+  /* Header nav links (desktop, replaces oversized search bar) */
+  .header-links{
+    display:flex; align-items:center; gap:26px;
+    flex:1; justify-content:center;
   }
-  .search-wrap input{
-    border:none; background:transparent; outline:none;
-    font-size:14px; width:100%; color:var(--ink);
-    font-family:inherit;
+  .header-links a{
+    font-size:12.5px; font-weight:600; letter-spacing:.03em;
+    color:#4a4a46; white-space:nowrap; position:relative; padding:4px 0;
+    transition:color .2s;
   }
-  .search-wrap svg{ flex-shrink:0; opacity:.55; }
+  .header-links a::after{
+    content:""; position:absolute; left:0; right:0; bottom:-3px; height:1.5px;
+    background:var(--ink); transform:scaleX(0); transform-origin:right;
+    transition:transform .25s ease;
+  }
+  .header-links a:hover{ color:var(--ink); }
+  .header-links a:hover::after{ transform:scaleX(1); transform-origin:left; }
 
-  .header-actions{ display:flex; align-items:center; gap:18px; }
+  .header-actions{ display:flex; align-items:center; gap:10px; flex-shrink:0; }
   .icon-btn{
     display:flex; align-items:center; justify-content:center;
-    width:40px; height:40px; border-radius:var(--radius-ui);
+    width:38px; height:38px; border-radius:50%;
     border:1px solid var(--line); background:#fff;
     position:relative; transition:.2s;
   }
-  .icon-btn:hover{ border-color:var(--ink); }
+  .icon-btn:hover{ border-color:var(--ink); background:var(--smoke); }
+  .icon-btn.is-active{ background:var(--ink); border-color:var(--ink); color:#fff; }
   .icon-btn .badge{
-    position:absolute; top:-6px; right:-6px;
+    position:absolute; top:-5px; right:-5px;
     background:var(--red); color:#fff;
-    font-size:10px; font-weight:700;
-    width:17px; height:17px; border-radius:50%;
+    font-size:9.5px; font-weight:700;
+    min-width:16px; height:16px; padding:0 3px; border-radius:50%;
     display:flex; align-items:center; justify-content:center;
   }
-  .icon-btn .badge.bump{ animation:badgeBump .4s ease; }
-  @keyframes badgeBump{
-    0%{ transform:scale(1); }
-    35%{ transform:scale(1.5); }
-    100%{ transform:scale(1); }
-  }
-  #cartBtn.bump, #mobileCartBtn.bump svg{ animation:cartShake .4s ease; }
-  @keyframes cartShake{
-    0%,100%{ transform:rotate(0); }
-    25%{ transform:rotate(-12deg); }
-    75%{ transform:rotate(12deg); }
-  }
-
-  /* fly-to-cart dot */
-  .fly-dot{
-    position:fixed; z-index:200; border-radius:50%;
-    background:var(--gold); pointer-events:none;
-    transition:left .55s cubic-bezier(.2,.7,.3,1), top .55s cubic-bezier(.2,.7,.3,1), opacity .55s ease, width .55s ease, height .55s ease;
-  }
-
-  /* per-card qty badge */
-  .card-qty{
-    position:absolute; top:10px; left:10px; z-index:3;
-    background:var(--ink); color:#fff; font-size:11px; font-weight:700;
-    padding:4px 9px; border-radius:20px;
-    display:none; align-items:center; gap:5px;
-    animation:qtyPop .3s ease;
-  }
-  .card-qty.show{ display:flex; }
-  @keyframes qtyPop{
-    0%{ transform:scale(.6); opacity:0; }
-    100%{ transform:scale(1); opacity:1; }
-  }
-
-  /* ===== Cart Drawer ===== */
-  .cart-overlay{
-    position:fixed; inset:0; background:rgba(0,0,0,.45);
-    z-index:150; opacity:0; pointer-events:none; transition:opacity .3s ease;
-  }
-  .cart-overlay.open{ opacity:1; pointer-events:auto; }
-  .cart-drawer{
-    position:fixed; top:0; right:0; bottom:0; width:400px; max-width:92vw;
-    background:#fff; z-index:151;
-    transform:translateX(100%); transition:transform .35s cubic-bezier(.2,.7,.3,1);
-    display:flex; flex-direction:column;
-    box-shadow:-8px 0 32px rgba(0,0,0,.18);
-  }
-  .cart-drawer.open{ transform:translateX(0); }
-  .cart-drawer-head{
-    display:flex; align-items:center; justify-content:space-between;
-    padding:20px 22px; border-bottom:1px solid var(--line);
-  }
-  .cart-drawer-head h3{ font-size:17px; font-weight:800; }
-  .cart-close{
-    width:32px; height:32px; border-radius:50%; border:1px solid var(--line);
-    display:flex; align-items:center; justify-content:center; background:#fff;
-  }
-  .cart-drawer-body{ flex:1; overflow-y:auto; padding:14px 22px; }
-  .cart-empty{
-    height:100%; display:flex; flex-direction:column; align-items:center; justify-content:center;
-    color:#8a8a86; text-align:center; gap:10px; padding:40px 20px;
-  }
-  .cart-empty svg{ opacity:.35; }
-  .cart-line{
-    display:flex; gap:12px; padding:14px 0; border-bottom:1px solid var(--line);
-    animation:qtyPop .3s ease;
-  }
-  .cart-line img{ width:66px; height:66px; object-fit:cover; border-radius:6px; flex-shrink:0; }
-  .cart-line-info{ flex:1; min-width:0; }
-  .cart-line-brand{ font-size:10.5px; text-transform:uppercase; letter-spacing:.06em; color:#8a8a86; font-weight:700; }
-  .cart-line-title{ font-size:13px; font-weight:600; margin:2px 0 6px; line-height:1.3; }
-  .cart-line-bottom{ display:flex; align-items:center; justify-content:space-between; }
-  .cart-line-price{ font-size:13px; font-weight:700; }
-  .cart-qty-ctrl{ display:flex; align-items:center; gap:8px; }
-  .cart-qty-ctrl button{
-    width:24px; height:24px; border-radius:5px; border:1px solid var(--line); background:#fff;
-    display:flex; align-items:center; justify-content:center; font-size:14px; font-weight:700;
-  }
-  .cart-qty-ctrl span{ font-size:13px; font-weight:700; min-width:16px; text-align:center; }
-  .cart-line-remove{ font-size:11px; color:#8a8a86; text-decoration:underline; margin-top:4px; display:inline-block; }
-  .cart-drawer-foot{ border-top:1px solid var(--line); padding:18px 22px 22px; }
-  .cart-subtotal-row{ display:flex; justify-content:space-between; font-size:14px; font-weight:700; margin-bottom:14px; }
-  .cart-checkout-btn{
-    width:100%; background:var(--ink); color:#fff; border:none; padding:14px;
-    border-radius:var(--radius-ui); font-size:13px; font-weight:700; letter-spacing:.04em;
-    text-transform:uppercase;
-  }
   .menu-toggle{ display:none; }
-  #mobileSearchBtn{ display:none; }
+
+  /* ===== Premium search overlay ===== */
+  .search-overlay{
+    position:fixed; inset:0; z-index:300;
+    display:flex; flex-direction:column; align-items:center;
+    background:rgba(10,10,9,.55);
+    backdrop-filter:blur(3px);
+    opacity:0; pointer-events:none;
+    transition:opacity .35s ease;
+  }
+  .search-overlay.open{ opacity:1; pointer-events:auto; }
+  .search-panel{
+    width:100%; background:#fff;
+    border-bottom:1px solid var(--line);
+    box-shadow:0 24px 60px rgba(0,0,0,.18);
+    padding:0;
+    transform:translateY(-100%);
+    transition:transform .45s cubic-bezier(.16,.84,.24,1);
+  }
+  .search-overlay.open .search-panel{ transform:translateY(0); }
+  .search-panel-inner{
+    max-width:900px; margin:0 auto; padding:38px 28px 32px;
+  }
+  .search-panel-top{
+    display:flex; align-items:center; gap:16px; margin-bottom:22px;
+  }
+  .search-big-wrap{
+    flex:1; display:flex; align-items:center; gap:14px;
+    border-bottom:2px solid var(--ink); padding:10px 2px;
+  }
+  .search-big-wrap svg{ flex-shrink:0; opacity:.6; }
+  .search-big-wrap input{
+    flex:1; border:none; outline:none; background:transparent;
+    font-family:'Cormorant Garamond', serif; font-size:28px; font-weight:600;
+    color:var(--ink);
+  }
+  .search-close{
+    width:40px; height:40px; border-radius:50%; border:1px solid var(--line);
+    display:flex; align-items:center; justify-content:center; flex-shrink:0;
+    transition:.2s;
+  }
+  .search-close:hover{ background:var(--ink); border-color:var(--ink); color:#fff; }
+  .search-close svg{ stroke:currentColor; }
+
+  .search-suggest-label{
+    font-size:10.5px; letter-spacing:.18em; text-transform:uppercase;
+    color:#8a8a86; font-weight:700; margin-bottom:12px;
+  }
+  .search-chips{ display:flex; flex-wrap:wrap; gap:8px; margin-bottom:24px; }
+  .search-chip{
+    font-size:12px; font-weight:600; padding:8px 14px;
+    border:1px solid var(--line); border-radius:20px; color:#4a4a46;
+    transition:.2s;
+  }
+  .search-chip:hover{ border-color:var(--ink); color:var(--ink); background:var(--smoke); }
+
+  .search-results{
+    display:grid; grid-template-columns:repeat(4,1fr); gap:16px;
+    max-height:0; overflow:hidden; opacity:0;
+    transition:max-height .35s ease, opacity .3s ease;
+  }
+  .search-results.show{ max-height:600px; opacity:1; }
+  .search-result-card{
+    display:block; border:1px solid var(--line); border-radius:8px; overflow:hidden;
+    opacity:0; transform:translateY(10px);
+    animation:searchIn .4s ease forwards;
+  }
+  .search-result-card img{ width:100%; aspect-ratio:1/1; object-fit:cover; }
+  .search-result-card .srn{ padding:10px 10px 12px; }
+  .search-result-card .srn b{ display:block; font-size:12.5px; margin-bottom:2px; }
+  .search-result-card .srn span{ font-size:12px; color:var(--gold-deep); font-weight:700; }
+  .search-empty{ font-size:13px; color:#8a8a86; padding:20px 0; text-align:center; }
+  @keyframes searchIn{ to{ opacity:1; transform:translateY(0); } }
 
   /* Category nav row */
   .cat-nav{
@@ -209,12 +202,12 @@
   .cat-nav::-webkit-scrollbar{ display:none; }
   .cat-nav-inner{
     max-width:1360px; margin:0 auto;
-    display:flex; gap:6px; padding:12px 28px;
+    display:flex; gap:6px; padding:10px 28px;
     white-space:nowrap;
   }
   .cat-chip{
     font-size:12.5px; font-weight:600; letter-spacing:.03em;
-    padding:9px 18px; border-radius:var(--radius-ui);
+    padding:8px 16px; border-radius:var(--radius-ui);
     border:1px solid var(--line);
     color:#4a4a46;
     transition:.2s;
@@ -279,6 +272,7 @@
   .btn-ghost:hover{ border-color:#fff; background:rgba(255,255,255,.08); }
   .btn-dark{ background:var(--ink); color:#fff; }
   .btn-dark:hover{ background:#000; }
+  .btn:disabled{ opacity:.5; cursor:not-allowed; }
 
   .hero-stats{
     position:absolute; right:28px; bottom:64px; z-index:2;
@@ -349,7 +343,6 @@
     background:#fff;
     display:flex; flex-direction:column;
     transition:.25s box-shadow, .25s transform;
-    aspect-ratio: 1 / 1.55;
   }
   .product-card:hover{ box-shadow:0 18px 34px rgba(17,17,17,.10); transform:translateY(-3px); }
 
@@ -399,7 +392,10 @@
     width:30px; height:30px; border-radius:50%;
     background:rgba(255,255,255,.9);
     display:flex; align-items:center; justify-content:center;
+    transition:.2s;
   }
+  .card-wish:hover{ transform:scale(1.1); }
+  .card-wish.active svg{ fill:var(--red); stroke:var(--red); }
 
   .card-body{
     padding:16px 16px 18px;
@@ -435,6 +431,7 @@
     transition:.2s;
   }
   .card-add:hover{ background:var(--gold-deep); }
+  .card-add.in-cart{ background:var(--gold-deep); }
 
   /* ===== Premium banner ===== */
   .promo-banner{
@@ -495,76 +492,216 @@
     width:34px; height:34px; border-radius:50%; border:1px solid rgba(255,255,255,.15);
     display:flex; align-items:center; justify-content:center;
   }
+  .footer-newsletter-wrap{
+    display:flex; align-items:center; gap:8px;
+    background:transparent; border:1px solid rgba(255,255,255,.2); border-radius:var(--radius-ui);
+    padding:10px 14px;
+  }
+  .footer-newsletter-wrap input{
+    flex:1; border:none; outline:none; background:transparent; color:#fff; font-size:13px; font-family:inherit;
+  }
 
   /* mobile bottom nav */
-  .mobile-nav{
-    display:none;
+  .mobile-nav{ display:none; }
+
+  /* ============================================================
+     SIDE PANELS (Cart / Wishlist) — slide in from right, animated
+     ============================================================ */
+  .panel-overlay{
+    position:fixed; inset:0; z-index:400;
+    background:rgba(10,10,9,.5);
+    opacity:0; pointer-events:none; transition:opacity .35s ease;
   }
+  .panel-overlay.open{ opacity:1; pointer-events:auto; }
+  .side-panel{
+    position:fixed; top:0; right:0; height:100%; width:min(440px, 100%);
+    background:#fff; z-index:401;
+    display:flex; flex-direction:column;
+    transform:translateX(100%);
+    transition:transform .45s cubic-bezier(.16,.84,.24,1);
+    box-shadow:-20px 0 50px rgba(0,0,0,.15);
+  }
+  .panel-overlay.open .side-panel{ transform:translateX(0); }
+  .panel-head{
+    display:flex; align-items:center; justify-content:space-between;
+    padding:22px 24px; border-bottom:1px solid var(--line);
+  }
+  .panel-head h3{ font-family:'Cormorant Garamond', serif; font-size:24px; }
+  .panel-close{
+    width:36px; height:36px; border-radius:50%; border:1px solid var(--line);
+    display:flex; align-items:center; justify-content:center; transition:.2s;
+  }
+  .panel-close:hover{ background:var(--ink); border-color:var(--ink); color:#fff; }
+  .panel-body{ flex:1; overflow-y:auto; padding:18px 24px; }
+  .panel-empty{
+    display:flex; flex-direction:column; align-items:center; justify-content:center;
+    text-align:center; height:100%; gap:14px; color:#8a8a86; padding:40px 20px;
+  }
+  .panel-empty svg{ opacity:.35; }
+  .panel-empty b{ color:var(--ink); font-size:15px; }
+  .panel-empty span{ font-size:13px; }
+
+  .panel-item{
+    display:flex; gap:14px; padding:16px 0; border-bottom:1px solid var(--line);
+    opacity:0; transform:translateX(16px);
+    animation:itemIn .4s ease forwards;
+  }
+  @keyframes itemIn{ to{ opacity:1; transform:translateX(0); } }
+  .panel-item img{ width:76px; height:76px; object-fit:cover; border-radius:6px; flex-shrink:0; background:var(--smoke); }
+  .panel-item-info{ flex:1; min-width:0; }
+  .panel-item-info .pib{ font-size:10px; letter-spacing:.1em; text-transform:uppercase; color:var(--gold-deep); font-weight:700; }
+  .panel-item-info .pit{ font-size:13.5px; font-weight:600; margin:3px 0 6px; line-height:1.3; }
+  .panel-item-price{ font-size:14px; font-weight:800; }
+  .panel-item-actions{ display:flex; align-items:center; gap:10px; margin-top:8px; }
+  .qty-stepper{
+    display:flex; align-items:center; border:1px solid var(--line); border-radius:5px; overflow:hidden;
+  }
+  .qty-stepper button{ width:26px; height:26px; background:var(--smoke); font-size:14px; font-weight:700; }
+  .qty-stepper span{ width:28px; text-align:center; font-size:12.5px; font-weight:700; }
+  .panel-item-remove{
+    font-size:11.5px; color:#8a8a86; text-decoration:underline; font-weight:600;
+  }
+  .panel-item-remove:hover{ color:var(--red); }
+
+  .panel-foot{ border-top:1px solid var(--line); padding:20px 24px 26px; }
+  .panel-summary-row{ display:flex; justify-content:space-between; font-size:13px; color:#4a4a46; margin-bottom:8px; }
+  .panel-summary-row.total{ font-size:16px; font-weight:800; color:var(--ink); margin-top:10px; }
+  .panel-foot .btn{ width:100%; margin-top:14px; }
+
+  /* ============================================================
+     CATEGORY PAGE VIEW (full page, animated open, replaces home)
+     ============================================================ */
+  .view{ display:none; }
+  .view.active{ display:block; }
+  #view-home{ display:block; }
+
+  .catpage-hero{
+    position:relative; height:280px; overflow:hidden; background:#0c0c0c;
+    display:flex; align-items:center;
+  }
+  .catpage-hero img{ position:absolute; inset:0; width:100%; height:100%; object-fit:cover; opacity:.5; }
+  .catpage-hero::after{ content:""; position:absolute; inset:0; background:linear-gradient(180deg, rgba(0,0,0,.2), rgba(0,0,0,.75)); }
+  .catpage-hero-inner{ position:relative; z-index:2; max-width:1360px; margin:0 auto; padding:0 28px; color:#fff; width:100%; }
+  .catpage-crumb{ font-size:11.5px; color:#c8c8c4; margin-bottom:10px; }
+  .catpage-crumb a:hover{ color:var(--gold); }
+  .catpage-hero h1{ font-family:'Cormorant Garamond', serif; font-size:clamp(30px,5vw,52px); }
+  .catpage-hero span{ font-size:13px; color:#d8d8d5; display:block; margin-top:8px; }
+
+  .catpage-body{
+    max-width:1360px; margin:0 auto; padding:44px 28px 80px;
+    animation:fadeUp .5s ease;
+  }
+  @keyframes fadeUp{ from{ opacity:0; transform:translateY(14px);} to{ opacity:1; transform:translateY(0);} }
+
+  .back-link{
+    display:inline-flex; align-items:center; gap:6px; font-size:12.5px; font-weight:700;
+    color:#4a4a46; margin-bottom:20px;
+  }
+  .back-link:hover{ color:var(--ink); }
+
+  /* animated slide-open filter drawer used on category page */
+  .drawer-toggle{
+    display:flex; align-items:center; justify-content:space-between; gap:10px;
+    width:100%; padding:13px 16px; border:1px solid var(--line); border-radius:var(--radius-ui);
+    background:#fff; font-size:12.5px; font-weight:700; letter-spacing:.03em; text-transform:uppercase;
+    margin-bottom:0; transition:.2s;
+  }
+  .drawer-toggle:hover{ border-color:var(--ink); }
+  .drawer-toggle svg{ transition:transform .3s ease; }
+  .drawer-toggle.open svg{ transform:rotate(180deg); }
+  .drawer-panel{
+    max-height:0; overflow:hidden; opacity:0;
+    transition:max-height .4s cubic-bezier(.16,.84,.24,1), opacity .3s ease, margin .3s ease;
+    border:1px solid var(--line); border-top:none; border-radius:0 0 var(--radius-ui) var(--radius-ui);
+  }
+  .drawer-panel.open{ max-height:320px; opacity:1; }
+  .drawer-panel-inner{ padding:16px; display:flex; flex-wrap:wrap; gap:8px; }
+  .drawer-wrap{ margin-bottom:26px; }
 
   /* ===== Responsive ===== */
   @media (max-width:1024px){
     .product-grid{ grid-template-columns:repeat(3,1fr); }
     .cat-grid{ grid-template-columns:repeat(3,1fr); }
     .footer-top{ grid-template-columns:1fr 1fr; }
+    .header-links{ display:none; }
+    .search-results{ grid-template-columns:repeat(3,1fr); }
   }
   @media (max-width:760px){
-    .utility-bar{ font-size:10px; }
-    .header-inner{ padding:10px 12px; flex-wrap:nowrap; gap:8px; }
-    .logo{ font-size:16px; gap:8px; }
-    .logo span > span, .logo-text-sub{ display:none; }
+    .utility-bar{ font-size:9.5px; padding:7px 10px; }
+    :root{ --header-h:56px; }
+    .header-inner{ padding:8px 14px; gap:10px; }
+    .logo{ font-size:17px; gap:8px; }
     .logo-mark{ width:32px; height:32px; font-size:15px; }
-    #mobileSearchBtn{ display:flex; }
-    .search-wrap{
-      display:none;
-      position:absolute; left:0; right:0; top:100%;
-      max-width:100%; width:100%; margin:0; padding:10px 12px;
-      background:var(--paper); border-top:1px solid var(--line); border-radius:0;
-      z-index:49;
-    }
-    .search-wrap.open{ display:flex; }
-    .header-actions{ gap:6px; flex-shrink:0; }
+    .logo-text-sub{ display:none; }
+    .header-actions{ gap:6px; }
     .icon-btn{ width:34px; height:34px; }
-    .cat-nav-inner{ padding:10px 16px; }
+    .cat-nav-inner{ padding:9px 14px; gap:5px; }
+    .cat-chip{ padding:7px 13px; font-size:11.5px; }
     .hero{ height:78vh; min-height:460px; align-items:flex-end; }
     .hero-content{ padding:0 16px 90px; }
     .hero p{ display:none; }
     .hero-stats{ display:none; }
-    section{ padding:52px 16px; }
-    .cat-grid{ grid-template-columns:repeat(2,1fr); gap:12px; }
-    .product-grid{ grid-template-columns:repeat(2,1fr); gap:14px; }
-    .card-title{ font-size:13px; }
-    .price-now{ font-size:15px; }
-    .promo-content{ padding:32px 22px; max-width:100%; }
-    .trust-inner{ grid-template-columns:1fr 1fr; }
-    .footer-top{ grid-template-columns:1fr 1fr; gap:28px; }
+    section{ padding:44px 16px; }
+    .cat-grid{ grid-template-columns:repeat(2,1fr); gap:10px; }
+    .product-grid{ grid-template-columns:repeat(2,1fr); gap:12px; }
+    .card-title{ font-size:12.5px; }
+    .price-now{ font-size:14.5px; }
+    .card-body{ padding:12px 12px 14px; }
+    .card-add{ padding:10px; font-size:10.5px; }
+    .promo-content{ padding:30px 20px; max-width:100%; }
+    .trust-inner{ grid-template-columns:1fr 1fr; padding:26px 16px; }
+    .footer-top{ grid-template-columns:1fr 1fr; gap:24px; }
     .footer-logo{ margin-top:8px; }
-    body{ padding-bottom:64px; }
+    body{ padding-bottom:70px; }
     .mobile-nav{
-      display:flex; position:fixed; bottom:0; left:0; right:0; z-index:60;
+      display:flex; position:fixed; bottom:0; left:0; right:0; z-index:150;
       background:#fff; border-top:1px solid var(--line);
-      justify-content:space-around; padding:9px 6px 12px;
+      justify-content:space-around; padding:8px 4px calc(10px + env(safe-area-inset-bottom));
     }
     .mobile-nav a{
-      display:flex; flex-direction:column; align-items:center; gap:4px;
-      font-size:10px; color:#8a8a86; font-weight:600;
+      display:flex; flex-direction:column; align-items:center; gap:3px;
+      font-size:9.5px; color:#8a8a86; font-weight:600;
+      padding:4px 6px; position:relative;
     }
     .mobile-nav a.active{ color:var(--ink); }
+    .mobile-nav a .mnb-badge{
+      position:absolute; top:-2px; right:0;
+      background:var(--red); color:#fff; font-size:8.5px; font-weight:700;
+      min-width:14px; height:14px; border-radius:50%; display:flex; align-items:center; justify-content:center;
+    }
+
+    .search-panel-inner{ padding:22px 16px 24px; }
+    .search-big-wrap input{ font-size:19px; }
+    .search-panel-top{ margin-bottom:16px; gap:10px; }
+    .search-results{ grid-template-columns:repeat(2,1fr); gap:10px; }
+    .side-panel{ width:100%; }
+    .panel-item img{ width:64px; height:64px; }
+    .catpage-hero{ height:190px; }
+    .catpage-body{ padding:28px 16px 60px; }
   }
   @media (max-width:460px){
     .cat-grid{ grid-template-columns:repeat(2,1fr); }
-    .product-grid{ grid-template-columns:repeat(2,1fr); gap:10px; }
-    .card-body{ padding:11px 10px 13px; }
-    .card-add{ padding:9px; font-size:10px; }
+    .product-grid{ grid-template-columns:repeat(2,1fr); gap:9px; }
+    .card-body{ padding:10px 9px 12px; }
+    .card-add{ padding:9px; font-size:9.5px; letter-spacing:.03em; }
+    .card-add svg{ width:12px; height:12px; }
+    .search-results{ grid-template-columns:repeat(2,1fr); }
+  }
+  @media (max-width:360px){
+    .logo span > span.logo-text-sub{ display:none; }
+    .logo{ font-size:15px; }
+    .icon-btn{ width:32px; height:32px; }
+    .header-actions{ gap:4px; }
   }
 </style>
 </head>
 <body>
 
-<div class="utility-bar">Free insured shipping across India &nbsp;•&nbsp; <strong>Extra ₹2,500 off</strong> on Premium Collection &nbsp;•&nbsp; 100% Authentic, GIA/COSC Certified</div>
+<div class="utility-bar">Free insured shipping across India &nbsp;•&nbsp; <strong>Extra ₹2,500 off</strong> on Premium Collection &nbsp;•&nbsp; 100% Authentic Certified</div>
 
 <header class="site-header">
   <div class="header-inner">
-    <a href="#" class="logo">
+    <a href="#" class="logo" data-go="home">
       <span class="logo-mark">HW</span>
       <span>
         Handware
@@ -572,35 +709,39 @@
       </span>
     </a>
 
-    <div class="search-wrap" id="searchWrap">
-      <svg width="17" height="17" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="11" cy="11" r="7"/><path d="m21 21-4.3-4.3"/></svg>
-      <input type="text" id="watchSearch" placeholder="Search Rolex, Omega, Titan, chronograph…">
-    </div>
+    <nav class="header-links">
+      <a href="#" data-go="home">Home</a>
+      <a href="#catalog" class="scroll-link" data-scroll="catalog">Categories</a>
+      <a href="#shop" class="scroll-link" data-scroll="shop">Best Sellers</a>
+      <a href="#" data-cat-page="premium">Premium</a>
+      <a href="#" data-cat-page="under5000">Under ₹5,000</a>
+    </nav>
 
     <div class="header-actions">
-      <button class="icon-btn" id="mobileSearchBtn" aria-label="Search">
+      <button class="icon-btn" id="searchOpenBtn" aria-label="Search">
         <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="11" cy="11" r="7"/><path d="m21 21-4.3-4.3"/></svg>
       </button>
       <button class="icon-btn" aria-label="Account">
         <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M20 21a8 8 0 1 0-16 0"/><circle cx="12" cy="7" r="4"/></svg>
       </button>
-      <button class="icon-btn" id="wishlistBtn" aria-label="Wishlist">
+      <button class="icon-btn" id="wishOpenBtn" aria-label="Wishlist">
         <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M20.8 4.6a5.5 5.5 0 0 0-7.8 0L12 5.6l-1-1a5.5 5.5 0 0 0-7.8 7.8l1 1L12 21l7.8-7.6 1-1a5.5 5.5 0 0 0 0-7.8Z"/></svg>
-        <span class="badge" id="wishBadge" style="display:none;">0</span>
+        <span class="badge" id="wishBadge">0</span>
       </button>
-      <button class="icon-btn" id="cartBtn" aria-label="Cart">
+      <button class="icon-btn" id="cartOpenBtn" aria-label="Cart">
         <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="9" cy="21" r="1"/><circle cx="20" cy="21" r="1"/><path d="M1 1h4l2.7 13.4a2 2 0 0 0 2 1.6h9.7a2 2 0 0 0 2-1.6L23 6H6"/></svg>
-        <span class="badge" id="cartBadge" style="display:none;">0</span>
+        <span class="badge" id="cartBadge">0</span>
       </button>
     </div>
   </div>
 
   <nav class="cat-nav">
-    <div class="cat-nav-inner">
+    <div class="cat-nav-inner" id="catNavInner">
       <a class="cat-chip active" data-filter="all">All Watches</a>
       <a class="cat-chip" data-filter="premium">Premium Collection</a>
       <a class="cat-chip" data-filter="men">Men's</a>
       <a class="cat-chip" data-filter="women">Women's</a>
+      <a class="cat-chip" data-filter="smart">Smart Watches</a>
       <a class="cat-chip" data-filter="chronograph">Chronograph</a>
       <a class="cat-chip" data-filter="diver">Diver</a>
       <a class="cat-chip" data-filter="limited">Limited Edition</a>
@@ -608,6 +749,36 @@
     </div>
   </nav>
 </header>
+
+<!-- ============ SEARCH OVERLAY (premium animated) ============ -->
+<div class="search-overlay" id="searchOverlay">
+  <div class="search-panel">
+    <div class="search-panel-inner">
+      <div class="search-panel-top">
+        <div class="search-big-wrap">
+          <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="11" cy="11" r="7"/><path d="m21 21-4.3-4.3"/></svg>
+          <input type="text" id="watchSearch" placeholder="Search Rolex, Omega, Titan, chronograph…" autocomplete="off">
+        </div>
+        <button class="search-close" id="searchCloseBtn" aria-label="Close search">
+          <svg width="17" height="17" viewBox="0 0 24 24" fill="none" stroke-width="2"><path d="M18 6 6 18M6 6l12 12"/></svg>
+        </button>
+      </div>
+      <div class="search-suggest-label">Popular Searches</div>
+      <div class="search-chips" id="searchChips">
+        <span class="search-chip">Rolex Style</span>
+        <span class="search-chip">Chronograph</span>
+        <span class="search-chip">Diver 200m</span>
+        <span class="search-chip">Under ₹5,000</span>
+        <span class="search-chip">Women's</span>
+        <span class="search-chip">Limited Edition</span>
+      </div>
+      <div class="search-results" id="searchResults"></div>
+    </div>
+  </div>
+</div>
+
+<!-- ============ HOME VIEW ============ -->
+<div class="view active" id="view-home">
 
 <!-- ============ HERO ============ -->
 <section class="hero" style="padding:0; max-width:none;">
@@ -635,24 +806,28 @@
       <span class="section-eyebrow">Shop by Category</span>
       <h2 class="serif">Find your kind of time</h2>
     </div>
-    <a href="#" class="section-link">View All Categories</a>
+    <a href="#" class="section-link" data-cat-page="all">View All Categories</a>
   </div>
-  <div class="cat-grid">
-    <a href="#" class="cat-tile">
+  <div class="cat-grid" id="catGrid">
+    <a href="#" class="cat-tile" data-cat-page="men">
       <img src="https://images.unsplash.com/photo-1524805444758-089113d48a6d?q=80&w=800&auto=format&fit=crop" alt="Men's watches">
       <div class="cat-tile-label"><b>Men's</b><span>1,240 Styles</span></div>
     </a>
-    <a href="#" class="cat-tile">
+    <a href="#" class="cat-tile" data-cat-page="women">
       <img src="https://images.unsplash.com/photo-1548171915-e79a380a2a4b?q=80&w=800&auto=format&fit=crop" alt="Women's watches">
       <div class="cat-tile-label"><b>Women's</b><span>860 Styles</span></div>
     </a>
-    <a href="#" class="cat-tile">
-      <img src="https://images.unsplash.com/photo-1508685096489-7aacd43bd3b1?q=80&w=800&auto=format&fit=crop" alt="Chronograph">
+    <a href="#" class="cat-tile" data-cat-page="chronograph">
+      <img src="https://images.unsplash.com/photo-1587836374828-4dbafa94cf0e?q=80&w=800&auto=format&fit=crop" alt="Chronograph watches">
       <div class="cat-tile-label"><b>Chronograph</b><span>310 Styles</span></div>
     </a>
-    <a href="#" class="cat-tile">
+    <a href="#" class="cat-tile" data-cat-page="diver">
       <img src="https://images.unsplash.com/photo-1434493907317-a46b5bbe7834?q=80&w=800&auto=format&fit=crop" alt="Diver watches">
       <div class="cat-tile-label"><b>Diver</b><span>190 Styles</span></div>
+    </a>
+    <a href="#" class="cat-tile" data-cat-page="premium">
+      <img src="https://images.unsplash.com/photo-1622434641406-a158123450f9?q=80&w=800&auto=format&fit=crop" alt="Premium branded watches">
+      <div class="cat-tile-label"><b>Premium Brands</b><span>420 Styles</span></div>
     </a>
   </div>
 </section>
@@ -664,7 +839,7 @@
       <span class="section-eyebrow">Best Sellers</span>
       <h2 class="serif">Top rated timepieces</h2>
     </div>
-    <a href="#" class="section-link">View All Watches</a>
+    <a href="#" class="section-link" data-cat-page="all">View All Watches</a>
   </div>
 
   <div class="filter-row">
@@ -686,7 +861,7 @@
       <span class="section-eyebrow">Limited Time</span>
       <h3 class="serif">Premium Collection<br>Flat ₹2,500 Off</h3>
       <p>On all automatic and chronograph watches priced above ₹5,000. Certified authentic, insured delivery, 2-year international warranty.</p>
-      <a href="#shop" class="btn btn-primary">Shop the Offer</a>
+      <a href="#" class="btn btn-primary" data-cat-page="premium">Shop the Offer</a>
     </div>
   </div>
 </section>
@@ -713,6 +888,38 @@
   </div>
 </div>
 
+</div><!-- /view-home -->
+
+<!-- ============ CATEGORY PAGE VIEW ============ -->
+<div class="view" id="view-category">
+  <div class="catpage-hero">
+    <img id="catpageHeroImg" src="https://images.unsplash.com/photo-1524805444758-089113d48a6d?q=80&w=1600&auto=format&fit=crop" alt="Category">
+    <div class="catpage-hero-inner">
+      <div class="catpage-crumb"><a href="#" data-go="home">Home</a> / <span id="catpageCrumb">Category</span></div>
+      <h1 class="serif" id="catpageTitle">Category</h1>
+      <span id="catpageSub">Browse the collection</span>
+    </div>
+  </div>
+  <div class="catpage-body">
+    <a href="#" class="back-link" data-go="home">
+      <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2"><path d="m15 18-6-6 6-6"/></svg>
+      Back to Home
+    </a>
+
+    <div class="drawer-wrap">
+      <button class="drawer-toggle" id="drawerToggle">
+        Filter &amp; Sort
+        <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2"><path d="m6 9 6 6 6-6"/></svg>
+      </button>
+      <div class="drawer-panel" id="drawerPanel">
+        <div class="drawer-panel-inner" id="catFilterChips"></div>
+      </div>
+    </div>
+
+    <div class="product-grid" id="catProductGrid"></div>
+  </div>
+</div>
+
 <footer>
   <div class="footer-inner">
     <div class="footer-top">
@@ -723,17 +930,17 @@
       <div>
         <h4>Shop</h4>
         <ul>
-          <li><a href="#">Men's Watches</a></li>
-          <li><a href="#">Women's Watches</a></li>
-          <li><a href="#">Premium Collection</a></li>
-          <li><a href="#">Under ₹5,000</a></li>
+          <li><a href="#" data-cat-page="men">Men's Watches</a></li>
+          <li><a href="#" data-cat-page="women">Women's Watches</a></li>
+          <li><a href="#" data-cat-page="premium">Premium Collection</a></li>
+          <li><a href="#" data-cat-page="under5000">Under ₹5,000</a></li>
         </ul>
       </div>
       <div>
         <h4>Support</h4>
         <ul>
           <li><a href="#">Track Order</a></li>
-          <li><a href="#">Returns & Warranty</a></li>
+          <li><a href="#">Returns &amp; Warranty</a></li>
           <li><a href="#">Authenticity</a></li>
           <li><a href="#">Contact Us</a></li>
         </ul>
@@ -749,8 +956,8 @@
       <div>
         <h4>Stay Updated</h4>
         <p class="desc" style="margin-bottom:14px;">New arrivals and premium offers in your inbox.</p>
-        <div class="search-wrap" style="background:transparent; border-color:rgba(255,255,255,.2);">
-          <input type="text" placeholder="Your email" style="color:#fff;">
+        <div class="footer-newsletter-wrap">
+          <input type="text" placeholder="Your email">
         </div>
       </div>
     </div>
@@ -764,99 +971,159 @@
   </div>
 </footer>
 
+<!-- ============ CART SIDE PANEL ============ -->
+<div class="panel-overlay" id="cartOverlay">
+  <div class="side-panel" id="cartPanel">
+    <div class="panel-head">
+      <h3 class="serif">Your Cart</h3>
+      <button class="panel-close" id="cartCloseBtn" aria-label="Close cart">
+        <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M18 6 6 18M6 6l12 12"/></svg>
+      </button>
+    </div>
+    <div class="panel-body" id="cartBody"></div>
+    <div class="panel-foot" id="cartFoot"></div>
+  </div>
+</div>
+
+<!-- ============ WISHLIST SIDE PANEL ============ -->
+<div class="panel-overlay" id="wishOverlay">
+  <div class="side-panel" id="wishPanel">
+    <div class="panel-head">
+      <h3 class="serif">Your Wishlist</h3>
+      <button class="panel-close" id="wishCloseBtn" aria-label="Close wishlist">
+        <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M18 6 6 18M6 6l12 12"/></svg>
+      </button>
+    </div>
+    <div class="panel-body" id="wishBody"></div>
+  </div>
+</div>
+
 <nav class="mobile-nav">
-  <a href="#" class="active">
+  <a href="#" class="active" data-go="home">
     <svg width="19" height="19" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="m3 9 9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2Z"/></svg>
     Home
   </a>
-  <a href="#catalog">
+  <a href="#" data-cat-page="all">
     <svg width="19" height="19" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="3" width="7" height="7"/><rect x="14" y="3" width="7" height="7"/><rect x="14" y="14" width="7" height="7"/><rect x="3" y="14" width="7" height="7"/></svg>
     Categories
   </a>
-  <a href="#" id="mobileNavSearchBtn">
+  <a href="#" id="mobileSearchBtn">
     <svg width="19" height="19" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="11" cy="11" r="7"/><path d="m21 21-4.3-4.3"/></svg>
     Search
   </a>
   <a href="#" id="mobileWishBtn">
     <svg width="19" height="19" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M20.8 4.6a5.5 5.5 0 0 0-7.8 0L12 5.6l-1-1a5.5 5.5 0 0 0-7.8 7.8l1 1L12 21l7.8-7.6 1-1a5.5 5.5 0 0 0 0-7.8Z"/></svg>
     Wishlist
+    <span class="mnb-badge" id="mnWishBadge" style="display:none;">0</span>
   </a>
   <a href="#" id="mobileCartBtn">
     <svg width="19" height="19" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="9" cy="21" r="1"/><circle cx="20" cy="21" r="1"/><path d="M1 1h4l2.7 13.4a2 2 0 0 0 2 1.6h9.7a2 2 0 0 0 2-1.6L23 6H6"/></svg>
     Cart
+    <span class="mnb-badge" id="mnCartBadge" style="display:none;">0</span>
   </a>
 </nav>
 
-<div class="cart-overlay" id="cartOverlay"></div>
-<div class="cart-drawer" id="cartDrawer">
-  <div class="cart-drawer-head">
-    <h3>Your Cart (<span id="cartDrawerCount">0</span>)</h3>
-    <button class="cart-close" id="cartCloseBtn" aria-label="Close cart">
-      <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="#111" stroke-width="2"><path d="M18 6 6 18M6 6l12 12"/></svg>
-    </button>
-  </div>
-  <div class="cart-drawer-body" id="cartDrawerBody">
-    <div class="cart-empty">
-      <svg width="46" height="46" viewBox="0 0 24 24" fill="none" stroke="#111" stroke-width="1.6"><circle cx="9" cy="21" r="1"/><circle cx="20" cy="21" r="1"/><path d="M1 1h4l2.7 13.4a2 2 0 0 0 2 1.6h9.7a2 2 0 0 0 2-1.6L23 6H6"/></svg>
-      <div>Your cart is empty</div>
-      <span style="font-size:12px;">Add a watch to see it here.</span>
-    </div>
-  </div>
-  <div class="cart-drawer-foot" id="cartDrawerFoot" style="display:none;">
-    <div class="cart-subtotal-row"><span>Subtotal</span><span id="cartSubtotal">₹0</span></div>
-    <button class="cart-checkout-btn">Checkout</button>
-  </div>
-</div>
-
 <script>
-/* ================= Product data ================= */
+/* ================= Product data (real branded premium watch imagery) ================= */
 const PRODUCTS = [
-  {brand:"Rolex Style", title:"Oyster Perpetual Automatic Chronograph", price:24999, old:27499, off:false, badge:"Bestseller", cat:"premium men chronograph", rating:4.9, reviews:412,
+  {id:1, brand:"Rolex Style", title:"Oyster Perpetual Automatic Chronograph", price:24999, old:27499, off:false, badge:"Bestseller", cat:"premium men chronograph", rating:4.9, reviews:412,
     imgs:["https://images.unsplash.com/photo-1523170335258-f5ed11844a49?q=80&w=700&auto=format&fit=crop","https://images.unsplash.com/photo-1587836374828-4dbafa94cf0e?q=80&w=700&auto=format&fit=crop","https://images.unsplash.com/photo-1548171915-e79a380a2a4b?q=80&w=700&auto=format&fit=crop"]},
-  {brand:"Omega Style", title:"Seamaster Diver Automatic 42mm", price:32999, old:35499, off:true, badge:"Premium · ₹2,500 Off", cat:"premium men diver", rating:4.8, reviews:289,
+  {id:2, brand:"Omega Style", title:"Seamaster Diver Automatic 42mm", price:32999, old:35499, off:true, badge:"Premium · ₹2,500 Off", cat:"premium men diver", rating:4.8, reviews:289,
     imgs:["https://images.unsplash.com/photo-1524805444758-089113d48a6d?q=80&w=700&auto=format&fit=crop","https://images.unsplash.com/photo-1523170335258-f5ed11844a49?q=80&w=700&auto=format&fit=crop","https://images.unsplash.com/photo-1434493907317-a46b5bbe7834?q=80&w=700&auto=format&fit=crop"]},
-  {brand:"Titan", title:"Neo Slim Steel Analog for Men", price:4499, old:5999, off:false, badge:"Under ₹5,000", cat:"men under5000", rating:4.5, reviews:1204,
+  {id:3, brand:"Titan", title:"Neo Slim Steel Analog for Men", price:4499, old:5999, off:false, badge:"Under ₹5,000", cat:"men under5000", rating:4.5, reviews:1204,
     imgs:["https://images.unsplash.com/photo-1508685096489-7aacd43bd3b1?q=80&w=700&auto=format&fit=crop","https://images.unsplash.com/photo-1508057198894-247b23fe5ade?q=80&w=700&auto=format&fit=crop","https://images.unsplash.com/photo-1523170335258-f5ed11844a49?q=80&w=700&auto=format&fit=crop"]},
-  {brand:"Fossil", title:"Gen 6 Smartwatch with AMOLED Display", price:15999, old:18999, off:false, badge:"New", cat:"smart men women", rating:4.4, reviews:876,
+  {id:4, brand:"Fossil", title:"Gen 6 Smartwatch with AMOLED Display", price:15999, old:18999, off:false, badge:"New", cat:"smart men women", rating:4.4, reviews:876,
     imgs:["https://images.unsplash.com/photo-1579586337278-3befd40fd17a?q=80&w=700&auto=format&fit=crop","https://images.unsplash.com/photo-1544117519-31a4b719223d?q=80&w=700&auto=format&fit=crop","https://images.unsplash.com/photo-1508685096489-7aacd43bd3b1?q=80&w=700&auto=format&fit=crop"]},
-  {brand:"Cartier Style", title:"Tank Rose Gold Ladies Dress Watch", price:41999, old:44499, off:true, badge:"Premium · ₹2,500 Off", cat:"premium women limited", rating:4.9, reviews:198,
+  {id:5, brand:"Cartier Style", title:"Tank Rose Gold Ladies Dress Watch", price:41999, old:44499, off:true, badge:"Premium · ₹2,500 Off", cat:"premium women limited", rating:4.9, reviews:198,
     imgs:["https://images.unsplash.com/photo-1548171915-e79a380a2a4b?q=80&w=700&auto=format&fit=crop","https://images.unsplash.com/photo-1611591437281-460bfbe1220a?q=80&w=700&auto=format&fit=crop","https://images.unsplash.com/photo-1524805444758-089113d48a6d?q=80&w=700&auto=format&fit=crop"]},
-  {brand:"Casio", title:"G-Shock Rugged Sports Digital", price:6999, old:8499, off:false, badge:"Popular", cat:"men chronograph", rating:4.7, reviews:2310,
+  {id:6, brand:"Casio", title:"G-Shock Rugged Sports Digital", price:6999, old:8499, off:false, badge:"Popular", cat:"men chronograph", rating:4.7, reviews:2310,
     imgs:["https://images.unsplash.com/photo-1523275335684-37898b6baf30?q=80&w=700&auto=format&fit=crop","https://images.unsplash.com/photo-1508685096489-7aacd43bd3b1?q=80&w=700&auto=format&fit=crop","https://images.unsplash.com/photo-1434493907317-a46b5bbe7834?q=80&w=700&auto=format&fit=crop"]},
-  {brand:"Tag Heuer Style", title:"Carrera Chronograph Automatic Steel", price:38999, old:41499, off:true, badge:"Premium · ₹2,500 Off", cat:"premium men chronograph limited", rating:4.8, reviews:156,
+  {id:7, brand:"Tag Heuer Style", title:"Carrera Chronograph Automatic Steel", price:38999, old:41499, off:true, badge:"Premium · ₹2,500 Off", cat:"premium men chronograph limited", rating:4.8, reviews:156,
     imgs:["https://images.unsplash.com/photo-1587836374828-4dbafa94cf0e?q=80&w=700&auto=format&fit=crop","https://images.unsplash.com/photo-1523170335258-f5ed11844a49?q=80&w=700&auto=format&fit=crop","https://images.unsplash.com/photo-1508057198894-247b23fe5ade?q=80&w=700&auto=format&fit=crop"]},
-  {brand:"Titan Raga", title:"Ceramic Bracelet Watch for Women", price:8999, old:10999, off:false, badge:"Trending", cat:"women", rating:4.6, reviews:567,
+  {id:8, brand:"Titan Raga", title:"Ceramic Bracelet Watch for Women", price:8999, old:10999, off:false, badge:"Trending", cat:"women", rating:4.6, reviews:567,
     imgs:["https://images.unsplash.com/photo-1611591437281-460bfbe1220a?q=80&w=700&auto=format&fit=crop","https://images.unsplash.com/photo-1548171915-e79a380a2a4b?q=80&w=700&auto=format&fit=crop","https://images.unsplash.com/photo-1524805444758-089113d48a6d?q=80&w=700&auto=format&fit=crop"]},
-  {brand:"Seiko", title:"Prospex Automatic Diver 200m", price:27999, old:29999, off:true, badge:"Premium · ₹2,500 Off", cat:"premium men diver", rating:4.9, reviews:334,
+  {id:9, brand:"Seiko", title:"Prospex Automatic Diver 200m", price:27999, old:29999, off:true, badge:"Premium · ₹2,500 Off", cat:"premium men diver", rating:4.9, reviews:334,
     imgs:["https://images.unsplash.com/photo-1434493907317-a46b5bbe7834?q=80&w=700&auto=format&fit=crop","https://images.unsplash.com/photo-1523170335258-f5ed11844a49?q=80&w=700&auto=format&fit=crop","https://images.unsplash.com/photo-1587836374828-4dbafa94cf0e?q=80&w=700&auto=format&fit=crop"]},
-  {brand:"Fastrack", title:"Minimal Slim Analog for Men", price:2499, old:3299, off:false, badge:"Under ₹5,000", cat:"men under5000", rating:4.3, reviews:1890,
+  {id:10, brand:"Fastrack", title:"Minimal Slim Analog for Men", price:2499, old:3299, off:false, badge:"Under ₹5,000", cat:"men under5000", rating:4.3, reviews:1890,
     imgs:["https://images.unsplash.com/photo-1508057198894-247b23fe5ade?q=80&w=700&auto=format&fit=crop","https://images.unsplash.com/photo-1523275335684-37898b6baf30?q=80&w=700&auto=format&fit=crop","https://images.unsplash.com/photo-1508685096489-7aacd43bd3b1?q=80&w=700&auto=format&fit=crop"]},
-  {brand:"Apple", title:"Watch Series Smart Fitness Edition", price:34999, old:37999, off:false, badge:"New", cat:"smart men women", rating:4.8, reviews:1502,
+  {id:11, brand:"Apple", title:"Watch Series Smart Fitness Edition", price:34999, old:37999, off:false, badge:"New", cat:"smart men women", rating:4.8, reviews:1502,
     imgs:["https://images.unsplash.com/photo-1544117519-31a4b719223d?q=80&w=700&auto=format&fit=crop","https://images.unsplash.com/photo-1579586337278-3befd40fd17a?q=80&w=700&auto=format&fit=crop","https://images.unsplash.com/photo-1508685096489-7aacd43bd3b1?q=80&w=700&auto=format&fit=crop"]},
-  {brand:"Patek Style", title:"Nautilus Limited Edition Steel", price:64999, old:67499, off:true, badge:"Premium · ₹2,500 Off", cat:"premium men limited", rating:5.0, reviews:64,
-    imgs:["https://images.unsplash.com/photo-1523170335258-f5ed11844a49?q=80&w=700&auto=format&fit=crop","https://images.unsplash.com/photo-1611591437281-460bfbe1220a?q=80&w=700&auto=format&fit=crop","https://images.unsplash.com/photo-1524805444758-089113d48a6d?q=80&w=700&auto=format&fit=crop"]}
+  {id:12, brand:"Patek Style", title:"Nautilus Limited Edition Steel", price:64999, old:67499, off:true, badge:"Premium · ₹2,500 Off", cat:"premium men limited", rating:5.0, reviews:64,
+    imgs:["https://images.unsplash.com/photo-1523170335258-f5ed11844a49?q=80&w=700&auto=format&fit=crop","https://images.unsplash.com/photo-1611591437281-460bfbe1220a?q=80&w=700&auto=format&fit=crop","https://images.unsplash.com/photo-1524805444758-089113d48a6d?q=80&w=700&auto=format&fit=crop"]},
+  {id:13, brand:"Rolex Style", title:"Datejust 41 Two-Tone Steel & Gold", price:52999, old:56999, off:true, badge:"Premium · ₹2,500 Off", cat:"premium men limited", rating:4.9, reviews:121,
+    imgs:["https://images.unsplash.com/photo-1614703484670-770ce77d09da?q=80&w=700&auto=format&fit=crop","https://images.unsplash.com/photo-1523170335258-f5ed11844a49?q=80&w=700&auto=format&fit=crop","https://images.unsplash.com/photo-1587836374828-4dbafa94cf0e?q=80&w=700&auto=format&fit=crop"]},
+  {id:14, brand:"Omega Style", title:"Speedmaster Moonwatch Professional", price:47999, old:50999, off:true, badge:"Premium · ₹2,500 Off", cat:"premium men chronograph limited", rating:4.9, reviews:203,
+    imgs:["https://images.unsplash.com/photo-1622434641406-a158123450f9?q=80&w=700&auto=format&fit=crop","https://images.unsplash.com/photo-1524805444758-089113d48a6d?q=80&w=700&auto=format&fit=crop","https://images.unsplash.com/photo-1434493907317-a46b5bbe7834?q=80&w=700&auto=format&fit=crop"]},
+  {id:15, brand:"Tag Heuer Style", title:"Aquaracer Professional 300 Diver", price:35999, old:38499, off:true, badge:"Premium · ₹2,500 Off", cat:"premium men diver", rating:4.7, reviews:177,
+    imgs:["https://images.unsplash.com/photo-1548171915-e79a380a2a4b?q=80&w=700&auto=format&fit=crop","https://images.unsplash.com/photo-1434493907317-a46b5bbe7834?q=80&w=700&auto=format&fit=crop","https://images.unsplash.com/photo-1523170335258-f5ed11844a49?q=80&w=700&auto=format&fit=crop"]},
+  {id:16, brand:"Cartier Style", title:"Santos de Cartier Automatic Steel", price:44999, old:47999, off:true, badge:"Premium · ₹2,500 Off", cat:"premium men limited", rating:4.8, reviews:142,
+    imgs:["https://images.unsplash.com/photo-1611591437281-460bfbe1220a?q=80&w=700&auto=format&fit=crop","https://images.unsplash.com/photo-1548171915-e79a380a2a4b?q=80&w=700&auto=format&fit=crop","https://images.unsplash.com/photo-1524805444758-089113d48a6d?q=80&w=700&auto=format&fit=crop"]}
 ];
 
-function inr(n){ return "₹" + n.toLocaleString("en-IN"); }
+const CATEGORY_META = {
+  all:{ title:"All Watches", sub:"Every timepiece in the Handware catalogue", filter:null, img:"https://images.unsplash.com/photo-1523170335258-f5ed11844a49?q=80&w=1600&auto=format&fit=crop" },
+  premium:{ title:"Premium Collection", sub:"Branded, certified premium watches — flat ₹2,500 off", filter:"premium", img:"https://images.unsplash.com/photo-1622434641406-a158123450f9?q=80&w=1600&auto=format&fit=crop" },
+  men:{ title:"Men's Watches", sub:"Classic, sport and automatic styles for men", filter:"men", img:"https://images.unsplash.com/photo-1524805444758-089113d48a6d?q=80&w=1600&auto=format&fit=crop" },
+  women:{ title:"Women's Watches", sub:"Elegant dress and bracelet watches", filter:"women", img:"https://images.unsplash.com/photo-1548171915-e79a380a2a4b?q=80&w=1600&auto=format&fit=crop" },
+  chronograph:{ title:"Chronograph", sub:"Precision stopwatch-function timepieces", filter:"chronograph", img:"https://images.unsplash.com/photo-1587836374828-4dbafa94cf0e?q=80&w=1600&auto=format&fit=crop" },
+  diver:{ title:"Diver Watches", sub:"Water-resistant automatic diving watches", filter:"diver", img:"https://images.unsplash.com/photo-1434493907317-a46b5bbe7834?q=80&w=1600&auto=format&fit=crop" },
+  smart:{ title:"Smart Watches", sub:"Connected fitness & smart timepieces", filter:"smart", img:"https://images.unsplash.com/photo-1579586337278-3befd40fd17a?q=80&w=1600&auto=format&fit=crop" },
+  limited:{ title:"Limited Edition", sub:"Rare, low-run collector pieces", filter:"limited", img:"https://images.unsplash.com/photo-1614703484670-770ce77d09da?q=80&w=1600&auto=format&fit=crop" },
+  under5000:{ title:"Under ₹5,000", sub:"Great everyday watches, budget friendly", filter:"under5000", img:"https://images.unsplash.com/photo-1508685096489-7aacd43bd3b1?q=80&w=1600&auto=format&fit=crop" }
+};
 
-function starRow(rating){
-  const full = Math.round(rating);
-  return "★".repeat(full) + "☆".repeat(5-full);
+function inr(n){ return "₹" + n.toLocaleString("en-IN"); }
+function starRow(rating){ const full = Math.round(rating); return "★".repeat(full) + "☆".repeat(5-full); }
+function findProduct(id){ return PRODUCTS.find(p => p.id === id); }
+
+/* ================= Cart / Wishlist state (in-memory) ================= */
+let CART = {};     // id -> qty
+let WISHLIST = new Set();
+
+function cartCount(){ return Object.values(CART).reduce((a,b)=>a+b,0); }
+function cartTotal(){ return Object.entries(CART).reduce((sum,[id,qty]) => sum + findProduct(+id).price * qty, 0); }
+
+function updateBadges(){
+  const cc = cartCount(), wc = WISHLIST.size;
+  document.getElementById('cartBadge').textContent = cc;
+  document.getElementById('wishBadge').textContent = wc;
+  const mnCart = document.getElementById('mnCartBadge');
+  const mnWish = document.getElementById('mnWishBadge');
+  mnCart.textContent = cc; mnCart.style.display = cc ? 'flex' : 'none';
+  mnWish.textContent = wc; mnWish.style.display = wc ? 'flex' : 'none';
 }
 
-function renderCard(p, idx){
+function addToCart(id){
+  CART[id] = (CART[id] || 0) + 1;
+  updateBadges();
+  renderCartPanel();
+  document.querySelectorAll(`.card-add[data-id="${id}"]`).forEach(btn => btn.classList.add('in-cart'));
+}
+function setQty(id, qty){
+  if(qty <= 0){ delete CART[id]; } else { CART[id] = qty; }
+  updateBadges();
+  renderCartPanel();
+  if(!CART[id]) document.querySelectorAll(`.card-add[data-id="${id}"]`).forEach(btn => btn.classList.remove('in-cart'));
+}
+function toggleWish(id){
+  if(WISHLIST.has(id)) WISHLIST.delete(id); else WISHLIST.add(id);
+  updateBadges();
+  renderWishPanel();
+  document.querySelectorAll(`.card-wish[data-id="${id}"]`).forEach(btn => btn.classList.toggle('active', WISHLIST.has(id)));
+}
+
+/* ================= Render: product cards ================= */
+function renderCard(p){
   const discountPct = p.old ? Math.round((1 - p.price/p.old) * 100) : 0;
   const imgs = p.imgs.map(src => `<img src="${src}" alt="${p.title}" loading="lazy">`).join("");
   const dots = p.imgs.map((_,i)=>`<span class="${i===0?'active':''}"></span>`).join("");
+  const wished = WISHLIST.has(p.id) ? 'active' : '';
+  const inCart = CART[p.id] ? 'in-cart' : '';
   return `
-  <div class="product-card" data-cat="${p.cat}" data-idx="${idx}">
+  <div class="product-card" data-cat="${p.cat}" data-id="${p.id}">
     <div class="card-media" data-index="0" data-count="${p.imgs.length}">
       ${p.badge ? `<span class="card-badge">${p.badge}</span>` : ""}
-      <span class="card-qty" id="cardQty-${idx}">
-        <svg width="11" height="11" viewBox="0 0 24 24" fill="none" stroke="#fff" stroke-width="2.5"><circle cx="9" cy="21" r="1"/><circle cx="20" cy="21" r="1"/><path d="M1 1h4l2.7 13.4a2 2 0 0 0 2 1.6h9.7a2 2 0 0 0 2-1.6L23 6H6"/></svg>
-        <span id="cardQtyNum-${idx}">0</span> in cart
-      </span>
-      <button class="card-wish" aria-label="Add to wishlist">
+      <button class="card-wish ${wished}" data-id="${p.id}" aria-label="Add to wishlist">
         <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="#111" stroke-width="2"><path d="M20.8 4.6a5.5 5.5 0 0 0-7.8 0L12 5.6l-1-1a5.5 5.5 0 0 0-7.8 7.8l1 1L12 21l7.8-7.6 1-1a5.5 5.5 0 0 0 0-7.8Z"/></svg>
       </button>
       <div class="card-media-track">${imgs}</div>
@@ -877,18 +1144,32 @@ function renderCard(p, idx){
         ${p.old ? `<span class="price-old">${inr(p.old)}</span>` : ""}
         ${discountPct ? `<span class="price-off">${discountPct}% OFF</span>` : ""}
       </div>
-      <button class="card-add" data-idx="${idx}">
+      <button class="card-add ${inCart}" data-id="${p.id}">
         <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="#fff" stroke-width="2"><circle cx="9" cy="21" r="1"/><circle cx="20" cy="21" r="1"/><path d="M1 1h4l2.7 13.4a2 2 0 0 0 2 1.6h9.7a2 2 0 0 0 2-1.6L23 6H6"/></svg>
-        Add to Cart
+        ${CART[p.id] ? "Added · Add More" : "Add to Cart"}
       </button>
     </div>
   </div>`;
 }
 
-const grid = document.getElementById('productGrid');
-grid.innerHTML = PRODUCTS.map(renderCard).join("");
+function wireCardEvents(container){
+  container.querySelectorAll('.card-media').forEach(media => {
+    const prev = media.querySelector('.card-nav-btn.prev');
+    const next = media.querySelector('.card-nav-btn.next');
+    prev.addEventListener('click', e => { e.preventDefault(); setSlide(media, parseInt(media.dataset.index,10) - 1); });
+    next.addEventListener('click', e => { e.preventDefault(); setSlide(media, parseInt(media.dataset.index,10) + 1); });
+    let auto = setInterval(()=> setSlide(media, parseInt(media.dataset.index,10) + 1), 3200 + Math.random()*1200);
+    media.addEventListener('mouseenter', ()=> clearInterval(auto));
+    media.addEventListener('mouseleave', ()=> { auto = setInterval(()=> setSlide(media, parseInt(media.dataset.index,10) + 1), 3200 + Math.random()*1200); });
+  });
+  container.querySelectorAll('.card-wish').forEach(btn => {
+    btn.addEventListener('click', e => { e.preventDefault(); toggleWish(+btn.dataset.id); });
+  });
+  container.querySelectorAll('.card-add').forEach(btn => {
+    btn.addEventListener('click', e => { e.preventDefault(); addToCart(+btn.dataset.id); });
+  });
+}
 
-/* ===== Card image carousel logic (manual + auto-scroll) ===== */
 function setSlide(media, index){
   const track = media.querySelector('.card-media-track');
   const dots = media.querySelectorAll('.card-dots span');
@@ -899,41 +1180,33 @@ function setSlide(media, index){
   dots.forEach((d,i)=> d.classList.toggle('active', i === wrapped));
 }
 
-document.querySelectorAll('.card-media').forEach(media => {
-  const prev = media.querySelector('.card-nav-btn.prev');
-  const next = media.querySelector('.card-nav-btn.next');
-  prev.addEventListener('click', e => { e.preventDefault(); setSlide(media, parseInt(media.dataset.index,10) - 1); });
-  next.addEventListener('click', e => { e.preventDefault(); setSlide(media, parseInt(media.dataset.index,10) + 1); });
+const grid = document.getElementById('productGrid');
+grid.innerHTML = PRODUCTS.map(renderCard).join("");
+wireCardEvents(grid);
 
-  // gentle auto-scroll (self-advancing) with pause on hover/touch
-  let auto = setInterval(()=> setSlide(media, parseInt(media.dataset.index,10) + 1), 3200 + Math.random()*1200);
-  media.addEventListener('mouseenter', ()=> clearInterval(auto));
-  media.addEventListener('mouseleave', ()=> { auto = setInterval(()=> setSlide(media, parseInt(media.dataset.index,10) + 1), 3200 + Math.random()*1200); });
-});
-
-/* ===== Category filter chips ===== */
-document.querySelectorAll('.cat-chip').forEach(chip => {
+/* ===== Category filter chips (home page) ===== */
+document.querySelectorAll('#catNavInner .cat-chip').forEach(chip => {
   chip.addEventListener('click', e => {
     e.preventDefault();
-    document.querySelectorAll('.cat-chip').forEach(c => c.classList.remove('active'));
+    document.querySelectorAll('#catNavInner .cat-chip').forEach(c => c.classList.remove('active'));
     chip.classList.add('active');
     const filter = chip.dataset.filter;
-    document.querySelectorAll('.product-card').forEach(card => {
+    document.querySelectorAll('#view-home .product-card').forEach(card => {
       const cats = card.dataset.cat;
       const show = filter === 'all' || cats.includes(filter);
       card.style.display = show ? '' : 'none';
     });
+    goHome();
     document.getElementById('shop').scrollIntoView({behavior:'smooth', block:'start'});
   });
 });
 
-/* ===== Filter pills ===== */
 document.querySelectorAll('.filter-pill').forEach(pill => {
   pill.addEventListener('click', () => {
     document.querySelectorAll('.filter-pill').forEach(p => p.classList.remove('active'));
     pill.classList.add('active');
     const text = pill.textContent.trim();
-    document.querySelectorAll('.product-card').forEach(card => {
+    document.querySelectorAll('#view-home .product-card').forEach(card => {
       let show = true;
       if(text.startsWith('Premium')) show = card.dataset.cat.includes('premium');
       else if(text.startsWith('Under')) show = card.dataset.cat.includes('under5000');
@@ -942,207 +1215,223 @@ document.querySelectorAll('.filter-pill').forEach(pill => {
   });
 });
 
-/* ===== Search ===== */
+/* ================= Views (home / category page) ================= */
+function goHome(){
+  document.getElementById('view-home').classList.add('active');
+  document.getElementById('view-category').classList.remove('active');
+}
+function openCategoryPage(key){
+  const meta = CATEGORY_META[key] || CATEGORY_META.all;
+  document.getElementById('catpageTitle').textContent = meta.title;
+  document.getElementById('catpageSub').textContent = meta.sub;
+  document.getElementById('catpageCrumb').textContent = meta.title;
+  document.getElementById('catpageHeroImg').src = meta.img;
+
+  const list = meta.filter ? PRODUCTS.filter(p => p.cat.includes(meta.filter)) : PRODUCTS;
+  const catGrid = document.getElementById('catProductGrid');
+  catGrid.innerHTML = list.map(renderCard).join("");
+  wireCardEvents(catGrid);
+
+  // filter chips inside drawer
+  const chipKeys = Object.keys(CATEGORY_META).filter(k => k !== 'all');
+  const chipsHTML = `<span class="filter-pill${key==='all'?' active':''}" data-k="all">All</span>` +
+    chipKeys.map(k => `<span class="filter-pill${k===key?' active':''}" data-k="${k}">${CATEGORY_META[k].title}</span>`).join("");
+  document.getElementById('catFilterChips').innerHTML = chipsHTML;
+  document.querySelectorAll('#catFilterChips .filter-pill').forEach(chip => {
+    chip.addEventListener('click', () => openCategoryPage(chip.dataset.k));
+  });
+
+  document.getElementById('view-home').classList.remove('active');
+  document.getElementById('view-category').classList.add('active');
+  window.scrollTo({top:0, behavior:'instant' in window ? 'instant' : 'auto'});
+  closeDrawer();
+}
+
+document.querySelectorAll('[data-cat-page]').forEach(el => {
+  el.addEventListener('click', e => {
+    e.preventDefault();
+    openCategoryPage(el.dataset.catPage);
+  });
+});
+document.querySelectorAll('[data-go="home"]').forEach(el => {
+  el.addEventListener('click', e => { e.preventDefault(); goHome(); window.scrollTo({top:0, behavior:'smooth'}); });
+});
+document.querySelectorAll('.scroll-link').forEach(el => {
+  el.addEventListener('click', e => {
+    e.preventDefault();
+    goHome();
+    setTimeout(()=>{
+      const target = document.getElementById(el.dataset.scroll);
+      if(target) target.scrollIntoView({behavior:'smooth', block:'start'});
+    }, 50);
+  });
+});
+
+/* animated filter drawer (category page) */
+const drawerToggle = document.getElementById('drawerToggle');
+const drawerPanel = document.getElementById('drawerPanel');
+function closeDrawer(){ drawerToggle.classList.remove('open'); drawerPanel.classList.remove('open'); }
+drawerToggle.addEventListener('click', () => {
+  drawerToggle.classList.toggle('open');
+  drawerPanel.classList.toggle('open');
+});
+
+/* ================= Premium animated search overlay ================= */
+const searchOverlay = document.getElementById('searchOverlay');
 const searchInput = document.getElementById('watchSearch');
-searchInput.addEventListener('input', () => {
-  const q = searchInput.value.trim().toLowerCase();
-  document.querySelectorAll('.product-card').forEach(card => {
-    const text = card.querySelector('.card-title').textContent.toLowerCase() + " " + card.querySelector('.card-brand').textContent.toLowerCase();
-    card.style.display = text.includes(q) ? '' : 'none';
-  });
-});
+const searchResults = document.getElementById('searchResults');
 
-document.getElementById('mobileSearchBtn').addEventListener('click', e => {
-  e.preventDefault();
-  const wrap = document.getElementById('searchWrap');
-  wrap.classList.toggle('open');
-  if(wrap.classList.contains('open')) setTimeout(()=> searchInput.focus(), 150);
-});
-
-document.getElementById('mobileNavSearchBtn').addEventListener('click', e => {
-  e.preventDefault();
-  const wrap = document.getElementById('searchWrap');
-  wrap.classList.add('open');
-  window.scrollTo({top:0, behavior:'smooth'});
-  setTimeout(()=> searchInput.focus(), 350);
-});
-
-/* ===== Cart & Wishlist ===== */
-const cart = {};      // idx -> qty
-const wished = new Set();
-const cartBadge = document.getElementById('cartBadge');
-const wishBadge = document.getElementById('wishBadge');
-
-function updateBadge(el, count){
-  el.textContent = count;
-  el.style.display = count > 0 ? 'flex' : 'none';
-  el.classList.remove('bump');
-  void el.offsetWidth;
-  el.classList.add('bump');
+function openSearch(){
+  searchOverlay.classList.add('open');
+  document.body.classList.add('lock');
+  setTimeout(()=> searchInput.focus(), 300);
 }
-
-function cartTotalCount(){
-  return Object.values(cart).reduce((a,b)=>a+b, 0);
+function closeSearch(){
+  searchOverlay.classList.remove('open');
+  document.body.classList.remove('lock');
+  searchInput.value = "";
+  searchResults.classList.remove('show');
+  searchResults.innerHTML = "";
 }
-function cartTotalPrice(){
-  return Object.entries(cart).reduce((sum,[idx,qty]) => sum + PRODUCTS[idx].price*qty, 0);
-}
+document.getElementById('searchOpenBtn').addEventListener('click', openSearch);
+document.getElementById('searchCloseBtn').addEventListener('click', closeSearch);
+document.getElementById('mobileSearchBtn').addEventListener('click', e => { e.preventDefault(); openSearch(); });
+searchOverlay.addEventListener('click', e => { if(e.target === searchOverlay) closeSearch(); });
+document.addEventListener('keydown', e => { if(e.key === 'Escape') closeSearch(); });
 
-function shakeCartIcon(){
-  const btn = document.getElementById('cartBtn');
-  btn.classList.remove('bump'); void btn.offsetWidth; btn.classList.add('bump');
-  const mbtn = document.getElementById('mobileCartBtn');
-  mbtn.classList.remove('bump'); void mbtn.offsetWidth; mbtn.classList.add('bump');
-}
-
-function updateCardQty(idx){
-  const qty = cart[idx] || 0;
-  const el = document.getElementById(`cardQty-${idx}`);
-  const num = document.getElementById(`cardQtyNum-${idx}`);
-  if(!el) return;
-  num.textContent = qty;
-  el.classList.toggle('show', qty > 0);
-}
-
-function flyToCart(sourceEl){
-  const cartBtn = document.getElementById('cartBtn');
-  const targetVisible = cartBtn.offsetParent !== null ? cartBtn : document.getElementById('mobileCartBtn');
-  const startRect = sourceEl.getBoundingClientRect();
-  const endRect = targetVisible.getBoundingClientRect();
-  const dot = document.createElement('div');
-  dot.className = 'fly-dot';
-  const size = 16;
-  dot.style.width = size+'px';
-  dot.style.height = size+'px';
-  dot.style.left = (startRect.left + startRect.width/2 - size/2) + 'px';
-  dot.style.top = (startRect.top + startRect.height/2 - size/2) + 'px';
-  dot.style.opacity = '1';
-  document.body.appendChild(dot);
-  requestAnimationFrame(() => {
-    requestAnimationFrame(() => {
-      dot.style.left = (endRect.left + endRect.width/2 - size/2) + 'px';
-      dot.style.top = (endRect.top + endRect.height/2 - size/2) + 'px';
-      dot.style.width = '6px';
-      dot.style.height = '6px';
-      dot.style.opacity = '0.3';
+function runSearch(q){
+  q = q.trim().toLowerCase();
+  if(!q){ searchResults.classList.remove('show'); searchResults.innerHTML = ""; return; }
+  const matches = PRODUCTS.filter(p => (p.title + " " + p.brand).toLowerCase().includes(q)).slice(0, 8);
+  if(!matches.length){
+    searchResults.innerHTML = `<div class="search-empty" style="grid-column:1/-1;">No watches found for "${q}"</div>`;
+  } else {
+    searchResults.innerHTML = matches.map((p,i) => `
+      <a class="search-result-card" href="#" data-id="${p.id}" style="animation-delay:${i*0.04}s">
+        <img src="${p.imgs[0]}" alt="${p.title}">
+        <div class="srn"><b>${p.title}</b><span>${inr(p.price)}</span></div>
+      </a>`).join("");
+    searchResults.querySelectorAll('.search-result-card').forEach(card => {
+      card.addEventListener('click', e => {
+        e.preventDefault();
+        closeSearch();
+        openCategoryPage('all');
+        setTimeout(()=>{
+          const el = document.querySelector(`#catProductGrid .product-card[data-id="${card.dataset.id}"]`);
+          if(el) el.scrollIntoView({behavior:'smooth', block:'center'});
+        }, 350);
+      });
     });
-  });
-  setTimeout(() => {
-    dot.remove();
-    updateBadge(cartBadge, cartTotalCount());
-    shakeCartIcon();
-  }, 560);
+  }
+  searchResults.classList.add('show');
 }
+searchInput.addEventListener('input', () => runSearch(searchInput.value));
+document.querySelectorAll('.search-chip').forEach(chip => {
+  chip.addEventListener('click', () => { searchInput.value = chip.textContent; runSearch(chip.textContent); });
+});
 
-function renderCartDrawer(){
-  const body = document.getElementById('cartDrawerBody');
-  const foot = document.getElementById('cartDrawerFoot');
-  const countEl = document.getElementById('cartDrawerCount');
-  const entries = Object.entries(cart).filter(([,qty]) => qty > 0);
-  countEl.textContent = cartTotalCount();
+/* ================= Cart & Wishlist side panels ================= */
+const cartOverlay = document.getElementById('cartOverlay');
+const wishOverlay = document.getElementById('wishOverlay');
 
-  if(entries.length === 0){
-    body.innerHTML = `
-      <div class="cart-empty">
-        <svg width="46" height="46" viewBox="0 0 24 24" fill="none" stroke="#111" stroke-width="1.6"><circle cx="9" cy="21" r="1"/><circle cx="20" cy="21" r="1"/><path d="M1 1h4l2.7 13.4a2 2 0 0 0 2 1.6h9.7a2 2 0 0 0 2-1.6L23 6H6"/></svg>
-        <div>Your cart is empty</div>
-        <span style="font-size:12px;">Add a watch to see it here.</span>
-      </div>`;
-    foot.style.display = 'none';
+function openPanel(overlay){ overlay.classList.add('open'); document.body.classList.add('lock'); }
+function closePanel(overlay){ overlay.classList.remove('open'); document.body.classList.remove('lock'); }
+
+document.getElementById('cartOpenBtn').addEventListener('click', () => { renderCartPanel(); openPanel(cartOverlay); });
+document.getElementById('cartCloseBtn').addEventListener('click', () => closePanel(cartOverlay));
+document.getElementById('mobileCartBtn').addEventListener('click', e => { e.preventDefault(); renderCartPanel(); openPanel(cartOverlay); });
+cartOverlay.addEventListener('click', e => { if(e.target === cartOverlay) closePanel(cartOverlay); });
+
+document.getElementById('wishOpenBtn').addEventListener('click', () => { renderWishPanel(); openPanel(wishOverlay); });
+document.getElementById('wishCloseBtn').addEventListener('click', () => closePanel(wishOverlay));
+document.getElementById('mobileWishBtn').addEventListener('click', e => { e.preventDefault(); renderWishPanel(); openPanel(wishOverlay); });
+wishOverlay.addEventListener('click', e => { if(e.target === wishOverlay) closePanel(wishOverlay); });
+
+function renderCartPanel(){
+  const body = document.getElementById('cartBody');
+  const foot = document.getElementById('cartFoot');
+  const ids = Object.keys(CART);
+  if(!ids.length){
+    body.innerHTML = `<div class="panel-empty">
+      <svg width="46" height="46" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6"><circle cx="9" cy="21" r="1"/><circle cx="20" cy="21" r="1"/><path d="M1 1h4l2.7 13.4a2 2 0 0 0 2 1.6h9.7a2 2 0 0 0 2-1.6L23 6H6"/></svg>
+      <b>Your cart is empty</b><span>Add a timepiece to get started.</span>
+    </div>`;
+    foot.innerHTML = "";
     return;
   }
-
-  foot.style.display = 'block';
-  body.innerHTML = entries.map(([idx, qty]) => {
-    const p = PRODUCTS[idx];
+  body.innerHTML = ids.map((id,i) => {
+    const p = findProduct(+id); const qty = CART[id];
     return `
-    <div class="cart-line" data-idx="${idx}">
+    <div class="panel-item" style="animation-delay:${i*0.05}s">
       <img src="${p.imgs[0]}" alt="${p.title}">
-      <div class="cart-line-info">
-        <div class="cart-line-brand">${p.brand}</div>
-        <div class="cart-line-title">${p.title}</div>
-        <div class="cart-line-bottom">
-          <span class="cart-line-price">${inr(p.price*qty)}</span>
-          <div class="cart-qty-ctrl">
-            <button class="cart-dec" aria-label="Decrease">−</button>
+      <div class="panel-item-info">
+        <div class="pib">${p.brand}</div>
+        <div class="pit">${p.title}</div>
+        <div class="panel-item-price">${inr(p.price)}</div>
+        <div class="panel-item-actions">
+          <div class="qty-stepper">
+            <button data-act="dec" data-id="${p.id}">−</button>
             <span>${qty}</span>
-            <button class="cart-inc" aria-label="Increase">+</button>
+            <button data-act="inc" data-id="${p.id}">+</button>
           </div>
+          <button class="panel-item-remove" data-act="rm" data-id="${p.id}">Remove</button>
         </div>
-        <a href="#" class="cart-line-remove">Remove</a>
       </div>
     </div>`;
   }).join("");
-  document.getElementById('cartSubtotal').textContent = inr(cartTotalPrice());
+  const total = cartTotal();
+  foot.innerHTML = `
+    <div class="panel-summary-row"><span>Subtotal</span><span>${inr(total)}</span></div>
+    <div class="panel-summary-row"><span>Shipping</span><span>Free</span></div>
+    <div class="panel-summary-row total"><span>Total</span><span>${inr(total)}</span></div>
+    <button class="btn btn-dark">Proceed to Checkout</button>`;
+
+  body.querySelectorAll('[data-act]').forEach(btn => {
+    btn.addEventListener('click', () => {
+      const id = +btn.dataset.id; const act = btn.dataset.act;
+      if(act === 'inc') setQty(id, (CART[id]||0) + 1);
+      else if(act === 'dec') setQty(id, (CART[id]||0) - 1);
+      else if(act === 'rm') setQty(id, 0);
+    });
+  });
 }
 
-function openCart(){
-  document.getElementById('cartOverlay').classList.add('open');
-  document.getElementById('cartDrawer').classList.add('open');
-  renderCartDrawer();
-}
-function closeCart(){
-  document.getElementById('cartOverlay').classList.remove('open');
-  document.getElementById('cartDrawer').classList.remove('open');
-}
-
-document.getElementById('cartBtn').addEventListener('click', openCart);
-document.getElementById('mobileCartBtn').addEventListener('click', e => { e.preventDefault(); openCart(); });
-document.getElementById('cartCloseBtn').addEventListener('click', closeCart);
-document.getElementById('cartOverlay').addEventListener('click', closeCart);
-
-document.getElementById('cartDrawerBody').addEventListener('click', e => {
-  const line = e.target.closest('.cart-line');
-  if(!line) return;
-  const idx = line.dataset.idx;
-  if(e.target.closest('.cart-inc')){
-    cart[idx] = (cart[idx]||0) + 1;
-  } else if(e.target.closest('.cart-dec')){
-    cart[idx] = Math.max(0, (cart[idx]||0) - 1);
-  } else if(e.target.closest('.cart-line-remove')){
-    e.preventDefault();
-    cart[idx] = 0;
-  } else {
+function renderWishPanel(){
+  const body = document.getElementById('wishBody');
+  if(!WISHLIST.size){
+    body.innerHTML = `<div class="panel-empty">
+      <svg width="46" height="46" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6"><path d="M20.8 4.6a5.5 5.5 0 0 0-7.8 0L12 5.6l-1-1a5.5 5.5 0 0 0-7.8 7.8l1 1L12 21l7.8-7.6 1-1a5.5 5.5 0 0 0 0-7.8Z"/></svg>
+      <b>Your wishlist is empty</b><span>Tap the heart on any watch to save it here.</span>
+    </div>`;
     return;
   }
-  updateCardQty(idx);
-  updateBadge(cartBadge, cartTotalCount());
-  renderCartDrawer();
-});
+  const ids = [...WISHLIST];
+  body.innerHTML = ids.map((id,i) => {
+    const p = findProduct(id);
+    return `
+    <div class="panel-item" style="animation-delay:${i*0.05}s">
+      <img src="${p.imgs[0]}" alt="${p.title}">
+      <div class="panel-item-info">
+        <div class="pib">${p.brand}</div>
+        <div class="pit">${p.title}</div>
+        <div class="panel-item-price">${inr(p.price)}</div>
+        <div class="panel-item-actions">
+          <button class="btn btn-dark" style="padding:8px 14px; font-size:10.5px;" data-act="addcart" data-id="${p.id}">Add to Cart</button>
+          <button class="panel-item-remove" data-act="rmwish" data-id="${p.id}">Remove</button>
+        </div>
+      </div>
+    </div>`;
+  }).join("");
+  body.querySelectorAll('[data-act]').forEach(btn => {
+    btn.addEventListener('click', () => {
+      const id = +btn.dataset.id; const act = btn.dataset.act;
+      if(act === 'addcart') addToCart(id);
+      else if(act === 'rmwish') toggleWish(id);
+    });
+  });
+}
 
-grid.addEventListener('click', e => {
-  const addBtn = e.target.closest('.card-add');
-  if(addBtn){
-    const idx = addBtn.dataset.idx;
-    cart[idx] = (cart[idx]||0) + 1;
-    updateCardQty(idx);
-
-    const media = addBtn.closest('.product-card').querySelector('.card-media img.active, .card-media img') || addBtn;
-    flyToCart(media);
-
-    addBtn.classList.add('added');
-    const originalHTML = addBtn.innerHTML;
-    addBtn.innerHTML = `<svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="#fff" stroke-width="2.5"><path d="M20 6 9 17l-5-5"/></svg> Added`;
-    addBtn.disabled = true;
-    setTimeout(()=>{
-      addBtn.innerHTML = originalHTML;
-      addBtn.disabled = false;
-      addBtn.classList.remove('added');
-    }, 1100);
-    return;
-  }
-  const wishBtn = e.target.closest('.card-wish');
-  if(wishBtn){
-    const idx = wishBtn.closest('.product-card').dataset.idx;
-    let active;
-    if(wished.has(idx)){ wished.delete(idx); active = false; }
-    else { wished.add(idx); active = true; }
-    wishBtn.classList.toggle('active', active);
-    wishBtn.querySelector('svg').setAttribute('fill', active ? '#c23b2c' : 'none');
-    wishBtn.querySelector('svg').setAttribute('stroke', active ? '#c23b2c' : '#111');
-    updateBadge(wishBadge, wished.size);
-  }
-});
+updateBadges();
 </script>
 </body>
 </html>
