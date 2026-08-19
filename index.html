@@ -455,11 +455,26 @@
   .card-rating .stars{ color:var(--gold); letter-spacing:1px; }
 
   .card-price-row{
-    margin-top:auto; display:flex; align-items:baseline; gap:8px; flex-wrap:wrap;
+    margin-top:auto; display:flex; align-items:center; gap:8px; flex-wrap:wrap;
   }
   .price-now{ font-size:17px; font-weight:800; color:var(--ink); }
   .price-old{ font-size:12.5px; color:#a8a8a4; text-decoration:line-through; }
   .price-off{ font-size:11px; font-weight:700; color:var(--red); }
+
+  /* compact quick-add button shown inline in the price row (mobile collapsed card) */
+  .card-quick-add{
+    display:none;
+    align-items:center; justify-content:center;
+    width:30px; height:30px; border-radius:50%; flex-shrink:0;
+    background:var(--ink); color:#fff; border:none;
+    margin-left:auto;
+    transition:background .2s, transform .25s cubic-bezier(.34,1.56,.64,1);
+  }
+  .card-quick-add svg{ transition:transform .3s cubic-bezier(.34,1.56,.64,1); }
+  .card-quick-add:hover{ background:var(--gold-deep); }
+  .card-quick-add:active{ transform:scale(.88); }
+  .card-quick-add.in-cart{ background:var(--gold-deep); }
+  .card-quick-add.bump{ animation:addBump .4s cubic-bezier(.34,1.56,.64,1); }
 
   .card-add{
     margin-top:12px; width:100%;
@@ -763,6 +778,10 @@
       max-height:50px; opacity:1; margin-top:12px; pointer-events:auto;
     }
     .card-price-row{ margin-top:4px; }
+    .card-quick-add{ display:flex; }
+    .product-card.expanded .card-quick-add{
+      display:none;
+    }
     .promo-content{ padding:30px 20px; max-width:100%; }
     .trust-inner{ grid-template-columns:1fr 1fr; padding:26px 16px; }
     .footer-top{ grid-template-columns:1fr 1fr; gap:24px; }
@@ -1234,6 +1253,10 @@ function addToCart(id){
     btn.innerHTML = btn.innerHTML.replace(/Add to Cart|Added · Add More/, 'Added · Add More');
     setTimeout(()=> btn.classList.remove('bump'), 420);
   });
+  document.querySelectorAll(`.card-quick-add[data-id="${id}"]`).forEach(btn => {
+    btn.classList.add('in-cart', 'bump');
+    setTimeout(()=> btn.classList.remove('bump'), 420);
+  });
   cartUpsert(id, wasEmpty);
 }
 function setQty(id, qty){
@@ -1245,6 +1268,7 @@ function setQty(id, qty){
       btn.classList.remove('in-cart');
       btn.innerHTML = btn.innerHTML.replace('Added · Add More', 'Add to Cart');
     });
+    document.querySelectorAll(`.card-quick-add[data-id="${id}"]`).forEach(btn => btn.classList.remove('in-cart'));
     cartRemoveRow(id);
   } else if(had){
     cartPatchRow(id);
@@ -1300,6 +1324,9 @@ function renderCard(p, idx){
         <span class="price-now">${inr(p.price)}</span>
         ${p.old ? `<span class="price-old">${inr(p.old)}</span>` : ""}
         ${discountPct ? `<span class="price-off">${discountPct}% OFF</span>` : ""}
+        <button class="card-quick-add ${inCart}" data-id="${p.id}" aria-label="Add to cart">
+          <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="#fff" stroke-width="2"><circle cx="9" cy="21" r="1"/><circle cx="20" cy="21" r="1"/><path d="M1 1h4l2.7 13.4a2 2 0 0 0 2 1.6h9.7a2 2 0 0 0 2-1.6L23 6H6"/></svg>
+        </button>
       </div>
       <button class="card-add ${inCart}" data-id="${p.id}">
         <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="#fff" stroke-width="2"><circle cx="9" cy="21" r="1"/><circle cx="20" cy="21" r="1"/><path d="M1 1h4l2.7 13.4a2 2 0 0 0 2 1.6h9.7a2 2 0 0 0 2-1.6L23 6H6"/></svg>
@@ -1324,6 +1351,12 @@ function wireCardEvents(container){
   });
   container.querySelectorAll('.card-add').forEach(btn => {
     btn.addEventListener('click', e => { e.preventDefault(); addToCart(+btn.dataset.id); });
+  });
+  container.querySelectorAll('.card-quick-add').forEach(btn => {
+    btn.addEventListener('click', e => {
+      e.preventDefault(); e.stopPropagation();
+      addToCart(+btn.dataset.id);
+    });
   });
   container.querySelectorAll('.card-brand').forEach(brand => {
     brand.addEventListener('click', e => {
