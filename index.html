@@ -2,1148 +2,861 @@
 <html lang="en">
 <head>
 <meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Smile — Quality Dental Services</title>
+<meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
+<title>ShopKart — Fashion, Electronics & Grocery</title>
 <link rel="preconnect" href="https://fonts.googleapis.com">
-<link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&family=Fraunces:opsz,wght@9..144,500;9..144,600&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
 <style>
-  :root{
-    --teal:#0d9488;
-    --teal-dark:#0b7a70;
-    --blue:#2563eb;
-    --blue-light:#60a5fa;
-    --navy:#0e7490;
-    --navy-2:#155e75;
-    --ink:#111827;
-    --muted:#64748b;
-    --bg-teal-light:#f0f7f5;
-    --cream:#f4f9fb;
-    --line:#e2e8f0;
-    --radius:5px;
-  }
-  *{box-sizing:border-box;margin:0;padding:0;}
-  html{scroll-behavior:smooth;}
-  body{
-    font-family:'Plus Jakarta Sans', sans-serif;color:var(--ink);line-height:1.6;
-    position:relative;overflow-x:hidden;
-    background:linear-gradient(180deg, #eaf5fb 0%, #f3f9fc 35%, #fbfaf6 70%, var(--cream) 100%);
-  }
-  .bg-circle{position:absolute;border-radius:50%;z-index:0;pointer-events:none;opacity:.35;}
-  section, header{position:relative;z-index:1;}
-  h1,h2,h3{font-family:'Fraunces', serif;font-weight:600;line-height:1.15;letter-spacing:-0.01em;}
-  a{text-decoration:none;color:inherit;}
-  img{max-width:100%;display:block;}
-  ul{list-style:none;}
-  section{scroll-margin-top:90px;}
+:root{
+  --green:#0f6b4a;
+  --green-dark:#0a4f37;
+  --green-light:#e7f5ee;
+  --gold:#d4af37;
+  --ink:#12151a;
+  --sub:#6b7280;
+  --line:#ececef;
+  --bg:#f7f8f6;
+  --card:#ffffff;
+  --radius:5px;
+  --header-h:56px;
+}
+*{box-sizing:border-box;margin:0;padding:0;}
+html{scroll-behavior:smooth;}
+body{
+  font-family:'Inter',sans-serif;
+  background:var(--bg);
+  color:var(--ink);
+  -webkit-font-smoothing:antialiased;
+  overflow-x:hidden;
+  padding-bottom:64px;
+}
+body.lock{overflow:hidden;}
+a{color:inherit;text-decoration:none;}
+img{display:block;max-width:100%;}
+button{font-family:inherit;cursor:pointer;border:none;background:none;}
 
-  /* ===== NAV (single, sticky) ===== */
-  header{
-    position:sticky;top:0;z-index:100;background:rgba(250,248,244,.98);
-    border-bottom:1px solid var(--line);
-  }
-  nav{
-    display:flex;align-items:center;justify-content:space-between;
-    padding:18px 32px;max-width:1200px;margin:0 auto;
-  }
-  .logo{display:flex;align-items:center;gap:8px;font-weight:700;font-size:20px;}
-  .logo-mark{
-    width:30px;height:30px;background:var(--teal);border-radius:5px;
-    display:flex;align-items:center;justify-content:center;color:#fff;font-size:15px;flex-shrink:0;
-  }
-  .service-icon svg,.icon-box svg,.check svg{display:block;}
-  .nav-links{display:flex;gap:34px;align-items:center;font-size:15px;font-weight:500;}
-  .nav-links a{opacity:.8;transition:opacity .2s;}
-  .nav-links a:hover{opacity:1;color:var(--teal);}
-  .nav-right{display:flex;align-items:center;gap:18px;}
-  .nav-phone{font-size:14px;font-weight:600;color:var(--navy);display:flex;align-items:center;gap:6px;}
+/* ===== Header ===== */
+header{
+  position:fixed;top:0;left:0;right:0;z-index:200;
+  background:linear-gradient(135deg,#0a4f37,#0f6b4a 55%,#14805a);
+  box-shadow:0 4px 18px rgba(10,40,28,.28);
+}
+#pageTop{padding-top:var(--header-total-h,100px);}
+.header-top{
+  display:flex;align-items:center;gap:10px;
+  padding:10px 12px 8px;
+}
+.logo{
+  display:flex;align-items:center;gap:8px;color:#fff;font-weight:800;font-size:18px;flex-shrink:0;
+}
+.logo-mark{
+  width:34px;height:34px;border-radius:9px;
+  background:linear-gradient(160deg,#fff,#e8f6ee);
+  display:flex;align-items:center;justify-content:center;
+  box-shadow:0 2px 6px rgba(0,0,0,.18), inset 0 0 0 1px rgba(212,175,55,.4);
+}
+.logo-mark svg{width:20px;height:20px;}
+.logo b{letter-spacing:-.02em;}
+.logo b span{color:var(--gold);}
+.logo-sub{display:none;}
+.loc-strip{
+  display:flex;align-items:center;gap:6px;padding:0 12px 8px;color:rgba(255,255,255,.92);
+  font-size:11px;font-weight:600;
+}
+.loc-strip svg{flex-shrink:0;color:var(--gold);}
+.loc-strip b{color:#fff;font-weight:700;}
+.loc-strip .loc-status{
+  margin-left:auto;font-size:10px;font-weight:700;padding:2px 8px;border-radius:20px;
+  display:flex;align-items:center;gap:4px;
+}
+.loc-strip .loc-status.ok{background:rgba(255,255,255,.16);color:#c9f5db;}
+.loc-strip .loc-status.no{background:rgba(255,90,90,.2);color:#ffb4b4;}
+.loc-strip .loc-status.pending{background:rgba(255,255,255,.12);color:rgba(255,255,255,.8);}
+.loc-dot{width:6px;height:6px;border-radius:50%;background:currentColor;}
+.search-bar{
+  flex:1;display:flex;align-items:center;gap:8px;
+  background:#fff;border-radius:5px;padding:10px 12px;
+  transition:transform .15s ease;
+}
+.search-bar:active{transform:scale(.98);}
+.search-bar svg{flex-shrink:0;color:var(--sub);}
+.search-bar input{
+  flex:1;border:none;outline:none;background:transparent;font-size:14px;color:var(--ink);
+}
+.header-icon{
+  position:relative;width:36px;height:36px;border-radius:5px;
+  display:flex;align-items:center;justify-content:center;color:#fff;flex-shrink:0;
+  transition:transform .2s cubic-bezier(.34,1.56,.64,1),background .2s;
+}
+.header-icon:active{transform:scale(.9);background:rgba(255,255,255,.15);}
+.header-icon .badge{
+  position:absolute;top:-3px;right:-3px;background:#ff5252;color:#fff;
+  font-size:9.5px;font-weight:700;min-width:16px;height:16px;padding:0 3px;border-radius:50%;
+  display:flex;align-items:center;justify-content:center;
+  transition:transform .35s cubic-bezier(.34,1.56,.64,1);
+}
+.header-icon .badge.pop{animation:badgePop .4s cubic-bezier(.34,1.56,.64,1);}
+@keyframes badgePop{0%{transform:scale(1)}40%{transform:scale(1.5)}100%{transform:scale(1)}}
 
-  .btn{
-    display:inline-block;padding:13px 28px;border-radius:5px;
-    font-weight:600;font-size:14px;cursor:pointer;border:none;
-    transition:transform .15s ease, box-shadow .15s ease;
-  }
-  .btn-primary{background:var(--teal);color:#fff;}
-  .btn-primary:hover{transform:translateY(-2px);box-shadow:0 8px 20px rgba(15,181,174,.35);}
-  .btn-dark{background:var(--navy);color:#fff;}
-  .btn-dark:hover{transform:translateY(-2px);box-shadow:0 8px 20px rgba(11,28,57,.35);}
-  .btn-outline{background:#fff;color:var(--navy);border:1.5px solid var(--line);}
-  .btn-outline:hover{border-color:var(--teal);color:var(--teal);}
+/* Category nav — icon only, smooth switch */
+.catnav{
+  display:flex;gap:8px;overflow-x:auto;padding:2px 10px 10px;
+  scrollbar-width:none;
+}
+.catnav::-webkit-scrollbar{display:none;}
+.catnav button{
+  flex-shrink:0;width:44px;height:44px;border-radius:12px;
+  display:flex;align-items:center;justify-content:center;
+  color:rgba(255,255,255,.85);background:rgba(255,255,255,.12);
+  transition:transform .3s cubic-bezier(.34,1.56,.64,1),background .25s ease,color .25s ease,box-shadow .25s ease;
+  position:relative;
+}
+.catnav button svg{width:20px;height:20px;transition:transform .3s cubic-bezier(.34,1.56,.64,1);}
+.catnav button:active{transform:scale(.85);}
+.catnav button.active{
+  background:#fff;color:var(--green-dark);transform:scale(1.05);
+  box-shadow:0 4px 12px rgba(0,0,0,.18), 0 0 0 2px rgba(212,175,55,.55);
+}
+.catnav button.active svg{transform:scale(1.08);}
 
-  .wrap{max-width:1200px;margin:0 auto;padding:0 32px;}
-  .eyebrow{
-    display:inline-flex;align-items:center;gap:8px;
-    background:var(--navy);color:#fff;
-    padding:8px 16px;border-radius:5px;font-size:12.5px;font-weight:700;
-    letter-spacing:.05em;text-transform:uppercase;margin-bottom:18px;
-  }
-  .section-head{text-align:center;max-width:600px;margin:0 auto 50px;}
-  .section-head h2{font-size:38px;color:var(--navy);margin-bottom:14px;}
-  .section-head p{color:var(--muted);font-size:15px;}
+/* ===== Hero banner card ===== */
+.hero-wrap{padding:12px;}
+.hero-card{
+  border-radius:var(--radius);overflow:hidden;position:relative;
+  background:var(--card);box-shadow:0 1px 4px rgba(0,0,0,.06);
+}
+.hero-card img{width:100%;height:auto;display:block;}
+.hero-dots{
+  position:absolute;bottom:10px;left:0;right:0;display:flex;justify-content:center;gap:5px;
+}
+.hero-dots span{width:6px;height:6px;border-radius:50%;background:rgba(255,255,255,.55);transition:all .3s;}
+.hero-dots span.active{background:#fff;width:16px;border-radius:3px;}
 
-  /* ===== HERO (one section only) ===== */
-  .hero{
-    background:linear-gradient(120deg, #0e7490 0%, #0d9488 55%, #14b8a6 100%);
-    padding-bottom:0;position:relative;overflow:hidden;
-  }
-  .hero-grid{
-    max-width:1200px;margin:0 auto;padding:70px 32px 0;
-    display:grid;grid-template-columns:1fr 1fr;gap:30px;align-items:center;
-  }
-  .hero-copy .eyebrow{background:rgba(255,255,255,.15);color:#fff;}
-  .hero-copy h1{font-size:48px;color:#fff;margin-bottom:18px;line-height:1.1;}
-  .hero-copy p{color:rgba(255,255,255,.85);font-size:16px;max-width:420px;margin-bottom:28px;}
-  .hero-btns{display:flex;gap:12px;}
-  .hero .btn-primary{background:#22c55e;color:#fff;}
-  .hero .btn-primary:hover{transform:translateY(-2px);box-shadow:0 8px 20px rgba(34,197,94,.4);}
-  .hero .btn-outline{background:rgba(255,255,255,.1);color:#fff;border:1.5px solid rgba(255,255,255,.35);}
-  .hero .btn-outline:hover{background:rgba(255,255,255,.18);border-color:#fff;color:#fff;}
-  .hero-trust{display:flex;align-items:center;gap:18px;margin-top:34px;}
-  .hero-trust .avatars{display:flex;}
-  .hero-trust .avatars img{
-    width:38px;height:38px;border-radius:50%;object-fit:cover;border:2.5px solid #0d9488;margin-left:-10px;
-  }
-  .hero-trust .avatars img:first-child{margin-left:0;}
-  .hero-trust .trust-text{color:#fff;font-size:13px;}
-  .hero-trust .trust-text strong{display:block;font-size:14px;}
-  .hero-photo{position:relative;display:flex;justify-content:center;align-items:flex-end;height:100%;}
-  .hero-photo img{
-    width:100%;max-width:460px;height:460px;object-fit:cover;border-radius:5px;
-    box-shadow:0 30px 60px rgba(10,40,45,.3);
-  }
-  .hero-photo .float-card{
-    position:absolute;top:36px;left:-10px;background:#fff;padding:14px 18px;border-radius:5px;
-    box-shadow:0 15px 40px rgba(10,40,45,.18);display:flex;align-items:center;gap:10px;
-  }
-  .hero-photo .float-card .ic{
-    width:34px;height:34px;border-radius:50%;background:#dcfce7;color:#16a34a;
-    display:flex;align-items:center;justify-content:center;flex-shrink:0;
-  }
-  .hero-photo .float-card strong{display:block;font-size:13px;color:var(--navy);}
-  .hero-photo .float-card span{font-size:11.5px;color:var(--muted);}
+/* ===== Section ===== */
+.section{padding:16px 12px 4px;}
+.section-head{
+  display:flex;align-items:center;justify-content:space-between;margin-bottom:12px;
+}
+.section-head h2{font-size:16px;font-weight:800;letter-spacing:-.01em;}
+.section-head a{font-size:12px;font-weight:700;color:var(--green-dark);display:flex;align-items:center;gap:2px;}
 
-  .services-strip{
-    background:linear-gradient(160deg, #0d5c66 0%, #064e4a 100%);border-radius:5px;max-width:1136px;margin:0 auto;
-    box-shadow:0 20px 45px rgba(6,78,74,.3);border:1px solid rgba(255,255,255,.08);
-    display:flex;justify-content:space-between;padding:34px 20px;
-    transform:translateY(40px);position:relative;z-index:2;
-  }
-  .service-item{flex:1;text-align:center;padding:0 10px;border-right:1px solid rgba(255,255,255,.08);}
-  .service-item:last-child{border-right:none;}
-  .service-icon{
-    width:46px;height:46px;border-radius:5px;
-    background:linear-gradient(160deg, rgba(20,184,166,.22) 0%, rgba(37,99,235,.22) 100%);
-    border:1px solid rgba(127,180,255,.25);color:#7fd8cf;
-    display:flex;align-items:center;justify-content:center;margin:0 auto 12px;font-size:20px;
-  }
-  .service-item span{font-size:14px;font-weight:600;color:#fff;}
-  .hero-spacer{height:90px;background:transparent;}
+/* ===== Product grid ===== */
+.grid{
+  display:grid;grid-template-columns:repeat(2,1fr);gap:10px;
+}
+@media(min-width:640px){.grid{grid-template-columns:repeat(3,1fr);}}
+@media(min-width:900px){.grid{grid-template-columns:repeat(4,1fr);}}
+@media(min-width:1200px){.grid{grid-template-columns:repeat(5,1fr);}}
 
-  /* ===== ABOUT ===== */
-  .about{padding:100px 0;position:relative;overflow:hidden;}
-  .about-inner{display:grid;grid-template-columns:1fr 1fr;gap:60px;align-items:center;}
-  .about-photo{position:relative;}
-  .about-photo img{border-radius:5px;width:100%;height:420px;object-fit:cover;}
-  .about-badge{
-    position:absolute;bottom:-24px;left:-24px;background:#fff;padding:18px 22px;
-    border-radius:5px;box-shadow:0 15px 40px rgba(11,28,57,.15);
-    display:flex;align-items:center;gap:14px;max-width:260px;
-  }
-  .about-badge .dot{
-    width:44px;height:44px;border-radius:5px;
-    background:linear-gradient(160deg, #0d9488 0%, #155e75 100%);
-    color:#fff;display:flex;align-items:center;justify-content:center;font-weight:700;font-size:16px;flex-shrink:0;
-    box-shadow:0 6px 16px rgba(13,148,136,.35);
-  }
-  .about-badge p{font-size:13px;color:var(--muted);}
-  .about-copy h2{font-size:36px;color:var(--navy);margin-bottom:18px;}
-  .about-copy > p{color:var(--muted);font-size:15px;margin-bottom:26px;}
-  .about-list{display:flex;flex-direction:column;gap:16px;margin-bottom:28px;}
-  .about-list li{display:flex;align-items:center;gap:12px;font-size:15px;font-weight:500;color:var(--navy);}
-  .check{
-    width:24px;height:24px;border-radius:5px;background:var(--teal);color:#fff;
-    display:flex;align-items:center;justify-content:center;font-size:13px;flex-shrink:0;
-  }
+.card{
+  background:var(--card);border-radius:var(--radius);overflow:hidden;
+  border:1px solid var(--line);
+  display:flex;flex-direction:column;
+  transition:transform .25s cubic-bezier(.34,1.56,.64,1),box-shadow .25s ease,border-color .25s;
+  opacity:0;transform:translateY(14px);animation:cardIn .5s ease forwards;
+}
+@keyframes cardIn{to{opacity:1;transform:translateY(0);}}
+.card:active{transform:scale(.97);}
+@media(hover:hover){
+  .card:hover{transform:translateY(-4px);box-shadow:0 14px 28px rgba(10,40,28,.12);border-color:rgba(15,107,74,.25);}
+}
+.card-img-wrap{
+  position:relative;width:100%;aspect-ratio:1/1;background:#f8f9fa;overflow:hidden;
+}
+.card-img-wrap img{
+  width:100%;height:100%;object-fit:cover;transition:transform .5s ease;
+}
+.card:hover .card-img-wrap img{transform:scale(1.06);}
+.wish-btn{
+  position:absolute;top:6px;right:6px;width:28px;height:28px;border-radius:50%;
+  background:rgba(255,255,255,.92);display:flex;align-items:center;justify-content:center;
+  color:#9aa0a6;transition:transform .2s cubic-bezier(.34,1.56,.64,1),color .2s;
+  box-shadow:0 1px 3px rgba(0,0,0,.12);
+}
+.wish-btn:active{transform:scale(.85);}
+.wish-btn.active{color:#ff5252;}
+.wish-btn.active svg{fill:#ff5252;}
+.discount-tag{
+  position:absolute;top:6px;left:6px;background:linear-gradient(120deg,var(--green),var(--green-dark));color:#fff;
+  font-size:9.5px;font-weight:800;padding:2px 6px;border-radius:4px;
+  box-shadow:0 1px 3px rgba(0,0,0,.2);
+}
+.card-body{padding:8px 9px 9px;display:flex;flex-direction:column;gap:3px;flex:1;}
+.card-brand{font-size:10px;font-weight:700;color:var(--sub);text-transform:uppercase;letter-spacing:.03em;}
+.card-title{
+  font-size:12.5px;font-weight:600;line-height:1.3;
+  display:-webkit-box;-webkit-line-clamp:2;-webkit-box-orient:vertical;overflow:hidden;
+  min-height:32px;color:var(--ink);
+}
+.card-rating{display:flex;align-items:center;gap:4px;font-size:10.5px;color:var(--sub);margin-top:1px;}
+.card-rating .stars{background:var(--green);color:#fff;font-weight:700;padding:1px 5px;border-radius:3px;font-size:10px;display:flex;align-items:center;gap:2px;}
+.card-price-row{display:flex;align-items:baseline;gap:6px;margin-top:2px;}
+.price-now{font-size:14.5px;font-weight:800;color:var(--ink);}
+.price-old{font-size:11px;color:var(--sub);text-decoration:line-through;}
+.price-off{font-size:11px;color:var(--green-dark);font-weight:700;}
 
-  /* ===== SERVICES ===== */
-  .services{padding:100px 0;background:transparent;position:relative;overflow:hidden;}
-  .services-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:28px;}
-  .service-card{
-    position:relative;border-radius:5px;overflow:hidden;height:280px;
-    box-shadow:0 10px 30px rgba(10,22,40,.08);
-    transition:transform .25s ease;
-    will-change:transform;
-  }
-  .service-card img{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;transition:transform .4s ease;}
-  .service-card:hover img{transform:scale(1.08);}
-  .service-card:hover{transform:translateY(-6px);}
-  .service-card::before{
-    content:'';position:absolute;inset:0;
-    background:linear-gradient(180deg, rgba(14,116,144,0) 20%, rgba(11,45,58,.88) 100%);
-    z-index:1;
-  }
-  .service-card::after{
-    content:'';position:absolute;top:14px;left:14px;right:14px;height:60px;
-    background:linear-gradient(120deg, rgba(255,255,255,.35), rgba(255,255,255,0) 60%);
-    border-radius:5px;z-index:2;pointer-events:none;opacity:.5;
-  }
-  .service-card .card-body{position:absolute;bottom:0;left:0;right:0;padding:22px;z-index:2;}
-  .service-card .icon-box{
-    width:44px;height:44px;border-radius:5px;background:rgba(255,255,255,.18);
-    color:var(--blue-light);border:1px solid rgba(255,255,255,.25);
-    display:flex;align-items:center;justify-content:center;margin-bottom:14px;
-  }
-  .service-card h3{font-size:19px;color:#fff;margin-bottom:6px;}
-  .service-card p{font-size:13px;color:rgba(255,255,255,.8);margin-bottom:12px;}
-  .service-card a{font-size:13px;font-weight:700;color:var(--blue-light);display:inline-flex;align-items:center;gap:4px;}
+.card-cta{padding:0 9px 9px;margin-top:auto;}
+.add-btn{
+  width:100%;padding:8px 0;border-radius:var(--radius);
+  background:var(--green);color:#fff;font-size:12px;font-weight:700;
+  display:flex;align-items:center;justify-content:center;gap:6px;
+  transition:transform .18s cubic-bezier(.34,1.56,.64,1),background .2s;
+}
+.add-btn:active{transform:scale(.94);}
+.add-btn:hover{background:var(--green-dark);}
 
-  /* ===== WHY CHOOSE / STATS ===== */
-  .stats{
-    background:
-      radial-gradient(circle at 15% 20%, rgba(110,231,183,.16) 0%, transparent 45%),
-      radial-gradient(circle at 85% 80%, rgba(96,165,250,.16) 0%, transparent 45%),
-      linear-gradient(135deg, #064e4a 0%, #0d5c66 55%, #0a3f52 100%);
-    padding:90px 0;position:relative;overflow:hidden;
-  }
-  .stats::before{
-    content:'';position:absolute;inset:0;
-    background-image:linear-gradient(rgba(255,255,255,.035) 1px, transparent 1px),
-                      linear-gradient(90deg, rgba(255,255,255,.035) 1px, transparent 1px);
-    background-size:44px 44px;pointer-events:none;
-  }
-  .stats-grid{display:grid;grid-template-columns:repeat(4,1fr);gap:20px;text-align:center;position:relative;z-index:1;}
-  .stat{padding:14px 8px;}
-  .stat h3{
-    font-family:'Fraunces', serif;font-weight:600;font-size:46px;line-height:1;
-    background:linear-gradient(180deg, #cfe4ff 0%, #7fb4ff 55%, #4a8ef2 100%);
-    -webkit-background-clip:text;background-clip:text;-webkit-text-fill-color:transparent;
-    margin-bottom:10px;letter-spacing:-0.01em;
-  }
-  .stat p{color:#fff;font-size:14px;font-weight:500;opacity:.92;letter-spacing:.01em;}
+.qty-stepper{
+  width:100%;display:flex;align-items:center;justify-content:space-between;
+  background:var(--green);border-radius:var(--radius);overflow:hidden;
+  animation:stepperIn .3s cubic-bezier(.34,1.56,.64,1);
+}
+@keyframes stepperIn{from{transform:scale(.85);opacity:.4;}to{transform:scale(1);opacity:1;}}
+.qty-stepper button{
+  width:30px;height:30px;color:#fff;font-size:16px;font-weight:700;
+  display:flex;align-items:center;justify-content:center;
+  transition:background .15s;
+}
+.qty-stepper button:active{background:rgba(0,0,0,.15);}
+.qty-stepper span{color:#fff;font-size:12.5px;font-weight:800;}
+.qty-stepper span.bump{animation:bump .3s cubic-bezier(.34,1.56,.64,1);}
+@keyframes bump{0%{transform:scale(1)}50%{transform:scale(1.3)}100%{transform:scale(1)}}
 
-  /* ===== TESTIMONIALS ===== */
-  .testimonials{padding:100px 0;}
-  .testi-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:28px;}
-  .testi-card{
-    background:#fff;padding:32px;border-radius:5px;border:1px solid var(--line);
-    box-shadow:0 10px 30px rgba(10,22,40,.04);
-  }
-  .stars{display:flex;gap:3px;color:#f5a623;margin-bottom:16px;}
-  .testi-card p{font-size:15px;color:var(--ink);margin-bottom:22px;font-style:italic;}
-  .testi-person{display:flex;align-items:center;gap:12px;}
-  .testi-person img{width:44px;height:44px;border-radius:50%;object-fit:cover;}
-  .testi-person strong{font-size:14px;color:var(--navy);display:block;}
-  .testi-person span{font-size:13px;color:var(--muted);}
-  .review-cta{
-    margin-top:40px;background:var(--bg-teal-light);border:1px solid var(--line);
-    border-radius:5px;padding:28px 30px;text-align:center;max-width:560px;margin-left:auto;margin-right:auto;
-  }
-  .review-cta h4{font-size:18px;color:var(--navy);margin-bottom:6px;font-family:'Fraunces',serif;}
-  .review-cta p{font-size:13px;color:var(--muted);margin-bottom:18px;}
-  .review-form{display:flex;gap:10px;}
-  .review-form input{
-    flex:1;padding:12px 16px;border:1px solid var(--line);border-radius:5px;
-    font-family:inherit;font-size:14px;background:#fff;
-  }
-  .review-form input:focus{outline:none;border-color:var(--teal);}
-  .review-form .btn{white-space:nowrap;padding:12px 22px;}
+/* ===== Category title strip ===== */
+.cat-band{
+  margin:0 -12px;padding:14px 12px;background:linear-gradient(135deg,var(--green-light),#fff);
+}
 
-  /* ===== CTA / BOOK ===== */
-  .cta{background:linear-gradient(120deg, var(--teal) 0%, var(--teal-dark) 100%);padding:70px 0;}
-  .cta-inner{display:flex;justify-content:space-between;align-items:center;gap:30px;flex-wrap:wrap;}
-  .cta h2{color:#fff;font-size:32px;max-width:480px;}
-  .cta p{color:rgba(255,255,255,.85);margin-top:10px;font-size:15px;}
-  .cta .btn{background:#fff;color:var(--teal-dark);}
-  .cta .btn:hover{transform:translateY(-2px);box-shadow:0 8px 20px rgba(0,0,0,.2);}
+/* ===== Bottom mobile nav ===== */
+.mobile-nav{
+  position:fixed;bottom:0;left:0;right:0;z-index:250;
+  background:#fff;border-top:1px solid var(--line);
+  display:flex;justify-content:space-around;padding:6px 0 8px;
+  box-shadow:0 -2px 10px rgba(0,0,0,.06);
+}
+.mobile-nav a{
+  display:flex;flex-direction:column;align-items:center;gap:2px;color:var(--sub);
+  font-size:10px;font-weight:600;padding:4px 10px;position:relative;
+  transition:color .2s,transform .2s;
+}
+.mobile-nav a.active{color:var(--green);}
+.mobile-nav a:active{transform:scale(.9);}
+.mobile-nav .badge{
+  position:absolute;top:-2px;right:2px;background:#ff5252;color:#fff;font-size:9px;font-weight:700;
+  min-width:14px;height:14px;border-radius:50%;display:flex;align-items:center;justify-content:center;
+}
 
-  /* ===== CONTACT ===== */
-  .contact{padding:100px 0;background:rgba(240,247,245,.45);}
-  .contact-inner{display:grid;grid-template-columns:1fr 1fr;gap:60px;}
-  .contact-info h2{font-size:32px;color:var(--navy);margin-bottom:16px;}
-  .contact-info > p{color:var(--muted);font-size:15px;margin-bottom:30px;}
-  .info-row{display:flex;gap:14px;margin-bottom:22px;align-items:flex-start;}
-  .info-row .icon-box{
-    width:44px;height:44px;border-radius:5px;background:var(--bg-teal-light);color:var(--teal);
-    display:flex;align-items:center;justify-content:center;font-size:18px;flex-shrink:0;
-  }
-  .info-row strong{display:block;font-size:14px;color:var(--navy);margin-bottom:2px;}
-  .info-row span{font-size:14px;color:var(--muted);}
-  .contact-form{background:#fff;padding:36px;border-radius:5px;border:1px solid var(--line);}
-  .form-row{display:grid;grid-template-columns:1fr 1fr;gap:14px;margin-bottom:14px;}
-  .contact-form input,.contact-form textarea{
-    width:100%;padding:13px 16px;border:1px solid var(--line);border-radius:5px;
-    font-family:inherit;font-size:14px;margin-bottom:14px;
-  }
-  .contact-form textarea{resize:vertical;min-height:110px;}
-  .contact-form input:focus,.contact-form textarea:focus{outline:none;border-color:var(--teal);}
-  .contact-form .btn{width:100%;}
+/* ===== Cart / Wishlist panel ===== */
+.overlay{
+  position:fixed;inset:0;z-index:400;background:rgba(10,10,9,.5);
+  opacity:0;pointer-events:none;transition:opacity .35s ease;
+}
+.overlay.open{opacity:1;pointer-events:auto;}
+.panel{
+  position:fixed;top:0;right:0;bottom:0;width:100%;max-width:400px;background:#fff;
+  display:flex;flex-direction:column;
+  transform:translateX(100%);transition:transform .4s cubic-bezier(.19,1,.22,1);
+}
+.overlay.open .panel{transform:translateX(0);}
+.panel-head{
+  display:flex;align-items:center;justify-content:space-between;padding:16px;border-bottom:1px solid var(--line);
+}
+.panel-head h3{font-size:16px;font-weight:800;}
+.panel-close{width:34px;height:34px;border-radius:50%;display:flex;align-items:center;justify-content:center;background:var(--bg);transition:transform .2s;}
+.panel-close:active{transform:rotate(90deg);}
+.panel-body{flex:1;overflow-y:auto;padding:8px 12px;}
+.panel-item{
+  display:flex;gap:10px;padding:12px 0;border-bottom:1px solid var(--line);
+  animation:rowIn .35s ease both;
+}
+@keyframes rowIn{from{opacity:0;transform:translateX(14px);}to{opacity:1;transform:translateX(0);}}
+.panel-item.removing{animation:rowOut .3s ease forwards;}
+@keyframes rowOut{to{opacity:0;transform:translateX(30px);max-height:0;padding:0;margin:0;}}
+.panel-item-img-wrap{width:64px;height:64px;border-radius:var(--radius);overflow:hidden;background:#f8f9fa;flex-shrink:0;}
+.panel-item-img-wrap img{width:100%;height:100%;object-fit:cover;}
+.panel-item-info{flex:1;min-width:0;}
+.pib{font-size:9.5px;font-weight:700;color:var(--sub);text-transform:uppercase;}
+.pit{font-size:12.5px;font-weight:600;margin:2px 0;line-height:1.3;}
+.panel-item-price{font-size:13px;font-weight:800;}
+.panel-item-actions{display:flex;align-items:center;justify-content:space-between;margin-top:6px;}
+.panel-item-actions .qty-stepper{width:auto;display:inline-flex;}
+.panel-item-remove{font-size:11px;color:var(--sub);font-weight:600;}
+.panel-item-remove:hover{color:#ff5252;}
+.panel-empty{display:flex;flex-direction:column;align-items:center;justify-content:center;padding:60px 20px;text-align:center;color:var(--sub);gap:8px;}
+.panel-empty b{color:var(--ink);font-size:14px;}
+.panel-empty span{font-size:12px;}
+.panel-foot{padding:14px 16px;border-top:1px solid var(--line);}
+.panel-summary-row{display:flex;justify-content:space-between;font-size:13px;color:var(--sub);margin-bottom:6px;}
+.panel-summary-row.total{color:var(--ink);font-weight:800;font-size:15px;margin:10px 0;}
+.btn{width:100%;padding:12px 0;border-radius:var(--radius);font-weight:700;font-size:13.5px;margin-bottom:8px;transition:transform .18s;}
+.btn:active{transform:scale(.97);}
+.btn-green{background:var(--green);color:#fff;}
+.btn-green:hover{background:var(--green-dark);}
+.btn-outline{border:1px solid var(--line);color:var(--ink);}
 
-  /* ===== FOOTER ===== */
-  footer{background:linear-gradient(135deg, var(--navy-2) 0%, var(--teal-dark) 100%);color:#d7ecec;padding:70px 0 30px;}
-  .footer-grid{display:grid;grid-template-columns:1.5fr 1fr 1fr 1.2fr;gap:40px;margin-bottom:50px;}
-  .footer-logo{display:flex;align-items:center;gap:8px;font-weight:700;font-size:20px;color:#fff;margin-bottom:16px;}
-  .footer-col h4{color:#fff;font-size:15px;margin-bottom:18px;}
-  .footer-col ul li{margin-bottom:12px;font-size:14px;}
-  .footer-col ul li a:hover{color:var(--teal);}
-  .footer-bottom{
-    border-top:1px solid rgba(255,255,255,.1);padding-top:24px;
-    display:flex;justify-content:space-between;font-size:13px;flex-wrap:wrap;gap:10px;
-  }
+/* toast */
+.toast{
+  position:fixed;bottom:78px;left:50%;transform:translateX(-50%) translateY(20px);z-index:500;
+  background:var(--ink);color:#fff;font-size:12.5px;font-weight:600;padding:10px 18px;border-radius:var(--radius);
+  opacity:0;transition:all .35s cubic-bezier(.34,1.56,.64,1);pointer-events:none;
+}
+.toast.show{opacity:1;transform:translateX(-50%) translateY(0);}
 
-  /* ===== DOCTORS ===== */
-  .doctors{padding:100px 0;position:relative;overflow:hidden;
-    background:
-      radial-gradient(circle at 10% 15%, rgba(110,231,183,.12) 0%, transparent 40%),
-      radial-gradient(circle at 90% 85%, rgba(96,165,250,.12) 0%, transparent 40%),
-      linear-gradient(160deg, #064e4a 0%, #0d5c66 55%, #0a3f52 100%);
-  }
-  .doctors .section-head h2{color:#fff;}
-  .doctors .section-head p{color:rgba(255,255,255,.6);}
-  .doctors .eyebrow{background:rgba(96,165,250,.15);color:#7fb4ff;}
-  .doctors-grid{display:grid;grid-template-columns:repeat(4,1fr);gap:24px;}
-  .doctor-card{
-    background:linear-gradient(160deg, rgba(255,255,255,.045) 0%, rgba(255,255,255,.015) 100%);
-    border-radius:5px;overflow:hidden;cursor:pointer;
-    border:1px solid rgba(255,255,255,.09);
-    transition:transform .25s ease, border-color .25s ease;
-    position:relative;
-    will-change:transform;
-  }
-  .doctor-card:hover{transform:translateY(-8px);border-color:rgba(127,180,255,.35);}
-  .doctor-photo{position:relative;height:280px;overflow:hidden;cursor:pointer;}
-  .doctor-photo img{width:100%;height:100%;object-fit:cover;object-position:top center;transition:transform .4s ease;display:block;}
-  .doctor-card:hover .doctor-photo img{transform:scale(1.06);}
-  .doctor-photo::after{
-    content:'';position:absolute;inset:0;
-    background:linear-gradient(180deg, rgba(6,13,22,0) 45%, rgba(6,13,22,.9) 100%);
-  }
-  .doctor-social{
-    position:absolute;top:14px;right:14px;width:34px;height:34px;border-radius:50%;
-    background:rgba(20,32,46,.55);display:flex;align-items:center;justify-content:center;
-    color:#fff;z-index:2;border:1px solid rgba(255,255,255,.2);font-size:12px;
-  }
-  .doctor-expand{
-    position:absolute;top:14px;left:14px;width:34px;height:34px;border-radius:50%;
-    background:rgba(20,55,60,.6);display:flex;align-items:center;justify-content:center;
-    color:#7fb4ff;z-index:2;border:1px solid rgba(127,180,255,.3);
-  }
-  .doctor-info{padding:16px 18px 20px;text-align:left;position:relative;z-index:1;}
-  .doctor-info h3{font-size:17px;color:#fff;margin-bottom:4px;font-family:'Fraunces',serif;cursor:pointer;}
-  .doctor-info .role{font-size:12px;color:#7fb4ff;font-weight:700;text-transform:uppercase;letter-spacing:.04em;margin-bottom:8px;display:block;}
-  .doctor-info p{font-size:13px;color:rgba(255,255,255,.6);margin-bottom:14px;}
-  .btn-doctor-book{
-    display:block;width:100%;text-align:center;padding:10px 14px;font-size:12.5px;font-weight:700;
-    border-radius:5px;background:linear-gradient(90deg,#60a5fa,#14b8a6);color:#04121f;
-  }
+footer{background:var(--ink);color:#c9ccd1;padding:28px 16px;margin-top:20px;font-size:12px;}
+footer .flogo{color:#fff;font-weight:800;font-size:16px;margin-bottom:8px;}
 
-  /* ===== DOCTOR MODAL ===== */
-  .doctor-modal-overlay{
-    display:none;position:fixed;inset:0;z-index:1000;
-    background:rgba(10,42,50,.72);backdrop-filter:blur(6px);
-    align-items:center;justify-content:center;padding:24px;
-  }
-  .doctor-modal-overlay.open{display:flex;}
-  .doctor-modal{
-    background:linear-gradient(160deg, #0d5c66 0%, #0a3f52 100%);
-    border:1px solid rgba(255,255,255,.1);border-radius:5px;
-    max-width:640px;width:100%;max-height:88vh;overflow-y:auto;
-    display:grid;grid-template-columns:220px 1fr;
-    box-shadow:0 40px 100px rgba(0,0,0,.6);
-    position:relative;
-  }
-  .doctor-modal-close{
-    position:absolute;top:16px;right:16px;width:34px;height:34px;border-radius:50%;
-    background:rgba(255,255,255,.08);border:1px solid rgba(255,255,255,.15);color:#fff;
-    display:flex;align-items:center;justify-content:center;cursor:pointer;z-index:2;
-  }
-  .doctor-modal-close:hover{background:rgba(255,255,255,.16);}
-  .doctor-modal-photo{height:100%;min-height:260px;}
-  .doctor-modal-photo img{width:100%;height:100%;object-fit:cover;display:block;}
-  .doctor-modal-body{padding:32px 30px;}
-  .doctor-modal-body .role{font-size:12px;color:#7fb4ff;font-weight:700;text-transform:uppercase;letter-spacing:.04em;margin-bottom:8px;display:block;}
-  .doctor-modal-body h3{font-size:24px;color:#fff;margin-bottom:4px;font-family:'Fraunces',serif;}
-  .doctor-modal-body .exp{font-size:13px;color:rgba(255,255,255,.5);margin-bottom:18px;}
-  .doctor-modal-body p.bio{font-size:14px;color:rgba(255,255,255,.75);line-height:1.65;margin-bottom:20px;}
-  .doctor-modal-tags{display:flex;flex-wrap:wrap;gap:8px;margin-bottom:22px;}
-  .doctor-modal-tags span{
-    font-size:12px;padding:6px 12px;border-radius:5px;color:#7fd8cf;
-    background:linear-gradient(160deg, rgba(20,184,166,.16) 0%, rgba(37,99,235,.16) 100%);
-    border:1px solid rgba(127,180,255,.25);
-  }
-  .doctor-modal-body .btn{width:100%;text-align:center;}
+/* smooth catalog switch */
+#catalog{transition:opacity .22s ease,transform .22s ease;}
+#catalog.fade{opacity:0;transform:translateY(6px);}
 
-  /* ===== PRICING (premium, dark) ===== */
-  .pricing{
-    padding:110px 0;position:relative;overflow:hidden;
-    background:
-      radial-gradient(circle at 20% 10%, rgba(110,231,183,.12) 0%, transparent 45%),
-      radial-gradient(circle at 80% 90%, rgba(96,165,250,.14) 0%, transparent 45%),
-      linear-gradient(160deg, #064e4a 0%, #0d5c66 55%, #0a3f52 100%);
-  }
-  .pricing .section-head h2{color:#fff;}
-  .pricing .section-head p{color:rgba(255,255,255,.6);}
-  .pricing .eyebrow{background:rgba(96,165,250,.15);color:#7fb4ff;}
+.mobile-nav{padding-bottom:calc(8px + env(safe-area-inset-bottom));}
+header{padding-top:env(safe-area-inset-top);}
 
-  .pricing-carousel-wrap{position:relative;}
-  .pricing-grid{
-    display:flex;gap:16px;overflow-x:auto;scroll-snap-type:x mandatory;
-    -webkit-overflow-scrolling:touch;padding:6px 6px 10px;
-    position:relative;z-index:1;scrollbar-width:none;
-  }
-  .pricing-grid::-webkit-scrollbar{display:none;}
-  .price-card{
-    background:linear-gradient(160deg, rgba(255,255,255,.06) 0%, rgba(255,255,255,.02) 100%);
-    border-radius:5px;padding:26px 22px;border:1px solid rgba(255,255,255,.09);
-    display:flex;flex-direction:column;position:relative;
-    transition:transform .25s ease, border-color .25s ease;
-    will-change:transform;
-    flex:0 0 78%;max-width:300px;scroll-snap-align:center;
-  }
-  .price-card:hover{transform:translateY(-4px);border-color:rgba(127,180,255,.35);}
-  .price-card.featured{
-    background:linear-gradient(160deg, rgba(20,184,166,.16) 0%, rgba(37,99,235,.14) 100%);
-    border:1px solid rgba(127,180,255,.4);
-    box-shadow:0 20px 45px rgba(37,99,235,.2);
-  }
-  .price-tag{
-    position:absolute;top:-12px;right:22px;
-    background:linear-gradient(90deg,#60a5fa,#22d3ee);color:#04121f;
-    font-size:10.5px;font-weight:800;text-transform:uppercase;letter-spacing:.04em;
-    padding:6px 14px;border-radius:5px;box-shadow:0 8px 20px rgba(96,165,250,.4);
-  }
-  .price-card h3{font-size:19px;margin-bottom:5px;color:#fff;font-family:'Fraunces',serif;}
-  .price-card .plan-desc{font-size:12.5px;margin-bottom:18px;color:rgba(255,255,255,.55);}
-  .price-amount{display:flex;align-items:baseline;gap:6px;margin-bottom:20px;}
-  .price-amount .num{
-    font-family:'Inter','Plus Jakarta Sans',sans-serif;font-size:38px;font-weight:700;
-    font-variant-numeric:tabular-nums;letter-spacing:-0.02em;
-    background:linear-gradient(180deg,#e8f1ff 0%,#7fb4ff 100%);
-    -webkit-background-clip:text;background-clip:text;-webkit-text-fill-color:transparent;
-  }
-  .price-amount .per{font-size:12.5px;color:rgba(255,255,255,.5);}
-  .plan-features{list-style:none;display:flex;flex-direction:column;gap:11px;margin-bottom:22px;flex:1;}
-  .plan-features li{display:flex;align-items:center;gap:9px;font-size:13px;color:rgba(255,255,255,.85);}
-  .plan-features .check{
-    width:18px;height:18px;border-radius:50%;flex-shrink:0;
-    display:flex;align-items:center;justify-content:center;
-    background:rgba(96,165,250,.16);color:#7fb4ff;
-  }
-  .price-card .btn{width:100%;text-align:center;padding:11px 16px;font-size:13px;}
-  .price-card:not(.featured) .btn-outline{background:rgba(255,255,255,.04);color:#fff;border:1.5px solid rgba(255,255,255,.18);}
-  .price-card:not(.featured) .btn-outline:hover{border-color:#7fb4ff;color:#7fb4ff;}
-  .price-card.featured .btn-primary{background:linear-gradient(90deg,#60a5fa,#14b8a6);color:#04121f;font-weight:700;}
-  .price-card.featured .btn-primary:hover{box-shadow:0 12px 30px rgba(96,165,250,.4);}
-  .pricing-dots{display:flex;justify-content:center;gap:8px;margin-top:6px;}
-  .pdot{width:7px;height:7px;border-radius:50%;background:rgba(255,255,255,.25);transition:background .2s ease, width .2s ease;}
-  .pdot.active{background:#7fb4ff;width:20px;border-radius:5px;}
-
-  @media(min-width:901px){
-    .pricing-grid{overflow-x:visible;scroll-snap-type:none;justify-content:center;}
-    .price-card{flex:1 1 0;max-width:340px;padding:36px 30px;}
-    .price-card:hover{transform:translateY(-6px);}
-    .price-card.featured{transform:scale(1.03);}
-    .price-card.featured:hover{transform:scale(1.03) translateY(-6px);}
-    .pricing-dots{display:none;}
-  }
-
-  /* ===== PATIENT PHOTO AUTO-SCROLL STRIP ===== */
-  .patients-strip{padding:60px 0 100px;background:linear-gradient(160deg, #0a3f52 0%, #0d5c66 100%);overflow:hidden;position:relative;}
-  .patients-strip .strip-head{text-align:center;margin-bottom:36px;position:relative;z-index:1;}
-  .patients-strip .strip-head h3{color:#fff;font-size:26px;margin-bottom:8px;}
-  .patients-strip .strip-head p{color:rgba(255,255,255,.55);font-size:14px;}
-  .scroll-track-wrap{position:relative;-webkit-mask-image:linear-gradient(90deg, transparent 0, #000 8%, #000 92%, transparent 100%);mask-image:linear-gradient(90deg, transparent 0, #000 8%, #000 92%, transparent 100%);}
-  .scroll-track{display:flex;gap:20px;width:max-content;animation:scrollLeft 32s linear infinite;will-change:transform;transform:translateZ(0);backface-visibility:hidden;}
-  .scroll-track:hover{animation-play-state:paused;}
-  .scroll-track img{
-    width:180px;height:220px;object-fit:cover;border-radius:5px;
-    border:1px solid rgba(255,255,255,.1);flex-shrink:0;
-    content-visibility:auto;
-  }
-  @keyframes scrollLeft{from{transform:translate3d(0,0,0);}to{transform:translate3d(-50%,0,0);}}
-
-  .menu-toggle{display:none;background:none;border:none;color:var(--navy);cursor:pointer;padding:6px;}
-
-  /* ===================== MOBILE ===================== */
-  @media(max-width:900px){
-    .nav-links{
-      position:fixed;top:64px;left:0;right:0;background:#fff;
-      flex-direction:column;align-items:flex-start;gap:0;
-      max-height:0;overflow:hidden;transition:max-height .3s ease;
-      box-shadow:0 10px 30px rgba(10,22,40,.08);z-index:99;
-    }
-    .nav-links.open{max-height:400px;}
-    .nav-links a{width:100%;padding:16px 32px;border-bottom:1px solid var(--line);opacity:1;}
-    .menu-toggle{display:flex;align-items:center;justify-content:center;}
-    nav{padding:14px 16px;}
-    .nav-right{gap:8px;}
-    .nav-right .btn{padding:9px 14px;font-size:12.5px;}
-    .logo{font-size:17px;}
-
-    .wrap{padding:0 16px;}
-
-    .hero-grid{grid-template-columns:1fr;padding:28px 16px 24px;gap:22px;text-align:center;}
-    .hero-copy h1{font-size:27px;}
-    .hero-copy p{margin-left:auto;margin-right:auto;font-size:14.5px;}
-    .hero-btns{flex-direction:column;width:100%;gap:10px;}
-    .hero-btns .btn{width:100%;text-align:center;padding:13px 20px;}
-    .hero-trust{justify-content:center;margin-top:22px;}
-    .hero-photo{order:-1;}
-    .hero-photo img{height:240px;max-width:100%;}
-    .hero-photo .float-card{left:6px;top:14px;padding:9px 12px;gap:8px;}
-    .hero-photo .float-card strong{font-size:12px;}
-    .hero-photo .float-card span{font-size:10.5px;}
-
-    .services-strip{
-      display:grid;grid-template-columns:1fr 1fr 1fr;gap:14px 10px;
-      transform:none;border-radius:5px;padding:22px 14px;margin:0 16px;max-width:calc(100% - 32px);
-    }
-    .service-item{border-right:none;padding:0;}
-    .service-item span{font-size:12px;line-height:1.3;}
-    .service-icon{width:40px;height:40px;margin:0 auto 8px;}
-    .hero-spacer{height:30px;}
-
-    .about{padding:50px 0;}
-    .about-inner,.contact-inner{grid-template-columns:1fr;gap:28px;}
-    .about-photo img{height:260px;}
-    .about-badge{position:static;margin-top:-24px;max-width:100%;padding:14px 16px;}
-    .about-copy h2,.section-head h2,.contact-info h2{font-size:25px;}
-    .section-head{margin-bottom:28px;}
-    .section-head p{font-size:14px;}
-
-    .services{padding:50px 0;}
-    .services-grid{grid-template-columns:1fr 1fr;gap:12px;}
-    .service-card{height:180px;}
-    .service-card .card-body{padding:14px;}
-    .service-card .icon-box{width:36px;height:36px;margin-bottom:8px;}
-    .service-card h3{font-size:15px;}
-    .service-card p{font-size:11.5px;margin-bottom:8px;}
-    .service-card a{font-size:11.5px;}
-    .testi-grid{grid-template-columns:1fr;gap:14px;}
-    .testi-card{padding:22px;}
-
-    .doctors{padding:50px 0;}
-    .doctors-grid{grid-template-columns:1fr 1fr;gap:12px;}
-    .doctor-photo{height:170px;}
-    .doctor-info{padding:12px 14px 16px;}
-    .doctor-info h3{font-size:14.5px;}
-    .doctor-info .role{font-size:10.5px;margin-bottom:5px;}
-    .doctor-info p{font-size:11.5px;line-height:1.4;margin-bottom:10px;}
-    .btn-doctor-book{padding:9px 10px;font-size:11.5px;}
-    .doctor-social,.doctor-expand{width:28px;height:28px;top:10px;}
-    .doctor-modal{grid-template-columns:1fr;max-height:92vh;border-radius:5px;}
-    .doctor-modal-photo{height:180px;min-height:180px;}
-    .doctor-modal-body{padding:24px 20px;}
-    .doctor-modal-body h3{font-size:20px;}
-
-    .pricing{padding:50px 0;}
-    .patients-strip{padding:36px 0 50px;}
-    .scroll-track{gap:12px;}
-    .scroll-track img{width:120px;height:150px;border-radius:5px;}
-
-    .stats{padding:44px 0;}
-    .stats-grid{grid-template-columns:1fr 1fr;gap:22px 12px;}
-    .stat{padding:8px 4px;}
-    .stat h3{font-size:32px;}
-    .stat p{font-size:12.5px;}
-
-    .testimonials{padding:50px 0;}
-    .review-cta{padding:22px 20px;margin-top:28px;}
-    .review-form{flex-direction:column;}
-    .review-form .btn{width:100%;}
-
-    .cta{padding:38px 0;}
-    .cta-inner{flex-direction:column;text-align:center;gap:16px;}
-    .cta h2{font-size:23px;}
-    .cta .btn{width:100%;text-align:center;}
-
-    .contact{padding:50px 0;}
-    .contact-form{padding:20px;}
-    .form-row{grid-template-columns:1fr;gap:0;}
-
-    footer{padding:44px 0 20px;}
-    .footer-grid{grid-template-columns:1fr 1fr;gap:28px 16px;}
-    .footer-bottom{flex-direction:column;text-align:center;gap:12px;}
-  }
-
-  @media(max-width:520px){
-    .hero-copy h1{font-size:24px;}
-    .footer-grid{grid-template-columns:1fr 1fr;}
-    .stats-grid{grid-template-columns:1fr 1fr;}
-    .logo{font-size:17px;}
-    .doctors-grid{grid-template-columns:1fr 1fr;gap:10px;}
-    .doctor-photo{height:140px;}
-    .doctor-info{padding:12px 10px 14px;}
-    .doctor-info h3{font-size:13.5px;}
-    .doctor-info p{display:none;}
-    .btn-doctor-book{font-size:10.5px;padding:8px 8px;}
-    .services-grid{grid-template-columns:1fr 1fr;gap:10px;}
-    .service-card{height:150px;}
-    .services-strip{grid-template-columns:1fr 1fr 1fr;gap:12px 8px;padding:18px 12px;}
-    .service-item span{font-size:11px;}
-    .price-card{padding:24px 18px;}
-    .price-amount .num{font-size:38px;}
-  }
+/* ===== Location / serviceability ===== */
+.unavailable-box{
+  margin:16px 12px;padding:26px 18px;text-align:center;background:var(--card);
+  border:1px solid var(--line);border-radius:var(--radius);
+}
+.unavailable-box .icon-circle{
+  width:56px;height:56px;border-radius:50%;background:#fdeeee;color:#e35b5b;
+  display:flex;align-items:center;justify-content:center;margin:0 auto 14px;
+}
+.unavailable-box h3{font-size:15px;font-weight:800;margin-bottom:6px;}
+.unavailable-box p{font-size:12.5px;color:var(--sub);line-height:1.5;margin-bottom:14px;}
+.unavailable-box button{
+  padding:10px 20px;border-radius:var(--radius);background:var(--green);color:#fff;
+  font-size:12.5px;font-weight:700;transition:transform .18s;
+}
+.unavailable-box button:active{transform:scale(.95);}
 </style>
 </head>
 <body>
 
-
-
 <header>
-  <nav>
-    <div class="logo"><span class="logo-mark">
-      <svg width="18" height="18" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
-        <path d="M12 3C9.5 3 8 4.2 6.8 4.2C5.3 4.2 4 5.8 4 8.3C4 11 4.8 14.5 5.6 17.2C6.2 19.2 6.7 21 8 21C9.2 21 9.3 19 9.6 17.5C9.9 16 10.2 14.8 12 14.8C13.8 14.8 14.1 16 14.4 17.5C14.7 19 14.8 21 16 21C17.3 21 17.8 19.2 18.4 17.2C19.2 14.5 20 11 20 8.3C20 5.8 18.7 4.2 17.2 4.2C16 4.2 14.5 3 12 3Z" stroke="white" stroke-width="1.6" stroke-linejoin="round"/>
-      </svg>
-    </span> smile</div>
-    <div class="nav-links">
-      <a href="#home">Home</a><a href="#about">About</a><a href="#services">Services</a><a href="#doctors">Doctors</a><a href="#pricing">Pricing</a><a href="#contact">Contact</a>
-    </div>
-    <div class="nav-right">
-      <a href="https://wa.me/917730011011?text=Hi%2C%20I%27d%20like%20to%20book%20an%20appointment." target="_blank" class="btn btn-primary">Book Now</a>
-      <button class="menu-toggle" aria-label="Menu">
-        <svg width="22" height="22" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
-          <path d="M4 6H20M4 12H20M4 18H20" stroke="currentColor" stroke-width="2" stroke-linecap="round"/>
+  <div class="header-top">
+    <div class="logo">
+      <div class="logo-mark">
+        <svg viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+          <path d="M6 8V6.5a4.5 4.5 0 0 1 9 0V8" stroke="#0f6b4a" stroke-width="1.8" stroke-linecap="round"/>
+          <path d="M4.5 8h13l-1 12.2a1.8 1.8 0 0 1-1.8 1.6H7.3a1.8 1.8 0 0 1-1.8-1.6L4.5 8Z" fill="#0f6b4a"/>
+          <circle cx="10.6" cy="12" r="1" fill="#d4af37"/>
+          <circle cx="13.4" cy="12" r="1" fill="#d4af37"/>
         </svg>
-      </button>
+      </div>
+      <b>Shop<span>Kart</span></b>
     </div>
-  </nav>
+    <div class="search-bar" id="searchBar">
+      <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="11" cy="11" r="8"/><path d="m21 21-4.35-4.35"/></svg>
+      <input id="searchInput" type="text" placeholder="Search for products, brands and more">
+    </div>
+    <button class="header-icon" id="wishOpenBtn"><svg width="21" height="21" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M20.8 4.6a5.5 5.5 0 0 0-7.8 0L12 5.6l-1-1a5.5 5.5 0 0 0-7.8 7.8l1 1L12 21l7.8-7.6 1-1a5.5 5.5 0 0 0 0-7.8Z"/></svg><span class="badge" id="wishBadge" hidden>0</span></button>
+    <button class="header-icon" id="cartOpenBtn"><svg width="21" height="21" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="9" cy="21" r="1"/><circle cx="20" cy="21" r="1"/><path d="M1 1h4l2.7 13.4a2 2 0 0 0 2 1.6h9.7a2 2 0 0 0 2-1.6L23 6H6"/></svg><span class="badge" id="cartBadge" hidden>0</span></button>
+  </div>
+  <div class="loc-strip" id="locStrip">
+    <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M20 10c0 6-8 12-8 12S4 16 4 10a8 8 0 0 1 16 0Z"/><circle cx="12" cy="10" r="3"/></svg>
+    <span id="locText">Detecting your location…</span>
+    <span class="loc-status pending" id="locStatus"><span class="loc-dot"></span>Checking</span>
+  </div>
+  <div class="catnav" id="catNav"></div>
 </header>
 
-<!-- ===== HERO ===== -->
-<section class="hero" id="home">
-  <div class="hero-grid" style="position:relative;z-index:1;">
-    <div class="hero-copy">
-      <div class="eyebrow">✦ Trusted Dental Care</div>
-      <h1>Your perfect smile<br>starts here</h1>
-      <p>We use only the best quality materials on the market in order to provide the best products to our patients.</p>
-      <div class="hero-btns">
-        <a href="#services" class="btn btn-primary">Our Services</a>
-        <a href="https://wa.me/917730011011?text=Hi%2C%20I%27d%20like%20to%20book%20an%20appointment." target="_blank" class="btn btn-outline">Book Appointment</a>
-      </div>
-      <div class="hero-trust">
-        <div class="avatars">
-          <img src="https://images.unsplash.com/photo-1580489944761-15a19d654956?w=100&q=80" alt="patient" decoding="async">
-          <img src="https://images.unsplash.com/photo-1633332755192-727a05c4013d?w=100&q=80" alt="patient" decoding="async">
-          <img src="https://images.unsplash.com/photo-1544005313-94ddf0286df2?w=100&q=80" alt="patient" loading="lazy" decoding="async">
-        </div>
-        <div class="trust-text"><strong>12,000+ patients</strong>trust our care every year</div>
-      </div>
-    </div>
-    <div class="hero-photo">
-      <img src="https://images.unsplash.com/photo-1629909613654-28e377c37b09?w=700&q=80" alt="Modern dental chair" loading="lazy" decoding="async">
-      <div class="float-card">
-        <div class="ic"><svg width="16" height="16" viewBox="0 0 24 24" fill="none"><path d="M4 12L9 17L20 6" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"/></svg></div>
-        <div><strong>98% Satisfaction</strong><span>Rated by our patients</span></div>
-      </div>
-    </div>
-  </div>
-
-  <div class="services-strip">
-    <div class="service-item"><div class="service-icon">
-      <svg width="20" height="20" viewBox="0 0 24 24" fill="none"><path d="M12 3C9.5 3 8 4.2 6.8 4.2C5.3 4.2 4 5.8 4 8.3C4 11 4.8 14.5 5.6 17.2C6.2 19.2 6.7 21 8 21C9.2 21 9.3 19 9.6 17.5C9.9 16 10.2 14.8 12 14.8C13.8 14.8 14.1 16 14.4 17.5C14.7 19 14.8 21 16 21C17.3 21 17.8 19.2 18.4 17.2C19.2 14.5 20 11 20 8.3C20 5.8 18.7 4.2 17.2 4.2C16 4.2 14.5 3 12 3Z" stroke="currentColor" stroke-width="1.6" stroke-linejoin="round"/></svg>
-    </div><span>Cosmetic<br>Dentist</span></div>
-    <div class="service-item"><div class="service-icon">
-      <svg width="20" height="20" viewBox="0 0 24 24" fill="none"><path d="M4 12L9 17L20 6" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" opacity="0"/><path d="M6 4H18V9C18 13 15 15 12 15C9 15 6 13 6 9V4Z" stroke="currentColor" stroke-width="1.6" stroke-linejoin="round"/><path d="M9 15L8 20M15 15L16 20" stroke="currentColor" stroke-width="1.6" stroke-linecap="round"/></svg>
-    </div><span>Root Canal<br>Treatment</span></div>
-    <div class="service-item"><div class="service-icon">
-      <svg width="20" height="20" viewBox="0 0 24 24" fill="none"><circle cx="12" cy="7" r="3.2" stroke="currentColor" stroke-width="1.6"/><path d="M12 10.2V21M9 15L12 18L15 15" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"/></svg>
-    </div><span>Dental<br>Implants</span></div>
-    <div class="service-item"><div class="service-icon">
-      <svg width="20" height="20" viewBox="0 0 24 24" fill="none"><path d="M12 3L13.4 8.6L19 10L13.4 11.4L12 17L10.6 11.4L5 10L10.6 8.6L12 3Z" stroke="currentColor" stroke-width="1.4" stroke-linejoin="round"/><path d="M19 15L19.6 17.4L22 18L19.6 18.6L19 21L18.4 18.6L16 18L18.4 17.4L19 15Z" stroke="currentColor" stroke-width="1.2" stroke-linejoin="round"/></svg>
-    </div><span>Teeth<br>Whitening</span></div>
-    <div class="service-item"><div class="service-icon">
-      <svg width="20" height="20" viewBox="0 0 24 24" fill="none"><path d="M12 3V9M12 9L8 13H11L9 21L16 11H13L15 3H12Z" stroke="currentColor" stroke-width="1.6" stroke-linejoin="round" stroke-linecap="round"/></svg>
-    </div><span>Emergency<br>Dentistry</span></div>
-  </div>
-  <div class="hero-spacer"></div>
-</section>
-
-<!-- ===== ABOUT ===== -->
-<section class="about" id="about">
-  <div class="bg-circle circle-blue" style="width:260px;height:260px;top:-60px;right:-100px;"></div>
-  <div class="wrap about-inner" style="position:relative;z-index:1;">
-    <div class="about-photo">
-      <img src="https://images.unsplash.com/photo-1588776814546-1ffcf47267a5?w=700&q=80" alt="dentist at work" loading="lazy" decoding="async">
-      <div class="about-badge">
-        <div class="dot">15+</div>
-        <p>Years of combined dental experience caring for our community</p>
-      </div>
-    </div>
-    <div class="about-copy">
-      <div class="eyebrow">About Us</div>
-      <h2>Get ready for your best ever dental experience</h2>
-      <p>At Smile Dental Clinic, we combine modern technology with a gentle, patient-first approach. Our experienced team is dedicated to giving you a healthy, confident smile in a comfortable environment.</p>
-      <ul class="about-list">
-        <li><span class="check"><svg width="12" height="12" viewBox="0 0 24 24" fill="none"><path d="M4 12L9 17L20 6" stroke="white" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"/></svg></span> Certified & experienced dental specialists</li>
-        <li><span class="check"><svg width="12" height="12" viewBox="0 0 24 24" fill="none"><path d="M4 12L9 17L20 6" stroke="white" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"/></svg></span> Modern, sterilized equipment & technology</li>
-        <li><span class="check"><svg width="12" height="12" viewBox="0 0 24 24" fill="none"><path d="M4 12L9 17L20 6" stroke="white" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"/></svg></span> Flexible scheduling & emergency care</li>
-        <li><span class="check"><svg width="12" height="12" viewBox="0 0 24 24" fill="none"><path d="M4 12L9 17L20 6" stroke="white" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"/></svg></span> Affordable plans & insurance support</li>
-      </ul>
-      <a href="https://wa.me/917730011011?text=Hi%2C%20I%27d%20like%20to%20book%20an%20appointment." target="_blank" class="btn btn-dark">Book Appointment</a>
-    </div>
-  </div>
-</section>
-
-<!-- ===== DOCTORS ===== -->
-<section class="doctors" id="doctors">
-  <div class="bg-circle circle-teal" style="width:280px;height:280px;top:-80px;left:-90px;"></div>
-  <div class="bg-circle circle-blue" style="width:220px;height:220px;bottom:-60px;right:-70px;"></div>
-  <div class="wrap" style="position:relative;z-index:1;">
-    <div class="section-head">
-      <div class="eyebrow">Our Team</div>
-      <h2>Meet our specialists</h2>
-      <p>A team of experienced, caring dental professionals dedicated to your smile.</p>
-    </div>
-    <div class="doctors-grid">
-      <div class="doctor-card">
-        <div class="doctor-photo" onclick="openDoctorModal('d1')">
-          <img src="https://images.unsplash.com/photo-1622253692010-333f2da6031d?w=400&q=80" alt="Dr. Aisha Rao" loading="lazy" decoding="async">
-          <div class="doctor-social">in</div>
-          <div class="doctor-expand"><svg width="14" height="14" viewBox="0 0 24 24" fill="none"><path d="M9 3H3V9M15 3H21V9M9 21H3V15M15 21H21V15" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg></div>
-        </div>
-        <div class="doctor-info">
-          <h3 onclick="openDoctorModal('d1')">Dr. Aisha Rao</h3>
-          <span class="role">Cosmetic Dentist</span>
-          <p>12 years experience in smile design & veneers.</p>
-          <a href="https://wa.me/917730011011?text=Hi%2C%20I%27d%20like%20to%20book%20an%20appointment." target="_blank" class="btn btn-doctor-book">Book Appointment</a>
-        </div>
-      </div>
-      <div class="doctor-card">
-        <div class="doctor-photo" onclick="openDoctorModal('d2')">
-          <img src="https://images.unsplash.com/photo-1537368910025-700350fe46c7?w=400&q=80" alt="Dr. Karan Mehta" loading="lazy" decoding="async">
-          <div class="doctor-social">in</div>
-          <div class="doctor-expand"><svg width="14" height="14" viewBox="0 0 24 24" fill="none"><path d="M9 3H3V9M15 3H21V9M9 21H3V15M15 21H21V15" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg></div>
-        </div>
-        <div class="doctor-info">
-          <h3 onclick="openDoctorModal('d2')">Dr. Karan Mehta</h3>
-          <span class="role">Orthodontist</span>
-          <p>Specialist in braces, aligners & jaw alignment.</p>
-          <a href="https://wa.me/917730011011?text=Hi%2C%20I%27d%20like%20to%20book%20an%20appointment." target="_blank" class="btn btn-doctor-book">Book Appointment</a>
-        </div>
-      </div>
-      <div class="doctor-card">
-        <div class="doctor-photo" onclick="openDoctorModal('d3')">
-          <img src="https://images.unsplash.com/photo-1594824476967-48c8b964273f?w=400&q=80" alt="Dr. Neha Bhatt" loading="lazy" decoding="async">
-          <div class="doctor-social">in</div>
-          <div class="doctor-expand"><svg width="14" height="14" viewBox="0 0 24 24" fill="none"><path d="M9 3H3V9M15 3H21V9M9 21H3V15M15 21H21V15" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg></div>
-        </div>
-        <div class="doctor-info">
-          <h3 onclick="openDoctorModal('d3')">Dr. Neha Bhatt</h3>
-          <span class="role">Pediatric Dentist</span>
-          <p>Gentle, friendly care for children of all ages.</p>
-          <a href="https://wa.me/917730011011?text=Hi%2C%20I%27d%20like%20to%20book%20an%20appointment." target="_blank" class="btn btn-doctor-book">Book Appointment</a>
-        </div>
-      </div>
-      <div class="doctor-card">
-        <div class="doctor-photo" onclick="openDoctorModal('d4')">
-          <img src="https://images.unsplash.com/photo-1582750433449-648ed127bb54?w=400&q=80" alt="Dr. Ravi Chandran" loading="lazy" decoding="async">
-          <div class="doctor-social">in</div>
-          <div class="doctor-expand"><svg width="14" height="14" viewBox="0 0 24 24" fill="none"><path d="M9 3H3V9M15 3H21V9M9 21H3V15M15 21H21V15" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg></div>
-        </div>
-        <div class="doctor-info">
-          <h3 onclick="openDoctorModal('d4')">Dr. Ravi Chandran</h3>
-          <span class="role">Oral Surgeon</span>
-          <p>Expert in implants and advanced oral surgery.</p>
-          <a href="https://wa.me/917730011011?text=Hi%2C%20I%27d%20like%20to%20book%20an%20appointment." target="_blank" class="btn btn-doctor-book">Book Appointment</a>
-        </div>
-      </div>
-    </div>
-  </div>
-</section>
-
-<!-- ===== DOCTOR MODAL ===== -->
-<div class="doctor-modal-overlay" id="doctorModalOverlay" onclick="if(event.target===this)closeDoctorModal()">
-  <div class="doctor-modal">
-    <div class="doctor-modal-close" onclick="closeDoctorModal()">
-      <svg width="16" height="16" viewBox="0 0 24 24" fill="none"><path d="M6 6L18 18M6 18L18 6" stroke="currentColor" stroke-width="2" stroke-linecap="round"/></svg>
-    </div>
-    <div class="doctor-modal-photo"><img id="doctorModalImg" src="" alt=""></div>
-    <div class="doctor-modal-body">
-      <span class="role" id="doctorModalRole"></span>
-      <h3 id="doctorModalName"></h3>
-      <div class="exp" id="doctorModalExp"></div>
-      <p class="bio" id="doctorModalBio"></p>
-      <div class="doctor-modal-tags" id="doctorModalTags"></div>
-      <a href="https://wa.me/917730011011?text=Hi%2C%20I%27d%20like%20to%20book%20an%20appointment." target="_blank" class="btn btn-primary" onclick="closeDoctorModal()">Book with this doctor</a>
-    </div>
+<div id="pageTop">
+<div class="hero-wrap">
+  <div class="hero-card">
+    <img id="heroImg" src="https://images.unsplash.com/photo-1607083206968-13611e3d76db?w=1200&q=75&auto=format&fit=crop" alt="Big sale">
+    <div class="hero-dots" id="heroDots"></div>
   </div>
 </div>
 
-<script>
-  const doctorData = {
-    d1:{img:'https://images.unsplash.com/photo-1622253692010-333f2da6031d?w=500&q=80', name:'Dr. Aisha Rao', role:'Cosmetic Dentist', exp:'12+ years experience', bio:'Dr. Rao specializes in smile design, porcelain veneers and full-mouth aesthetic makeovers. She trained in advanced cosmetic dentistry and has helped thousands of patients gain confidence in their smile.', tags:['Veneers','Smile Design','Whitening','Bonding']},
-    d2:{img:'https://images.unsplash.com/photo-1537368910025-700350fe46c7?w=500&q=80', name:'Dr. Karan Mehta', role:'Orthodontist', exp:'9+ years experience', bio:'Dr. Mehta focuses on braces, clear aligners and jaw alignment for patients of all ages, combining precision diagnostics with a gentle chairside manner.', tags:['Braces','Invisalign','Jaw Alignment','Retainers']},
-    d3:{img:'https://images.unsplash.com/photo-1594824476967-48c8b964273f?w=500&q=80', name:'Dr. Neha Bhatt', role:'Pediatric Dentist', exp:'8+ years experience', bio:'Dr. Bhatt creates a calm, friendly environment for young patients, specializing in preventive care and early orthodontic screening for children.', tags:['Kids Dentistry','Preventive Care','Fluoride Treatment']},
-    d4:{img:'https://images.unsplash.com/photo-1582750433449-648ed127bb54?w=500&q=80', name:'Dr. Ravi Chandran', role:'Oral Surgeon', exp:'15+ years experience', bio:'Dr. Chandran is an expert in dental implants, wisdom tooth extraction and advanced oral surgery, known for his precise, minimally invasive techniques.', tags:['Implants','Wisdom Teeth','Oral Surgery','Bone Grafting']}
-  };
-  function openDoctorModal(id){
-    const d = doctorData[id];
-    document.getElementById('doctorModalImg').src = d.img;
-    document.getElementById('doctorModalName').textContent = d.name;
-    document.getElementById('doctorModalRole').textContent = d.role;
-    document.getElementById('doctorModalExp').textContent = d.exp;
-    document.getElementById('doctorModalBio').textContent = d.bio;
-    document.getElementById('doctorModalTags').innerHTML = d.tags.map(t=>'<span>'+t+'</span>').join('');
-    document.getElementById('doctorModalOverlay').classList.add('open');
-    document.body.style.overflow = 'hidden';
-  }
-  function closeDoctorModal(){
-    document.getElementById('doctorModalOverlay').classList.remove('open');
-    document.body.style.overflow = '';
-  }
-</script>
+<div id="catalog"></div>
 
-<!-- ===== SERVICES ===== -->
-<section class="services" id="services">
-  <div class="wrap">
-    <div class="section-head">
-      <div class="eyebrow">Our Services</div>
-      <h2>Everything your smile needs</h2>
-      <p>From routine cleanings to advanced procedures, we offer full-service dental care for the whole family.</p>
-    </div>
-    <div class="services-grid">
-      <div class="service-card">
-        <img src="https://images.unsplash.com/photo-1588776814546-1ffcf47267a5?w=500&q=80" alt="Cosmetic Dentistry" loading="lazy" decoding="async">
-        <div class="card-body">
-          <div class="icon-box"><svg width="20" height="20" viewBox="0 0 24 24" fill="none"><path d="M12 3C9.5 3 8 4.2 6.8 4.2C5.3 4.2 4 5.8 4 8.3C4 11 4.8 14.5 5.6 17.2C6.2 19.2 6.7 21 8 21C9.2 21 9.3 19 9.6 17.5C9.9 16 10.2 14.8 12 14.8C13.8 14.8 14.1 16 14.4 17.5C14.7 19 14.8 21 16 21C17.3 21 17.8 19.2 18.4 17.2C19.2 14.5 20 11 20 8.3C20 5.8 18.7 4.2 17.2 4.2C16 4.2 14.5 3 12 3Z" stroke="currentColor" stroke-width="1.6" stroke-linejoin="round"/></svg></div>
-          <h3>Cosmetic Dentistry</h3>
-          <p>Veneers, bonding, and smile makeovers for natural, lasting confidence.</p>
-          <a href="#">Learn more <svg width="14" height="14" viewBox="0 0 24 24" fill="none"><path d="M5 12H19M19 12L13 6M19 12L13 18" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg></a>
-        </div>
-      </div>
-      <div class="service-card">
-        <img src="https://images.unsplash.com/photo-1629909613654-28e377c37b09?w=500&q=80" alt="Root Canal Treatment" loading="lazy" decoding="async">
-        <div class="card-body">
-          <div class="icon-box"><svg width="20" height="20" viewBox="0 0 24 24" fill="none"><path d="M6 4H18V9C18 13 15 15 12 15C9 15 6 13 6 9V4Z" stroke="currentColor" stroke-width="1.6" stroke-linejoin="round"/><path d="M9 15L8 20M15 15L16 20" stroke="currentColor" stroke-width="1.6" stroke-linecap="round"/></svg></div>
-          <h3>Root Canal Treatment</h3>
-          <p>Pain-free, precise therapy to save your natural teeth.</p>
-          <a href="#">Learn more <svg width="14" height="14" viewBox="0 0 24 24" fill="none"><path d="M5 12H19M19 12L13 6M19 12L13 18" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg></a>
-        </div>
-      </div>
-      <div class="service-card">
-        <img src="https://images.unsplash.com/photo-1609840114035-3c981b782dfe?w=500&q=80" alt="Dental Implants" loading="lazy" decoding="async">
-        <div class="card-body">
-          <div class="icon-box"><svg width="20" height="20" viewBox="0 0 24 24" fill="none"><circle cx="12" cy="7" r="3.2" stroke="currentColor" stroke-width="1.6"/><path d="M12 10.2V21M9 15L12 18L15 15" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"/></svg></div>
-          <h3>Dental Implants</h3>
-          <p>Permanent, natural-looking implants that restore your full smile.</p>
-          <a href="#">Learn more <svg width="14" height="14" viewBox="0 0 24 24" fill="none"><path d="M5 12H19M19 12L13 6M19 12L13 18" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg></a>
-        </div>
-      </div>
-      <div class="service-card">
-        <img src="https://images.unsplash.com/photo-1606811841689-23dfddce3e95?w=500&q=80" alt="Teeth Whitening" loading="lazy" decoding="async">
-        <div class="card-body">
-          <div class="icon-box"><svg width="20" height="20" viewBox="0 0 24 24" fill="none"><path d="M12 3L13.4 8.6L19 10L13.4 11.4L12 17L10.6 11.4L5 10L10.6 8.6L12 3Z" stroke="currentColor" stroke-width="1.4" stroke-linejoin="round"/><path d="M19 15L19.6 17.4L22 18L19.6 18.6L19 21L18.4 18.6L16 18L18.4 17.4L19 15Z" stroke="currentColor" stroke-width="1.2" stroke-linejoin="round"/></svg></div>
-          <h3>Teeth Whitening</h3>
-          <p>Professional whitening for a brighter smile in one visit.</p>
-          <a href="#">Learn more <svg width="14" height="14" viewBox="0 0 24 24" fill="none"><path d="M5 12H19M19 12L13 6M19 12L13 18" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg></a>
-        </div>
-      </div>
-      <div class="service-card">
-        <img src="https://images.unsplash.com/photo-1598256989800-fe5f95da9787?w=500&q=80" alt="Emergency Dentistry" loading="lazy" decoding="async">
-        <div class="card-body">
-          <div class="icon-box"><svg width="20" height="20" viewBox="0 0 24 24" fill="none"><path d="M12 3V9M12 9L8 13H11L9 21L16 11H13L15 3H12Z" stroke="currentColor" stroke-width="1.6" stroke-linejoin="round" stroke-linecap="round"/></svg></div>
-          <h3>Emergency Dentistry</h3>
-          <p>Same-day appointments when dental pain or injury strikes.</p>
-          <a href="#">Learn more <svg width="14" height="14" viewBox="0 0 24 24" fill="none"><path d="M5 12H19M19 12L13 6M19 12L13 18" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg></a>
-        </div>
-      </div>
-      <div class="service-card">
-        <img src="https://images.unsplash.com/photo-1588776814491-217e15ce1d19?w=500&q=80" alt="Pediatric Dentistry" loading="lazy" decoding="async">
-        <div class="card-body">
-          <div class="icon-box"><svg width="20" height="20" viewBox="0 0 24 24" fill="none"><circle cx="12" cy="8" r="3.2" stroke="currentColor" stroke-width="1.6"/><path d="M5 21C5 17 8 15 12 15C16 15 19 17 19 21" stroke="currentColor" stroke-width="1.6" stroke-linecap="round"/></svg></div>
-          <h3>Pediatric Dentistry</h3>
-          <p>Gentle, friendly dental care for children and young patients.</p>
-          <a href="#">Learn more <svg width="14" height="14" viewBox="0 0 24 24" fill="none"><path d="M5 12H19M19 12L13 6M19 12L13 18" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg></a>
-        </div>
-      </div>
-    </div>
+<div class="toast" id="toast"></div>
+
+<nav class="mobile-nav">
+  <a href="#top" class="active"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M3 9.5 12 2l9 7.5V21a1 1 0 0 1-1 1h-5v-7H9v7H4a1 1 0 0 1-1-1Z"/></svg>Home</a>
+  <a href="#catalog"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="3" width="7" height="7" rx="1"/><rect x="14" y="3" width="7" height="7" rx="1"/><rect x="3" y="14" width="7" height="7" rx="1"/><rect x="14" y="14" width="7" height="7" rx="1"/></svg>Categories</a>
+  <a href="#" id="mobileWishBtn"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M20.8 4.6a5.5 5.5 0 0 0-7.8 0L12 5.6l-1-1a5.5 5.5 0 0 0-7.8 7.8l1 1L12 21l7.8-7.6 1-1a5.5 5.5 0 0 0 0-7.8Z"/></svg>Wishlist<span class="badge" id="mobWishBadge" hidden>0</span></a>
+  <a href="#" id="mobileCartBtn"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="9" cy="21" r="1"/><circle cx="20" cy="21" r="1"/><path d="M1 1h4l2.7 13.4a2 2 0 0 0 2 1.6h9.7a2 2 0 0 0 2-1.6L23 6H6"/></svg>Cart<span class="badge" id="mobCartBadge" hidden>0</span></a>
+</nav>
+
+<div class="overlay" id="cartOverlay">
+  <div class="panel">
+    <div class="panel-head"><h3>My Cart</h3><button class="panel-close" id="cartCloseBtn"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M18 6 6 18M6 6l12 12"/></svg></button></div>
+    <div class="panel-body" id="cartBody"></div>
+    <div class="panel-foot" id="cartFoot"></div>
   </div>
-</section>
+</div>
 
-<!-- ===== PRICING ===== -->
-<section class="pricing" id="pricing">
-  <div class="bg-circle circle-rose" style="width:240px;height:240px;top:-60px;right:-80px;"></div>
-  <div class="wrap" style="position:relative;z-index:1;">
-    <div class="section-head">
-      <div class="eyebrow">Pricing Plans</div>
-      <h2>Simple, transparent care plans</h2>
-      <p>Choose a plan that fits your family's dental needs — no hidden fees, ever.</p>
-    </div>
-    <div class="pricing-carousel-wrap">
-      <div class="pricing-grid">
-        <div class="price-card">
-          <h3>Basic Care</h3>
-          <p class="plan-desc">Essential checkups for individuals</p>
-          <div class="price-amount"><span class="num">₹999</span><span class="per">/ visit</span></div>
-          <ul class="plan-features">
-            <li><span class="check"><svg width="11" height="11" viewBox="0 0 24 24" fill="none"><path d="M4 12L9 17L20 6" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"/></svg></span> Routine checkup & cleaning</li>
-            <li><span class="check"><svg width="11" height="11" viewBox="0 0 24 24" fill="none"><path d="M4 12L9 17L20 6" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"/></svg></span> Digital X-ray</li>
-            <li><span class="check"><svg width="11" height="11" viewBox="0 0 24 24" fill="none"><path d="M4 12L9 17L20 6" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"/></svg></span> Cavity screening</li>
-          </ul>
-          <a href="https://wa.me/917730011011?text=Hi%2C%20I%27d%20like%20to%20book%20an%20appointment." target="_blank" class="btn btn-outline">Choose Plan</a>
-        </div>
-        <div class="price-card featured">
-          <div class="price-tag">Most Popular</div>
-          <h3>Complete Care</h3>
-          <p class="plan-desc">Full family dental coverage</p>
-          <div class="price-amount"><span class="num">₹2,499</span><span class="per">/ month</span></div>
-          <ul class="plan-features">
-            <li><span class="check"><svg width="11" height="11" viewBox="0 0 24 24" fill="none"><path d="M4 12L9 17L20 6" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"/></svg></span> 2 checkups + cleanings / year</li>
-            <li><span class="check"><svg width="11" height="11" viewBox="0 0 24 24" fill="none"><path d="M4 12L9 17L20 6" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"/></svg></span> Emergency visit coverage</li>
-            <li><span class="check"><svg width="11" height="11" viewBox="0 0 24 24" fill="none"><path d="M4 12L9 17L20 6" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"/></svg></span> Teeth whitening session</li>
-            <li><span class="check"><svg width="11" height="11" viewBox="0 0 24 24" fill="none"><path d="M4 12L9 17L20 6" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"/></svg></span> 15% off major procedures</li>
-          </ul>
-          <a href="https://wa.me/917730011011?text=Hi%2C%20I%27d%20like%20to%20book%20an%20appointment." target="_blank" class="btn btn-primary">Choose Plan</a>
-        </div>
-        <div class="price-card">
-          <h3>Premium Care</h3>
-          <p class="plan-desc">Advanced & cosmetic treatments</p>
-          <div class="price-amount"><span class="num">₹4,999</span><span class="per">/ month</span></div>
-          <ul class="plan-features">
-            <li><span class="check"><svg width="11" height="11" viewBox="0 0 24 24" fill="none"><path d="M4 12L9 17L20 6" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"/></svg></span> Everything in Complete Care</li>
-            <li><span class="check"><svg width="11" height="11" viewBox="0 0 24 24" fill="none"><path d="M4 12L9 17L20 6" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"/></svg></span> Priority same-day booking</li>
-            <li><span class="check"><svg width="11" height="11" viewBox="0 0 24 24" fill="none"><path d="M4 12L9 17L20 6" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"/></svg></span> Cosmetic consult included</li>
-            <li><span class="check"><svg width="11" height="11" viewBox="0 0 24 24" fill="none"><path d="M4 12L9 17L20 6" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"/></svg></span> 25% off major procedures</li>
-          </ul>
-          <a href="https://wa.me/917730011011?text=Hi%2C%20I%27d%20like%20to%20book%20an%20appointment." target="_blank" class="btn btn-outline">Choose Plan</a>
-        </div>
-      </div>
-      <div class="pricing-dots">
-        <span class="pdot active"></span><span class="pdot"></span><span class="pdot"></span>
-      </div>
-    </div>
+<div class="overlay" id="wishOverlay">
+  <div class="panel">
+    <div class="panel-head"><h3>Wishlist</h3><button class="panel-close" id="wishCloseBtn"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M18 6 6 18M6 6l12 12"/></svg></button></div>
+    <div class="panel-body" id="wishBody"></div>
   </div>
-</section>
+</div>
 
-<!-- ===== PATIENT PHOTO AUTO-SCROLL STRIP ===== -->
-<section class="patients-strip">
-  <div class="strip-head">
-    <h3>Loved by thousands of smiles</h3>
-    <p>Real patients, real results — from our chairs to your camera roll.</p>
-  </div>
-  <div class="scroll-track-wrap">
-    <div class="scroll-track" id="patientScrollTrack">
-      <img src="https://images.unsplash.com/photo-1580489944761-15a19d654956?w=300&q=80" alt="patient smile" loading="lazy" decoding="async">
-      <img src="https://images.unsplash.com/photo-1633332755192-727a05c4013d?w=300&q=80" alt="patient smile" loading="lazy" decoding="async">
-      <img src="https://images.unsplash.com/photo-1544005313-94ddf0286df2?w=300&q=80" alt="patient smile" loading="lazy" decoding="async">
-      <img src="https://images.unsplash.com/photo-1622253692010-333f2da6031d?w=300&q=80" alt="patient smile" loading="lazy" decoding="async">
-      <img src="https://images.unsplash.com/photo-1537368910025-700350fe46c7?w=300&q=80" alt="patient smile" loading="lazy" decoding="async">
-      <img src="https://images.unsplash.com/photo-1594824476967-48c8b964273f?w=300&q=80" alt="patient smile" loading="lazy" decoding="async">
-      <img src="https://images.unsplash.com/photo-1582750433449-648ed127bb54?w=300&q=80" alt="patient smile" loading="lazy" decoding="async">
-      <img src="https://images.unsplash.com/photo-1581182800629-7d90925ad072?w=300&q=80" alt="patient smile" loading="lazy" decoding="async">
-      <!-- duplicate set for seamless loop -->
-      <img src="https://images.unsplash.com/photo-1580489944761-15a19d654956?w=300&q=80" alt="patient smile" loading="lazy" decoding="async">
-      <img src="https://images.unsplash.com/photo-1633332755192-727a05c4013d?w=300&q=80" alt="patient smile" loading="lazy" decoding="async">
-      <img src="https://images.unsplash.com/photo-1544005313-94ddf0286df2?w=300&q=80" alt="patient smile" loading="lazy" decoding="async">
-      <img src="https://images.unsplash.com/photo-1622253692010-333f2da6031d?w=300&q=80" alt="patient smile" loading="lazy" decoding="async">
-      <img src="https://images.unsplash.com/photo-1537368910025-700350fe46c7?w=300&q=80" alt="patient smile" loading="lazy" decoding="async">
-      <img src="https://images.unsplash.com/photo-1594824476967-48c8b964273f?w=300&q=80" alt="patient smile" loading="lazy" decoding="async">
-      <img src="https://images.unsplash.com/photo-1582750433449-648ed127bb54?w=300&q=80" alt="patient smile" loading="lazy" decoding="async">
-      <img src="https://images.unsplash.com/photo-1581182800629-7d90925ad072?w=300&q=80" alt="patient smile" loading="lazy" decoding="async">
-    </div>
-  </div>
-</section>
-
-<!-- ===== STATS ===== -->
-<section class="stats">
-  <div class="wrap stats-grid">
-    <div class="stat"><h3>15+</h3><p>Years of Experience</p></div>
-    <div class="stat"><h3>12k+</h3><p>Happy Patients</p></div>
-    <div class="stat"><h3>25+</h3><p>Dental Specialists</p></div>
-    <div class="stat"><h3>98%</h3><p>Patient Satisfaction</p></div>
-  </div>
-</section>
-
-<!-- ===== TESTIMONIALS ===== -->
-<section class="testimonials" id="testimonials">
-  <div class="wrap">
-    <div class="section-head">
-      <div class="eyebrow">Testimonials</div>
-      <h2>What our patients say</h2>
-      <p>Real stories from real patients who trust us with their smiles.</p>
-    </div>
-    <div class="testi-grid">
-      <div class="testi-card">
-        <div class="stars"><svg width="15" height="15" viewBox="0 0 24 24" fill="currentColor"><path d="M12 2L14.6 9H22L16 13.4L18.2 20.5L12 16.3L5.8 20.5L8 13.4L2 9H9.4L12 2Z"/></svg><svg width="15" height="15" viewBox="0 0 24 24" fill="currentColor"><path d="M12 2L14.6 9H22L16 13.4L18.2 20.5L12 16.3L5.8 20.5L8 13.4L2 9H9.4L12 2Z"/></svg><svg width="15" height="15" viewBox="0 0 24 24" fill="currentColor"><path d="M12 2L14.6 9H22L16 13.4L18.2 20.5L12 16.3L5.8 20.5L8 13.4L2 9H9.4L12 2Z"/></svg><svg width="15" height="15" viewBox="0 0 24 24" fill="currentColor"><path d="M12 2L14.6 9H22L16 13.4L18.2 20.5L12 16.3L5.8 20.5L8 13.4L2 9H9.4L12 2Z"/></svg><svg width="15" height="15" viewBox="0 0 24 24" fill="currentColor"><path d="M12 2L14.6 9H22L16 13.4L18.2 20.5L12 16.3L5.8 20.5L8 13.4L2 9H9.4L12 2Z"/></svg></div>
-        <p>"Best dental experience I've ever had, hands down."</p>
-        <div class="testi-person">
-          <img src="https://images.unsplash.com/photo-1580489944761-15a19d654956?w=100&q=80" alt="patient" loading="lazy" decoding="async">
-          <div><strong>Priya Sharma</strong><span>Cosmetic Dentistry Patient</span></div>
-        </div>
-      </div>
-      <div class="testi-card">
-        <div class="stars"><svg width="15" height="15" viewBox="0 0 24 24" fill="currentColor"><path d="M12 2L14.6 9H22L16 13.4L18.2 20.5L12 16.3L5.8 20.5L8 13.4L2 9H9.4L12 2Z"/></svg><svg width="15" height="15" viewBox="0 0 24 24" fill="currentColor"><path d="M12 2L14.6 9H22L16 13.4L18.2 20.5L12 16.3L5.8 20.5L8 13.4L2 9H9.4L12 2Z"/></svg><svg width="15" height="15" viewBox="0 0 24 24" fill="currentColor"><path d="M12 2L14.6 9H22L16 13.4L18.2 20.5L12 16.3L5.8 20.5L8 13.4L2 9H9.4L12 2Z"/></svg><svg width="15" height="15" viewBox="0 0 24 24" fill="currentColor"><path d="M12 2L14.6 9H22L16 13.4L18.2 20.5L12 16.3L5.8 20.5L8 13.4L2 9H9.4L12 2Z"/></svg><svg width="15" height="15" viewBox="0 0 24 24" fill="currentColor"><path d="M12 2L14.6 9H22L16 13.4L18.2 20.5L12 16.3L5.8 20.5L8 13.4L2 9H9.4L12 2Z"/></svg></div>
-        <p>"Painless and quick — smoother than I expected."</p>
-        <div class="testi-person">
-          <img src="https://images.unsplash.com/photo-1633332755192-727a05c4013d?w=100&q=80" alt="patient" loading="lazy" decoding="async">
-          <div><strong>Arjun Mehta</strong><span>Dental Implants Patient</span></div>
-        </div>
-      </div>
-      <div class="testi-card">
-        <div class="stars"><svg width="15" height="15" viewBox="0 0 24 24" fill="currentColor"><path d="M12 2L14.6 9H22L16 13.4L18.2 20.5L12 16.3L5.8 20.5L8 13.4L2 9H9.4L12 2Z"/></svg><svg width="15" height="15" viewBox="0 0 24 24" fill="currentColor"><path d="M12 2L14.6 9H22L16 13.4L18.2 20.5L12 16.3L5.8 20.5L8 13.4L2 9H9.4L12 2Z"/></svg><svg width="15" height="15" viewBox="0 0 24 24" fill="currentColor"><path d="M12 2L14.6 9H22L16 13.4L18.2 20.5L12 16.3L5.8 20.5L8 13.4L2 9H9.4L12 2Z"/></svg><svg width="15" height="15" viewBox="0 0 24 24" fill="currentColor"><path d="M12 2L14.6 9H22L16 13.4L18.2 20.5L12 16.3L5.8 20.5L8 13.4L2 9H9.4L12 2Z"/></svg><svg width="15" height="15" viewBox="0 0 24 24" fill="currentColor"><path d="M12 2L14.6 9H22L16 13.4L18.2 20.5L12 16.3L5.8 20.5L8 13.4L2 9H9.4L12 2Z"/></svg></div>
-        <p>"Got me in same-day and were so kind throughout."</p>
-        <div class="testi-person">
-          <img src="https://images.unsplash.com/photo-1544005313-94ddf0286df2?w=100&q=80" alt="patient" loading="lazy" decoding="async">
-          <div><strong>Sara Khan</strong><span>Emergency Dentistry Patient</span></div>
-        </div>
-      </div>
-    </div>
-
-    <div class="review-cta">
-      <h4>Share your experience with us</h4>
-      <p>Enter your name and we'll open WhatsApp so you can send us your review directly.</p>
-      <div class="review-form">
-        <input type="text" id="reviewerName" placeholder="Your name" maxlength="40">
-        <button type="button" class="btn btn-primary" onclick="sendReviewWhatsApp()">Send Message</button>
-      </div>
-    </div>
-  </div>
-</section>
-
-<!-- ===== CTA ===== -->
-<section class="cta">
-  <div class="wrap cta-inner">
-    <div>
-      <h2>This is your year to smile</h2>
-      <p>Book your appointment today and let our experts take care of the rest.</p>
-    </div>
-    <a href="https://wa.me/917730011011?text=Hi%2C%20I%27d%20like%20to%20book%20an%20appointment." target="_blank" class="btn">Book Appointment</a>
-  </div>
-</section>
-
-<!-- ===== CONTACT ===== -->
-<section class="contact" id="contact">
-  <div class="wrap contact-inner">
-    <div class="contact-info">
-      <div class="eyebrow">Contact Us</div>
-      <h2>Book your appointment</h2>
-      <p>Reach out and our team will get back to you within one business day to confirm your visit.</p>
-      <div class="info-row">
-        <div class="icon-box"><svg width="18" height="18" viewBox="0 0 24 24" fill="none"><path d="M12 21C12 21 19 15 19 10C19 6.1 15.9 3 12 3C8.1 3 5 6.1 5 10C5 15 12 21 12 21Z" stroke="currentColor" stroke-width="1.6" stroke-linejoin="round"/><circle cx="12" cy="10" r="2.4" stroke="currentColor" stroke-width="1.6"/></svg></div>
-        <div><strong>Our Location</strong><span>221B Baker Street, Hyderabad, TG 500034</span></div>
-      </div>
-      <div class="info-row">
-        <div class="icon-box"><svg width="18" height="18" viewBox="0 0 24 24" fill="none"><path d="M5 4H9L11 9L8.5 10.5C9.5 12.7 11.3 14.5 13.5 15.5L15 13L20 15V19C20 20.1 19.1 21 18 21C10.3 20.5 3.5 13.7 3 6C3 4.9 3.9 4 5 4Z" stroke="currentColor" stroke-width="1.5" stroke-linejoin="round"/></svg></div>
-        <div><strong>Phone Number</strong><span>+91 77300 11011</span></div>
-      </div>
-      <div class="info-row">
-        <div class="icon-box"><svg width="18" height="18" viewBox="0 0 24 24" fill="none"><rect x="3" y="5" width="18" height="14" rx="2" stroke="currentColor" stroke-width="1.6"/><path d="M3 6L12 13L21 6" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"/></svg></div>
-        <div><strong>Email Address</strong><span>hello@smiledental.com</span></div>
-      </div>
-      <div class="info-row">
-        <div class="icon-box"><svg width="18" height="18" viewBox="0 0 24 24" fill="none"><circle cx="12" cy="12" r="8.5" stroke="currentColor" stroke-width="1.6"/><path d="M12 7V12L15.5 14" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"/></svg></div>
-        <div><strong>Working Hours</strong><span>Mon–Fri: 8am–9pm · Sat: 8am–6pm · Sun: Closed</span></div>
-      </div>
-    </div>
-    <div class="contact-form">
-      <div class="form-row">
-        <input type="text" id="cfFirstName" placeholder="First Name">
-        <input type="text" id="cfLastName" placeholder="Last Name">
-      </div>
-      <input type="email" id="cfEmail" placeholder="Email Address">
-      <input type="tel" id="cfPhone" placeholder="Phone Number">
-      <textarea id="cfMessage" placeholder="Tell us what you need..."></textarea>
-      <button type="button" class="btn btn-primary" onclick="sendContactWhatsApp()">Send Message</button>
-    </div>
-  </div>
-</section>
-
-<!-- ===== FOOTER ===== -->
 <footer>
-  <div class="wrap">
-    <div class="footer-grid">
-      <div>
-        <div class="footer-logo"><span class="logo-mark"><svg width="18" height="18" viewBox="0 0 24 24" fill="none"><path d="M12 3C9.5 3 8 4.2 6.8 4.2C5.3 4.2 4 5.8 4 8.3C4 11 4.8 14.5 5.6 17.2C6.2 19.2 6.7 21 8 21C9.2 21 9.3 19 9.6 17.5C9.9 16 10.2 14.8 12 14.8C13.8 14.8 14.1 16 14.4 17.5C14.7 19 14.8 21 16 21C17.3 21 17.8 19.2 18.4 17.2C19.2 14.5 20 11 20 8.3C20 5.8 18.7 4.2 17.2 4.2C16 4.2 14.5 3 12 3Z" stroke="white" stroke-width="1.6" stroke-linejoin="round"/></svg></span> smile</div>
-        <p style="font-size:14px;max-width:260px;">Modern, patient-first dental care for the whole family — trusted by thousands.</p>
-      </div>
-      <div class="footer-col">
-        <h4>Quick Links</h4>
-        <ul>
-          <li><a href="#home">Home</a></li>
-          <li><a href="#about">About</a></li>
-          <li><a href="#services">Services</a></li>
-          <li><a href="#contact">Contact</a></li>
-        </ul>
-      </div>
-      <div class="footer-col">
-        <h4>Services</h4>
-        <ul>
-          <li><a href="#">Cosmetic Dentistry</a></li>
-          <li><a href="#">Root Canal</a></li>
-          <li><a href="#">Dental Implants</a></li>
-          <li><a href="#">Teeth Whitening</a></li>
-        </ul>
-      </div>
-      <div class="footer-col">
-        <h4>Contact</h4>
-        <ul>
-          <li>221B Baker Street, Hyderabad</li>
-          <li>+91 77300 11011</li>
-          <li>hello@smiledental.com</li>
-        </ul>
-      </div>
-    </div>
-    <div class="footer-bottom">
-      <span>© 2026 Smile Dental Clinic. All rights reserved.</span>
-      <span>Privacy Policy · Terms of Service</span>
-    </div>
-  </div>
+  <div class="flogo">ShopKart</div>
+  <p>Fashion · Electronics · Grocery · Home &amp; more — all in one place. Demo storefront built for preview purposes.</p>
 </footer>
+</div><!-- /pageTop -->
 
 <script>
-  const menuToggle = document.querySelector('.menu-toggle');
-  const navLinks = document.querySelector('.nav-links');
-  menuToggle.addEventListener('click', () => navLinks.classList.toggle('open'));
-  navLinks.querySelectorAll('a').forEach(a => a.addEventListener('click', () => navLinks.classList.remove('open')));
+/* ================= DATA ================= */
+const ICONS = {
+  all:'<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="3" width="7" height="7" rx="1.5"/><rect x="14" y="3" width="7" height="7" rx="1.5"/><rect x="3" y="14" width="7" height="7" rx="1.5"/><rect x="14" y="14" width="7" height="7" rx="1.5"/></svg>',
+  fashion:'<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M16 4l-4 2-4-2-5 3 2 4h3v9a1 1 0 0 0 1 1h6a1 1 0 0 0 1-1v-9h3l2-4-5-3Z"/></svg>',
+  mobiles:'<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="6" y="2" width="12" height="20" rx="2"/><path d="M11 18h2"/></svg>',
+  electronics:'<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="2" y="4" width="20" height="14" rx="2"/><path d="M8 21h8M12 18v3"/></svg>',
+  beauty:'<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M9 2h6l1 4-4 3-4-3 1-4Z"/><path d="M9 9v10a3 3 0 0 0 6 0V9"/></svg>',
+  home:'<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M3 11l9-8 9 8"/><path d="M5 10v10a1 1 0 0 0 1 1h4v-6h4v6h4a1 1 0 0 0 1-1V10"/></svg>',
+  grocery:'<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="9" cy="21" r="1"/><circle cx="20" cy="21" r="1"/><path d="M1 1h4l2.7 13.4a2 2 0 0 0 2 1.6h9.7a2 2 0 0 0 2-1.6L23 6H6"/></svg>',
+  footwear:'<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M3 18v-4c2-1 3-2 4-4l2-3 3 2c2 1 4 2 9 2v4c0 1.7-1.3 3-3 3H4a1 1 0 0 1-1-1Z"/></svg>',
+  toys:'<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="7" r="4"/><path d="M5 21v-4a4 4 0 0 1 4-4h6a4 4 0 0 1 4 4v4"/></svg>'
+};
+const CATEGORIES = [
+  {id:'fashion', name:'Fashion', img:'https://images.unsplash.com/photo-1441984904996-e0b6ba687e04?w=200&q=70&auto=format&fit=crop'},
+  {id:'mobiles', name:'Mobiles', img:'https://images.unsplash.com/photo-1511707171634-5f897ff02aa9?w=200&q=70&auto=format&fit=crop'},
+  {id:'electronics', name:'Electronics', img:'https://images.unsplash.com/photo-1518444065439-e933c06ce9cd?w=200&q=70&auto=format&fit=crop'},
+  {id:'beauty', name:'Beauty', img:'https://images.unsplash.com/photo-1596462502278-27bfdc403348?w=200&q=70&auto=format&fit=crop'},
+  {id:'home', name:'Home', img:'https://images.unsplash.com/photo-1583847268964-b28dc8f51f92?w=200&q=70&auto=format&fit=crop'},
+  {id:'grocery', name:'Grocery', img:'https://images.unsplash.com/photo-1542838132-92c53300491e?w=200&q=70&auto=format&fit=crop'},
+  {id:'footwear', name:'Footwear', img:'https://images.unsplash.com/photo-1595950653106-6c9ebd614d3a?w=200&q=70&auto=format&fit=crop'},
+  {id:'toys', name:'Toys', img:'https://images.unsplash.com/photo-1558877385-81a1c7e67d72?w=200&q=70&auto=format&fit=crop'}
+];
 
-  // Pricing carousel dot sync
-  const pTrack = document.querySelector('.pricing-grid');
-  const pDots = document.querySelectorAll('.pdot');
-  if(pTrack && pDots.length){
-    let ticking = false;
-    pTrack.addEventListener('scroll', () => {
-      if(ticking) return;
-      ticking = true;
-      requestAnimationFrame(() => {
-        const cards = pTrack.querySelectorAll('.price-card');
-        const center = pTrack.scrollLeft + pTrack.clientWidth / 2;
-        let closest = 0, minDist = Infinity;
-        cards.forEach((c, i) => {
-          const dist = Math.abs((c.offsetLeft + c.offsetWidth / 2) - center);
-          if(dist < minDist){ minDist = dist; closest = i; }
-        });
-        pDots.forEach((d, i) => d.classList.toggle('active', i === closest));
-        ticking = false;
-      });
-    }, { passive: true });
+const PRODUCTS = [
+  {id:1,cat:'fashion',brand:'URBAN THREAD',title:"Men's Slim Fit Cotton Shirt",price:699,mrp:1799,rating:4.2,img:'https://images.unsplash.com/photo-1602810318383-e386cc2a3ccf?w=500&q=70&auto=format&fit=crop'},
+  {id:2,cat:'fashion',brand:'AURA',title:'Women Floral A-Line Dress',price:899,mrp:2499,rating:4.3,img:'https://images.unsplash.com/photo-1595777457583-95e059d581b8?w=500&q=70&auto=format&fit=crop'},
+  {id:3,cat:'fashion',brand:'DENIM CO',title:"Men's Slim Fit Blue Jeans",price:1099,mrp:2999,rating:4.1,img:'https://images.unsplash.com/photo-1542272604-787c3835535d?w=500&q=70&auto=format&fit=crop'},
+  {id:4,cat:'fashion',brand:'WEAVE',title:'Handwoven Cotton Saree',price:1499,mrp:3999,rating:4.4,img:'https://images.unsplash.com/photo-1610030181087-540f6f052ccc?w=500&q=70&auto=format&fit=crop'},
+  {id:5,cat:'footwear',brand:'STRIDE',title:'Running Sports Shoes',price:1299,mrp:3499,rating:4.3,img:'https://images.unsplash.com/photo-1542291026-7eec264c27ff?w=500&q=70&auto=format&fit=crop'},
+  {id:6,cat:'footwear',brand:'CLASSICO',title:'Formal Leather Loafers',price:1799,mrp:3999,rating:4.0,img:'https://images.unsplash.com/photo-1533867617858-e7b97e060509?w=500&q=70&auto=format&fit=crop'},
+  {id:7,cat:'footwear',brand:'BOUNCE',title:'Casual Canvas Sneakers',price:899,mrp:1999,rating:4.2,img:'https://images.unsplash.com/photo-1525966222134-fcfa99b8ae77?w=500&q=70&auto=format&fit=crop'},
+  {id:8,cat:'mobiles',brand:'NOVA',title:'Nova X5 5G Smartphone (8GB/128GB)',price:14999,mrp:19999,rating:4.3,img:'https://images.unsplash.com/photo-1511707171634-5f897ff02aa9?w=500&q=70&auto=format&fit=crop'},
+  {id:9,cat:'mobiles',brand:'PIXELWAVE',title:'PixelWave Buds Pro TWS Earbuds',price:1299,mrp:2999,rating:4.1,img:'https://images.unsplash.com/photo-1590658268037-6bf12165a8df?w=500&q=70&auto=format&fit=crop'},
+  {id:10,cat:'electronics',brand:'VOLTRIX',title:'Smart LED TV 43" Full HD',price:16999,mrp:26999,rating:4.2,img:'https://images.unsplash.com/photo-1593359677879-a4bb92f829d1?w=500&q=70&auto=format&fit=crop'},
+  {id:11,cat:'electronics',brand:'AIRCOOL',title:'Inverter Split AC 1.5 Ton',price:28999,mrp:41999,rating:4.1,img:'https://images.unsplash.com/photo-1631545806609-825168a92e59?w=500&q=70&auto=format&fit=crop'},
+  {id:12,cat:'electronics',brand:'SOUNDPEAK',title:'Bluetooth Party Speaker 40W',price:1999,mrp:4499,rating:4.4,img:'https://images.unsplash.com/photo-1608043152269-423dbba4e7e1?w=500&q=70&auto=format&fit=crop'},
+  {id:13,cat:'electronics',brand:'TECHGEAR',title:'Wireless Gaming Mouse RGB',price:699,mrp:1499,rating:4.3,img:'https://images.unsplash.com/photo-1527814050087-3793815479db?w=500&q=70&auto=format&fit=crop'},
+  {id:14,cat:'beauty',brand:'GLOWUP',title:'Vitamin C Brightening Face Serum',price:399,mrp:899,rating:4.2,img:'https://images.unsplash.com/photo-1620916566398-39f1143ab7be?w=500&q=70&auto=format&fit=crop'},
+  {id:15,cat:'beauty',brand:'PURE ROOTS',title:'Herbal Hair Growth Oil 200ml',price:249,mrp:499,rating:4.0,img:'https://images.unsplash.com/photo-1608248543803-ba4f8c70ae0b?w=500&q=70&auto=format&fit=crop'},
+  {id:16,cat:'beauty',brand:'VELVET',title:'Matte Lipstick Combo Pack of 3',price:349,mrp:799,rating:4.3,img:'https://images.unsplash.com/photo-1586495777744-4413f21062fa?w=500&q=70&auto=format&fit=crop'},
+  {id:17,cat:'home',brand:'COOKWELL',title:'Non-Stick Cookware Set (5pc)',price:1499,mrp:3299,rating:4.2,img:'https://images.unsplash.com/photo-1584990347449-a0f28a9a70d3?w=500&q=70&auto=format&fit=crop'},
+  {id:18,cat:'home',brand:'LINEN LOFT',title:'Cotton Double Bedsheet Set',price:799,mrp:1899,rating:4.1,img:'https://images.unsplash.com/photo-1522771930-78848d9293e8?w=500&q=70&auto=format&fit=crop'},
+  {id:19,cat:'home',brand:'GLOWLITE',title:'LED Table Lamp Modern Design',price:599,mrp:1299,rating:4.0,img:'https://images.unsplash.com/photo-1507473885765-e6ed057f782c?w=500&q=70&auto=format&fit=crop'},
+  {id:20,cat:'grocery',brand:'FARM FRESH',title:'Assorted Fresh Fruits Box 2kg',price:299,mrp:399,rating:4.3,img:'https://images.unsplash.com/photo-1610832958506-aa56368176cf?w=500&q=70&auto=format&fit=crop'},
+  {id:21,cat:'grocery',brand:'GOLDEN HARVEST',title:'Basmati Rice Premium 5kg',price:499,mrp:649,rating:4.4,img:'https://images.unsplash.com/photo-1586201375761-83865001e31c?w=500&q=70&auto=format&fit=crop'},
+  {id:22,cat:'grocery',brand:'DAILY DAIRY',title:'Farm Milk & Dairy Combo Pack',price:249,mrp:329,rating:4.2,img:'https://images.unsplash.com/photo-1550583724-b2692b85b150?w=500&q=70&auto=format&fit=crop'},
+  {id:23,cat:'toys',brand:'PLAYZONE',title:'Building Blocks Set (120pc)',price:599,mrp:1299,rating:4.5,img:'https://images.unsplash.com/photo-1587654780291-39c9404d746b?w=500&q=70&auto=format&fit=crop'},
+  {id:24,cat:'toys',brand:'FUNTOWN',title:'Remote Control Racing Car',price:899,mrp:1999,rating:4.2,img:'https://images.unsplash.com/photo-1594787318286-3d835c1d207f?w=500&q=70&auto=format&fit=crop'},
+  {id:25,cat:'fashion',brand:'REGAL',title:"Men's Formal Blazer",price:1999,mrp:4999,rating:4.5,img:'https://images.unsplash.com/photo-1594938298603-c8148c4dae35?w=500&q=70&auto=format&fit=crop'},
+  {id:26,cat:'fashion',brand:'AURA',title:'Women Silk Blend Kurti',price:649,mrp:1599,rating:4.1,img:'https://images.unsplash.com/photo-1583391733956-6c78276477e2?w=500&q=70&auto=format&fit=crop'},
+  {id:27,cat:'mobiles',brand:'NOVA',title:'Nova Watch Fit Pro Smartwatch',price:2499,mrp:5999,rating:4.4,img:'https://images.unsplash.com/photo-1523275335684-37898b6baf30?w=500&q=70&auto=format&fit=crop'},
+  {id:28,cat:'mobiles',brand:'CHARGEX',title:'65W GaN Fast Charger',price:999,mrp:1999,rating:4.3,img:'https://images.unsplash.com/photo-1583863788434-e58a36330cf0?w=500&q=70&auto=format&fit=crop'},
+  {id:29,cat:'electronics',brand:'CHILLPRO',title:'Double Door Refrigerator 260L',price:24999,mrp:34999,rating:4.3,img:'https://images.unsplash.com/photo-1571175443880-49e1d25b2bc5?w=500&q=70&auto=format&fit=crop'},
+  {id:30,cat:'electronics',brand:'AEROFLOW',title:'Tower Air Cooler 40L',price:5999,mrp:9999,rating:4.0,img:'https://images.unsplash.com/photo-1631545806609-825168a92e59?w=500&q=70&auto=format&fit=crop'},
+  {id:31,cat:'beauty',brand:'SUNGUARD',title:'SPF 50 Sunscreen Gel 100g',price:299,mrp:599,rating:4.4,img:'https://images.unsplash.com/photo-1556228578-8c89e6adf883?w=500&q=70&auto=format&fit=crop'},
+  {id:32,cat:'beauty',brand:'AROMA',title:'Luxury Perfume Gift Set',price:1299,mrp:2999,rating:4.5,img:'https://images.unsplash.com/photo-1541643600914-78b084683601?w=500&q=70&auto=format&fit=crop'},
+  {id:33,cat:'home',brand:'PUREBREW',title:'Automatic Espresso Coffee Maker',price:3999,mrp:7999,rating:4.3,img:'https://images.unsplash.com/photo-1517668808822-9ebb02f2a0e6?w=500&q=70&auto=format&fit=crop'},
+  {id:34,cat:'home',brand:'GREENLEAF',title:'Artificial Plant Decor Set',price:449,mrp:999,rating:4.1,img:'https://images.unsplash.com/photo-1485955900006-10f4d324d411?w=500&q=70&auto=format&fit=crop'},
+  {id:35,cat:'grocery',brand:'SPICE ROUTE',title:'Premium Spice Combo Pack',price:399,mrp:599,rating:4.4,img:'https://images.unsplash.com/photo-1596040033229-a9821ebd058d?w=500&q=70&auto=format&fit=crop'},
+  {id:36,cat:'grocery',brand:'CRUNCH CO',title:'Assorted Dry Fruits Box 1kg',price:699,mrp:999,rating:4.5,img:'https://images.unsplash.com/photo-1599599810769-bcde5a160d32?w=500&q=70&auto=format&fit=crop'},
+  {id:37,cat:'footwear',brand:'STRIDE',title:"Women's Ballet Flats",price:799,mrp:1799,rating:4.2,img:'https://images.unsplash.com/photo-1543163521-1bf539c55dd2?w=500&q=70&auto=format&fit=crop'},
+  {id:38,cat:'toys',brand:'PLAYZONE',title:'Educational Puzzle Set',price:349,mrp:699,rating:4.3,img:'https://images.unsplash.com/photo-1602934585418-f588bea4215c?w=500&q=70&auto=format&fit=crop'}
+];
+
+const HERO_SLIDES = [
+  'https://images.unsplash.com/photo-1607083206968-13611e3d76db?w=1200&q=75&auto=format&fit=crop',
+  'https://images.unsplash.com/photo-1483985988355-763728e1935b?w=1200&q=75&auto=format&fit=crop',
+  'https://images.unsplash.com/photo-1441986300917-64674bd600d8?w=1200&q=75&auto=format&fit=crop'
+];
+
+const inr = n => '₹' + n.toLocaleString('en-IN');
+let CART = {}, WISHLIST = new Set();
+
+function findProduct(id){ return PRODUCTS.find(p=>p.id===id); }
+
+/* ===== Render category nav + chips ===== */
+document.getElementById('catNav').innerHTML =
+  `<button class="active" data-cat="all" title="All">${ICONS.all}</button>` +
+  CATEGORIES.map(c=>`<button data-cat="${c.id}" title="${c.name}">${ICONS[c.id]||ICONS.all}</button>`).join('');
+
+/* Fixed header height -> push content down so nothing overlaps */
+function syncHeaderHeight(){
+  const h = document.querySelector('header').offsetHeight;
+  document.documentElement.style.setProperty('--header-total-h', h+'px');
+}
+syncHeaderHeight();
+window.addEventListener('resize', syncHeaderHeight);
+window.addEventListener('load', syncHeaderHeight);
+
+/* ===== Hero slider ===== */
+document.getElementById('heroDots').innerHTML = HERO_SLIDES.map((_,i)=>`<span class="${i===0?'active':''}"></span>`).join('');
+let heroIdx=0;
+setInterval(()=>{
+  heroIdx=(heroIdx+1)%HERO_SLIDES.length;
+  document.getElementById('heroImg').src = HERO_SLIDES[heroIdx];
+  document.querySelectorAll('.hero-dots span').forEach((d,i)=>d.classList.toggle('active', i===heroIdx));
+}, 3500);
+
+/* ===== Card builder ===== */
+function ratingStars(r){
+  return `<span class="stars">${r} <svg width="9" height="9" viewBox="0 0 24 24" fill="currentColor"><path d="M12 2l3.09 6.26L22 9.27l-5 4.87L18.18 21 12 17.77 5.82 21 7 14.14l-5-4.87 6.91-1.01L12 2z"/></svg></span>`;
+}
+function productCardHTML(p, i){
+  const off = Math.round((1 - p.price/p.mrp)*100);
+  const qty = CART[p.id] || 0;
+  const wished = WISHLIST.has(p.id);
+  return `
+  <div class="card" id="card-${p.id}" style="animation-delay:${(i%10)*0.04}s">
+    <div class="card-img-wrap">
+      <img src="${p.img}" alt="${p.title}" loading="lazy">
+      <span class="discount-tag">${off}% OFF</span>
+      <button class="wish-btn ${wished?'active':''}" data-act="wish" data-id="${p.id}">
+        <svg width="15" height="15" viewBox="0 0 24 24" fill="${wished?'currentColor':'none'}" stroke="currentColor" stroke-width="2"><path d="M20.8 4.6a5.5 5.5 0 0 0-7.8 0L12 5.6l-1-1a5.5 5.5 0 0 0-7.8 7.8l1 1L12 21l7.8-7.6 1-1a5.5 5.5 0 0 0 0-7.8Z"/></svg>
+      </button>
+    </div>
+    <div class="card-body">
+      <div class="card-brand">${p.brand}</div>
+      <div class="card-title">${p.title}</div>
+      <div class="card-rating">${ratingStars(p.rating)}</div>
+      <div class="card-price-row">
+        <span class="price-now">${inr(p.price)}</span>
+        <span class="price-old">${inr(p.mrp)}</span>
+      </div>
+    </div>
+    <div class="card-cta" id="cta-${p.id}">
+      ${qty>0 ? qtyStepperHTML(p.id, qty) : `<button class="add-btn" data-act="add" data-id="${p.id}">
+        <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 5v14M5 12h14"/></svg> Add
+      </button>`}
+    </div>
+  </div>`;
+}
+function qtyStepperHTML(id, qty){
+  return `<div class="qty-stepper">
+    <button data-act="dec" data-id="${id}">−</button>
+    <span data-role="qty">${qty}</span>
+    <button data-act="inc" data-id="${id}">+</button>
+  </div>`;
+}
+
+/* ===== Catalog render (grouped by category bands) ===== */
+function renderCatalog(filterCat){
+  const el = document.getElementById('catalog');
+  const cats = filterCat && filterCat!=='all' ? [filterCat] : [...new Set(PRODUCTS.map(p=>p.cat))];
+  el.innerHTML = cats.map(catId=>{
+    const cat = CATEGORIES.find(c=>c.id===catId);
+    const items = PRODUCTS.filter(p=>p.cat===catId);
+    if(!items.length) return '';
+    return `
+    <div class="section">
+      <div class="section-head"><h2>${cat.name}</h2><a href="#">See all <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="m9 18 6-6-6-6"/></svg></a></div>
+      <div class="grid">${items.map((p,i)=>productCardHTML(p,i)).join('')}</div>
+    </div>`;
+  }).join('');
+}
+renderCatalog('all');
+
+/* ===== Geolocation & serviceability (premium touch) ===== */
+const INDIA_BOUNDS = {latMin:6, latMax:37.5, lngMin:68, lngMax:97.5};
+function isServiceable(lat,lng){
+  return lat>=INDIA_BOUNDS.latMin && lat<=INDIA_BOUNDS.latMax && lng>=INDIA_BOUNDS.lngMin && lng<=INDIA_BOUNDS.lngMax;
+}
+function setLocStatus(kind, text, statusText){
+  document.getElementById('locText').textContent = text;
+  const s = document.getElementById('locStatus');
+  s.className = 'loc-status '+kind;
+  s.innerHTML = `<span class="loc-dot"></span>${statusText}`;
+}
+function showUnavailable(){
+  const el = document.getElementById('catalog');
+  el.innerHTML = `<div class="unavailable-box">
+    <div class="icon-circle"><svg width="26" height="26" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M20 10c0 6-8 12-8 12S4 16 4 10a8 8 0 0 1 16 0Z"/><path d="M9.5 8.5l5 5m0-5-5 5"/></svg></div>
+    <h3>Not deliverable to your location</h3>
+    <p>We're not available in your area just yet — we're expanding fast! Check back soon or try a different location.</p>
+    <button id="retryLocBtn">Try Again</button>
+  </div>`;
+  document.getElementById('retryLocBtn').addEventListener('click', initLocation);
+}
+async function reverseGeocode(lat,lng){
+  try{
+    const res = await fetch(`https://api.bigdatacloud.net/data/reverse-geocode-client?latitude=${lat}&longitude=${lng}&localityLanguage=en`);
+    const data = await res.json();
+    return data.city || data.locality || data.principalSubdivision || 'your area';
+  }catch(e){ return 'your area'; }
+}
+function initLocation(){
+  setLocStatus('pending','Detecting your location…','Checking');
+  if(!('geolocation' in navigator)){
+    setLocStatus('no','Location unavailable on this device','Unsupported');
+    return;
   }
-
-  function sendReviewWhatsApp(){
-    const nameInput = document.getElementById('reviewerName');
-    const name = nameInput.value.trim();
-    if(!name){
-      nameInput.focus();
-      nameInput.style.borderColor = '#ef4444';
-      setTimeout(() => { nameInput.style.borderColor = ''; }, 1500);
-      return;
+  navigator.geolocation.getCurrentPosition(async pos=>{
+    const {latitude:lat, longitude:lng} = pos.coords;
+    const ok = isServiceable(lat,lng);
+    const place = await reverseGeocode(lat,lng);
+    if(ok){
+      setLocStatus('ok', `Delivering to ${place}`, 'Available');
+      renderCatalog('all');
+    } else {
+      setLocStatus('no', `${place} — outside delivery zone`, 'Unavailable');
+      showUnavailable();
     }
-    const msg = `Hi, my name is ${name}. I'd like to share my review of my visit to Smile Dental Clinic.`;
-    window.open('https://wa.me/917730011011?text=' + encodeURIComponent(msg), '_blank');
-  }
+  }, err=>{
+    setLocStatus('no','Enable location to check delivery','Permission needed');
+  }, {enableHighAccuracy:false, timeout:8000});
+}
+initLocation();
+document.getElementById('locStrip').addEventListener('click', ()=>{
+  if(document.getElementById('locStatus').classList.contains('no')) initLocation();
+});
 
-  function sendContactWhatsApp(){
-    const fn = document.getElementById('cfFirstName').value.trim();
-    const ln = document.getElementById('cfLastName').value.trim();
-    const msgBody = document.getElementById('cfMessage').value.trim();
-    const name = (fn + ' ' + ln).trim();
-    if(!name){
-      document.getElementById('cfFirstName').focus();
-      return;
-    }
-    let msg = `Hi, my name is ${name}.`;
-    if(msgBody) msg += ` ${msgBody}`;
-    window.open('https://wa.me/917730011011?text=' + encodeURIComponent(msg), '_blank');
+/* ===== Category nav interactions (smooth fade swap, header/footer stay fixed) ===== */
+function switchCategory(cat){
+  const el = document.getElementById('catalog');
+  el.classList.add('fade');
+  window.scrollTo({top:0, behavior:'smooth'});
+  setTimeout(()=>{
+    renderCatalog(cat);
+    el.classList.remove('fade');
+  }, 180);
+  document.querySelectorAll('.catnav button').forEach(b=>b.classList.toggle('active', b.dataset.cat===cat));
+}
+document.getElementById('catNav').addEventListener('click', e=>{
+  const btn = e.target.closest('button'); if(!btn) return;
+  switchCategory(btn.dataset.cat);
+});
+
+/* ===== Toast ===== */
+let toastTimer;
+function showToast(msg){
+  const t = document.getElementById('toast');
+  t.textContent = msg; t.classList.add('show');
+  clearTimeout(toastTimer);
+  toastTimer = setTimeout(()=>t.classList.remove('show'), 1600);
+}
+
+/* ===== Cart / Wishlist logic ===== */
+function cartTotal(){ return Object.entries(CART).reduce((s,[id,q])=>s+findProduct(+id).price*q,0); }
+function cartCount(){ return Object.values(CART).reduce((a,b)=>a+b,0); }
+
+function setQty(id, qty){
+  qty = Math.max(0, qty);
+  const isNew = !CART[id] && qty>0;
+  if(qty<=0) delete CART[id]; else CART[id]=qty;
+  updateBadges();
+  const cta = document.getElementById(`cta-${id}`);
+  if(cta) cta.innerHTML = qty>0 ? qtyStepperHTML(id, qty) : `<button class="add-btn" data-act="add" data-id="${id}"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 5v14M5 12h14"/></svg> Add</button>`;
+  if(qty===0){ cartRemoveRow(id); } else { cartUpsert(id, isNew); }
+}
+function addToCart(id){
+  setQty(id, (CART[id]||0)+1);
+  showToast('Added to cart');
+  const badge = document.getElementById('cartBadge');
+  badge.classList.remove('pop'); void badge.offsetWidth; badge.classList.add('pop');
+}
+function toggleWish(id){
+  const btn = document.querySelector(`.wish-btn[data-id="${id}"]`);
+  if(WISHLIST.has(id)){
+    WISHLIST.delete(id);
+    if(btn){ btn.classList.remove('active'); btn.querySelector('svg').setAttribute('fill','none'); }
+    wishRemoveRow(id);
+  } else {
+    WISHLIST.add(id);
+    if(btn){ btn.classList.add('active'); btn.querySelector('svg').setAttribute('fill','currentColor'); }
+    wishAddRow(id);
+    showToast('Added to wishlist');
   }
+  updateBadges();
+}
+function updateBadges(){
+  const cc = cartCount(), wc = WISHLIST.size;
+  [['cartBadge',cc],['mobCartBadge',cc],['wishBadge',wc],['mobWishBadge',wc]].forEach(([id,val])=>{
+    const el = document.getElementById(id);
+    el.hidden = val===0; el.textContent = val;
+  });
+}
+
+document.body.addEventListener('click', e=>{
+  const btn = e.target.closest('[data-act]');
+  if(!btn) return;
+  const act = btn.dataset.act, id = +btn.dataset.id;
+  if(act==='add') addToCart(id);
+  else if(act==='inc') setQty(id, (CART[id]||0)+1);
+  else if(act==='dec') setQty(id, (CART[id]||0)-1);
+  else if(act==='wish') toggleWish(id);
+});
+
+/* ===== Panels ===== */
+const cartOverlay = document.getElementById('cartOverlay');
+const wishOverlay = document.getElementById('wishOverlay');
+function openPanel(p){ p.classList.add('open'); document.body.classList.add('lock'); }
+function closePanel(p){ p.classList.remove('open'); document.body.classList.remove('lock'); }
+function closeAll(){ closePanel(cartOverlay); closePanel(wishOverlay); }
+
+document.getElementById('cartOpenBtn').addEventListener('click', ()=>{ closePanel(wishOverlay); openPanel(cartOverlay); });
+document.getElementById('cartCloseBtn').addEventListener('click', ()=>closePanel(cartOverlay));
+document.getElementById('mobileCartBtn').addEventListener('click', e=>{ e.preventDefault(); closePanel(wishOverlay); openPanel(cartOverlay); });
+cartOverlay.addEventListener('click', e=>{ if(e.target===cartOverlay) closePanel(cartOverlay); });
+
+document.getElementById('wishOpenBtn').addEventListener('click', ()=>{ closePanel(cartOverlay); openPanel(wishOverlay); });
+document.getElementById('wishCloseBtn').addEventListener('click', ()=>closePanel(wishOverlay));
+document.getElementById('mobileWishBtn').addEventListener('click', e=>{ e.preventDefault(); closePanel(cartOverlay); openPanel(wishOverlay); });
+wishOverlay.addEventListener('click', e=>{ if(e.target===wishOverlay) closePanel(wishOverlay); });
+document.addEventListener('keydown', e=>{ if(e.key==='Escape') closeAll(); });
+
+/* ===== Cart panel incremental render ===== */
+function cartItemRowHTML(p, qty){
+  return `
+    <div class="panel-item-img-wrap"><img src="${p.img}" alt="${p.title}"></div>
+    <div class="panel-item-info">
+      <div class="pib">${p.brand}</div>
+      <div class="pit">${p.title}</div>
+      <div class="panel-item-price" data-role="line-price">${inr(p.price*qty)}</div>
+      <div class="panel-item-actions">
+        <div class="qty-stepper">
+          <button data-act="dec" data-id="${p.id}">−</button>
+          <span data-role="qty">${qty}</span>
+          <button data-act="inc" data-id="${p.id}">+</button>
+        </div>
+        <button class="panel-item-remove" data-act="rm" data-id="${p.id}">Remove</button>
+      </div>
+    </div>`;
+}
+function cartEmptyState(){
+  return `<div class="panel-empty">
+    <svg width="46" height="46" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6"><circle cx="9" cy="21" r="1"/><circle cx="20" cy="21" r="1"/><path d="M1 1h4l2.7 13.4a2 2 0 0 0 2 1.6h9.7a2 2 0 0 0 2-1.6L23 6H6"/></svg>
+    <b>Your cart is empty</b><span>Add products to get started.</span>
+  </div>`;
+}
+function initCartPanel(){
+  const body = document.getElementById('cartBody');
+  const foot = document.getElementById('cartFoot');
+  const ids = Object.keys(CART);
+  if(!ids.length){ body.innerHTML = cartEmptyState(); foot.innerHTML=''; return; }
+  body.innerHTML = ids.map((id,i)=>`<div class="panel-item" id="cart-row-${id}" data-id="${id}" style="animation-delay:${i*0.05}s">${cartItemRowHTML(findProduct(+id), CART[id])}</div>`).join('');
+  foot.innerHTML = `
+    <div class="panel-summary-row"><span>Subtotal</span><span data-role="subtotal">${inr(cartTotal())}</span></div>
+    <div class="panel-summary-row"><span>Delivery</span><span style="color:var(--green-dark);font-weight:700;">Free</span></div>
+    <div class="panel-summary-row total"><span>Total</span><span data-role="total">${inr(cartTotal())}</span></div>
+    <button class="btn btn-green">Proceed to Checkout</button>
+    <button class="btn btn-outline" data-act="continue">Continue Shopping</button>`;
+  foot.querySelector('[data-act="continue"]').addEventListener('click', ()=>closePanel(cartOverlay));
+}
+function cartUpsert(id, isNew){
+  const body = document.getElementById('cartBody');
+  if(body.querySelector('.panel-empty') || !document.getElementById('cartFoot').children.length){ initCartPanel(); return; }
+  if(isNew && !document.getElementById(`cart-row-${id}`)){
+    const p = findProduct(id);
+    const row = document.createElement('div');
+    row.className='panel-item'; row.id=`cart-row-${id}`; row.dataset.id=id;
+    row.innerHTML = cartItemRowHTML(p, CART[id]);
+    row.style.animationDelay='0s';
+    body.prepend(row);
+  } else { cartPatchRow(id); }
+  cartPatchTotals();
+}
+function cartPatchRow(id){
+  const row = document.getElementById(`cart-row-${id}`); if(!row) return;
+  const p = findProduct(id), qty = CART[id];
+  const qtyEl = row.querySelector('[data-role="qty"]');
+  qtyEl.textContent = qty; qtyEl.classList.remove('bump'); void qtyEl.offsetWidth; qtyEl.classList.add('bump');
+  row.querySelector('[data-role="line-price"]').textContent = inr(p.price*qty);
+}
+function cartRemoveRow(id){
+  const row = document.getElementById(`cart-row-${id}`); if(!row){ cartPatchTotals(); return; }
+  row.classList.add('removing');
+  row.addEventListener('animationend', ()=>{
+    row.remove();
+    const body = document.getElementById('cartBody');
+    if(!body.children.length){ body.innerHTML = cartEmptyState(); document.getElementById('cartFoot').innerHTML=''; }
+    else cartPatchTotals();
+  }, {once:true});
+}
+function cartPatchTotals(){
+  const foot = document.getElementById('cartFoot');
+  if(!foot || !foot.querySelector('[data-role="subtotal"]')) return;
+  const total = cartTotal();
+  foot.querySelector('[data-role="subtotal"]').textContent = inr(total);
+  foot.querySelector('[data-role="total"]').textContent = inr(total);
+}
+
+/* ===== Wishlist panel incremental render ===== */
+function wishRowHTML(p){
+  return `
+    <div class="panel-item-img-wrap"><img src="${p.img}" alt="${p.title}"></div>
+    <div class="panel-item-info">
+      <div class="pib">${p.brand}</div>
+      <div class="pit">${p.title}</div>
+      <div class="panel-item-price">${inr(p.price)}</div>
+      <div class="panel-item-actions">
+        <button class="btn btn-green" style="width:auto;padding:8px 14px;font-size:10.5px;margin:0;" data-act="addcart" data-id="${p.id}">Add to Cart</button>
+        <button class="panel-item-remove" data-act="rmwish" data-id="${p.id}">Remove</button>
+      </div>
+    </div>`;
+}
+function wishEmptyState(){
+  return `<div class="panel-empty">
+    <svg width="46" height="46" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6"><path d="M20.8 4.6a5.5 5.5 0 0 0-7.8 0L12 5.6l-1-1a5.5 5.5 0 0 0-7.8 7.8l1 1L12 21l7.8-7.6 1-1a5.5 5.5 0 0 0 0-7.8Z"/></svg>
+    <b>Your wishlist is empty</b><span>Tap the heart on any product to save it here.</span>
+  </div>`;
+}
+function initWishPanel(){
+  const body = document.getElementById('wishBody');
+  const ids = [...WISHLIST];
+  if(!ids.length){ body.innerHTML = wishEmptyState(); return; }
+  body.innerHTML = ids.map((id,i)=>`<div class="panel-item" id="wish-row-${id}" data-id="${id}" style="animation-delay:${i*0.05}s">${wishRowHTML(findProduct(id))}</div>`).join('');
+}
+function wishAddRow(id){
+  const body = document.getElementById('wishBody');
+  if(body.querySelector('.panel-empty') || !body.children.length){ initWishPanel(); return; }
+  if(document.getElementById(`wish-row-${id}`)) return;
+  const row = document.createElement('div');
+  row.className='panel-item'; row.id=`wish-row-${id}`; row.dataset.id=id;
+  row.innerHTML = wishRowHTML(findProduct(id));
+  row.style.animationDelay='0s';
+  body.prepend(row);
+}
+function wishRemoveRow(id){
+  const row = document.getElementById(`wish-row-${id}`); if(!row) return;
+  row.classList.add('removing');
+  row.addEventListener('animationend', ()=>{
+    row.remove();
+    const body = document.getElementById('wishBody');
+    if(!body.children.length) body.innerHTML = wishEmptyState();
+  }, {once:true});
+}
+
+document.getElementById('cartBody').addEventListener('click', e=>{
+  const btn = e.target.closest('[data-act]'); if(!btn) return;
+  const id = +btn.dataset.id, act = btn.dataset.act;
+  if(act==='inc') setQty(id,(CART[id]||0)+1);
+  else if(act==='dec') setQty(id,(CART[id]||0)-1);
+  else if(act==='rm') setQty(id,0);
+});
+document.getElementById('wishBody').addEventListener('click', e=>{
+  const btn = e.target.closest('[data-act]'); if(!btn) return;
+  const id = +btn.dataset.id, act = btn.dataset.act;
+  if(act==='addcart') addToCart(id);
+  else if(act==='rmwish') toggleWish(id);
+});
+
+/* ===== Search filter (simple) ===== */
+document.getElementById('searchInput').addEventListener('input', e=>{
+  const q = e.target.value.trim().toLowerCase();
+  const el = document.getElementById('catalog');
+  el.classList.add('fade');
+  setTimeout(()=>{
+    if(!q){ renderCatalog('all'); el.classList.remove('fade'); return; }
+    const items = PRODUCTS.filter(p=> p.title.toLowerCase().includes(q) || p.brand.toLowerCase().includes(q) || p.cat.includes(q));
+    el.innerHTML = `<div class="section"><div class="section-head"><h2>Results for "${e.target.value}"</h2></div>
+      <div class="grid">${items.map((p,i)=>productCardHTML(p,i)).join('') || '<p style="color:var(--sub);padding:20px 0;">No products found.</p>'}</div></div>`;
+    el.classList.remove('fade');
+  }, 150);
+});
+
+initCartPanel();
+initWishPanel();
+updateBadges();
 </script>
 </body>
 </html>
