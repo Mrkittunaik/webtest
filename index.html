@@ -2,861 +2,831 @@
 <html lang="en">
 <head>
 <meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
-<title>ShopKart — Fashion, Electronics & Grocery</title>
-<link rel="preconnect" href="https://fonts.googleapis.com">
-<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Upadyay — Faculty Recruitment</title>
 <style>
-:root{
-  --green:#0f6b4a;
-  --green-dark:#0a4f37;
-  --green-light:#e7f5ee;
-  --gold:#d4af37;
-  --ink:#12151a;
-  --sub:#6b7280;
-  --line:#ececef;
-  --bg:#f7f8f6;
-  --card:#ffffff;
-  --radius:5px;
-  --header-h:56px;
-}
-*{box-sizing:border-box;margin:0;padding:0;}
-html{scroll-behavior:smooth;}
-body{
-  font-family:'Inter',sans-serif;
-  background:var(--bg);
-  color:var(--ink);
-  -webkit-font-smoothing:antialiased;
-  overflow-x:hidden;
-  padding-bottom:64px;
-}
-body.lock{overflow:hidden;}
-a{color:inherit;text-decoration:none;}
-img{display:block;max-width:100%;}
-button{font-family:inherit;cursor:pointer;border:none;background:none;}
+  @import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=Lora:ital,wght@0,500;0,600;0,700;1,500&display=swap');
+  :root{
+    --blue-900:#0F2A5C;
+    --blue-700:#1652C7;
+    --blue-600:#2563EB;
+    --blue-500:#3B82F6;
+    --blue-100:#E7EFFE;
+    --blue-50:#F3F7FF;
+    --ink:#111827;
+    --ink-soft:#4B5566;
+    --ink-faint:#8A93A3;
+    --line:#E3E8F0;
+    --paper:#FFFFFF;
+    --canvas:#F7F9FC;
+    --gold:#C98A2C;
+    --green:#1D8A5E;
+    --radius:5px;
+    --shadow-sm: 0 1px 2px rgba(16,36,84,0.06);
+    --shadow-md: 0 6px 20px rgba(16,36,84,0.10);
+    --shadow-lg: 0 20px 50px rgba(16,36,84,0.16);
+  }
+  *{box-sizing:border-box;}
+  html{scroll-behavior:smooth;}
+  html,body{margin:0;padding:0;}
+  body{
+    font-family:'Inter',sans-serif;
+    color:var(--ink);
+    background:var(--canvas);
+    -webkit-font-smoothing:antialiased;
+  }
+  h1,h2,h3,.serif{font-family:'Lora',serif;}
+  .num, .tabular{font-variant-numeric: tabular-nums; letter-spacing:-0.01em;}
+  a{color:inherit; text-decoration:none;}
+  button{font-family:inherit; cursor:pointer;}
+  ::selection{background:var(--blue-100);}
 
-/* ===== Header ===== */
-header{
-  position:fixed;top:0;left:0;right:0;z-index:200;
-  background:linear-gradient(135deg,#0a4f37,#0f6b4a 55%,#14805a);
-  box-shadow:0 4px 18px rgba(10,40,28,.28);
-}
-#pageTop{padding-top:var(--header-total-h,100px);}
-.header-top{
-  display:flex;align-items:center;gap:10px;
-  padding:10px 12px 8px;
-}
-.logo{
-  display:flex;align-items:center;gap:8px;color:#fff;font-weight:800;font-size:18px;flex-shrink:0;
-}
-.logo-mark{
-  width:34px;height:34px;border-radius:9px;
-  background:linear-gradient(160deg,#fff,#e8f6ee);
-  display:flex;align-items:center;justify-content:center;
-  box-shadow:0 2px 6px rgba(0,0,0,.18), inset 0 0 0 1px rgba(212,175,55,.4);
-}
-.logo-mark svg{width:20px;height:20px;}
-.logo b{letter-spacing:-.02em;}
-.logo b span{color:var(--gold);}
-.logo-sub{display:none;}
-.loc-strip{
-  display:flex;align-items:center;gap:6px;padding:0 12px 8px;color:rgba(255,255,255,.92);
-  font-size:11px;font-weight:600;
-}
-.loc-strip svg{flex-shrink:0;color:var(--gold);}
-.loc-strip b{color:#fff;font-weight:700;}
-.loc-strip .loc-status{
-  margin-left:auto;font-size:10px;font-weight:700;padding:2px 8px;border-radius:20px;
-  display:flex;align-items:center;gap:4px;
-}
-.loc-strip .loc-status.ok{background:rgba(255,255,255,.16);color:#c9f5db;}
-.loc-strip .loc-status.no{background:rgba(255,90,90,.2);color:#ffb4b4;}
-.loc-strip .loc-status.pending{background:rgba(255,255,255,.12);color:rgba(255,255,255,.8);}
-.loc-dot{width:6px;height:6px;border-radius:50%;background:currentColor;}
-.search-bar{
-  flex:1;display:flex;align-items:center;gap:8px;
-  background:#fff;border-radius:5px;padding:10px 12px;
-  transition:transform .15s ease;
-}
-.search-bar:active{transform:scale(.98);}
-.search-bar svg{flex-shrink:0;color:var(--sub);}
-.search-bar input{
-  flex:1;border:none;outline:none;background:transparent;font-size:14px;color:var(--ink);
-}
-.header-icon{
-  position:relative;width:36px;height:36px;border-radius:5px;
-  display:flex;align-items:center;justify-content:center;color:#fff;flex-shrink:0;
-  transition:transform .2s cubic-bezier(.34,1.56,.64,1),background .2s;
-}
-.header-icon:active{transform:scale(.9);background:rgba(255,255,255,.15);}
-.header-icon .badge{
-  position:absolute;top:-3px;right:-3px;background:#ff5252;color:#fff;
-  font-size:9.5px;font-weight:700;min-width:16px;height:16px;padding:0 3px;border-radius:50%;
-  display:flex;align-items:center;justify-content:center;
-  transition:transform .35s cubic-bezier(.34,1.56,.64,1);
-}
-.header-icon .badge.pop{animation:badgePop .4s cubic-bezier(.34,1.56,.64,1);}
-@keyframes badgePop{0%{transform:scale(1)}40%{transform:scale(1.5)}100%{transform:scale(1)}}
+  /* ---------- scroll-reveal ---------- */
+  .reveal{opacity:0; transform:translateY(18px); transition:opacity .6s ease, transform .6s ease;}
+  .reveal.in{opacity:1; transform:translateY(0);}
+  .reveal-stagger.in > *{animation:staggerIn .55s ease both;}
+  .reveal-stagger.in > *:nth-child(1){animation-delay:.05s;}
+  .reveal-stagger.in > *:nth-child(2){animation-delay:.15s;}
+  .reveal-stagger.in > *:nth-child(3){animation-delay:.25s;}
+  .reveal-stagger.in > *:nth-child(4){animation-delay:.35s;}
+  @keyframes staggerIn{from{opacity:0; transform:translateY(14px);} to{opacity:1; transform:translateY(0);}}
 
-/* Category nav — icon only, smooth switch */
-.catnav{
-  display:flex;gap:8px;overflow-x:auto;padding:2px 10px 10px;
-  scrollbar-width:none;
-}
-.catnav::-webkit-scrollbar{display:none;}
-.catnav button{
-  flex-shrink:0;width:44px;height:44px;border-radius:12px;
-  display:flex;align-items:center;justify-content:center;
-  color:rgba(255,255,255,.85);background:rgba(255,255,255,.12);
-  transition:transform .3s cubic-bezier(.34,1.56,.64,1),background .25s ease,color .25s ease,box-shadow .25s ease;
-  position:relative;
-}
-.catnav button svg{width:20px;height:20px;transition:transform .3s cubic-bezier(.34,1.56,.64,1);}
-.catnav button:active{transform:scale(.85);}
-.catnav button.active{
-  background:#fff;color:var(--green-dark);transform:scale(1.05);
-  box-shadow:0 4px 12px rgba(0,0,0,.18), 0 0 0 2px rgba(212,175,55,.55);
-}
-.catnav button.active svg{transform:scale(1.08);}
+  /* ---------- Top nav ---------- */
+  .nav{
+    position:sticky; top:0; z-index:40;
+    background:rgba(255,255,255,0.92);
+    backdrop-filter:blur(10px);
+    border-bottom:1px solid var(--line);
+    animation:navDrop .5s ease both;
+  }
+  @keyframes navDrop{from{transform:translateY(-100%);} to{transform:translateY(0);}}
+  .nav-inner{
+    max-width:1180px; margin:0 auto; padding:14px 24px;
+    display:flex; align-items:center; justify-content:space-between; gap:24px;
+  }
+  .brand{display:flex; align-items:center; gap:9px; font-weight:700; font-size:19px; color:var(--blue-900);}
+  .brand-mark{
+    width:30px; height:30px; border-radius:8px;
+    background:linear-gradient(135deg,var(--blue-600),var(--blue-900));
+    display:flex; align-items:center; justify-content:center;
+    color:#fff; font-family:'Lora',serif; font-weight:700; font-size:16px;
+  }
+  .nav-links{display:flex; align-items:center; gap:28px;}
+  .nav-links a{font-size:14.5px; color:var(--ink-soft); font-weight:500; transition:color .15s;}
+  .nav-links a:hover{color:var(--blue-700);}
+  .nav-cta{display:flex; align-items:center; gap:10px;}
 
-/* ===== Hero banner card ===== */
-.hero-wrap{padding:12px;}
-.hero-card{
-  border-radius:var(--radius);overflow:hidden;position:relative;
-  background:var(--card);box-shadow:0 1px 4px rgba(0,0,0,.06);
-}
-.hero-card img{width:100%;height:auto;display:block;}
-.hero-dots{
-  position:absolute;bottom:10px;left:0;right:0;display:flex;justify-content:center;gap:5px;
-}
-.hero-dots span{width:6px;height:6px;border-radius:50%;background:rgba(255,255,255,.55);transition:all .3s;}
-.hero-dots span.active{background:#fff;width:16px;border-radius:3px;}
+  /* ---------- Buttons ---------- */
+  .btn{
+    display:inline-flex; align-items:center; justify-content:center; gap:8px;
+    padding:10px 20px; border-radius:var(--radius);
+    font-size:14.5px; font-weight:600; border:1px solid transparent;
+    transition:transform .15s ease, box-shadow .15s ease, background .15s ease, color .15s ease, border-color .15s ease;
+    white-space:nowrap;
+  }
+  .btn:active{transform:translateY(1px) scale(.98);}
+  .btn-primary{background:var(--blue-700); color:#fff; box-shadow:var(--shadow-sm);}
+  .btn-primary:hover{background:var(--blue-900); box-shadow:var(--shadow-md); transform:translateY(-1px);}
+  .btn-ghost{background:transparent; color:var(--blue-700); border-color:var(--blue-700);}
+  .btn-ghost:hover{background:var(--blue-50);}
+  .btn-light{background:#fff; color:var(--blue-900); border-color:var(--line); box-shadow:var(--shadow-sm);}
+  .btn-light:hover{border-color:var(--blue-500); color:var(--blue-700); transform:translateY(-1px);}
+  .btn-sm{padding:7px 14px; font-size:13px;}
 
-/* ===== Section ===== */
-.section{padding:16px 12px 4px;}
-.section-head{
-  display:flex;align-items:center;justify-content:space-between;margin-bottom:12px;
-}
-.section-head h2{font-size:16px;font-weight:800;letter-spacing:-.01em;}
-.section-head a{font-size:12px;font-weight:700;color:var(--green-dark);display:flex;align-items:center;gap:2px;}
+  /* ---------- Hero ---------- */
+  .hero{
+    position:relative; overflow:hidden;
+    background:
+      linear-gradient(180deg, rgba(234,246,239,0.88) 0%, rgba(245,251,247,0.94) 100%),
+      url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 1200 700'%3E%3Cdefs%3E%3ClinearGradient id='g1' x1='0' y1='0' x2='1' y2='1'%3E%3Cstop offset='0%25' stop-color='%232563EB'/%3E%3Cstop offset='100%25' stop-color='%231D8A5E'/%3E%3C/linearGradient%3E%3ClinearGradient id='g2' x1='1' y1='0' x2='0' y2='1'%3E%3Cstop offset='0%25' stop-color='%231D8A5E'/%3E%3Cstop offset='100%25' stop-color='%233B82F6'/%3E%3C/linearGradient%3E%3C/defs%3E%3Crect width='1200' height='700' fill='%23F5FBF7'/%3E%3Ccircle cx='980' cy='90' r='340' fill='url(%23g1)' opacity='0.14'/%3E%3Ccircle cx='120' cy='620' r='300' fill='url(%23g2)' opacity='0.13'/%3E%3Cpath d='M0 500 Q300 420 600 500 T1200 480 V700 H0 Z' fill='%232563EB' opacity='0.05'/%3E%3Cpath d='M0 560 Q300 500 600 560 T1200 540 V700 H0 Z' fill='%231D8A5E' opacity='0.06'/%3E%3C/svg%3E");
+    background-size:cover; background-position:center;
+  }
+  .hero::before{
+    content:""; position:absolute; top:-120px; right:-120px; width:420px; height:420px; border-radius:50%;
+    background:radial-gradient(circle, rgba(37,99,235,0.10), transparent 70%);
+    animation:floatBlob 9s ease-in-out infinite;
+  }
+  @keyframes floatBlob{0%,100%{transform:translate(0,0);} 50%{transform:translate(-18px,22px);}}
+  .hero-inner{
+    max-width:1180px; margin:0 auto; padding:76px 24px 60px;
+    display:grid; grid-template-columns:1.05fr 0.95fr; gap:48px; align-items:center;
+    position:relative; z-index:1;
+  }
+  .eyebrow-plain{
+    color:var(--blue-700); font-weight:600; font-size:14px; margin-bottom:14px;
+    animation:fadeUp .6s ease .05s both;
+  }
+  @keyframes fadeUp{from{opacity:0; transform:translateY(14px);} to{opacity:1; transform:translateY(0);}}
+  .hero h1{
+    font-size:46px; line-height:1.12; font-weight:700; color:var(--ink); margin:0 0 18px;
+    max-width:16ch;
+    animation:fadeUp .65s ease .12s both;
+  }
+  .hero p.lead{
+    font-size:17px; line-height:1.6; color:var(--ink-soft); max-width:46ch; margin:0 0 30px;
+    animation:fadeUp .65s ease .2s both;
+  }
+  .hero-actions{display:flex; gap:12px; margin-bottom:34px; animation:fadeUp .65s ease .28s both;}
+  .hero-stats{display:flex; gap:34px; animation:fadeUp .65s ease .36s both;}
+  .hero-stat .num{font-size:26px; font-weight:700; color:var(--blue-900); display:block;}
+  .hero-stat .label{font-size:13px; color:var(--ink-faint); margin-top:2px;}
+  .hero-visual{position:relative; animation:fadeScale .7s ease .2s both;}
+  @keyframes fadeScale{from{opacity:0; transform:scale(.94) translateY(10px);} to{opacity:1; transform:scale(1) translateY(0);}}
+  .hero-photo-wrap{
+    position:relative; border-radius:var(--radius); overflow:hidden;
+    box-shadow:var(--shadow-lg); border:1px solid var(--line);
+  }
+  .hero-photo-wrap img{width:100%; display:block; aspect-ratio:4/4.6; object-fit:cover;}
+  .hero-card{
+    position:absolute; background:#fff; border-radius:var(--radius);
+    box-shadow:var(--shadow-lg); border:1px solid var(--line); padding:14px 16px;
+    display:flex; align-items:center; gap:10px;
+  }
+  .hero-card.c1{ bottom:-22px; left:-30px; animation:fadeUp .6s ease .55s both, bob 4s ease-in-out 1.1s infinite; }
+  .hero-card.c2{ top:20px; right:-26px; animation:fadeUp .6s ease .7s both, bob 4.5s ease-in-out 1.3s infinite; }
+  @keyframes bob{0%,100%{transform:translateY(0);} 50%{transform:translateY(-6px);}}
+  .hero-card .ic{
+    width:34px; height:34px; border-radius:var(--radius); background:var(--blue-100);
+    display:flex; align-items:center; justify-content:center; flex-shrink:0;
+  }
+  .hero-card .t1{font-size:13px; font-weight:600; color:var(--ink);}
+  .hero-card .t2{font-size:12px; color:var(--ink-faint);}
 
-/* ===== Product grid ===== */
-.grid{
-  display:grid;grid-template-columns:repeat(2,1fr);gap:10px;
-}
-@media(min-width:640px){.grid{grid-template-columns:repeat(3,1fr);}}
-@media(min-width:900px){.grid{grid-template-columns:repeat(4,1fr);}}
-@media(min-width:1200px){.grid{grid-template-columns:repeat(5,1fr);}}
+  /* ---------- Hero search bar ---------- */
+  .hero-search{
+    display:flex; align-items:stretch; gap:0; background:#fff; border:1px solid var(--line);
+    border-radius:var(--radius); box-shadow:var(--shadow-md); padding:6px;
+    margin-bottom:22px; animation:fadeUp .65s ease .24s both;
+  }
+  .hs-field{display:flex; align-items:center; gap:10px; padding:9px 14px; flex:1; min-width:0;}
+  .hs-field + .hs-field{border-left:1px solid var(--line);}
+  .hs-ic{font-size:15px; color:var(--ink-faint); flex-shrink:0;}
+  .hs-field select, .hs-field input{
+    border:none; outline:none; background:none; font-family:inherit; font-size:14px; color:var(--ink);
+    width:100%; min-width:0;
+  }
+  .hs-field select{cursor:pointer; font-weight:600;}
+  .hs-field input::placeholder{color:var(--ink-faint);}
+  .hero-search .btn{border-radius:calc(var(--radius) - 1px); flex-shrink:0;}
 
-.card{
-  background:var(--card);border-radius:var(--radius);overflow:hidden;
-  border:1px solid var(--line);
-  display:flex;flex-direction:column;
-  transition:transform .25s cubic-bezier(.34,1.56,.64,1),box-shadow .25s ease,border-color .25s;
-  opacity:0;transform:translateY(14px);animation:cardIn .5s ease forwards;
-}
-@keyframes cardIn{to{opacity:1;transform:translateY(0);}}
-.card:active{transform:scale(.97);}
-@media(hover:hover){
-  .card:hover{transform:translateY(-4px);box-shadow:0 14px 28px rgba(10,40,28,.12);border-color:rgba(15,107,74,.25);}
-}
-.card-img-wrap{
-  position:relative;width:100%;aspect-ratio:1/1;background:#f8f9fa;overflow:hidden;
-}
-.card-img-wrap img{
-  width:100%;height:100%;object-fit:cover;transition:transform .5s ease;
-}
-.card:hover .card-img-wrap img{transform:scale(1.06);}
-.wish-btn{
-  position:absolute;top:6px;right:6px;width:28px;height:28px;border-radius:50%;
-  background:rgba(255,255,255,.92);display:flex;align-items:center;justify-content:center;
-  color:#9aa0a6;transition:transform .2s cubic-bezier(.34,1.56,.64,1),color .2s;
-  box-shadow:0 1px 3px rgba(0,0,0,.12);
-}
-.wish-btn:active{transform:scale(.85);}
-.wish-btn.active{color:#ff5252;}
-.wish-btn.active svg{fill:#ff5252;}
-.discount-tag{
-  position:absolute;top:6px;left:6px;background:linear-gradient(120deg,var(--green),var(--green-dark));color:#fff;
-  font-size:9.5px;font-weight:800;padding:2px 6px;border-radius:4px;
-  box-shadow:0 1px 3px rgba(0,0,0,.2);
-}
-.card-body{padding:8px 9px 9px;display:flex;flex-direction:column;gap:3px;flex:1;}
-.card-brand{font-size:10px;font-weight:700;color:var(--sub);text-transform:uppercase;letter-spacing:.03em;}
-.card-title{
-  font-size:12.5px;font-weight:600;line-height:1.3;
-  display:-webkit-box;-webkit-line-clamp:2;-webkit-box-orient:vertical;overflow:hidden;
-  min-height:32px;color:var(--ink);
-}
-.card-rating{display:flex;align-items:center;gap:4px;font-size:10.5px;color:var(--sub);margin-top:1px;}
-.card-rating .stars{background:var(--green);color:#fff;font-weight:700;padding:1px 5px;border-radius:3px;font-size:10px;display:flex;align-items:center;gap:2px;}
-.card-price-row{display:flex;align-items:baseline;gap:6px;margin-top:2px;}
-.price-now{font-size:14.5px;font-weight:800;color:var(--ink);}
-.price-old{font-size:11px;color:var(--sub);text-decoration:line-through;}
-.price-off{font-size:11px;color:var(--green-dark);font-weight:700;}
+  /* ---------- Hero profile card ---------- */
+  .hp-card{
+    background:#fff; border:1px solid var(--line); border-radius:var(--radius);
+    box-shadow:var(--shadow-lg); padding:22px; position:relative;
+  }
+  .hp-top{display:flex; align-items:center; gap:14px; margin-bottom:16px;}
+  .hp-avatar{
+    width:52px; height:52px; border-radius:var(--radius); flex-shrink:0;
+    background:linear-gradient(135deg,var(--blue-600),var(--blue-900));
+    display:flex; align-items:center; justify-content:center; color:#fff; font-weight:700; font-size:17px;
+  }
+  .hp-name{font-size:16px; font-weight:700; margin:0 0 3px;}
+  .hp-role{font-size:12.5px; color:var(--ink-faint);}
+  .hp-badge{
+    margin-left:auto; font-size:11px; font-weight:700; background:var(--gold); color:#fff;
+    padding:4px 9px; border-radius:var(--radius); flex-shrink:0;
+  }
+  .hp-tags{display:flex; flex-wrap:wrap; gap:7px; margin-bottom:16px;}
+  .hp-tag{font-size:11.5px; font-weight:600; background:var(--blue-50); color:var(--blue-700); padding:5px 10px; border-radius:var(--radius);}
+  .hp-stats{display:flex; gap:0; border-top:1px solid var(--line); padding-top:14px;}
+  .hp-stat{flex:1; text-align:center;}
+  .hp-stat + .hp-stat{border-left:1px solid var(--line);}
+  .hp-stat .num{font-size:17px; font-weight:700; color:var(--blue-900); display:block;}
+  .hp-stat .label{font-size:11px; color:var(--ink-faint); margin-top:2px;}
+  .hp-status{
+    position:absolute; top:22px; right:22px; display:flex; align-items:center; gap:6px;
+    font-size:11.5px; font-weight:600; color:var(--green);
+  }
+  .hp-dot{width:7px; height:7px; border-radius:50%; background:var(--green); animation:pulseDot 1.8s ease infinite;}
+  @keyframes pulseDot{0%,100%{opacity:1;} 50%{opacity:.35;}}
 
-.card-cta{padding:0 9px 9px;margin-top:auto;}
-.add-btn{
-  width:100%;padding:8px 0;border-radius:var(--radius);
-  background:var(--green);color:#fff;font-size:12px;font-weight:700;
-  display:flex;align-items:center;justify-content:center;gap:6px;
-  transition:transform .18s cubic-bezier(.34,1.56,.64,1),background .2s;
-}
-.add-btn:active{transform:scale(.94);}
-.add-btn:hover{background:var(--green-dark);}
+  /* ---------- Job search section ---------- */
+  .job-search-panel{
+    background:#fff; border:1px solid var(--line); border-radius:var(--radius);
+    box-shadow:var(--shadow-md); padding:26px; margin-bottom:32px;
+  }
+  .jsp-tabs{display:flex; gap:8px; margin-bottom:18px;}
+  .jsp-tab{
+    padding:9px 18px; border-radius:var(--radius); font-size:13.5px; font-weight:600;
+    background:var(--canvas); color:var(--ink-soft); border:1px solid var(--line); transition:.15s;
+  }
+  .jsp-tab.active{background:var(--blue-700); color:#fff; border-color:var(--blue-700);}
+  .jsp-row{display:grid; grid-template-columns:1.3fr 1fr 1fr auto; gap:10px;}
+  .jsp-field{
+    display:flex; align-items:center; gap:9px; border:1px solid var(--line); border-radius:var(--radius);
+    padding:11px 14px; background:var(--canvas);
+  }
+  .jsp-field select, .jsp-field input{
+    border:none; outline:none; background:none; font-family:inherit; font-size:14px; color:var(--ink); width:100%;
+  }
+  .jsp-field select{cursor:pointer; font-weight:600;}
+  @media (max-width:920px){ .jsp-row{grid-template-columns:1fr;} .hero-search{flex-direction:column;} .hs-field + .hs-field{border-left:none; border-top:1px solid var(--line);} }
 
-.qty-stepper{
-  width:100%;display:flex;align-items:center;justify-content:space-between;
-  background:var(--green);border-radius:var(--radius);overflow:hidden;
-  animation:stepperIn .3s cubic-bezier(.34,1.56,.64,1);
-}
-@keyframes stepperIn{from{transform:scale(.85);opacity:.4;}to{transform:scale(1);opacity:1;}}
-.qty-stepper button{
-  width:30px;height:30px;color:#fff;font-size:16px;font-weight:700;
-  display:flex;align-items:center;justify-content:center;
-  transition:background .15s;
-}
-.qty-stepper button:active{background:rgba(0,0,0,.15);}
-.qty-stepper span{color:#fff;font-size:12.5px;font-weight:800;}
-.qty-stepper span.bump{animation:bump .3s cubic-bezier(.34,1.56,.64,1);}
-@keyframes bump{0%{transform:scale(1)}50%{transform:scale(1.3)}100%{transform:scale(1)}}
+  /* ---------- Job cards (search / post) ---------- */
+  .jsp-cards{display:grid; grid-template-columns:1fr 1fr; gap:20px; margin-bottom:32px;}
+  .jsp-card{
+    border:none; border-radius:var(--radius); padding:26px 28px; text-align:left; cursor:pointer;
+    display:flex; align-items:center; justify-content:space-between; gap:16px;
+    box-shadow:var(--shadow-md); transition:transform .18s ease, box-shadow .18s ease;
+  }
+  .jsp-card:hover{transform:translateY(-3px); box-shadow:var(--shadow-lg);}
+  .jsp-card-dark{background:linear-gradient(135deg,#0F3D33,#0B2E27); color:#fff;}
+  .jsp-card-light{background:linear-gradient(135deg,#2A93A8,#1D7185); color:#fff;}
+  .jsp-card h3{font-family:'Inter',sans-serif; font-size:21px; font-weight:800; margin:0 0 6px;}
+  .jsp-card p{font-size:14px; margin:0; color:rgba(255,255,255,0.85);}
+  .jsp-card-ic{font-size:34px; flex-shrink:0; opacity:0.9;}
+  @media (max-width:920px){ .jsp-cards{grid-template-columns:1fr;} }
 
-/* ===== Category title strip ===== */
-.cat-band{
-  margin:0 -12px;padding:14px 12px;background:linear-gradient(135deg,var(--green-light),#fff);
-}
+  /* ---------- Auth modal ---------- */
+  .modal-overlay{
+    position:fixed; inset:0; background:rgba(15,42,92,0.45); display:none; align-items:center; justify-content:center;
+    z-index:100; padding:20px;
+  }
+  .modal-overlay.open{display:flex;}
+  .modal-box{
+    background:#fff; border-radius:var(--radius); box-shadow:var(--shadow-lg); width:100%; max-width:400px;
+    padding:30px 28px; position:relative; animation:fadeScale .25s ease both;
+  }
+  .modal-close{position:absolute; top:14px; right:16px; background:none; border:none; font-size:18px; color:var(--ink-faint); cursor:pointer;}
+  .modal-tabs{display:flex; gap:6px; margin-bottom:22px; background:var(--canvas); border-radius:var(--radius); padding:4px;}
+  .modal-tab{flex:1; padding:9px; border:none; background:none; border-radius:calc(var(--radius) - 2px); font-size:13.5px; font-weight:600; color:var(--ink-soft); cursor:pointer;}
+  .modal-tab.active{background:#fff; color:var(--blue-700); box-shadow:var(--shadow-sm);}
+  .modal-box h2{font-size:19px; margin:0 0 4px;}
+  .modal-box .sub{font-size:13px; color:var(--ink-faint); margin:0 0 20px;}
+  .modal-field{display:flex; flex-direction:column; gap:5px; margin-bottom:14px;}
+  .modal-field label{font-size:12.5px; font-weight:600; color:var(--ink-soft);}
+  .modal-field input, .modal-field select{
+    border:1px solid var(--line); border-radius:var(--radius); padding:10px 12px; font-family:inherit; font-size:14px; outline:none;
+  }
+  .modal-field input:focus, .modal-field select:focus{border-color:var(--blue-500);}
+  .role-select{display:grid; grid-template-columns:1fr 1fr; gap:12px; margin-bottom:18px;}
+  .modal-box .btn{width:100%; margin-top:6px;}
+  .role-opt{border:1.5px solid var(--line); border-radius:var(--radius); padding:16px 12px; text-align:center; background:#fff; cursor:pointer; transition:border-color .15s, background .15s;}
+  .role-opt .ric{font-size:22px; display:block; margin-bottom:6px;}
+  .role-opt .rt{font-size:13.5px; font-weight:700; color:var(--ink);}
+  .role-opt .rd{font-size:11.5px; color:var(--ink-faint); margin-top:2px;}
+  .role-opt.selected{border-color:var(--blue-600); background:var(--blue-50);}
 
-/* ===== Bottom mobile nav ===== */
-.mobile-nav{
-  position:fixed;bottom:0;left:0;right:0;z-index:250;
-  background:#fff;border-top:1px solid var(--line);
-  display:flex;justify-content:space-around;padding:6px 0 8px;
-  box-shadow:0 -2px 10px rgba(0,0,0,.06);
-}
-.mobile-nav a{
-  display:flex;flex-direction:column;align-items:center;gap:2px;color:var(--sub);
-  font-size:10px;font-weight:600;padding:4px 10px;position:relative;
-  transition:color .2s,transform .2s;
-}
-.mobile-nav a.active{color:var(--green);}
-.mobile-nav a:active{transform:scale(.9);}
-.mobile-nav .badge{
-  position:absolute;top:-2px;right:2px;background:#ff5252;color:#fff;font-size:9px;font-weight:700;
-  min-width:14px;height:14px;border-radius:50%;display:flex;align-items:center;justify-content:center;
-}
+  /* ---------- Profile dashboard ---------- */
+  .dash-overlay{position:fixed; inset:0; background:var(--canvas); z-index:90; display:none; overflow-y:auto;}
+  .dash-overlay.open{display:block;}
+  .dash-top{background:#fff; border-bottom:1px solid var(--line); padding:16px 24px; display:flex; align-items:center; justify-content:space-between;}
+  .dash-top .brand{font-weight:700; font-size:18px; color:var(--blue-900); display:flex; align-items:center; gap:9px;}
+  .dash-inner{max-width:840px; margin:0 auto; padding:40px 24px;}
+  .dash-head{display:flex; align-items:center; gap:16px; margin-bottom:30px;}
+  .dash-avatar{width:60px; height:60px; border-radius:50%; background:linear-gradient(135deg,var(--blue-600),var(--blue-900)); display:flex; align-items:center; justify-content:center; color:#fff; font-weight:700; font-size:20px;}
+  .dash-head h2{margin:0 0 4px; font-size:22px;}
+  .dash-head p{margin:0; color:var(--ink-faint); font-size:13.5px;}
+  .dash-panel{background:#fff; border:1px solid var(--line); border-radius:var(--radius); box-shadow:var(--shadow-sm); padding:26px; margin-bottom:22px;}
+  .dash-panel h3{margin:0 0 16px; font-size:16px;}
+  .dash-form-row{display:grid; grid-template-columns:1fr 1fr; gap:14px; margin-bottom:14px;}
+  .job-list-item{display:flex; align-items:center; justify-content:space-between; padding:14px 0; border-bottom:1px solid var(--line);}
+  .job-list-item:last-child{border-bottom:none;}
+  .job-list-item .jt{font-weight:600; font-size:14.5px;}
+  .job-list-item .jm{font-size:12.5px; color:var(--ink-faint);}
+  .badge-live{background:var(--blue-50); color:var(--blue-700); font-size:11px; font-weight:700; padding:4px 9px; border-radius:var(--radius);}
 
-/* ===== Cart / Wishlist panel ===== */
-.overlay{
-  position:fixed;inset:0;z-index:400;background:rgba(10,10,9,.5);
-  opacity:0;pointer-events:none;transition:opacity .35s ease;
-}
-.overlay.open{opacity:1;pointer-events:auto;}
-.panel{
-  position:fixed;top:0;right:0;bottom:0;width:100%;max-width:400px;background:#fff;
-  display:flex;flex-direction:column;
-  transform:translateX(100%);transition:transform .4s cubic-bezier(.19,1,.22,1);
-}
-.overlay.open .panel{transform:translateX(0);}
-.panel-head{
-  display:flex;align-items:center;justify-content:space-between;padding:16px;border-bottom:1px solid var(--line);
-}
-.panel-head h3{font-size:16px;font-weight:800;}
-.panel-close{width:34px;height:34px;border-radius:50%;display:flex;align-items:center;justify-content:center;background:var(--bg);transition:transform .2s;}
-.panel-close:active{transform:rotate(90deg);}
-.panel-body{flex:1;overflow-y:auto;padding:8px 12px;}
-.panel-item{
-  display:flex;gap:10px;padding:12px 0;border-bottom:1px solid var(--line);
-  animation:rowIn .35s ease both;
-}
-@keyframes rowIn{from{opacity:0;transform:translateX(14px);}to{opacity:1;transform:translateX(0);}}
-.panel-item.removing{animation:rowOut .3s ease forwards;}
-@keyframes rowOut{to{opacity:0;transform:translateX(30px);max-height:0;padding:0;margin:0;}}
-.panel-item-img-wrap{width:64px;height:64px;border-radius:var(--radius);overflow:hidden;background:#f8f9fa;flex-shrink:0;}
-.panel-item-img-wrap img{width:100%;height:100%;object-fit:cover;}
-.panel-item-info{flex:1;min-width:0;}
-.pib{font-size:9.5px;font-weight:700;color:var(--sub);text-transform:uppercase;}
-.pit{font-size:12.5px;font-weight:600;margin:2px 0;line-height:1.3;}
-.panel-item-price{font-size:13px;font-weight:800;}
-.panel-item-actions{display:flex;align-items:center;justify-content:space-between;margin-top:6px;}
-.panel-item-actions .qty-stepper{width:auto;display:inline-flex;}
-.panel-item-remove{font-size:11px;color:var(--sub);font-weight:600;}
-.panel-item-remove:hover{color:#ff5252;}
-.panel-empty{display:flex;flex-direction:column;align-items:center;justify-content:center;padding:60px 20px;text-align:center;color:var(--sub);gap:8px;}
-.panel-empty b{color:var(--ink);font-size:14px;}
-.panel-empty span{font-size:12px;}
-.panel-foot{padding:14px 16px;border-top:1px solid var(--line);}
-.panel-summary-row{display:flex;justify-content:space-between;font-size:13px;color:var(--sub);margin-bottom:6px;}
-.panel-summary-row.total{color:var(--ink);font-weight:800;font-size:15px;margin:10px 0;}
-.btn{width:100%;padding:12px 0;border-radius:var(--radius);font-weight:700;font-size:13.5px;margin-bottom:8px;transition:transform .18s;}
-.btn:active{transform:scale(.97);}
-.btn-green{background:var(--green);color:#fff;}
-.btn-green:hover{background:var(--green-dark);}
-.btn-outline{border:1px solid var(--line);color:var(--ink);}
+  /* ---------- Section shells ---------- */
+  section{padding:64px 24px;}
+  .section-inner{max-width:1180px; margin:0 auto;}
+  .section-head{max-width:640px; margin-bottom:38px;}
+  .section-head h2{font-size:30px; font-weight:700; margin:0 0 10px; color:var(--ink);}
+  .section-head p{font-size:15.5px; color:var(--ink-soft); line-height:1.6; margin:0;}
+  .band{background:var(--paper); border-top:1px solid var(--line); border-bottom:1px solid var(--line);}
+  .band-blue{background:var(--blue-900); color:#fff;}
 
-/* toast */
-.toast{
-  position:fixed;bottom:78px;left:50%;transform:translateX(-50%) translateY(20px);z-index:500;
-  background:var(--ink);color:#fff;font-size:12.5px;font-weight:600;padding:10px 18px;border-radius:var(--radius);
-  opacity:0;transition:all .35s cubic-bezier(.34,1.56,.64,1);pointer-events:none;
-}
-.toast.show{opacity:1;transform:translateX(-50%) translateY(0);}
+  .cat-grid{display:grid; grid-template-columns:repeat(3,1fr); gap:20px;}
+  .cat-card{
+    background:#fff; border:1px solid var(--line); border-radius:var(--radius);
+    padding:26px 24px; transition:box-shadow .18s ease, border-color .18s ease, transform .18s ease;
+  }
+  .cat-card:hover{box-shadow:var(--shadow-md); border-color:var(--blue-500); transform:translateY(-4px);}
+  .cat-tag{
+    display:inline-block; font-size:12px; font-weight:600; color:var(--blue-700);
+    background:var(--blue-100); padding:4px 10px; border-radius:var(--radius); margin-bottom:14px;
+  }
+  .cat-card h3{font-size:19px; margin:0 0 8px; font-weight:700;}
+  .cat-card p{font-size:14px; color:var(--ink-soft); line-height:1.55; margin:0 0 16px;}
+  .cat-list{list-style:none; padding:0; margin:0 0 18px; display:flex; flex-direction:column; gap:7px;}
+  .cat-list li{font-size:13px; color:var(--ink-soft); display:flex; gap:8px; align-items:flex-start;}
+  .cat-list li::before{content:""; width:5px; height:5px; border-radius:50%; background:var(--blue-500); margin-top:6px; flex-shrink:0;}
 
-footer{background:var(--ink);color:#c9ccd1;padding:28px 16px;margin-top:20px;font-size:12px;}
-footer .flogo{color:#fff;font-weight:800;font-size:16px;margin-bottom:8px;}
+  .flow-grid{display:grid; grid-template-columns:repeat(4,1fr); gap:0; position:relative;}
+  .flow-step{padding:0 20px; position:relative;}
+  .flow-step:not(:last-child)::after{
+    content:""; position:absolute; top:22px; right:-10px; width:20px; height:1px;
+    background:var(--line);
+  }
+  .flow-num{
+    width:44px; height:44px; border-radius:var(--radius); background:var(--blue-900); color:#fff;
+    display:flex; align-items:center; justify-content:center; font-weight:700; font-size:16px; margin-bottom:16px;
+    transition:transform .2s ease;
+  }
+  .flow-step:hover .flow-num{transform:scale(1.08) rotate(-3deg);}
+  .flow-step h4{font-size:15.5px; font-weight:700; margin:0 0 8px;}
+  .flow-step p{font-size:13.5px; color:var(--ink-soft); line-height:1.55; margin:0;}
 
-/* smooth catalog switch */
-#catalog{transition:opacity .22s ease,transform .22s ease;}
-#catalog.fade{opacity:0;transform:translateY(6px);}
+  .role-grid{display:grid; grid-template-columns:1fr 1fr; gap:22px;}
+  .role-card{
+    border-radius:var(--radius); padding:30px; position:relative; overflow:hidden;
+    border:1px solid var(--line); transition:box-shadow .2s ease, transform .2s ease;
+  }
+  .role-card:hover{box-shadow:var(--shadow-md); transform:translateY(-3px);}
+  .role-card.faculty{background:var(--blue-50);}
+  .role-card.employer{background:var(--paper);}
+  .role-eyebrow{font-size:13px; font-weight:600; color:var(--blue-700); margin-bottom:8px;}
+  .role-card h3{font-size:22px; margin:0 0 12px;}
+  .role-card p{font-size:14.5px; color:var(--ink-soft); line-height:1.6; margin:0 0 20px;}
+  .role-perks{list-style:none; padding:0; margin:0 0 22px; display:flex; flex-direction:column; gap:10px;}
+  .role-perks li{font-size:14px; display:flex; align-items:flex-start; gap:10px; color:var(--ink);}
+  .check{
+    width:18px; height:18px; border-radius:5px; background:var(--blue-700); color:#fff; flex-shrink:0;
+    display:flex; align-items:center; justify-content:center; font-size:11px; margin-top:1px;
+  }
 
-.mobile-nav{padding-bottom:calc(8px + env(safe-area-inset-bottom));}
-header{padding-top:env(safe-area-inset-top);}
+  .trust-strip{display:flex; align-items:center; justify-content:space-between; gap:24px; flex-wrap:wrap;}
+  .trust-num{text-align:center;}
+  .trust-num .num{font-size:34px; font-weight:700;}
+  .trust-num .label{font-size:13px; color:var(--ink-faint); margin-top:4px;}
+  .band-blue .trust-num .num{color:#fff;}
+  .band-blue .trust-num .label{color:#B9CCF0;}
 
-/* ===== Location / serviceability ===== */
-.unavailable-box{
-  margin:16px 12px;padding:26px 18px;text-align:center;background:var(--card);
-  border:1px solid var(--line);border-radius:var(--radius);
-}
-.unavailable-box .icon-circle{
-  width:56px;height:56px;border-radius:50%;background:#fdeeee;color:#e35b5b;
-  display:flex;align-items:center;justify-content:center;margin:0 auto 14px;
-}
-.unavailable-box h3{font-size:15px;font-weight:800;margin-bottom:6px;}
-.unavailable-box p{font-size:12.5px;color:var(--sub);line-height:1.5;margin-bottom:14px;}
-.unavailable-box button{
-  padding:10px 20px;border-radius:var(--radius);background:var(--green);color:#fff;
-  font-size:12.5px;font-weight:700;transition:transform .18s;
-}
-.unavailable-box button:active{transform:scale(.95);}
+  footer{background:var(--blue-900); color:#C9D6EE; padding:56px 24px 26px;}
+  .footer-inner{max-width:1180px; margin:0 auto;}
+  .footer-grid{display:grid; grid-template-columns:1.4fr 1fr 1fr 1fr; gap:32px; margin-bottom:40px;}
+  .footer-brand{color:#fff; font-weight:700; font-size:18px; display:flex; align-items:center; gap:8px; margin-bottom:12px;}
+  .footer-grid p{font-size:13.5px; line-height:1.6; color:#9FB2D6; max-width:32ch;}
+  .footer-col h5{font-size:13px; color:#fff; margin:0 0 14px; font-weight:600;}
+  .footer-col a{display:block; font-size:13.5px; color:#9FB2D6; margin-bottom:10px; transition:color .15s;}
+  .footer-col a:hover{color:#fff;}
+  .footer-bottom{border-top:1px solid rgba(255,255,255,0.12); padding-top:20px; display:flex; justify-content:space-between; font-size:12.5px; color:#7E93BE; flex-wrap:wrap; gap:10px;}
+
+  @media (max-width:920px){
+    .hero-inner{grid-template-columns:1fr;}
+    .cat-grid{grid-template-columns:1fr;}
+    .role-grid{grid-template-columns:1fr;}
+    .flow-grid{grid-template-columns:1fr 1fr; row-gap:26px;}
+    .footer-grid{grid-template-columns:1fr 1fr;}
+    .nav-links{display:none;}
+  }
 </style>
 </head>
 <body>
-
-<header>
-  <div class="header-top">
-    <div class="logo">
-      <div class="logo-mark">
-        <svg viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
-          <path d="M6 8V6.5a4.5 4.5 0 0 1 9 0V8" stroke="#0f6b4a" stroke-width="1.8" stroke-linecap="round"/>
-          <path d="M4.5 8h13l-1 12.2a1.8 1.8 0 0 1-1.8 1.6H7.3a1.8 1.8 0 0 1-1.8-1.6L4.5 8Z" fill="#0f6b4a"/>
-          <circle cx="10.6" cy="12" r="1" fill="#d4af37"/>
-          <circle cx="13.4" cy="12" r="1" fill="#d4af37"/>
-        </svg>
+  <nav class="nav">
+    <div class="nav-inner">
+      <div class="brand"><div class="brand-mark"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg" style="flex-shrink:0;"><path d="M12 3L1 8.5L12 14L21 9.7V16.5H23V8.5L12 3Z" fill="white"/><path d="M5 11.5V16.5C5 16.5 5 20 12 20C19 20 19 16.5 19 16.5V11.5L12 15L5 11.5Z" fill="white" fill-opacity="0.85"/></svg></div>Upadyay</div>
+      <div class="nav-links">
+        <a href="#faculty">For Faculty</a>
+        <a href="#employers">For Employers</a>
+        <a href="#categories">Categories</a>
+        <a href="#how">How it works</a>
       </div>
-      <b>Shop<span>Kart</span></b>
+      <div class="nav-cta">
+        <button class="btn btn-ghost btn-sm" style="padding:7px 12px; font-size:12.5px; color:var(--ink-faint); border-color:var(--line);" onclick="openAuth('search')">Log in</button>
+        <button class="btn btn-primary btn-sm" onclick="openAuth('search'); setAuthTab('register');">Register free</button>
+      </div>
     </div>
-    <div class="search-bar" id="searchBar">
-      <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="11" cy="11" r="8"/><path d="m21 21-4.35-4.35"/></svg>
-      <input id="searchInput" type="text" placeholder="Search for products, brands and more">
+  </nav>
+
+  <header class="hero">
+    <div class="hero-inner">
+      <div>
+        <div class="eyebrow-plain">Faculty recruitment, built for Indian education</div>
+        <h1>Where verified faculty meet institutions that are hiring</h1>
+        <p class="lead">Upadyay connects schools, junior colleges and universities directly with qualified teaching talent — one profile, every opportunity, no middlemen.</p>
+
+        <div class="hero-search">
+          <div class="hs-field" style="flex:0 0 180px;">
+            <span class="hs-ic">☰</span>
+            <select id="heroCategory">
+              <option value="">All categories</option>
+              <option value="schools">Schools</option>
+              <option value="intermediate">Intermediate</option>
+              <option value="higher">Higher Education</option>
+            </select>
+          </div>
+          <div class="hs-field">
+            <span class="hs-ic">🔍</span>
+            <input type="text" placeholder="Subject, role or keyword — e.g. Physics, PGT, Assistant Professor">
+          </div>
+          <button class="btn btn-primary" style="margin:2px;">Search</button>
+        </div>
+
+        <div class="hero-actions" style="margin-bottom:30px;">
+          <button class="btn btn-primary" onclick="openAuth('search'); setAuthTab('register');">Register as Faculty</button>
+          <button class="btn btn-light" onclick="openAuth('post'); setAuthTab('register');">Hire on Upadyay</button>
+        </div>
+        <div class="hero-stats">
+          <div class="hero-stat"><span class="num tabular" data-count="18400" data-suffix="+">0</span><span class="label">Registered faculty</span></div>
+          <div class="hero-stat"><span class="num tabular" data-count="1200" data-suffix="+">0</span><span class="label">Institutions hiring</span></div>
+          <div class="hero-stat"><span class="num tabular">2 yrs</span><span class="label">Free for employers</span></div>
+        </div>
+      </div>
+      <div class="hero-visual">
+        <div class="hp-card">
+          <span class="hp-status"><span class="hp-dot"></span>Open to opportunities</span>
+          <div class="hp-top">
+            <div class="hp-avatar">PM</div>
+            <div>
+              <p class="hp-name">Dr. Priya Menon</p>
+              <p class="hp-role">Physics · Quantum Optics</p>
+            </div>
+            <span class="hp-badge">🎓 PhD</span>
+          </div>
+          <div class="hp-tags">
+            <span class="hp-tag">Higher Education</span>
+            <span class="hp-tag">8 yrs experience</span>
+            <span class="hp-tag">Hyderabad</span>
+          </div>
+          <div class="hp-stats">
+            <div class="hp-stat"><span class="num tabular">14</span><span class="label">Publications</span></div>
+            <div class="hp-stat"><span class="num tabular">210</span><span class="label">Citations</span></div>
+            <div class="hp-stat"><span class="num tabular">1</span><span class="label">Patent</span></div>
+          </div>
+        </div>
+        <div class="hero-card c1">
+          <div class="ic">✓</div>
+          <div><div class="t1">Profile shortlisted</div><div class="t2">KL University — 2 min ago</div></div>
+        </div>
+      </div>
     </div>
-    <button class="header-icon" id="wishOpenBtn"><svg width="21" height="21" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M20.8 4.6a5.5 5.5 0 0 0-7.8 0L12 5.6l-1-1a5.5 5.5 0 0 0-7.8 7.8l1 1L12 21l7.8-7.6 1-1a5.5 5.5 0 0 0 0-7.8Z"/></svg><span class="badge" id="wishBadge" hidden>0</span></button>
-    <button class="header-icon" id="cartOpenBtn"><svg width="21" height="21" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="9" cy="21" r="1"/><circle cx="20" cy="21" r="1"/><path d="M1 1h4l2.7 13.4a2 2 0 0 0 2 1.6h9.7a2 2 0 0 0 2-1.6L23 6H6"/></svg><span class="badge" id="cartBadge" hidden>0</span></button>
+  </header>
+
+  <section id="categories">
+    <div class="section-inner">
+      <div class="section-head reveal">
+        <h2>Built around how Indian education actually hires</h2>
+        <p>Every listing and every profile is sorted into the category it belongs to, so faculty are matched with roles suited to their level.</p>
+      </div>
+      <div class="cat-grid reveal-stagger reveal">
+        <div class="cat-card">
+          <span class="cat-tag">Category 1</span>
+          <h3>Schools</h3>
+          <p>Primary and secondary teaching positions across CBSE, ICSE, State Board and international curricula.</p>
+          <ul class="cat-list">
+            <li>Subject teachers, PGT/TGT/PRT roles</li>
+            <li>Coordinators and vice-principals</li>
+            <li>Qualification, board experience shown upfront</li>
+          </ul>
+          <a class="btn btn-ghost btn-sm" href="javascript:void(0)">Browse school roles</a>
+        </div>
+        <div class="cat-card">
+          <span class="cat-tag">Category 2</span>
+          <h3>Intermediate</h3>
+          <p>Junior college and pre-university lecturers for MPC, BiPC, CEC and commerce streams.</p>
+          <ul class="cat-list">
+            <li>PG faculty with subject specialisation</li>
+            <li>Entrance-exam coaching experience valued</li>
+            <li>Full and part-time openings</li>
+          </ul>
+          <a class="btn btn-ghost btn-sm" href="javascript:void(0)">Browse intermediate roles</a>
+        </div>
+        <div class="cat-card">
+          <span class="cat-tag">Category 3</span>
+          <h3>Higher Education</h3>
+          <p>University and college faculty — Assistant, Associate and Professor positions across departments.</p>
+          <ul class="cat-list">
+            <li>PhD holders with specialisation, citations shown</li>
+            <li>Publications, patents and grants on profile</li>
+            <li>National and international experience noted</li>
+          </ul>
+          <a class="btn btn-ghost btn-sm" href="javascript:void(0)">Browse university roles</a>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section id="jobs">
+    <div class="section-inner">
+      <div class="section-head reveal">
+        <h2>Post a job, or find one</h2>
+        <p>Institutions post openings in seconds. Faculty search roles by category, subject and location.</p>
+      </div>
+      <div class="jsp-cards reveal-stagger reveal">
+        <button class="jsp-card jsp-card-dark" onclick="openAuth('search')">
+          <div class="jsp-card-text">
+            <h3>Search your desired Job</h3>
+            <p>Discover a career you are passionate about</p>
+          </div>
+          <span class="jsp-card-ic">🔍</span>
+        </button>
+        <button class="jsp-card jsp-card-light" onclick="openAuth('post')">
+          <div class="jsp-card-text">
+            <h3>Post a Job Today</h3>
+            <p>Discover the ideal candidate for your team</p>
+          </div>
+          <span class="jsp-card-ic">📨</span>
+        </button>
+      </div>
+    </div>
+  </section>
+
+  <section class="band" id="how">
+    <div class="section-inner">
+      <div class="section-head reveal">
+        <h2>How Upadyay helps each side</h2>
+        <p>A faster, more accurate way to reach the right hire — for the person looking, and the institution looking for them.</p>
+      </div>
+      <div class="flow-grid reveal-stagger reveal">
+        <div class="flow-step">
+          <div class="flow-num">1</div>
+          <h4>Build a real profile</h4>
+          <p>Faculty enter qualification, specialisation, publications, patents and experience — once, verified, reusable everywhere.</p>
+        </div>
+        <div class="flow-step">
+          <div class="flow-num">2</div>
+          <h4>Get matched by category</h4>
+          <p>Employers search within School, Intermediate or Higher Ed, filtered by subject, qualification and experience.</p>
+        </div>
+        <div class="flow-step">
+          <div class="flow-num">3</div>
+          <h4>Institutions post roles</h4>
+          <p>Employers list openings and reach faculty directly from a database of 18,000+ profiles — no listing fee for the first two years.</p>
+        </div>
+        <div class="flow-step">
+          <div class="flow-num">4</div>
+          <h4>Connect and hire</h4>
+          <p>Shortlist, message and close the role from one dashboard, with every credential already verified.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section>
+    <div class="section-inner">
+      <div class="section-head reveal">
+        <h2>Made for both sides of the hire</h2>
+      </div>
+      <div class="role-grid reveal-stagger reveal">
+        <div class="role-card faculty" id="faculty">
+          <div class="role-eyebrow">FOR FACULTY</div>
+          <h3>One profile. Every opportunity.</h3>
+          <p>Register once with your qualifications and get discovered by verified institutions across India — no repeated applications.</p>
+          <ul class="role-perks">
+            <li><span class="check">✓</span>Free registration, always</li>
+            <li><span class="check">✓</span>Highest qualification badge shown on your profile</li>
+            <li><span class="check">✓</span>Publications, patents and citations tracked</li>
+            <li><span class="check">✓</span>Direct contact from hiring institutions</li>
+          </ul>
+          <button class="btn btn-primary">Register as Faculty</button>
+        </div>
+        <div class="role-card employer" id="employers">
+          <div class="role-eyebrow">FOR EMPLOYERS</div>
+          <h3>Hire from a verified faculty database.</h3>
+          <p>Search 18,000+ verified faculty profiles by category, subject and qualification, and post roles institutions actually see.</p>
+          <ul class="role-perks">
+            <li><span class="check">✓</span>Free for your first 2 years</li>
+            <li><span class="check">✓</span>Post unlimited job openings</li>
+            <li><span class="check">✓</span>Filter by School, Intermediate or Higher Ed</li>
+            <li><span class="check">✓</span>Dedicated HR dashboard and shortlist tools</li>
+          </ul>
+          <button class="btn btn-primary">Hire on Upadyay</button>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section class="band-blue" style="padding:44px 24px;">
+    <div class="section-inner trust-strip reveal">
+      <div class="trust-num"><span class="num tabular" data-count="18400" data-suffix="+">0</span><span class="label">Faculty registered</span></div>
+      <div class="trust-num"><span class="num tabular" data-count="1200" data-suffix="+">0</span><span class="label">Institutions</span></div>
+      <div class="trust-num"><span class="num tabular" data-count="3">0</span><span class="label">Faculty categories</span></div>
+      <div class="trust-num"><span class="num tabular">24 hrs</span><span class="label">Avg. response time</span></div>
+    </div>
+  </section>
+
+  <footer>
+    <div class="footer-inner">
+      <div class="footer-grid">
+        <div>
+          <div class="footer-brand"><div class="brand-mark"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg" style="flex-shrink:0;"><path d="M12 3L1 8.5L12 14L21 9.7V16.5H23V8.5L12 3Z" fill="white"/><path d="M5 11.5V16.5C5 16.5 5 20 12 20C19 20 19 16.5 19 16.5V11.5L12 15L5 11.5Z" fill="white" fill-opacity="0.85"/></svg></div>Upadyay</div>
+          <p>India's faculty recruitment platform — connecting schools, junior colleges and universities with verified teaching talent.</p>
+        </div>
+        <div class="footer-col">
+          <h5>Platform</h5>
+          <a href="#faculty">For Faculty</a>
+          <a href="#employers">For Employers</a>
+          <a href="#categories">Categories</a>
+        </div>
+        <div class="footer-col">
+          <h5>Company</h5>
+          <a href="javascript:void(0)">About</a>
+          <a href="javascript:void(0)">Contact</a>
+          <a href="javascript:void(0)">Help centre</a>
+        </div>
+        <div class="footer-col">
+          <h5>Legal</h5>
+          <a href="javascript:void(0)">Privacy policy</a>
+          <a href="javascript:void(0)">Terms</a>
+        </div>
+      </div>
+      <div class="footer-bottom">
+        <div>© 2026 Upadyay. All rights reserved.</div>
+        <div>upadyay.com</div>
+      </div>
+    </div>
+  </footer>
+
+  <!-- Auth modal -->
+  <div class="modal-overlay" id="authOverlay">
+    <div class="modal-box">
+      <button class="modal-close" onclick="closeAuth()">✕</button>
+      <div class="modal-tabs">
+        <button class="modal-tab active" id="tabLogin" onclick="setAuthTab('login')">Log in</button>
+        <button class="modal-tab" id="tabRegister" onclick="setAuthTab('register')">Register</button>
+      </div>
+      <h2 id="authTitle">Welcome back</h2>
+      <p class="sub" id="authSub">Log in to continue</p>
+
+      <div class="role-select" id="roleSelect" style="display:none;">
+        <div class="role-opt" id="roleSeeker" onclick="selectRole('seeker')">
+          <span class="ric">🎓</span>
+          <div class="rt">Job Seeker</div>
+          <div class="rd">Find faculty roles</div>
+        </div>
+        <div class="role-opt" id="roleCompany" onclick="selectRole('company')">
+          <span class="ric">🏫</span>
+          <div class="rt">Company</div>
+          <div class="rd">Hire faculty</div>
+        </div>
+      </div>
+
+      <form onsubmit="return submitAuth(event)">
+        <div class="modal-field" id="fieldName" style="display:none;">
+          <label>Full name</label>
+          <input type="text" placeholder="Your name" required>
+        </div>
+        <div class="modal-field">
+          <label>Email</label>
+          <input type="email" placeholder="you@example.com" required>
+        </div>
+        <div class="modal-field">
+          <label>Password</label>
+          <input type="password" placeholder="••••••••" required>
+        </div>
+        <button type="submit" class="btn btn-primary" id="authSubmitBtn">Log in</button>
+      </form>
+    </div>
   </div>
-  <div class="loc-strip" id="locStrip">
-    <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M20 10c0 6-8 12-8 12S4 16 4 10a8 8 0 0 1 16 0Z"/><circle cx="12" cy="10" r="3"/></svg>
-    <span id="locText">Detecting your location…</span>
-    <span class="loc-status pending" id="locStatus"><span class="loc-dot"></span>Checking</span>
+
+  <!-- Profile / dashboard -->
+  <div class="dash-overlay" id="dashOverlay">
+    <div class="dash-top">
+      <div class="brand"><div class="brand-mark" style="width:26px;height:26px;">🎓</div>Upadyay</div>
+      <button class="btn btn-ghost btn-sm" onclick="closeDash()">Back to site</button>
+    </div>
+    <div class="dash-inner">
+      <div class="dash-head">
+        <div class="dash-avatar" id="dashAvatar">U</div>
+        <div>
+          <h2 id="dashName">Your profile</h2>
+          <p id="dashSub">Manage your Upadyay account</p>
+        </div>
+      </div>
+
+      <div class="dash-panel" id="panelSearch">
+        <h3>Search jobs</h3>
+        <div class="dash-form-row">
+          <input type="text" placeholder="Subject, role or keyword" style="border:1px solid var(--line); border-radius:var(--radius); padding:10px 12px; font-family:inherit;">
+          <select style="border:1px solid var(--line); border-radius:var(--radius); padding:10px 12px; font-family:inherit;">
+            <option value="">All categories</option>
+            <option>Schools</option>
+            <option>Intermediate</option>
+            <option>Higher Education</option>
+          </select>
+        </div>
+        <button class="btn btn-primary btn-sm">Search jobs</button>
+      </div>
+
+      <div class="dash-panel" id="panelPost">
+        <h3>Add a job</h3>
+        <div class="dash-form-row">
+          <input type="text" placeholder="Job title — e.g. Assistant Professor, CSE" style="border:1px solid var(--line); border-radius:var(--radius); padding:10px 12px; font-family:inherit;">
+          <select style="border:1px solid var(--line); border-radius:var(--radius); padding:10px 12px; font-family:inherit;">
+            <option value="">Category</option>
+            <option>Schools</option>
+            <option>Intermediate</option>
+            <option>Higher Education</option>
+          </select>
+        </div>
+        <div class="dash-form-row">
+          <select style="border:1px solid var(--line); border-radius:var(--radius); padding:10px 12px; font-family:inherit;">
+            <option value="">Qualification needed</option>
+            <option>UG</option>
+            <option>PG</option>
+            <option>PhD</option>
+          </select>
+          <input type="text" placeholder="Location" style="border:1px solid var(--line); border-radius:var(--radius); padding:10px 12px; font-family:inherit;">
+        </div>
+        <button class="btn btn-primary btn-sm" onclick="addJob(event)">+ Post job — free</button>
+
+        <div id="jobList" style="margin-top:18px;"></div>
+      </div>
+    </div>
   </div>
-  <div class="catnav" id="catNav"></div>
-</header>
-
-<div id="pageTop">
-<div class="hero-wrap">
-  <div class="hero-card">
-    <img id="heroImg" src="https://images.unsplash.com/photo-1607083206968-13611e3d76db?w=1200&q=75&auto=format&fit=crop" alt="Big sale">
-    <div class="hero-dots" id="heroDots"></div>
-  </div>
-</div>
-
-<div id="catalog"></div>
-
-<div class="toast" id="toast"></div>
-
-<nav class="mobile-nav">
-  <a href="#top" class="active"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M3 9.5 12 2l9 7.5V21a1 1 0 0 1-1 1h-5v-7H9v7H4a1 1 0 0 1-1-1Z"/></svg>Home</a>
-  <a href="#catalog"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="3" width="7" height="7" rx="1"/><rect x="14" y="3" width="7" height="7" rx="1"/><rect x="3" y="14" width="7" height="7" rx="1"/><rect x="14" y="14" width="7" height="7" rx="1"/></svg>Categories</a>
-  <a href="#" id="mobileWishBtn"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M20.8 4.6a5.5 5.5 0 0 0-7.8 0L12 5.6l-1-1a5.5 5.5 0 0 0-7.8 7.8l1 1L12 21l7.8-7.6 1-1a5.5 5.5 0 0 0 0-7.8Z"/></svg>Wishlist<span class="badge" id="mobWishBadge" hidden>0</span></a>
-  <a href="#" id="mobileCartBtn"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="9" cy="21" r="1"/><circle cx="20" cy="21" r="1"/><path d="M1 1h4l2.7 13.4a2 2 0 0 0 2 1.6h9.7a2 2 0 0 0 2-1.6L23 6H6"/></svg>Cart<span class="badge" id="mobCartBadge" hidden>0</span></a>
-</nav>
-
-<div class="overlay" id="cartOverlay">
-  <div class="panel">
-    <div class="panel-head"><h3>My Cart</h3><button class="panel-close" id="cartCloseBtn"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M18 6 6 18M6 6l12 12"/></svg></button></div>
-    <div class="panel-body" id="cartBody"></div>
-    <div class="panel-foot" id="cartFoot"></div>
-  </div>
-</div>
-
-<div class="overlay" id="wishOverlay">
-  <div class="panel">
-    <div class="panel-head"><h3>Wishlist</h3><button class="panel-close" id="wishCloseBtn"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M18 6 6 18M6 6l12 12"/></svg></button></div>
-    <div class="panel-body" id="wishBody"></div>
-  </div>
-</div>
-
-<footer>
-  <div class="flogo">ShopKart</div>
-  <p>Fashion · Electronics · Grocery · Home &amp; more — all in one place. Demo storefront built for preview purposes.</p>
-</footer>
-</div><!-- /pageTop -->
 
 <script>
-/* ================= DATA ================= */
-const ICONS = {
-  all:'<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="3" width="7" height="7" rx="1.5"/><rect x="14" y="3" width="7" height="7" rx="1.5"/><rect x="3" y="14" width="7" height="7" rx="1.5"/><rect x="14" y="14" width="7" height="7" rx="1.5"/></svg>',
-  fashion:'<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M16 4l-4 2-4-2-5 3 2 4h3v9a1 1 0 0 0 1 1h6a1 1 0 0 0 1-1v-9h3l2-4-5-3Z"/></svg>',
-  mobiles:'<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="6" y="2" width="12" height="20" rx="2"/><path d="M11 18h2"/></svg>',
-  electronics:'<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="2" y="4" width="20" height="14" rx="2"/><path d="M8 21h8M12 18v3"/></svg>',
-  beauty:'<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M9 2h6l1 4-4 3-4-3 1-4Z"/><path d="M9 9v10a3 3 0 0 0 6 0V9"/></svg>',
-  home:'<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M3 11l9-8 9 8"/><path d="M5 10v10a1 1 0 0 0 1 1h4v-6h4v6h4a1 1 0 0 0 1-1V10"/></svg>',
-  grocery:'<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="9" cy="21" r="1"/><circle cx="20" cy="21" r="1"/><path d="M1 1h4l2.7 13.4a2 2 0 0 0 2 1.6h9.7a2 2 0 0 0 2-1.6L23 6H6"/></svg>',
-  footwear:'<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M3 18v-4c2-1 3-2 4-4l2-3 3 2c2 1 4 2 9 2v4c0 1.7-1.3 3-3 3H4a1 1 0 0 1-1-1Z"/></svg>',
-  toys:'<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="7" r="4"/><path d="M5 21v-4a4 4 0 0 1 4-4h6a4 4 0 0 1 4 4v4"/></svg>'
-};
-const CATEGORIES = [
-  {id:'fashion', name:'Fashion', img:'https://images.unsplash.com/photo-1441984904996-e0b6ba687e04?w=200&q=70&auto=format&fit=crop'},
-  {id:'mobiles', name:'Mobiles', img:'https://images.unsplash.com/photo-1511707171634-5f897ff02aa9?w=200&q=70&auto=format&fit=crop'},
-  {id:'electronics', name:'Electronics', img:'https://images.unsplash.com/photo-1518444065439-e933c06ce9cd?w=200&q=70&auto=format&fit=crop'},
-  {id:'beauty', name:'Beauty', img:'https://images.unsplash.com/photo-1596462502278-27bfdc403348?w=200&q=70&auto=format&fit=crop'},
-  {id:'home', name:'Home', img:'https://images.unsplash.com/photo-1583847268964-b28dc8f51f92?w=200&q=70&auto=format&fit=crop'},
-  {id:'grocery', name:'Grocery', img:'https://images.unsplash.com/photo-1542838132-92c53300491e?w=200&q=70&auto=format&fit=crop'},
-  {id:'footwear', name:'Footwear', img:'https://images.unsplash.com/photo-1595950653106-6c9ebd614d3a?w=200&q=70&auto=format&fit=crop'},
-  {id:'toys', name:'Toys', img:'https://images.unsplash.com/photo-1558877385-81a1c7e67d72?w=200&q=70&auto=format&fit=crop'}
-];
+  // ---------- Auth modal ----------
+  let authMode = 'login';
+  let intendedPanel = 'search';
+  let selectedRole = null;
 
-const PRODUCTS = [
-  {id:1,cat:'fashion',brand:'URBAN THREAD',title:"Men's Slim Fit Cotton Shirt",price:699,mrp:1799,rating:4.2,img:'https://images.unsplash.com/photo-1602810318383-e386cc2a3ccf?w=500&q=70&auto=format&fit=crop'},
-  {id:2,cat:'fashion',brand:'AURA',title:'Women Floral A-Line Dress',price:899,mrp:2499,rating:4.3,img:'https://images.unsplash.com/photo-1595777457583-95e059d581b8?w=500&q=70&auto=format&fit=crop'},
-  {id:3,cat:'fashion',brand:'DENIM CO',title:"Men's Slim Fit Blue Jeans",price:1099,mrp:2999,rating:4.1,img:'https://images.unsplash.com/photo-1542272604-787c3835535d?w=500&q=70&auto=format&fit=crop'},
-  {id:4,cat:'fashion',brand:'WEAVE',title:'Handwoven Cotton Saree',price:1499,mrp:3999,rating:4.4,img:'https://images.unsplash.com/photo-1610030181087-540f6f052ccc?w=500&q=70&auto=format&fit=crop'},
-  {id:5,cat:'footwear',brand:'STRIDE',title:'Running Sports Shoes',price:1299,mrp:3499,rating:4.3,img:'https://images.unsplash.com/photo-1542291026-7eec264c27ff?w=500&q=70&auto=format&fit=crop'},
-  {id:6,cat:'footwear',brand:'CLASSICO',title:'Formal Leather Loafers',price:1799,mrp:3999,rating:4.0,img:'https://images.unsplash.com/photo-1533867617858-e7b97e060509?w=500&q=70&auto=format&fit=crop'},
-  {id:7,cat:'footwear',brand:'BOUNCE',title:'Casual Canvas Sneakers',price:899,mrp:1999,rating:4.2,img:'https://images.unsplash.com/photo-1525966222134-fcfa99b8ae77?w=500&q=70&auto=format&fit=crop'},
-  {id:8,cat:'mobiles',brand:'NOVA',title:'Nova X5 5G Smartphone (8GB/128GB)',price:14999,mrp:19999,rating:4.3,img:'https://images.unsplash.com/photo-1511707171634-5f897ff02aa9?w=500&q=70&auto=format&fit=crop'},
-  {id:9,cat:'mobiles',brand:'PIXELWAVE',title:'PixelWave Buds Pro TWS Earbuds',price:1299,mrp:2999,rating:4.1,img:'https://images.unsplash.com/photo-1590658268037-6bf12165a8df?w=500&q=70&auto=format&fit=crop'},
-  {id:10,cat:'electronics',brand:'VOLTRIX',title:'Smart LED TV 43" Full HD',price:16999,mrp:26999,rating:4.2,img:'https://images.unsplash.com/photo-1593359677879-a4bb92f829d1?w=500&q=70&auto=format&fit=crop'},
-  {id:11,cat:'electronics',brand:'AIRCOOL',title:'Inverter Split AC 1.5 Ton',price:28999,mrp:41999,rating:4.1,img:'https://images.unsplash.com/photo-1631545806609-825168a92e59?w=500&q=70&auto=format&fit=crop'},
-  {id:12,cat:'electronics',brand:'SOUNDPEAK',title:'Bluetooth Party Speaker 40W',price:1999,mrp:4499,rating:4.4,img:'https://images.unsplash.com/photo-1608043152269-423dbba4e7e1?w=500&q=70&auto=format&fit=crop'},
-  {id:13,cat:'electronics',brand:'TECHGEAR',title:'Wireless Gaming Mouse RGB',price:699,mrp:1499,rating:4.3,img:'https://images.unsplash.com/photo-1527814050087-3793815479db?w=500&q=70&auto=format&fit=crop'},
-  {id:14,cat:'beauty',brand:'GLOWUP',title:'Vitamin C Brightening Face Serum',price:399,mrp:899,rating:4.2,img:'https://images.unsplash.com/photo-1620916566398-39f1143ab7be?w=500&q=70&auto=format&fit=crop'},
-  {id:15,cat:'beauty',brand:'PURE ROOTS',title:'Herbal Hair Growth Oil 200ml',price:249,mrp:499,rating:4.0,img:'https://images.unsplash.com/photo-1608248543803-ba4f8c70ae0b?w=500&q=70&auto=format&fit=crop'},
-  {id:16,cat:'beauty',brand:'VELVET',title:'Matte Lipstick Combo Pack of 3',price:349,mrp:799,rating:4.3,img:'https://images.unsplash.com/photo-1586495777744-4413f21062fa?w=500&q=70&auto=format&fit=crop'},
-  {id:17,cat:'home',brand:'COOKWELL',title:'Non-Stick Cookware Set (5pc)',price:1499,mrp:3299,rating:4.2,img:'https://images.unsplash.com/photo-1584990347449-a0f28a9a70d3?w=500&q=70&auto=format&fit=crop'},
-  {id:18,cat:'home',brand:'LINEN LOFT',title:'Cotton Double Bedsheet Set',price:799,mrp:1899,rating:4.1,img:'https://images.unsplash.com/photo-1522771930-78848d9293e8?w=500&q=70&auto=format&fit=crop'},
-  {id:19,cat:'home',brand:'GLOWLITE',title:'LED Table Lamp Modern Design',price:599,mrp:1299,rating:4.0,img:'https://images.unsplash.com/photo-1507473885765-e6ed057f782c?w=500&q=70&auto=format&fit=crop'},
-  {id:20,cat:'grocery',brand:'FARM FRESH',title:'Assorted Fresh Fruits Box 2kg',price:299,mrp:399,rating:4.3,img:'https://images.unsplash.com/photo-1610832958506-aa56368176cf?w=500&q=70&auto=format&fit=crop'},
-  {id:21,cat:'grocery',brand:'GOLDEN HARVEST',title:'Basmati Rice Premium 5kg',price:499,mrp:649,rating:4.4,img:'https://images.unsplash.com/photo-1586201375761-83865001e31c?w=500&q=70&auto=format&fit=crop'},
-  {id:22,cat:'grocery',brand:'DAILY DAIRY',title:'Farm Milk & Dairy Combo Pack',price:249,mrp:329,rating:4.2,img:'https://images.unsplash.com/photo-1550583724-b2692b85b150?w=500&q=70&auto=format&fit=crop'},
-  {id:23,cat:'toys',brand:'PLAYZONE',title:'Building Blocks Set (120pc)',price:599,mrp:1299,rating:4.5,img:'https://images.unsplash.com/photo-1587654780291-39c9404d746b?w=500&q=70&auto=format&fit=crop'},
-  {id:24,cat:'toys',brand:'FUNTOWN',title:'Remote Control Racing Car',price:899,mrp:1999,rating:4.2,img:'https://images.unsplash.com/photo-1594787318286-3d835c1d207f?w=500&q=70&auto=format&fit=crop'},
-  {id:25,cat:'fashion',brand:'REGAL',title:"Men's Formal Blazer",price:1999,mrp:4999,rating:4.5,img:'https://images.unsplash.com/photo-1594938298603-c8148c4dae35?w=500&q=70&auto=format&fit=crop'},
-  {id:26,cat:'fashion',brand:'AURA',title:'Women Silk Blend Kurti',price:649,mrp:1599,rating:4.1,img:'https://images.unsplash.com/photo-1583391733956-6c78276477e2?w=500&q=70&auto=format&fit=crop'},
-  {id:27,cat:'mobiles',brand:'NOVA',title:'Nova Watch Fit Pro Smartwatch',price:2499,mrp:5999,rating:4.4,img:'https://images.unsplash.com/photo-1523275335684-37898b6baf30?w=500&q=70&auto=format&fit=crop'},
-  {id:28,cat:'mobiles',brand:'CHARGEX',title:'65W GaN Fast Charger',price:999,mrp:1999,rating:4.3,img:'https://images.unsplash.com/photo-1583863788434-e58a36330cf0?w=500&q=70&auto=format&fit=crop'},
-  {id:29,cat:'electronics',brand:'CHILLPRO',title:'Double Door Refrigerator 260L',price:24999,mrp:34999,rating:4.3,img:'https://images.unsplash.com/photo-1571175443880-49e1d25b2bc5?w=500&q=70&auto=format&fit=crop'},
-  {id:30,cat:'electronics',brand:'AEROFLOW',title:'Tower Air Cooler 40L',price:5999,mrp:9999,rating:4.0,img:'https://images.unsplash.com/photo-1631545806609-825168a92e59?w=500&q=70&auto=format&fit=crop'},
-  {id:31,cat:'beauty',brand:'SUNGUARD',title:'SPF 50 Sunscreen Gel 100g',price:299,mrp:599,rating:4.4,img:'https://images.unsplash.com/photo-1556228578-8c89e6adf883?w=500&q=70&auto=format&fit=crop'},
-  {id:32,cat:'beauty',brand:'AROMA',title:'Luxury Perfume Gift Set',price:1299,mrp:2999,rating:4.5,img:'https://images.unsplash.com/photo-1541643600914-78b084683601?w=500&q=70&auto=format&fit=crop'},
-  {id:33,cat:'home',brand:'PUREBREW',title:'Automatic Espresso Coffee Maker',price:3999,mrp:7999,rating:4.3,img:'https://images.unsplash.com/photo-1517668808822-9ebb02f2a0e6?w=500&q=70&auto=format&fit=crop'},
-  {id:34,cat:'home',brand:'GREENLEAF',title:'Artificial Plant Decor Set',price:449,mrp:999,rating:4.1,img:'https://images.unsplash.com/photo-1485955900006-10f4d324d411?w=500&q=70&auto=format&fit=crop'},
-  {id:35,cat:'grocery',brand:'SPICE ROUTE',title:'Premium Spice Combo Pack',price:399,mrp:599,rating:4.4,img:'https://images.unsplash.com/photo-1596040033229-a9821ebd058d?w=500&q=70&auto=format&fit=crop'},
-  {id:36,cat:'grocery',brand:'CRUNCH CO',title:'Assorted Dry Fruits Box 1kg',price:699,mrp:999,rating:4.5,img:'https://images.unsplash.com/photo-1599599810769-bcde5a160d32?w=500&q=70&auto=format&fit=crop'},
-  {id:37,cat:'footwear',brand:'STRIDE',title:"Women's Ballet Flats",price:799,mrp:1799,rating:4.2,img:'https://images.unsplash.com/photo-1543163521-1bf539c55dd2?w=500&q=70&auto=format&fit=crop'},
-  {id:38,cat:'toys',brand:'PLAYZONE',title:'Educational Puzzle Set',price:349,mrp:699,rating:4.3,img:'https://images.unsplash.com/photo-1602934585418-f588bea4215c?w=500&q=70&auto=format&fit=crop'}
-];
-
-const HERO_SLIDES = [
-  'https://images.unsplash.com/photo-1607083206968-13611e3d76db?w=1200&q=75&auto=format&fit=crop',
-  'https://images.unsplash.com/photo-1483985988355-763728e1935b?w=1200&q=75&auto=format&fit=crop',
-  'https://images.unsplash.com/photo-1441986300917-64674bd600d8?w=1200&q=75&auto=format&fit=crop'
-];
-
-const inr = n => '₹' + n.toLocaleString('en-IN');
-let CART = {}, WISHLIST = new Set();
-
-function findProduct(id){ return PRODUCTS.find(p=>p.id===id); }
-
-/* ===== Render category nav + chips ===== */
-document.getElementById('catNav').innerHTML =
-  `<button class="active" data-cat="all" title="All">${ICONS.all}</button>` +
-  CATEGORIES.map(c=>`<button data-cat="${c.id}" title="${c.name}">${ICONS[c.id]||ICONS.all}</button>`).join('');
-
-/* Fixed header height -> push content down so nothing overlaps */
-function syncHeaderHeight(){
-  const h = document.querySelector('header').offsetHeight;
-  document.documentElement.style.setProperty('--header-total-h', h+'px');
-}
-syncHeaderHeight();
-window.addEventListener('resize', syncHeaderHeight);
-window.addEventListener('load', syncHeaderHeight);
-
-/* ===== Hero slider ===== */
-document.getElementById('heroDots').innerHTML = HERO_SLIDES.map((_,i)=>`<span class="${i===0?'active':''}"></span>`).join('');
-let heroIdx=0;
-setInterval(()=>{
-  heroIdx=(heroIdx+1)%HERO_SLIDES.length;
-  document.getElementById('heroImg').src = HERO_SLIDES[heroIdx];
-  document.querySelectorAll('.hero-dots span').forEach((d,i)=>d.classList.toggle('active', i===heroIdx));
-}, 3500);
-
-/* ===== Card builder ===== */
-function ratingStars(r){
-  return `<span class="stars">${r} <svg width="9" height="9" viewBox="0 0 24 24" fill="currentColor"><path d="M12 2l3.09 6.26L22 9.27l-5 4.87L18.18 21 12 17.77 5.82 21 7 14.14l-5-4.87 6.91-1.01L12 2z"/></svg></span>`;
-}
-function productCardHTML(p, i){
-  const off = Math.round((1 - p.price/p.mrp)*100);
-  const qty = CART[p.id] || 0;
-  const wished = WISHLIST.has(p.id);
-  return `
-  <div class="card" id="card-${p.id}" style="animation-delay:${(i%10)*0.04}s">
-    <div class="card-img-wrap">
-      <img src="${p.img}" alt="${p.title}" loading="lazy">
-      <span class="discount-tag">${off}% OFF</span>
-      <button class="wish-btn ${wished?'active':''}" data-act="wish" data-id="${p.id}">
-        <svg width="15" height="15" viewBox="0 0 24 24" fill="${wished?'currentColor':'none'}" stroke="currentColor" stroke-width="2"><path d="M20.8 4.6a5.5 5.5 0 0 0-7.8 0L12 5.6l-1-1a5.5 5.5 0 0 0-7.8 7.8l1 1L12 21l7.8-7.6 1-1a5.5 5.5 0 0 0 0-7.8Z"/></svg>
-      </button>
-    </div>
-    <div class="card-body">
-      <div class="card-brand">${p.brand}</div>
-      <div class="card-title">${p.title}</div>
-      <div class="card-rating">${ratingStars(p.rating)}</div>
-      <div class="card-price-row">
-        <span class="price-now">${inr(p.price)}</span>
-        <span class="price-old">${inr(p.mrp)}</span>
-      </div>
-    </div>
-    <div class="card-cta" id="cta-${p.id}">
-      ${qty>0 ? qtyStepperHTML(p.id, qty) : `<button class="add-btn" data-act="add" data-id="${p.id}">
-        <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 5v14M5 12h14"/></svg> Add
-      </button>`}
-    </div>
-  </div>`;
-}
-function qtyStepperHTML(id, qty){
-  return `<div class="qty-stepper">
-    <button data-act="dec" data-id="${id}">−</button>
-    <span data-role="qty">${qty}</span>
-    <button data-act="inc" data-id="${id}">+</button>
-  </div>`;
-}
-
-/* ===== Catalog render (grouped by category bands) ===== */
-function renderCatalog(filterCat){
-  const el = document.getElementById('catalog');
-  const cats = filterCat && filterCat!=='all' ? [filterCat] : [...new Set(PRODUCTS.map(p=>p.cat))];
-  el.innerHTML = cats.map(catId=>{
-    const cat = CATEGORIES.find(c=>c.id===catId);
-    const items = PRODUCTS.filter(p=>p.cat===catId);
-    if(!items.length) return '';
-    return `
-    <div class="section">
-      <div class="section-head"><h2>${cat.name}</h2><a href="#">See all <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="m9 18 6-6-6-6"/></svg></a></div>
-      <div class="grid">${items.map((p,i)=>productCardHTML(p,i)).join('')}</div>
-    </div>`;
-  }).join('');
-}
-renderCatalog('all');
-
-/* ===== Geolocation & serviceability (premium touch) ===== */
-const INDIA_BOUNDS = {latMin:6, latMax:37.5, lngMin:68, lngMax:97.5};
-function isServiceable(lat,lng){
-  return lat>=INDIA_BOUNDS.latMin && lat<=INDIA_BOUNDS.latMax && lng>=INDIA_BOUNDS.lngMin && lng<=INDIA_BOUNDS.lngMax;
-}
-function setLocStatus(kind, text, statusText){
-  document.getElementById('locText').textContent = text;
-  const s = document.getElementById('locStatus');
-  s.className = 'loc-status '+kind;
-  s.innerHTML = `<span class="loc-dot"></span>${statusText}`;
-}
-function showUnavailable(){
-  const el = document.getElementById('catalog');
-  el.innerHTML = `<div class="unavailable-box">
-    <div class="icon-circle"><svg width="26" height="26" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M20 10c0 6-8 12-8 12S4 16 4 10a8 8 0 0 1 16 0Z"/><path d="M9.5 8.5l5 5m0-5-5 5"/></svg></div>
-    <h3>Not deliverable to your location</h3>
-    <p>We're not available in your area just yet — we're expanding fast! Check back soon or try a different location.</p>
-    <button id="retryLocBtn">Try Again</button>
-  </div>`;
-  document.getElementById('retryLocBtn').addEventListener('click', initLocation);
-}
-async function reverseGeocode(lat,lng){
-  try{
-    const res = await fetch(`https://api.bigdatacloud.net/data/reverse-geocode-client?latitude=${lat}&longitude=${lng}&localityLanguage=en`);
-    const data = await res.json();
-    return data.city || data.locality || data.principalSubdivision || 'your area';
-  }catch(e){ return 'your area'; }
-}
-function initLocation(){
-  setLocStatus('pending','Detecting your location…','Checking');
-  if(!('geolocation' in navigator)){
-    setLocStatus('no','Location unavailable on this device','Unsupported');
-    return;
+  function openAuth(panel){
+    intendedPanel = panel;
+    authMode = 'login';
+    selectedRole = null;
+    setAuthTab('login');
+    document.getElementById('authOverlay').classList.add('open');
   }
-  navigator.geolocation.getCurrentPosition(async pos=>{
-    const {latitude:lat, longitude:lng} = pos.coords;
-    const ok = isServiceable(lat,lng);
-    const place = await reverseGeocode(lat,lng);
-    if(ok){
-      setLocStatus('ok', `Delivering to ${place}`, 'Available');
-      renderCatalog('all');
-    } else {
-      setLocStatus('no', `${place} — outside delivery zone`, 'Unavailable');
-      showUnavailable();
+  function closeAuth(){ document.getElementById('authOverlay').classList.remove('open'); }
+
+  function setAuthTab(mode){
+    authMode = mode;
+    document.getElementById('tabLogin').classList.toggle('active', mode==='login');
+    document.getElementById('tabRegister').classList.toggle('active', mode==='register');
+    document.getElementById('fieldName').style.display = mode==='register' ? 'flex' : 'none';
+    document.getElementById('roleSelect').style.display = mode==='register' ? 'grid' : 'none';
+    document.querySelector('#authOverlay form').style.display = (mode==='register' && !selectedRole) ? 'none' : 'block';
+    document.getElementById('authTitle').textContent = mode==='register' ? 'Create your account' : 'Welcome back';
+    document.getElementById('authSub').textContent = mode==='register' ? (selectedRole ? 'Register free to continue' : 'Choose how you want to use Upadyay') : 'Log in to continue';
+    document.getElementById('authSubmitBtn').textContent = mode==='register' ? 'Register free' : 'Log in';
+    document.getElementById('roleSeeker').classList.toggle('selected', selectedRole==='seeker');
+    document.getElementById('roleCompany').classList.toggle('selected', selectedRole==='company');
+  }
+
+  function selectRole(role){
+    selectedRole = role;
+    intendedPanel = role==='company' ? 'post' : 'search';
+    setAuthTab('register');
+  }
+
+  function submitAuth(e){
+    e.preventDefault();
+    const emailInput = e.target.querySelector('input[type=email]');
+    const nameInput = e.target.querySelector('input[type=text]');
+    const name = (authMode==='register' && nameInput && nameInput.value) ? nameInput.value : (emailInput.value.split('@')[0] || 'User');
+    closeAuth();
+    openDash(name, intendedPanel);
+    return false;
+  }
+
+  // ---------- Dashboard ----------
+  function openDash(name, panel){
+    document.getElementById('dashName').textContent = name;
+    document.getElementById('dashAvatar').textContent = name.slice(0,2).toUpperCase();
+    document.getElementById('dashSub').textContent = panel==='post' ? 'Post and manage your job openings' : 'Search and apply to open roles';
+    document.getElementById('panelSearch').style.display = panel==='search' ? 'block' : 'none';
+    document.getElementById('panelPost').style.display = panel==='post' ? 'block' : 'none';
+    document.getElementById('dashOverlay').classList.add('open');
+    document.body.style.overflow = 'hidden';
+  }
+  function closeDash(){
+    document.getElementById('dashOverlay').classList.remove('open');
+    document.body.style.overflow = '';
+  }
+
+  let jobCount = 0;
+  function addJob(e){
+    e.preventDefault();
+    const panel = document.getElementById('panelPost');
+    const title = panel.querySelector('input[type=text]').value || 'Untitled role';
+    jobCount++;
+    const list = document.getElementById('jobList');
+    const item = document.createElement('div');
+    item.className = 'job-list-item';
+    item.innerHTML = `<div><div class="jt">${title}</div><div class="jm">Posted just now</div></div><span class="badge-live">Live</span>`;
+    list.prepend(item);
+    panel.querySelector('input[type=text]').value = '';
+  }
+</script>
+
+<script>
+
+  // scroll reveal
+  const io = new IntersectionObserver((entries)=>{
+    entries.forEach(e=>{ if(e.isIntersecting){ e.target.classList.add('in'); io.unobserve(e.target); } });
+  }, {threshold:0.15});
+  document.querySelectorAll('.reveal').forEach(el=>io.observe(el));
+
+  // count-up numbers
+  function animateCount(el){
+    const target = parseInt(el.dataset.count, 10);
+    const suffix = el.dataset.suffix || '';
+    const dur = 1400;
+    const start = performance.now();
+    function tick(now){
+      const p = Math.min((now-start)/dur, 1);
+      const eased = 1 - Math.pow(1-p, 3);
+      el.textContent = Math.floor(eased*target).toLocaleString('en-IN') + suffix;
+      if(p<1) requestAnimationFrame(tick);
     }
-  }, err=>{
-    setLocStatus('no','Enable location to check delivery','Permission needed');
-  }, {enableHighAccuracy:false, timeout:8000});
-}
-initLocation();
-document.getElementById('locStrip').addEventListener('click', ()=>{
-  if(document.getElementById('locStatus').classList.contains('no')) initLocation();
-});
-
-/* ===== Category nav interactions (smooth fade swap, header/footer stay fixed) ===== */
-function switchCategory(cat){
-  const el = document.getElementById('catalog');
-  el.classList.add('fade');
-  window.scrollTo({top:0, behavior:'smooth'});
-  setTimeout(()=>{
-    renderCatalog(cat);
-    el.classList.remove('fade');
-  }, 180);
-  document.querySelectorAll('.catnav button').forEach(b=>b.classList.toggle('active', b.dataset.cat===cat));
-}
-document.getElementById('catNav').addEventListener('click', e=>{
-  const btn = e.target.closest('button'); if(!btn) return;
-  switchCategory(btn.dataset.cat);
-});
-
-/* ===== Toast ===== */
-let toastTimer;
-function showToast(msg){
-  const t = document.getElementById('toast');
-  t.textContent = msg; t.classList.add('show');
-  clearTimeout(toastTimer);
-  toastTimer = setTimeout(()=>t.classList.remove('show'), 1600);
-}
-
-/* ===== Cart / Wishlist logic ===== */
-function cartTotal(){ return Object.entries(CART).reduce((s,[id,q])=>s+findProduct(+id).price*q,0); }
-function cartCount(){ return Object.values(CART).reduce((a,b)=>a+b,0); }
-
-function setQty(id, qty){
-  qty = Math.max(0, qty);
-  const isNew = !CART[id] && qty>0;
-  if(qty<=0) delete CART[id]; else CART[id]=qty;
-  updateBadges();
-  const cta = document.getElementById(`cta-${id}`);
-  if(cta) cta.innerHTML = qty>0 ? qtyStepperHTML(id, qty) : `<button class="add-btn" data-act="add" data-id="${id}"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 5v14M5 12h14"/></svg> Add</button>`;
-  if(qty===0){ cartRemoveRow(id); } else { cartUpsert(id, isNew); }
-}
-function addToCart(id){
-  setQty(id, (CART[id]||0)+1);
-  showToast('Added to cart');
-  const badge = document.getElementById('cartBadge');
-  badge.classList.remove('pop'); void badge.offsetWidth; badge.classList.add('pop');
-}
-function toggleWish(id){
-  const btn = document.querySelector(`.wish-btn[data-id="${id}"]`);
-  if(WISHLIST.has(id)){
-    WISHLIST.delete(id);
-    if(btn){ btn.classList.remove('active'); btn.querySelector('svg').setAttribute('fill','none'); }
-    wishRemoveRow(id);
-  } else {
-    WISHLIST.add(id);
-    if(btn){ btn.classList.add('active'); btn.querySelector('svg').setAttribute('fill','currentColor'); }
-    wishAddRow(id);
-    showToast('Added to wishlist');
+    requestAnimationFrame(tick);
   }
-  updateBadges();
-}
-function updateBadges(){
-  const cc = cartCount(), wc = WISHLIST.size;
-  [['cartBadge',cc],['mobCartBadge',cc],['wishBadge',wc],['mobWishBadge',wc]].forEach(([id,val])=>{
-    const el = document.getElementById(id);
-    el.hidden = val===0; el.textContent = val;
-  });
-}
-
-document.body.addEventListener('click', e=>{
-  const btn = e.target.closest('[data-act]');
-  if(!btn) return;
-  const act = btn.dataset.act, id = +btn.dataset.id;
-  if(act==='add') addToCart(id);
-  else if(act==='inc') setQty(id, (CART[id]||0)+1);
-  else if(act==='dec') setQty(id, (CART[id]||0)-1);
-  else if(act==='wish') toggleWish(id);
-});
-
-/* ===== Panels ===== */
-const cartOverlay = document.getElementById('cartOverlay');
-const wishOverlay = document.getElementById('wishOverlay');
-function openPanel(p){ p.classList.add('open'); document.body.classList.add('lock'); }
-function closePanel(p){ p.classList.remove('open'); document.body.classList.remove('lock'); }
-function closeAll(){ closePanel(cartOverlay); closePanel(wishOverlay); }
-
-document.getElementById('cartOpenBtn').addEventListener('click', ()=>{ closePanel(wishOverlay); openPanel(cartOverlay); });
-document.getElementById('cartCloseBtn').addEventListener('click', ()=>closePanel(cartOverlay));
-document.getElementById('mobileCartBtn').addEventListener('click', e=>{ e.preventDefault(); closePanel(wishOverlay); openPanel(cartOverlay); });
-cartOverlay.addEventListener('click', e=>{ if(e.target===cartOverlay) closePanel(cartOverlay); });
-
-document.getElementById('wishOpenBtn').addEventListener('click', ()=>{ closePanel(cartOverlay); openPanel(wishOverlay); });
-document.getElementById('wishCloseBtn').addEventListener('click', ()=>closePanel(wishOverlay));
-document.getElementById('mobileWishBtn').addEventListener('click', e=>{ e.preventDefault(); closePanel(cartOverlay); openPanel(wishOverlay); });
-wishOverlay.addEventListener('click', e=>{ if(e.target===wishOverlay) closePanel(wishOverlay); });
-document.addEventListener('keydown', e=>{ if(e.key==='Escape') closeAll(); });
-
-/* ===== Cart panel incremental render ===== */
-function cartItemRowHTML(p, qty){
-  return `
-    <div class="panel-item-img-wrap"><img src="${p.img}" alt="${p.title}"></div>
-    <div class="panel-item-info">
-      <div class="pib">${p.brand}</div>
-      <div class="pit">${p.title}</div>
-      <div class="panel-item-price" data-role="line-price">${inr(p.price*qty)}</div>
-      <div class="panel-item-actions">
-        <div class="qty-stepper">
-          <button data-act="dec" data-id="${p.id}">−</button>
-          <span data-role="qty">${qty}</span>
-          <button data-act="inc" data-id="${p.id}">+</button>
-        </div>
-        <button class="panel-item-remove" data-act="rm" data-id="${p.id}">Remove</button>
-      </div>
-    </div>`;
-}
-function cartEmptyState(){
-  return `<div class="panel-empty">
-    <svg width="46" height="46" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6"><circle cx="9" cy="21" r="1"/><circle cx="20" cy="21" r="1"/><path d="M1 1h4l2.7 13.4a2 2 0 0 0 2 1.6h9.7a2 2 0 0 0 2-1.6L23 6H6"/></svg>
-    <b>Your cart is empty</b><span>Add products to get started.</span>
-  </div>`;
-}
-function initCartPanel(){
-  const body = document.getElementById('cartBody');
-  const foot = document.getElementById('cartFoot');
-  const ids = Object.keys(CART);
-  if(!ids.length){ body.innerHTML = cartEmptyState(); foot.innerHTML=''; return; }
-  body.innerHTML = ids.map((id,i)=>`<div class="panel-item" id="cart-row-${id}" data-id="${id}" style="animation-delay:${i*0.05}s">${cartItemRowHTML(findProduct(+id), CART[id])}</div>`).join('');
-  foot.innerHTML = `
-    <div class="panel-summary-row"><span>Subtotal</span><span data-role="subtotal">${inr(cartTotal())}</span></div>
-    <div class="panel-summary-row"><span>Delivery</span><span style="color:var(--green-dark);font-weight:700;">Free</span></div>
-    <div class="panel-summary-row total"><span>Total</span><span data-role="total">${inr(cartTotal())}</span></div>
-    <button class="btn btn-green">Proceed to Checkout</button>
-    <button class="btn btn-outline" data-act="continue">Continue Shopping</button>`;
-  foot.querySelector('[data-act="continue"]').addEventListener('click', ()=>closePanel(cartOverlay));
-}
-function cartUpsert(id, isNew){
-  const body = document.getElementById('cartBody');
-  if(body.querySelector('.panel-empty') || !document.getElementById('cartFoot').children.length){ initCartPanel(); return; }
-  if(isNew && !document.getElementById(`cart-row-${id}`)){
-    const p = findProduct(id);
-    const row = document.createElement('div');
-    row.className='panel-item'; row.id=`cart-row-${id}`; row.dataset.id=id;
-    row.innerHTML = cartItemRowHTML(p, CART[id]);
-    row.style.animationDelay='0s';
-    body.prepend(row);
-  } else { cartPatchRow(id); }
-  cartPatchTotals();
-}
-function cartPatchRow(id){
-  const row = document.getElementById(`cart-row-${id}`); if(!row) return;
-  const p = findProduct(id), qty = CART[id];
-  const qtyEl = row.querySelector('[data-role="qty"]');
-  qtyEl.textContent = qty; qtyEl.classList.remove('bump'); void qtyEl.offsetWidth; qtyEl.classList.add('bump');
-  row.querySelector('[data-role="line-price"]').textContent = inr(p.price*qty);
-}
-function cartRemoveRow(id){
-  const row = document.getElementById(`cart-row-${id}`); if(!row){ cartPatchTotals(); return; }
-  row.classList.add('removing');
-  row.addEventListener('animationend', ()=>{
-    row.remove();
-    const body = document.getElementById('cartBody');
-    if(!body.children.length){ body.innerHTML = cartEmptyState(); document.getElementById('cartFoot').innerHTML=''; }
-    else cartPatchTotals();
-  }, {once:true});
-}
-function cartPatchTotals(){
-  const foot = document.getElementById('cartFoot');
-  if(!foot || !foot.querySelector('[data-role="subtotal"]')) return;
-  const total = cartTotal();
-  foot.querySelector('[data-role="subtotal"]').textContent = inr(total);
-  foot.querySelector('[data-role="total"]').textContent = inr(total);
-}
-
-/* ===== Wishlist panel incremental render ===== */
-function wishRowHTML(p){
-  return `
-    <div class="panel-item-img-wrap"><img src="${p.img}" alt="${p.title}"></div>
-    <div class="panel-item-info">
-      <div class="pib">${p.brand}</div>
-      <div class="pit">${p.title}</div>
-      <div class="panel-item-price">${inr(p.price)}</div>
-      <div class="panel-item-actions">
-        <button class="btn btn-green" style="width:auto;padding:8px 14px;font-size:10.5px;margin:0;" data-act="addcart" data-id="${p.id}">Add to Cart</button>
-        <button class="panel-item-remove" data-act="rmwish" data-id="${p.id}">Remove</button>
-      </div>
-    </div>`;
-}
-function wishEmptyState(){
-  return `<div class="panel-empty">
-    <svg width="46" height="46" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6"><path d="M20.8 4.6a5.5 5.5 0 0 0-7.8 0L12 5.6l-1-1a5.5 5.5 0 0 0-7.8 7.8l1 1L12 21l7.8-7.6 1-1a5.5 5.5 0 0 0 0-7.8Z"/></svg>
-    <b>Your wishlist is empty</b><span>Tap the heart on any product to save it here.</span>
-  </div>`;
-}
-function initWishPanel(){
-  const body = document.getElementById('wishBody');
-  const ids = [...WISHLIST];
-  if(!ids.length){ body.innerHTML = wishEmptyState(); return; }
-  body.innerHTML = ids.map((id,i)=>`<div class="panel-item" id="wish-row-${id}" data-id="${id}" style="animation-delay:${i*0.05}s">${wishRowHTML(findProduct(id))}</div>`).join('');
-}
-function wishAddRow(id){
-  const body = document.getElementById('wishBody');
-  if(body.querySelector('.panel-empty') || !body.children.length){ initWishPanel(); return; }
-  if(document.getElementById(`wish-row-${id}`)) return;
-  const row = document.createElement('div');
-  row.className='panel-item'; row.id=`wish-row-${id}`; row.dataset.id=id;
-  row.innerHTML = wishRowHTML(findProduct(id));
-  row.style.animationDelay='0s';
-  body.prepend(row);
-}
-function wishRemoveRow(id){
-  const row = document.getElementById(`wish-row-${id}`); if(!row) return;
-  row.classList.add('removing');
-  row.addEventListener('animationend', ()=>{
-    row.remove();
-    const body = document.getElementById('wishBody');
-    if(!body.children.length) body.innerHTML = wishEmptyState();
-  }, {once:true});
-}
-
-document.getElementById('cartBody').addEventListener('click', e=>{
-  const btn = e.target.closest('[data-act]'); if(!btn) return;
-  const id = +btn.dataset.id, act = btn.dataset.act;
-  if(act==='inc') setQty(id,(CART[id]||0)+1);
-  else if(act==='dec') setQty(id,(CART[id]||0)-1);
-  else if(act==='rm') setQty(id,0);
-});
-document.getElementById('wishBody').addEventListener('click', e=>{
-  const btn = e.target.closest('[data-act]'); if(!btn) return;
-  const id = +btn.dataset.id, act = btn.dataset.act;
-  if(act==='addcart') addToCart(id);
-  else if(act==='rmwish') toggleWish(id);
-});
-
-/* ===== Search filter (simple) ===== */
-document.getElementById('searchInput').addEventListener('input', e=>{
-  const q = e.target.value.trim().toLowerCase();
-  const el = document.getElementById('catalog');
-  el.classList.add('fade');
-  setTimeout(()=>{
-    if(!q){ renderCatalog('all'); el.classList.remove('fade'); return; }
-    const items = PRODUCTS.filter(p=> p.title.toLowerCase().includes(q) || p.brand.toLowerCase().includes(q) || p.cat.includes(q));
-    el.innerHTML = `<div class="section"><div class="section-head"><h2>Results for "${e.target.value}"</h2></div>
-      <div class="grid">${items.map((p,i)=>productCardHTML(p,i)).join('') || '<p style="color:var(--sub);padding:20px 0;">No products found.</p>'}</div></div>`;
-    el.classList.remove('fade');
-  }, 150);
-});
-
-initCartPanel();
-initWishPanel();
-updateBadges();
+  const countEls = document.querySelectorAll('[data-count]');
+  const cio = new IntersectionObserver((entries)=>{
+    entries.forEach(e=>{ if(e.isIntersecting){ animateCount(e.target); cio.unobserve(e.target); } });
+  }, {threshold:0.5});
+  countEls.forEach(el=>cio.observe(el));
 </script>
 </body>
 </html>
