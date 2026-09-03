@@ -160,7 +160,7 @@
   }
   .hs-field{display:flex; align-items:center; gap:10px; padding:9px 14px; flex:1; min-width:0;}
   .hs-field + .hs-field{border-left:1px solid var(--line);}
-  .hs-ic{font-size:15px; color:var(--ink-faint); flex-shrink:0;}
+  .hs-ic{font-size:15px; color:var(--ink-faint); flex-shrink:0; display:flex; align-items:center;}
   .hs-field select, .hs-field input{
     border:none; outline:none; background:none; font-family:inherit; font-size:14px; color:var(--ink);
     width:100%; min-width:0;
@@ -397,7 +397,7 @@
 
         <div class="hero-search">
           <div class="hs-field" style="flex:0 0 180px;">
-            <span class="hs-ic">☰</span>
+            <span class="hs-ic"><svg width="15" height="15" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg"><path d="M4 6H20M4 12H20M4 18H20" stroke="currentColor" stroke-width="2" stroke-linecap="round"/></svg></span>
             <select id="heroCategory">
               <option value="">All categories</option>
               <option value="schools">Schools</option>
@@ -406,7 +406,7 @@
             </select>
           </div>
           <div class="hs-field">
-            <span class="hs-ic">🔍</span>
+            <span class="hs-ic"><svg width="15" height="15" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg"><circle cx="11" cy="11" r="7" stroke="currentColor" stroke-width="2"/><path d="M21 21L16.65 16.65" stroke="currentColor" stroke-width="2" stroke-linecap="round"/></svg></span>
             <input type="text" placeholder="Subject, role or keyword — e.g. Physics, PGT, Assistant Professor">
           </div>
           <button class="btn btn-primary" style="margin:2px;">Search</button>
@@ -431,7 +431,7 @@
               <p class="hp-name">Dr. Priya Menon</p>
               <p class="hp-role">Physics · Quantum Optics</p>
             </div>
-            <span class="hp-badge">🎓 PhD</span>
+            <span class="hp-badge"><svg width="15" height="15" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg"><path d="M12 3L1 8.5L12 14L23 8.5L12 3Z" stroke="currentColor" stroke-width="1.6" stroke-linejoin="round"/><path d="M5 11.5V16.5C5 16.5 5 20 12 20C19 20 19 16.5 19 16.5V11.5" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"/><path d="M23 8.5V15" stroke="currentColor" stroke-width="1.6" stroke-linecap="round"/></svg> PhD</span>
           </div>
           <div class="hp-tags">
             <span class="hp-tag">Higher Education</span>
@@ -445,7 +445,7 @@
           </div>
         </div>
         <div class="hero-card c1">
-          <div class="ic">✓</div>
+          <div class="ic"><svg width="11" height="11" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg"><path d="M5 13L9.5 17.5L19 6.5" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"/></svg></div>
           <div><div class="t1">Profile shortlisted</div><div class="t2">KL University — 2 min ago</div></div>
         </div>
       </div>
@@ -508,14 +508,14 @@
             <h3>Search your desired Job</h3>
             <p>Discover a career you are passionate about</p>
           </div>
-          <span class="jsp-card-ic">🔍</span>
+          <span class="jsp-card-ic"><svg width="15" height="15" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg"><circle cx="11" cy="11" r="7" stroke="currentColor" stroke-width="2"/><path d="M21 21L16.65 16.65" stroke="currentColor" stroke-width="2" stroke-linecap="round"/></svg></span>
         </button>
         <button class="jsp-card jsp-card-light" onclick="openAuth('post')">
           <div class="jsp-card-text">
             <h3>Post a Job Today</h3>
             <p>Discover the ideal candidate for your team</p>
           </div>
-          <span class="jsp-card-ic">📨</span>
+          <span class="jsp-card-ic"><svg width="26" height="26" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg"><path d="M22 2L11 13" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/><path d="M22 2L15 22L11 13L2 9L22 2Z" stroke="currentColor" stroke-width="1.8" stroke-linejoin="round"/></svg></span>
         </button>
       </div>
     </div>
@@ -563,10 +563,10 @@
           <h3>One profile. Every opportunity.</h3>
           <p>Register once with your qualifications and get discovered by verified institutions across India — no repeated applications.</p>
           <ul class="role-perks">
-            <li><span class="check">✓</span>Free registration, always</li>
-            <li><span class="check">✓</span>Highest qualification badge shown on your profile</li>
-            <li><span class="check">✓</span>Publications, patents and citations tracked</li>
-            <li><span class="check">✓</span>Direct contact from hiring institutions</li>
+            <li><span class="check"><svg width="11" height="11" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg"><path d="M5 13L9.5 17.5L19 6.5" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"/></svg></span>Free registration, always</li>
+            <li><span class="check"><svg width="11" height="11" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg"><path d="M5 13L9.5 17.5L19 6.5" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"/></svg></span>Highest qualification badge shown on your profile</li>
+            <li><span class="check"><svg width="11" height="11" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg"><path d="M5 13L9.5 17.5L19 6.5" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"/></svg></span>Publications, patents and citations tracked</li>
+            <li><span class="check"><svg width="11" height="11" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg"><path d="M5 13L9.5 17.5L19 6.5" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"/></svg></span>Direct contact from hiring institutions</li>
           </ul>
           <button class="btn btn-primary">Register as Faculty</button>
         </div>
@@ -575,10 +575,10 @@
           <h3>Hire from a verified faculty database.</h3>
           <p>Search 18,000+ verified faculty profiles by category, subject and qualification, and post roles institutions actually see.</p>
           <ul class="role-perks">
-            <li><span class="check">✓</span>Free for your first 2 years</li>
-            <li><span class="check">✓</span>Post unlimited job openings</li>
-            <li><span class="check">✓</span>Filter by School, Intermediate or Higher Ed</li>
-            <li><span class="check">✓</span>Dedicated HR dashboard and shortlist tools</li>
+            <li><span class="check"><svg width="11" height="11" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg"><path d="M5 13L9.5 17.5L19 6.5" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"/></svg></span>Free for your first 2 years</li>
+            <li><span class="check"><svg width="11" height="11" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg"><path d="M5 13L9.5 17.5L19 6.5" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"/></svg></span>Post unlimited job openings</li>
+            <li><span class="check"><svg width="11" height="11" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg"><path d="M5 13L9.5 17.5L19 6.5" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"/></svg></span>Filter by School, Intermediate or Higher Ed</li>
+            <li><span class="check"><svg width="11" height="11" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg"><path d="M5 13L9.5 17.5L19 6.5" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"/></svg></span>Dedicated HR dashboard and shortlist tools</li>
           </ul>
           <button class="btn btn-primary">Hire on Upadyay</button>
         </div>
@@ -630,7 +630,7 @@
   <!-- Auth modal -->
   <div class="modal-overlay" id="authOverlay">
     <div class="modal-box">
-      <button class="modal-close" onclick="closeAuth()">✕</button>
+      <button class="modal-close" onclick="closeAuth()"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg"><path d="M5 5L19 19M19 5L5 19" stroke="currentColor" stroke-width="2" stroke-linecap="round"/></svg></button>
       <div class="modal-tabs">
         <button class="modal-tab active" id="tabLogin" onclick="setAuthTab('login')">Log in</button>
         <button class="modal-tab" id="tabRegister" onclick="setAuthTab('register')">Register</button>
@@ -640,12 +640,12 @@
 
       <div class="role-select" id="roleSelect" style="display:none;">
         <div class="role-opt" id="roleSeeker" onclick="selectRole('seeker')">
-          <span class="ric">🎓</span>
+          <span class="ric"><svg width="15" height="15" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg"><path d="M12 3L1 8.5L12 14L23 8.5L12 3Z" stroke="currentColor" stroke-width="1.6" stroke-linejoin="round"/><path d="M5 11.5V16.5C5 16.5 5 20 12 20C19 20 19 16.5 19 16.5V11.5" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"/><path d="M23 8.5V15" stroke="currentColor" stroke-width="1.6" stroke-linecap="round"/></svg></span>
           <div class="rt">Job Seeker</div>
           <div class="rd">Find faculty roles</div>
         </div>
         <div class="role-opt" id="roleCompany" onclick="selectRole('company')">
-          <span class="ric">🏫</span>
+          <span class="ric"><svg width="22" height="22" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg"><path d="M4 21V4.5L12 2L20 4.5V21" stroke="currentColor" stroke-width="1.6" stroke-linejoin="round"/><path d="M9 21V16H15V21" stroke="currentColor" stroke-width="1.6" stroke-linejoin="round"/><path d="M9 8H9.01M15 8H15.01M9 12H9.01M15 12H15.01" stroke="currentColor" stroke-width="2" stroke-linecap="round"/></svg></span>
           <div class="rt">Company</div>
           <div class="rd">Hire faculty</div>
         </div>
@@ -672,7 +672,7 @@
   <!-- Profile / dashboard -->
   <div class="dash-overlay" id="dashOverlay">
     <div class="dash-top">
-      <div class="brand"><div class="brand-mark" style="width:26px;height:26px;">🎓</div>Upadyay</div>
+      <div class="brand"><div class="brand-mark" style="width:26px;height:26px;"><svg width="15" height="15" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg"><path d="M12 3L1 8.5L12 14L23 8.5L12 3Z" stroke="currentColor" stroke-width="1.6" stroke-linejoin="round"/><path d="M5 11.5V16.5C5 16.5 5 20 12 20C19 20 19 16.5 19 16.5V11.5" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"/><path d="M23 8.5V15" stroke="currentColor" stroke-width="1.6" stroke-linecap="round"/></svg></div>Upadyay</div>
       <button class="btn btn-ghost btn-sm" onclick="closeDash()">Back to site</button>
     </div>
     <div class="dash-inner">
