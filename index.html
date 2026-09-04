@@ -18,7 +18,7 @@
     --ink-faint:#8A93A3;
     --line:#E3E8F0;
     --paper:#FFFFFF;
-    --canvas:#F7F9FC;
+    --canvas:#90D5FF;
     --green:#1D8A5E;
     --radius:5px;
     --shadow-sm: 0 1px 2px rgba(16,36,84,0.06);
@@ -281,6 +281,17 @@
   .jc-posted{font-size:11.5px; color:var(--ink-faint);}
   .profile-card .job-card-top{align-items:center;}
 
+  /* ---------- Candidate card — job-portal style ---------- */
+  .profile-card{position:relative;}
+  .profile-card .job-logo{border-radius:50%; width:54px; height:54px; border:2px solid var(--blue-100);}
+  .profile-card .jc-title{font-size:16px; display:flex; align-items:center; gap:6px;}
+  .profile-card .jc-org{font-size:13px;}
+  .verified-tick{display:inline-flex; width:15px; height:15px; border-radius:50%; background:var(--green); color:#fff; align-items:center; justify-content:center; flex-shrink:0;}
+  .verified-tick svg{width:9px; height:9px;}
+  .candidates-section-head{display:flex; align-items:baseline; justify-content:space-between; gap:10px; margin:0 0 16px; padding:0 0 12px; border-bottom:1px solid var(--line);}
+  .candidates-section-head h3{margin:0; font-size:19px;}
+  .candidates-section-head .count{font-size:13px; color:var(--ink-faint); font-weight:600;}
+
   /* ---------- Auth modal ---------- */
   .modal-overlay{
     position:fixed; inset:0; background:rgba(15,42,92,0.45); display:none; align-items:center; justify-content:center;
@@ -323,9 +334,12 @@
   .dash-avatar{width:60px; height:60px; border-radius:50%; background:linear-gradient(135deg,var(--blue-600),var(--blue-900)); display:flex; align-items:center; justify-content:center; color:#fff; font-weight:700; font-size:20px;}
   .dash-head h2{margin:0 0 4px; font-size:22px;}
   .dash-head p{margin:0; color:var(--ink-faint); font-size:13.5px;}
-  .dash-panel{background:#fff; border:1px solid var(--line); border-radius:var(--radius); box-shadow:var(--shadow-sm); padding:26px; margin-bottom:22px;}
+  .dash-panel{
+    background:#90D5FF;
+    border:1px solid var(--line); border-radius:var(--radius); box-shadow:var(--shadow-sm); padding:26px; margin-bottom:22px;
+  }
   .dash-panel h3{margin:0 0 16px; font-size:16px;}
-  .dash-tabs{display:flex; margin-bottom:22px; border:1px solid var(--line); border-radius:8px; padding:4px; background:var(--canvas); overflow:hidden; position:sticky; top:65px; z-index:15;}
+  .dash-tabs{display:flex; margin-bottom:22px; border:1px solid var(--line); border-radius:8px; padding:4px; background:#fff; overflow:hidden; position:sticky; top:65px; z-index:15;}
   .dash-subtab{flex:1; padding:10px 15px; border-radius:6px; border:none; background:transparent; font-size:13.5px; font-weight:600; color:var(--ink-soft); text-align:center;}
   .dash-subtab.active{background:var(--blue-900); color:#fff; box-shadow:var(--shadow-sm);}
   .logo-upload{
@@ -1159,9 +1173,11 @@
     </div>
 
     <div class="dash-fullbleed" id="candidateListWrap" style="display:none;">
+      <div class="candidates-section-head"><h3>Recommended candidates</h3><span class="count" id="candidateCount"></span></div>
       <div class="demo-grid dash-fullbleed-grid" id="candidateList"></div>
     </div>
     <div class="dash-fullbleed" id="apListWrap" style="display:none;">
+      <div class="candidates-section-head"><h3>Applicants</h3><span class="count" id="apCount"></span></div>
       <div class="demo-grid dash-fullbleed-grid" id="apList"></div>
     </div>
   </div>
@@ -1567,7 +1583,7 @@
       <div class="job-card profile-card" onclick="openProfile('${id}')" style="cursor:pointer;">
         <div class="job-card-top">
           <div class="job-logo" style="background-image:url('${p.avatar}'); background-size:cover;"></div>
-          <div><p class="jc-title">${p.name}</p><p class="jc-org">${p.role}</p></div>
+          <div><p class="jc-title">${p.name}<span class="verified-tick" title="Verified profile"><svg viewBox="0 0 24 24" fill="none"><path d="M20 6L9 17L4 12" stroke="#fff" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"/></svg></span></p><p class="jc-org">${p.role}</p></div>
           ${statusBadge(id) || `<span class="hp-badge">${p.tags[0]}</span>`}
         </div>
         <div class="jc-tags">${p.tags.map(t=>`<span class="hp-tag">${t}</span>`).join('')}</div>
@@ -1590,6 +1606,7 @@
       return !q || p.name.toLowerCase().includes(q) || p.role.toLowerCase().includes(q);
     });
     document.getElementById('candidateList').innerHTML = ids.map(candidateCardHTML).join('') || '<p class="sub">No candidates match your search.</p>';
+    document.getElementById('candidateCount').textContent = ids.length + (ids.length===1 ? ' profile found' : ' profiles found');
   }
 
   // ---------- Jobs + applicants ----------
@@ -1647,6 +1664,7 @@
     const job = jobsData[jobId];
     if(!job) return;
     document.getElementById('apList').innerHTML = job.applicantIds.map(candidateCardHTML).join('') || '<p class="sub">No applicants yet.</p>';
+    document.getElementById('apCount').textContent = job.applicantIds.length + (job.applicantIds.length===1 ? ' applicant' : ' applicants');
   }
 </script>
 
