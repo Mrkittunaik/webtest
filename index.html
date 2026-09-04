@@ -520,6 +520,112 @@
     .footer-grid{grid-template-columns:1fr 1fr;}
     .nav-links{display:none;}
   }
+  /* ---------- Admin dashboard ---------- */
+  .admin-overlay{position:fixed; inset:0; background:var(--canvas); z-index:100; display:none;}
+  .admin-overlay.open{display:flex;}
+  .admin-shell{display:flex; width:100%; height:100%;}
+  .admin-side{width:230px; flex-shrink:0; background:var(--blue-900); color:#fff; display:flex; flex-direction:column; overflow-y:auto;}
+  .admin-side-brand{display:flex; align-items:center; gap:9px; font-weight:700; font-size:17px; padding:20px 20px 16px; border-bottom:1px solid rgba(255,255,255,0.1);}
+  .admin-nav{padding:14px 10px;}
+  .admin-nav-group-label{font-size:10.5px; font-weight:700; letter-spacing:0.06em; text-transform:uppercase; color:rgba(255,255,255,0.35); padding:14px 12px 6px;}
+  .admin-nav-item{display:flex; align-items:center; gap:11px; width:100%; text-align:left; padding:10px 12px; border-radius:7px; background:none; border:none; color:rgba(255,255,255,0.72); font-size:13.5px; font-weight:600; cursor:pointer; margin-bottom:2px;}
+  .admin-nav-item svg{flex-shrink:0; opacity:0.85;}
+  .admin-nav-item:hover{background:rgba(255,255,255,0.06); color:#fff;}
+  .admin-nav-item.active{background:var(--blue-700); color:#fff;}
+  .admin-side-foot{padding:14px 20px; border-top:1px solid rgba(255,255,255,0.1); font-size:12px; color:rgba(255,255,255,0.5); margin-top:auto;}
+  .admin-main{flex:1; overflow-y:auto; display:flex; flex-direction:column; min-width:0;}
+  .admin-top{position:sticky; top:0; z-index:5; background:var(--blue-600); color:#fff; padding:13px 26px; display:flex; align-items:center; justify-content:space-between; gap:14px;}
+  .admin-top-title{font-weight:700; font-size:15px; display:flex; align-items:center; gap:10px;}
+  .admin-top-back{background:none; border:none; color:#fff; opacity:0.85; cursor:pointer; display:flex; align-items:center; padding:4px;}
+  .admin-top-back:hover{opacity:1;}
+  .admin-body{padding:24px 26px; flex:1;}
+  .admin-stats{display:grid; grid-template-columns:repeat(4,1fr); gap:16px; margin-bottom:22px;}
+  @media (max-width:900px){ .admin-stats{grid-template-columns:repeat(2,1fr);} }
+  .admin-stat{border-radius:var(--radius); overflow:hidden; box-shadow:var(--shadow-sm); background:#fff;}
+  .admin-stat-top{padding:20px 20px 16px; display:flex; align-items:center; justify-content:space-between; color:#fff;}
+  .admin-stat-top .n{font-size:30px; font-weight:800; line-height:1;}
+  .admin-stat-top .l{font-size:12.5px; font-weight:600; opacity:0.92; margin-top:4px;}
+  .admin-stat-top svg{opacity:0.85;}
+  .admin-stat-bot{padding:9px 16px; font-size:12px; font-weight:600; color:var(--ink-soft); background:rgba(0,0,0,0.03); display:flex; align-items:center; justify-content:space-between; cursor:pointer;}
+  .admin-stat.c1 .admin-stat-top{background:linear-gradient(135deg,var(--blue-600),var(--blue-500));}
+  .admin-stat.c2 .admin-stat-top{background:linear-gradient(135deg,#1D8A5E,#2FAE79);}
+  .admin-stat.c3 .admin-stat-top{background:linear-gradient(135deg,#D98A1F,#EFA93A);}
+  .admin-stat.c4 .admin-stat-top{background:linear-gradient(135deg,#C0392B,#E0523E);}
+  .admin-mini-stats{display:grid; grid-template-columns:repeat(4,1fr); gap:16px; margin-bottom:22px;}
+  @media (max-width:900px){ .admin-mini-stats{grid-template-columns:repeat(2,1fr);} }
+  .admin-mini-stat{background:#fff; border:1px solid var(--line); border-radius:var(--radius); padding:15px 16px; box-shadow:var(--shadow-sm);}
+  .admin-mini-stat .l{font-size:11.5px; font-weight:700; color:var(--ink-faint); text-transform:uppercase; letter-spacing:0.03em; margin-bottom:6px;}
+  .admin-mini-stat .n{font-size:21px; font-weight:800; color:var(--ink);}
+  .admin-mini-stat .n small{font-size:12px; font-weight:600; color:var(--ink-faint); margin-left:4px;}
+  .admin-panel{background:#fff; border:1px solid var(--line); border-radius:var(--radius); box-shadow:var(--shadow-sm); margin-bottom:22px; overflow:hidden;}
+  .admin-panel-head{padding:14px 18px; border-bottom:1px solid var(--line); font-weight:700; font-size:14px; display:flex; align-items:center; justify-content:space-between;}
+  .admin-two-col{display:grid; grid-template-columns:1.4fr 1fr; gap:20px; align-items:start;}
+  @media (max-width:980px){ .admin-two-col{grid-template-columns:1fr;} }
+  .admin-table{width:100%; border-collapse:collapse; font-size:13.5px; table-layout:fixed;}
+  .admin-table th{text-align:left; padding:10px 18px; font-size:11.5px; text-transform:uppercase; letter-spacing:0.04em; color:var(--ink-faint); border-bottom:1px solid var(--line); white-space:nowrap;}
+  .admin-table td{padding:11px 18px; border-bottom:1px solid var(--line); color:var(--ink); vertical-align:middle; overflow:hidden; text-overflow:ellipsis;}
+  .admin-table tr:last-child td{border-bottom:none;}
+  .admin-table tr.clickable{cursor:pointer;}
+  .admin-table tr.clickable:hover{background:var(--blue-50);}
+  .admin-row-name{display:flex; align-items:center; gap:10px; font-weight:600;}
+  .admin-row-avatar{width:30px; height:30px; border-radius:50%; object-fit:cover; background:var(--blue-100); flex-shrink:0;}
+  .admin-row-avatar-fallback{width:30px; height:30px; border-radius:50%; background:var(--blue-100); color:var(--blue-700); display:flex; align-items:center; justify-content:center; font-size:11.5px; font-weight:700; flex-shrink:0;}
+  .admin-pill{display:inline-block; padding:3px 10px; border-radius:20px; font-size:11.5px; font-weight:700;}
+  .admin-pill.school{background:#FDF1DC; color:#B5720A;}
+  .admin-pill.college{background:#E9F7F0; color:#1D8A5E;}
+  .admin-pill.university{background:var(--blue-100); color:var(--blue-700);}
+  .admin-pill.open{background:#E9F7F0; color:#1D8A5E;}
+  .admin-pill.live{background:#E9F7F0; color:#1D8A5E;}
+  .admin-pill.closed{background:#F1F2F5; color:var(--ink-faint);}
+  .admin-viewbtn{display:inline-flex; align-items:center; gap:6px; padding:6px 13px; border-radius:var(--radius); background:var(--blue-700); color:#fff; font-size:12.5px; font-weight:700; border:none; cursor:pointer; white-space:nowrap;}
+  .admin-viewbtn:hover{background:var(--blue-900);}
+  .admin-table-institutions{min-width:1080px;}
+  .admin-table-institutions td{white-space:nowrap; overflow:hidden; text-overflow:ellipsis;}
+  .admin-table-institutions th:last-child, .admin-table-institutions td:last-child{width:90px; text-align:right; overflow:visible; white-space:nowrap;}
+  .admin-table-institutions th:nth-child(1), .admin-table-institutions td:nth-child(1){width:190px;}
+  .admin-table-institutions th:nth-child(2), .admin-table-institutions td:nth-child(2){width:120px;}
+  .admin-table-institutions th:nth-child(3), .admin-table-institutions td:nth-child(3){width:150px;}
+  .admin-table-institutions th:nth-child(4), .admin-table-institutions td:nth-child(4){width:190px;}
+  .admin-table-institutions th:nth-child(5), .admin-table-institutions td:nth-child(5){width:150px;}
+  .admin-table-institutions th:nth-child(6), .admin-table-institutions td:nth-child(6){width:150px;}
+  .admin-table-institutions th:nth-child(7), .admin-table-institutions td:nth-child(7){width:70px; text-align:center;}
+  .admin-viewall{padding:12px 18px; text-align:center; border-top:1px solid var(--line); font-size:13px; font-weight:600; color:var(--blue-700); cursor:pointer;}
+  .admin-viewall:hover{background:var(--blue-50);}
+  .admin-search-row{display:flex; gap:10px; padding:14px 18px; border-bottom:1px solid var(--line); align-items:center;}
+  .admin-search-row input{flex:1; padding:9px 12px; border:1px solid var(--line); border-radius:var(--radius); font-family:inherit; font-size:13.5px;}
+  .admin-footer{padding:14px 26px; border-top:1px solid var(--line); font-size:12.5px; color:var(--ink-faint); display:flex; align-items:center; justify-content:space-between; background:#fff;}
+  .admin-detail-overlay{position:fixed; inset:0; background:rgba(11,29,58,0.45); z-index:110; display:none; align-items:center; justify-content:center; padding:20px;}
+  .admin-detail-overlay.open{display:flex;}
+  .admin-detail-card{background:#fff; border-radius:var(--radius); width:100%; max-width:560px; max-height:86vh; overflow-y:auto; box-shadow:var(--shadow-lg);}
+  .admin-detail-head{padding:22px 24px; border-bottom:1px solid var(--line); display:flex; align-items:center; gap:14px;}
+  .admin-detail-close{margin-left:auto; width:30px; height:30px; border-radius:50%; border:1px solid var(--line); background:#fff; font-size:15px; color:var(--ink-soft); cursor:pointer; flex-shrink:0;}
+  .admin-detail-body{padding:20px 24px 26px;}
+  .admin-detail-row{display:flex; justify-content:space-between; gap:14px; padding:9px 0; border-bottom:1px solid var(--line); font-size:13.5px;}
+  .admin-detail-row:last-child{border-bottom:none;}
+  .admin-detail-row .k{color:var(--ink-faint); font-weight:600;}
+  .admin-detail-row .v{color:var(--ink); text-align:right; font-weight:600;}
+
+  /* ---------- Institution profile page (within admin) ---------- */
+  .admin-profile-hero{background:linear-gradient(135deg,var(--blue-900),var(--blue-700)); border-radius:var(--radius); padding:32px 30px; color:#fff; display:flex; align-items:center; gap:22px; margin-bottom:22px; position:relative; overflow:hidden;}
+  .admin-profile-hero::after{content:""; position:absolute; top:-60px; right:-60px; width:220px; height:220px; border-radius:50%; background:radial-gradient(circle, rgba(255,255,255,0.08), transparent 70%);}
+  .admin-profile-avatar{width:74px; height:74px; border-radius:16px; background:rgba(255,255,255,0.14); display:flex; align-items:center; justify-content:center; font-weight:800; font-size:26px; flex-shrink:0; position:relative; z-index:1; border:1px solid rgba(255,255,255,0.25);}
+  .admin-profile-info{position:relative; z-index:1; flex:1; min-width:0;}
+  .admin-profile-info h2{margin:0 0 5px; font-size:23px;}
+  .admin-profile-info .meta{font-size:13.5px; color:rgba(255,255,255,0.78); margin-bottom:12px;}
+  .admin-profile-quickstats{display:flex; gap:26px; flex-wrap:wrap;}
+  .admin-profile-quickstats div{font-size:12px; color:rgba(255,255,255,0.65);}
+  .admin-profile-quickstats b{display:block; font-size:18px; color:#fff; font-weight:800;}
+  .admin-profile-contactcard{background:#fff; border:1px solid var(--line); border-radius:var(--radius); box-shadow:var(--shadow-sm); padding:20px; margin-bottom:22px;}
+  .admin-profile-contactcard h4{margin:0 0 14px; font-size:13.5px; color:var(--ink-faint); text-transform:uppercase; letter-spacing:0.03em;}
+  .admin-jobcards-grid{display:grid; grid-template-columns:repeat(auto-fill,minmax(280px,1fr)); gap:16px;}
+  .admin-jobcard{background:#fff; border:1px solid var(--line); border-radius:var(--radius); box-shadow:var(--shadow-sm); padding:20px; transition:transform .15s ease, box-shadow .15s ease;}
+  .admin-jobcard:hover{transform:translateY(-2px); box-shadow:var(--shadow-md);}
+  .admin-jobcard-top{display:flex; align-items:flex-start; justify-content:space-between; gap:10px; margin-bottom:10px;}
+  .admin-jobcard-title{font-weight:700; font-size:14.5px; color:var(--ink); margin:0 0 4px;}
+  .admin-jobcard-meta{font-size:12.5px; color:var(--ink-faint);}
+  .admin-jobcard-foot{display:flex; align-items:center; justify-content:space-between; margin-top:14px; padding-top:12px; border-top:1px solid var(--line);}
+  .admin-jobcard-applicants{font-size:12.5px; color:var(--ink-soft); font-weight:600; display:flex; align-items:center; gap:5px;}
+  @media (max-width:760px){ .admin-side{width:64px;} .admin-side-brand{padding:16px 10px; justify-content:center; font-size:0;} .admin-side-brand svg{margin:0;} .admin-nav-item span{display:none;} .admin-nav-item{justify-content:center;} .admin-side-foot{display:none;} .admin-nav-group-label{display:none;} .admin-profile-hero{flex-direction:column; text-align:center;} }
 </style>
 </head>
 <body>
@@ -906,7 +1012,10 @@
       </div>
       <div class="footer-bottom">
         <div>© 2026 Upadyay. All rights reserved.</div>
-        <div>upadyay.com</div>
+        <div style="display:flex; align-items:center; gap:18px;">
+          <a href="javascript:void(0)" onclick="openAdmin()" style="color:#7E93BE;">Admin</a>
+          <span>upadyay.com</span>
+        </div>
       </div>
     </div>
   </footer>
@@ -1389,6 +1498,69 @@
     }
   };
 
+  // ---------- Demo institutions + their posted jobs (for admin dashboard) ----------
+  const institutionsData = {
+    kluniversity:{ name:'KL University', type:'university', city:'Vijayawada, Andhra Pradesh', contact:'Radha Krishna', designation:'HR Head', email:'hr@kluniversity.in', phone:'+91 98480 12345', website:'www.kluniversity.in', joined:'Jan 2024',
+      jobs:[
+        { title:'Associate Professor — Physics', category:'University faculty', qualification:'PhD', location:'Vijayawada', applicants:14, status:'live', posted:'5 days ago' },
+        { title:'Assistant Professor — Computer Science', category:'University faculty', qualification:'PhD', location:'Vijayawada', applicants:22, status:'live', posted:'1 week ago' },
+        { title:'Professor — Mechanical Engineering', category:'University faculty', qualification:'PhD', location:'Vijayawada', applicants:9, status:'live', posted:'2 weeks ago' },
+        { title:'Assistant Professor — Mathematics', category:'University faculty', qualification:'PhD', location:'Vijayawada', applicants:17, status:'closed', posted:'1 month ago' },
+        { title:'Lab Coordinator — Electronics', category:'University faculty', qualification:'PG', location:'Vijayawada', applicants:6, status:'live', posted:'3 days ago' },
+        { title:'Associate Professor — Biotechnology', category:'University faculty', qualification:'PhD', location:'Vijayawada', applicants:11, status:'closed', posted:'6 weeks ago' }
+      ] },
+    osmania:{ name:'Osmania University', type:'university', city:'Hyderabad, Telangana', contact:'Dr. Meena Rao', designation:'Registrar', email:'registrar@osmania.ac.in', phone:'+91 90000 11122', website:'www.osmania.ac.in', joined:'Mar 2024',
+      jobs:[
+        { title:'Professor — English Literature', category:'University faculty', qualification:'PhD', location:'Hyderabad', applicants:8, status:'live', posted:'4 days ago' },
+        { title:'Assistant Professor — History', category:'University faculty', qualification:'PhD', location:'Hyderabad', applicants:12, status:'live', posted:'1 week ago' },
+        { title:'Associate Professor — Political Science', category:'University faculty', qualification:'PhD', location:'Hyderabad', applicants:5, status:'closed', posted:'1 month ago' }
+      ] },
+    narayana:{ name:'Narayana Junior College', type:'college', city:'Chennai, Tamil Nadu', contact:'S. Venkatesh', designation:'Principal', email:'principal@narayanajc.in', phone:'+91 98765 43210', website:'www.narayanagroup.com', joined:'Feb 2024',
+      jobs:[
+        { title:'Senior Lecturer — Commerce', category:'Junior college', qualification:'PG', location:'Chennai', applicants:19, status:'live', posted:'2 days ago' },
+        { title:'Lecturer — Mathematics (MPC)', category:'Junior college', qualification:'PG', location:'Chennai', applicants:27, status:'live', posted:'5 days ago' },
+        { title:'Lecturer — Botany (BiPC)', category:'Junior college', qualification:'PG', location:'Chennai', applicants:15, status:'live', posted:'1 week ago' },
+        { title:'Lecturer — Physics (MPC)', category:'Junior college', qualification:'PG', location:'Chennai', applicants:10, status:'closed', posted:'3 weeks ago' }
+      ] },
+    srichaitanya:{ name:'Sri Chaitanya College', type:'college', city:'Vijayawada, Andhra Pradesh', contact:'K. Suresh', designation:'HR Manager', email:'hr@srichaitanya.in', phone:'+91 91234 56789', website:'www.srichaitanya.in', joined:'Apr 2024',
+      jobs:[
+        { title:'Lecturer — Chemistry (MPC)', category:'Junior college', qualification:'PG', location:'Vijayawada', applicants:13, status:'live', posted:'6 days ago' },
+        { title:'Lecturer — Zoology (BiPC)', category:'Junior college', qualification:'PG', location:'Vijayawada', applicants:8, status:'live', posted:'2 weeks ago' }
+      ] },
+    vitvellore:{ name:'VIT Vellore', type:'university', city:'Vellore, Tamil Nadu', contact:'Dr. Anand Krishnan', designation:'Dean, Faculty Affairs', email:'dean.fa@vit.ac.in', phone:'+91 90876 54321', website:'www.vit.ac.in', joined:'Dec 2023',
+      jobs:[
+        { title:'Assistant Professor — Cybersecurity', category:'University faculty', qualification:'PhD', location:'Vellore', applicants:24, status:'live', posted:'3 days ago' },
+        { title:'Associate Professor — Data Science', category:'University faculty', qualification:'PhD', location:'Vellore', applicants:31, status:'live', posted:'1 week ago' },
+        { title:'Professor — VLSI Design', category:'University faculty', qualification:'PhD', location:'Vellore', applicants:7, status:'live', posted:'2 weeks ago' },
+        { title:'Assistant Professor — AI/ML', category:'University faculty', qualification:'PhD', location:'Vellore', applicants:29, status:'closed', posted:'5 weeks ago' },
+        { title:'Lab Instructor — Robotics', category:'University faculty', qualification:'PG', location:'Vellore', applicants:16, status:'live', posted:'4 days ago' }
+      ] },
+    dpsHyderabad:{ name:'Delhi Public School', type:'school', city:'Hyderabad, Telangana', contact:'Ritu Sharma', designation:'HR Head', email:'hr@dpshyd.edu.in', phone:'+91 99887 76655', website:'www.dpshyderabad.com', joined:'May 2024',
+      jobs:[
+        { title:'PGT — Mathematics', category:'School faculty', qualification:'PG', location:'Hyderabad', applicants:21, status:'live', posted:'1 week ago' },
+        { title:'TGT — Social Studies', category:'School faculty', qualification:'UG', location:'Hyderabad', applicants:18, status:'live', posted:'2 weeks ago' }
+      ] },
+    ctraining:{ name:'Computer Training Ltd', type:'college', city:'Rochester, NY, United States', contact:'Peter Smith', designation:'Director', email:'peter@ctrainingltd.com', phone:'585-908-7123', website:'www.ctrainingltd.com', joined:'Jun 2024',
+      jobs:[
+        { title:'Instructor — Networking Fundamentals', category:'Vocational training', qualification:'PG', location:'Rochester, NY', applicants:6, status:'live', posted:'5 days ago' }
+      ] },
+    coimbatoreArts:{ name:'Coimbatore Arts College', type:'college', city:'Coimbatore, Tamil Nadu', contact:'Dr. Latha Iyer', designation:'Principal', email:'principal@coimbatoreartscollege.edu.in', phone:'+91 94444 33221', website:'www.coimbatoreartscollege.edu.in', joined:'Jul 2024',
+      jobs:[
+        { title:'Assistant Professor — Fine Arts', category:'College faculty', qualification:'PG', location:'Coimbatore', applicants:9, status:'live', posted:'1 week ago' }
+      ] },
+    keralaCentral:{ name:'Kerala Central School', type:'school', city:'Kochi, Kerala', contact:'Thomas Jacob', designation:'HR Head', email:'hr@keralacentral.edu.in', phone:'+91 98470 22110', website:'www.keralacentralschool.in', joined:'Aug 2024',
+      jobs:[
+        { title:'PGT — English', category:'School faculty', qualification:'PG', location:'Kochi', applicants:12, status:'live', posted:'3 days ago' },
+        { title:'PRT — Primary Teacher', category:'School faculty', qualification:'UG', location:'Kochi', applicants:20, status:'live', posted:'6 days ago' },
+        { title:'TGT — Science', category:'School faculty', qualification:'PG', location:'Kochi', applicants:14, status:'closed', posted:'1 month ago' }
+      ] },
+    delhiCommerce:{ name:'Delhi School of Commerce', type:'school', city:'New Delhi, Delhi', contact:'Anjali Bhatia', designation:'Principal', email:'principal@delhicommerce.edu.in', phone:'+91 98100 44556', website:'www.delhicommerce.edu.in', joined:'Sep 2024',
+      jobs:[
+        { title:'PGT — Commerce', category:'School faculty', qualification:'PG', location:'New Delhi', applicants:16, status:'live', posted:'4 days ago' },
+        { title:'TGT — Economics', category:'School faculty', qualification:'PG', location:'New Delhi', applicants:11, status:'live', posted:'1 week ago' }
+      ] }
+  };
+
   // ---------- Extra demo candidates (auto-generated, 17 more → 20 total) ----------
   (function(){
     const extra = [
@@ -1689,6 +1861,309 @@
     document.getElementById('apList').innerHTML = job.applicantIds.map(candidateCardHTML).join('') || '<p class="sub">No applicants yet.</p>';
     document.getElementById('apCount').textContent = job.applicantIds.length + (job.applicantIds.length===1 ? ' applicant' : ' applicants');
   }
+
+  // ---------- Admin dashboard (demo) ----------
+  function institutionTypeLabel(t){
+    return t==='school' ? 'School' : t==='college' ? 'Junior College' : 'University';
+  }
+  function institutionInitials(name){
+    return (name||'IN').trim().split(/\s+/).map(w=>w[0]).slice(0,2).join('').toUpperCase();
+  }
+  function allInstitutionJobs(){
+    // flattened list: [{...job, instId, instName}]
+    const out = [];
+    Object.keys(institutionsData).forEach(id=>{
+      const inst = institutionsData[id];
+      (inst.jobs||[]).forEach(j=> out.push(Object.assign({}, j, { instId:id, instName:inst.name })));
+    });
+    return out;
+  }
+  function openAdmin(){
+    document.getElementById('adminOverlay').classList.add('open');
+    document.body.style.overflow = 'hidden';
+    document.getElementById('adminFooterYear').textContent = new Date().getFullYear();
+    switchAdminTab('overview');
+  }
+  function closeAdmin(){
+    document.getElementById('adminOverlay').classList.remove('open');
+    document.body.style.overflow = '';
+  }
+  function switchAdminTab(tab){
+    const panels = ['overview','faculty','institutions','institutionProfile','jobs'];
+    panels.forEach(t=>{
+      const el = document.getElementById('adminPanel'+t.charAt(0).toUpperCase()+t.slice(1));
+      if(el) el.style.display = t===tab ? (t==='overview'?'block':'block') : 'none';
+    });
+    ['overview','faculty','institutions','jobs'].forEach(t=>{
+      const nav = document.getElementById('adminNav'+t.charAt(0).toUpperCase()+t.slice(1));
+      if(nav) nav.classList.toggle('active', t===tab);
+    });
+    const titles = { overview:'Overview', faculty:'Faculty', institutions:'Institutions', institutionProfile:'Institution profile', jobs:'Job Applications' };
+    document.getElementById('adminTopTitle').textContent = titles[tab] || 'Overview';
+    document.getElementById('adminBackBtn').style.display = tab==='institutionProfile' ? 'flex' : 'none';
+    if(tab==='overview') renderAdminOverview();
+    if(tab==='faculty') renderAdminFaculty();
+    if(tab==='institutions') renderAdminInstitutions();
+    if(tab==='jobs') renderAdminJobs();
+  }
+
+  function totalDemoApplicants(){
+    return allInstitutionJobs().reduce((sum,j)=> sum + (j.applicants||0), 0) + totalApplicantsCount();
+  }
+  function totalApplicantsCount(){
+    return Object.values(jobsData).reduce((sum,j)=> sum + (j.applicantIds ? j.applicantIds.length : 0), 0);
+  }
+
+  function renderAdminOverview(){
+    const facultyIds = Object.keys(facultyProfiles);
+    const instIds = Object.keys(institutionsData);
+    const demoJobs = allInstitutionJobs();
+    const liveDemoJobs = demoJobs.filter(j=>j.status==='live');
+    const totalJobsCount = demoJobs.length + Object.keys(jobsData).length;
+
+    document.getElementById('adminStatJobs').textContent = totalJobsCount;
+    document.getElementById('adminStatFaculty').textContent = facultyIds.length;
+    document.getElementById('adminStatInstitutions').textContent = instIds.length;
+    document.getElementById('adminStatApplications').textContent = totalDemoApplicants();
+
+    document.getElementById('adminMiniLive').textContent = liveDemoJobs.length;
+    const cityCounts = {};
+    facultyIds.forEach(id=>{ const c = facultyProfiles[id].tags[2]; cityCounts[c] = (cityCounts[c]||0)+1; });
+    const topCity = Object.keys(cityCounts).sort((a,b)=>cityCounts[b]-cityCounts[a])[0];
+    document.getElementById('adminMiniLocation').textContent = topCity || '—';
+    const avgApplicants = demoJobs.length ? Math.round(demoJobs.reduce((s,j)=>s+j.applicants,0)/demoJobs.length) : 0;
+    document.getElementById('adminMiniAvg').textContent = avgApplicants;
+    const phdCount = facultyIds.filter(id=>facultyProfiles[id].tags[0]==='PhD').length;
+    document.getElementById('adminMiniPhd').innerHTML = phdCount + ' <small>/ '+facultyIds.length+'</small>';
+
+    document.getElementById('adminOverviewInstitutionsBody').innerHTML = instIds.slice(0,5).map(id=>{
+      const inst = institutionsData[id];
+      return `<tr class="clickable" onclick="openInstitutionProfile('${id}')">
+        <td class="admin-row-name">${inst.name}</td>
+        <td><span class="admin-pill ${inst.type}">${institutionTypeLabel(inst.type)}</span></td>
+        <td>${inst.city.split(',')[0]}</td>
+        <td>${(inst.jobs||[]).length}</td>
+        <td><button class="admin-viewbtn" onclick="event.stopPropagation(); openInstitutionProfile('${id}')">View</button></td>
+      </tr>`;
+    }).join('');
+
+    document.getElementById('adminOverviewFacultyBody').innerHTML = facultyIds.slice(0,5).map(id=>{
+      const p = facultyProfiles[id];
+      return `<tr class="clickable" onclick="openFacultyDetail('${id}')">
+        <td class="admin-row-name"><img class="admin-row-avatar" src="${p.avatar}">${p.name}</td>
+        <td>${p.role}</td>
+        <td>${p.tags[0]}</td>
+        <td>${p.tags[2]}</td>
+        <td><span class="admin-pill open">Open to opportunities</span></td>
+      </tr>`;
+    }).join('');
+
+    const activity = [];
+    instIds.slice(0,3).forEach(id=>{
+      const inst = institutionsData[id];
+      (inst.jobs||[]).slice(0,1).forEach(j=> activity.push({ text:`${inst.name} posted "${j.title}"`, time:j.posted }));
+    });
+    facultyIds.slice(0,2).forEach(id=>{
+      activity.push({ text:`${facultyProfiles[id].name} joined as new faculty`, time:'this week' });
+    });
+    document.getElementById('adminActivityFeed').innerHTML = activity.map(a=>`
+      <div style="padding:10px 0; border-bottom:1px solid var(--line); font-size:13px;">
+        <div style="color:var(--ink);">${a.text}</div>
+        <div style="color:var(--ink-faint); font-size:11.5px; margin-top:2px;">${a.time}</div>
+      </div>`).join('') || '<p class="sub" style="margin:0;">No recent activity.</p>';
+  }
+
+  function renderAdminFaculty(){
+    const q = (document.getElementById('adminFacultySearch').value || '').toLowerCase();
+    const qualFilter = document.getElementById('adminFacultyQualFilter').value;
+    const ids = Object.keys(facultyProfiles).filter(id=>{
+      const p = facultyProfiles[id];
+      const matchesQ = !q || p.name.toLowerCase().includes(q) || p.role.toLowerCase().includes(q);
+      const matchesQual = !qualFilter || p.tags[0]===qualFilter;
+      return matchesQ && matchesQual;
+    });
+    document.getElementById('adminFacultyCount').textContent = ids.length + (ids.length===1 ? ' faculty' : ' faculty members');
+    document.getElementById('adminFacultyBody').innerHTML = ids.map(id=>{
+      const p = facultyProfiles[id];
+      return `<tr class="clickable" onclick="openFacultyDetail('${id}')">
+        <td class="admin-row-name"><img class="admin-row-avatar" src="${p.avatar}">${p.name}</td>
+        <td>${p.role}</td>
+        <td>${p.tags[0]}</td>
+        <td>${p.tags[2]}</td>
+        <td><span class="admin-pill open">Open to opportunities</span></td>
+      </tr>`;
+    }).join('') || `<tr><td colspan="5" style="text-align:center; color:var(--ink-faint); padding:22px;">No faculty match your search.</td></tr>`;
+  }
+
+  function renderAdminInstitutions(){
+    const q = (document.getElementById('adminInstitutionsSearch').value || '').toLowerCase();
+    const typeFilter = document.getElementById('adminInstitutionsTypeFilter').value;
+    const ids = Object.keys(institutionsData).filter(id=>{
+      const inst = institutionsData[id];
+      const matchesQ = !q || inst.name.toLowerCase().includes(q) || inst.city.toLowerCase().includes(q);
+      const matchesType = !typeFilter || inst.type===typeFilter;
+      return matchesQ && matchesType;
+    });
+    document.getElementById('adminInstitutionsCount').textContent = ids.length + (ids.length===1 ? ' institution' : ' institutions');
+    document.getElementById('adminInstitutionsBody').innerHTML = ids.map(id=>{
+      const inst = institutionsData[id];
+      return `<tr class="clickable" onclick="openInstitutionProfile('${id}')">
+        <td class="admin-row-name">${inst.name}</td>
+        <td><span class="admin-pill ${inst.type}">${institutionTypeLabel(inst.type)}</span></td>
+        <td>${inst.contact}</td>
+        <td>${inst.city}</td>
+        <td>${inst.phone}</td>
+        <td>${inst.website}</td>
+        <td>${(inst.jobs||[]).length}</td>
+        <td><button class="admin-viewbtn" onclick="event.stopPropagation(); openInstitutionProfile('${id}')">View</button></td>
+      </tr>`;
+    }).join('') || `<tr><td colspan="8" style="text-align:center; color:var(--ink-faint); padding:22px;">No institutions match your search.</td></tr>`;
+  }
+
+  function renderAdminJobs(){
+    const categoryFilter = document.getElementById('adminJobsCategoryFilter').value;
+    const statusFilter = document.getElementById('adminJobsStatusFilter').value;
+    const demoJobs = allInstitutionJobs().filter(j=>{
+      const matchesCat = !categoryFilter || j.category===categoryFilter;
+      const matchesStatus = !statusFilter || j.status===statusFilter;
+      return matchesCat && matchesStatus;
+    });
+    document.getElementById('adminJobsCount').textContent = demoJobs.length + (demoJobs.length===1 ? ' job' : ' jobs');
+    document.getElementById('adminJobsBody').innerHTML = demoJobs.map(j=>`
+      <tr class="clickable" onclick="openInstitutionProfile('${j.instId}')">
+        <td class="admin-row-name">${j.title}</td>
+        <td>${j.instName}</td>
+        <td>${j.category}</td>
+        <td>${j.location}</td>
+        <td><span class="admin-pill ${j.status}">${j.status==='live' ? 'Live' : 'Closed'}</span></td>
+        <td>${j.applicants}</td>
+      </tr>`).join('') || `<tr><td colspan="6" style="text-align:center; color:var(--ink-faint); padding:22px;">No jobs match this filter.</td></tr>`;
+  }
+
+  function openFacultyDetail(id){
+    const p = facultyProfiles[id];
+    if(!p) return;
+    document.getElementById('adminDetailAvatarWrap').innerHTML = `<img src="${p.avatar}" style="width:52px;height:52px;border-radius:50%;object-fit:cover;flex-shrink:0;">`;
+    document.getElementById('adminDetailName').textContent = p.name;
+    document.getElementById('adminDetailSub').textContent = p.role;
+    const statsRows = (p.stats||[]).map(([v,l])=>`<div class="admin-detail-row"><span class="k">${l}</span><span class="v">${v}</span></div>`).join('');
+    const expRows = (p.experience||[]).map(([title,meta])=>`<div class="admin-detail-row"><span class="k">${title}</span><span class="v">${meta}</span></div>`).join('');
+    const tagsRow = `<div class="admin-detail-row"><span class="k">Qualification / Location</span><span class="v">${(p.tags||[]).join(' · ')}</span></div>`;
+    document.getElementById('adminDetailBody').innerHTML = `
+      ${tagsRow}
+      ${statsRows}
+      ${expRows ? `<h4 style="margin:16px 0 6px; font-size:13px; color:var(--ink-faint);">Experience</h4>${expRows}` : ''}
+    `;
+    document.getElementById('adminDetailOverlay').classList.add('open');
+  }
+  function closeAdminDetail(){
+    document.getElementById('adminDetailOverlay').classList.remove('open');
+  }
+
+  let currentAdminInstitutionId = null;
+
+  function openInstitutionProfile(id){
+    const inst = institutionsData[id];
+    if(!inst) return;
+    currentAdminInstitutionId = id;
+    switchAdminTab('institutionProfile');
+    document.getElementById('adminProfileAvatar').textContent = institutionInitials(inst.name);
+    document.getElementById('adminProfileName').textContent = inst.name;
+    document.getElementById('adminProfileMeta').textContent = institutionTypeLabel(inst.type) + ' · ' + inst.city;
+    const jobs = inst.jobs || [];
+    const liveCount = jobs.filter(j=>j.status==='live').length;
+    const totalApplicants = jobs.reduce((s,j)=>s+j.applicants,0);
+    document.getElementById('adminProfileJobsCount').textContent = jobs.length;
+    document.getElementById('adminProfileLiveCount').textContent = liveCount;
+    document.getElementById('adminProfileApplicantsCount').textContent = totalApplicants;
+    document.getElementById('adminProfileJoined').textContent = inst.joined;
+    document.getElementById('adminProfileContact').textContent = `${inst.contact} (${inst.designation})`;
+    document.getElementById('adminProfileEmail').textContent = inst.email;
+    document.getElementById('adminProfilePhone').textContent = inst.phone;
+    document.getElementById('adminProfileWebsite').textContent = inst.website;
+
+    document.getElementById('adminProfileJobsGrid').innerHTML = jobs.map(j=>`
+      <div class="admin-jobcard">
+        <div class="admin-jobcard-top">
+          <div>
+            <div class="admin-jobcard-title">${j.title}</div>
+            <div class="admin-jobcard-meta">${j.category} · ${j.qualification} · ${j.location}</div>
+          </div>
+          <span class="admin-pill ${j.status}">${j.status==='live' ? 'Live' : 'Closed'}</span>
+        </div>
+        <div class="admin-jobcard-foot">
+          <div class="admin-jobcard-applicants">
+            <svg width="14" height="14" viewBox="0 0 24 24" fill="none"><circle cx="12" cy="8" r="3.4" stroke="currentColor" stroke-width="1.6"/><path d="M4.5 20c1-3.6 4.2-6 7.5-6s6.5 2.4 7.5 6" stroke="currentColor" stroke-width="1.6" stroke-linecap="round"/></svg>
+            ${j.applicants} applicants
+          </div>
+          <span style="font-size:11.5px; color:var(--ink-faint);">${j.posted}</span>
+        </div>
+      </div>`).join('') || `<p class="sub" style="grid-column:1/-1;">No jobs posted yet.</p>`;
+  }
+
+  // ---------- CSV export helpers ----------
+  function csvEscape(val){
+    const s = String(val==null ? '' : val);
+    return /[",\n]/.test(s) ? '"' + s.replace(/"/g,'""') + '"' : s;
+  }
+  function downloadCSV(filename, rows){
+    const csv = rows.map(row=> row.map(csvEscape).join(',')).join('\r\n');
+    const blob = new Blob(['\ufeff' + csv], { type:'text/csv;charset=utf-8;' });
+    const url = URL.createObjectURL(blob);
+    const a = document.createElement('a');
+    a.href = url; a.download = filename;
+    document.body.appendChild(a); a.click(); document.body.removeChild(a);
+    URL.revokeObjectURL(url);
+  }
+
+  function downloadInstitutionsCSV(){
+    const rows = [['Institution','Type','Contact Person','Designation','Email','Phone','Website','Location','Jobs Posted','Joined']];
+    Object.values(institutionsData).forEach(inst=>{
+      rows.push([inst.name, institutionTypeLabel(inst.type), inst.contact, inst.designation, inst.email, inst.phone, inst.website, inst.city, (inst.jobs||[]).length, inst.joined]);
+    });
+    downloadCSV('upadyay-institutions.csv', rows);
+  }
+
+  function downloadFacultyCSV(){
+    const rows = [['Name','Subject / Role','Qualification','Experience','Location','Status']];
+    Object.values(facultyProfiles).forEach(p=>{
+      rows.push([p.name, p.role, p.tags[0], p.tags[1]||'', p.tags[2], 'Open to opportunities']);
+    });
+    downloadCSV('upadyay-faculty.csv', rows);
+  }
+
+  function downloadJobsCSV(){
+    const rows = [['Job Title','Institution','Category','Qualification','Location','Status','Applicants','Posted']];
+    allInstitutionJobs().forEach(j=>{
+      rows.push([j.title, j.instName, j.category, j.qualification, j.location, j.status==='live'?'Live':'Closed', j.applicants, j.posted]);
+    });
+    downloadCSV('upadyay-job-applications.csv', rows);
+  }
+
+  // Deterministic pseudo-random applicant list per job, drawn from the faculty pool
+  function applicantsForJob(j, instId, jobIndex){
+    const pool = Object.values(facultyProfiles);
+    const out = [];
+    const seedBase = (instId.length + jobIndex*7);
+    for(let i=0;i<j.applicants;i++){
+      const p = pool[(seedBase + i*3) % pool.length];
+      out.push(p);
+    }
+    return out;
+  }
+
+  function downloadInstitutionApplicantsCSV(){
+    const inst = institutionsData[currentAdminInstitutionId];
+    if(!inst) return;
+    const rows = [['Job Title','Category','Qualification Required','Job Status','Applicant Name','Applicant Subject / Role','Applicant Qualification','Applicant Location']];
+    (inst.jobs||[]).forEach((j,idx)=>{
+      const applicants = applicantsForJob(j, currentAdminInstitutionId, idx);
+      applicants.forEach(p=>{
+        rows.push([j.title, j.category, j.qualification, j.status==='live'?'Live':'Closed', p.name, p.role, p.tags[0], p.tags[2]]);
+      });
+    });
+    downloadCSV(`upadyay-${inst.name.replace(/\s+/g,'-').toLowerCase()}-applicants.csv`, rows);
+  }
 </script>
 
 <script>
@@ -1956,5 +2431,247 @@
   }, {threshold:0.5});
   countEls.forEach(el=>cio.observe(el));
 </script>
+  <!-- ---------- Admin dashboard (demo) ---------- -->
+  <div class="admin-overlay" id="adminOverlay">
+    <div class="admin-shell">
+      <div class="admin-side">
+        <div class="admin-side-brand">
+          <div class="brand-mark" style="width:26px;height:26px;"><svg width="15" height="15" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg"><path d="M12 3L1 8.5L12 14L23 8.5L12 3Z" stroke="currentColor" stroke-width="1.6" stroke-linejoin="round"/><path d="M5 11.5V16.5C5 16.5 5 20 12 20C19 20 19 16.5 19 16.5V11.5" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"/></svg></div>
+          <span>Upadyay Admin</span>
+        </div>
+        <div class="admin-nav">
+          <div class="admin-nav-group-label">Dashboard</div>
+          <button class="admin-nav-item active" id="adminNavOverview" onclick="switchAdminTab('overview')">
+            <svg width="16" height="16" viewBox="0 0 24 24" fill="none"><path d="M4 13h6V4H4v9Zm0 7h6v-5H4v5Zm10 0h6V11h-6v9Zm0-16v5h6V4h-6Z" stroke="currentColor" stroke-width="1.6" stroke-linejoin="round"/></svg>
+            <span>Overview</span>
+          </button>
+          <div class="admin-nav-group-label">Directory</div>
+          <button class="admin-nav-item" id="adminNavFaculty" onclick="switchAdminTab('faculty')">
+            <svg width="16" height="16" viewBox="0 0 24 24" fill="none"><circle cx="12" cy="8" r="3.4" stroke="currentColor" stroke-width="1.6"/><path d="M4.5 20c1-3.6 4.2-6 7.5-6s6.5 2.4 7.5 6" stroke="currentColor" stroke-width="1.6" stroke-linecap="round"/></svg>
+            <span>Faculty</span>
+          </button>
+          <button class="admin-nav-item" id="adminNavInstitutions" onclick="switchAdminTab('institutions')">
+            <svg width="16" height="16" viewBox="0 0 24 24" fill="none"><path d="M3 21h18M4 21V9l8-5 8 5v12M9 21v-6h6v6" stroke="currentColor" stroke-width="1.6" stroke-linejoin="round"/></svg>
+            <span>Institutions</span>
+          </button>
+          <button class="admin-nav-item" id="adminNavJobs" onclick="switchAdminTab('jobs')">
+            <svg width="16" height="16" viewBox="0 0 24 24" fill="none"><rect x="3" y="7" width="18" height="13" rx="1.5" stroke="currentColor" stroke-width="1.6"/><path d="M8 7V5.5A1.5 1.5 0 0 1 9.5 4h5A1.5 1.5 0 0 1 16 5.5V7" stroke="currentColor" stroke-width="1.6"/></svg>
+            <span>Job Applications</span>
+          </button>
+        </div>
+        <div class="admin-side-foot">Demo admin panel — data is illustrative.</div>
+      </div>
+      <div class="admin-main">
+        <div class="admin-top">
+          <div class="admin-top-title">
+            <button class="admin-top-back" id="adminBackBtn" style="display:none;" onclick="switchAdminTab('institutions')">
+              <svg width="18" height="18" viewBox="0 0 24 24" fill="none"><path d="M15 5L8 12L15 19" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/></svg>
+            </button>
+            <span id="adminTopTitle">Overview</span>
+          </div>
+          <button class="btn btn-light btn-sm" onclick="closeAdmin()">Back to site</button>
+        </div>
+        <div class="admin-body">
+
+          <!-- Overview tab -->
+          <div id="adminPanelOverview">
+            <div class="admin-stats">
+              <div class="admin-stat c1">
+                <div class="admin-stat-top"><div><div class="n" id="adminStatJobs">0</div><div class="l">Jobs Posted</div></div>
+                  <svg width="30" height="30" viewBox="0 0 24 24" fill="none"><rect x="3" y="7" width="18" height="13" rx="1.5" stroke="white" stroke-width="1.6"/><path d="M8 7V5.5A1.5 1.5 0 0 1 9.5 4h5A1.5 1.5 0 0 1 16 5.5V7" stroke="white" stroke-width="1.6"/></svg>
+                </div>
+                <div class="admin-stat-bot" onclick="switchAdminTab('jobs')">View details <span>›</span></div>
+              </div>
+              <div class="admin-stat c2">
+                <div class="admin-stat-top"><div><div class="n" id="adminStatFaculty">0</div><div class="l">Faculty (Jobseekers)</div></div>
+                  <svg width="30" height="30" viewBox="0 0 24 24" fill="none"><circle cx="12" cy="8" r="3.4" stroke="white" stroke-width="1.6"/><path d="M4.5 20c1-3.6 4.2-6 7.5-6s6.5 2.4 7.5 6" stroke="white" stroke-width="1.6" stroke-linecap="round"/></svg>
+                </div>
+                <div class="admin-stat-bot" onclick="switchAdminTab('faculty')">View details <span>›</span></div>
+              </div>
+              <div class="admin-stat c3">
+                <div class="admin-stat-top"><div><div class="n" id="adminStatInstitutions">0</div><div class="l">Institutions</div></div>
+                  <svg width="30" height="30" viewBox="0 0 24 24" fill="none"><path d="M3 21h18M4 21V9l8-5 8 5v12" stroke="white" stroke-width="1.6" stroke-linejoin="round"/></svg>
+                </div>
+                <div class="admin-stat-bot" onclick="switchAdminTab('institutions')">View details <span>›</span></div>
+              </div>
+              <div class="admin-stat c4">
+                <div class="admin-stat-top"><div><div class="n" id="adminStatApplications">0</div><div class="l">Job Applications</div></div>
+                  <svg width="30" height="30" viewBox="0 0 24 24" fill="none"><path d="M4 19V5a1 1 0 0 1 1-1h8l6 6v9a1 1 0 0 1-1 1H5a1 1 0 0 1-1-1Z" stroke="white" stroke-width="1.6" stroke-linejoin="round"/></svg>
+                </div>
+                <div class="admin-stat-bot" onclick="switchAdminTab('jobs')">View details <span>›</span></div>
+              </div>
+            </div>
+
+            <div class="admin-mini-stats">
+              <div class="admin-mini-stat"><div class="l">Live Jobs</div><div class="n" id="adminMiniLive">—</div></div>
+              <div class="admin-mini-stat"><div class="l">Top Location</div><div class="n" id="adminMiniLocation">—</div></div>
+              <div class="admin-mini-stat"><div class="l">Avg. Applicants / Job</div><div class="n" id="adminMiniAvg">—</div></div>
+              <div class="admin-mini-stat"><div class="l">PhD Faculty</div><div class="n" id="adminMiniPhd">—</div></div>
+            </div>
+
+            <div class="admin-two-col">
+              <div class="admin-panel">
+                <div class="admin-panel-head">Latest Institutions</div>
+                <div style="overflow-x:auto;">
+                  <table class="admin-table">
+                    <thead><tr><th>Institution</th><th>Type</th><th>Location</th><th>Jobs</th><th></th></tr></thead>
+                    <tbody id="adminOverviewInstitutionsBody"></tbody>
+                  </table>
+                </div>
+                <div class="admin-viewall" onclick="switchAdminTab('institutions')">View All</div>
+              </div>
+
+              <div class="admin-panel">
+                <div class="admin-panel-head">Recent Activity</div>
+                <div id="adminActivityFeed" style="padding:6px 18px 14px;"></div>
+              </div>
+            </div>
+
+            <div class="admin-panel">
+              <div class="admin-panel-head">Latest Faculty</div>
+              <div style="overflow-x:auto;">
+                <table class="admin-table">
+                  <thead><tr><th>Name</th><th>Subject</th><th>Qualification</th><th>Location</th><th>Status</th></tr></thead>
+                  <tbody id="adminOverviewFacultyBody"></tbody>
+                </table>
+              </div>
+              <div class="admin-viewall" onclick="switchAdminTab('faculty')">View All</div>
+            </div>
+          </div>
+
+          <!-- Faculty tab -->
+          <div id="adminPanelFaculty" style="display:none;">
+            <div class="admin-panel">
+              <div class="admin-panel-head">
+                <span>All Faculty <span class="count" id="adminFacultyCount" style="font-weight:600; color:var(--ink-faint); font-size:12.5px;"></span></span>
+                <button class="admin-viewbtn" style="background:#1D8A5E;" onclick="downloadFacultyCSV()">⬇ Download list (CSV)</button>
+              </div>
+              <div class="admin-search-row">
+                <input type="text" id="adminFacultySearch" placeholder="Search by name or subject…" oninput="renderAdminFaculty()">
+                <select id="adminFacultyQualFilter" onchange="renderAdminFaculty()" style="padding:9px 12px; border:1px solid var(--line); border-radius:var(--radius); font-family:inherit; font-size:13.5px; background:#fff;">
+                  <option value="">All qualifications</option>
+                  <option value="PhD">PhD</option>
+                  <option value="PG">PG</option>
+                  <option value="UG">UG</option>
+                </select>
+              </div>
+              <div style="overflow-x:auto;">
+                <table class="admin-table">
+                  <thead><tr><th>Faculty</th><th>Subject / Role</th><th>Qualification</th><th>Location</th><th>Status</th></tr></thead>
+                  <tbody id="adminFacultyBody"></tbody>
+                </table>
+              </div>
+            </div>
+          </div>
+
+          <!-- Institutions tab (list) -->
+          <div id="adminPanelInstitutions" style="display:none;">
+            <div class="admin-panel">
+              <div class="admin-panel-head">
+                <span>All Institutions <span class="count" id="adminInstitutionsCount" style="font-weight:600; color:var(--ink-faint); font-size:12.5px;"></span></span>
+                <button class="admin-viewbtn" style="background:#1D8A5E;" onclick="downloadInstitutionsCSV()">⬇ Download list (CSV)</button>
+              </div>
+              <div class="admin-search-row">
+                <input type="text" id="adminInstitutionsSearch" placeholder="Search by name or city…" oninput="renderAdminInstitutions()">
+                <select id="adminInstitutionsTypeFilter" onchange="renderAdminInstitutions()" style="padding:9px 12px; border:1px solid var(--line); border-radius:var(--radius); font-family:inherit; font-size:13.5px; background:#fff;">
+                  <option value="">All categories</option>
+                  <option value="school">Schools</option>
+                  <option value="college">Junior Colleges</option>
+                  <option value="university">Universities</option>
+                </select>
+              </div>
+              <div style="overflow-x:auto;">
+                <table class="admin-table admin-table-institutions">
+                  <thead><tr><th>Institution</th><th>Type</th><th>Contact Person</th><th>Location</th><th>Phone</th><th>Website</th><th>Jobs Posted</th><th></th></tr></thead>
+                  <tbody id="adminInstitutionsBody"></tbody>
+                </table>
+              </div>
+            </div>
+          </div>
+
+          <!-- Institution profile (detail) page -->
+          <div id="adminPanelInstitutionProfile" style="display:none;">
+            <div class="admin-profile-hero">
+              <div class="admin-profile-avatar" id="adminProfileAvatar">—</div>
+              <div class="admin-profile-info">
+                <h2 id="adminProfileName">—</h2>
+                <div class="meta" id="adminProfileMeta">—</div>
+                <div class="admin-profile-quickstats">
+                  <div><b id="adminProfileJobsCount">0</b>Jobs posted</div>
+                  <div><b id="adminProfileLiveCount">0</b>Live now</div>
+                  <div><b id="adminProfileApplicantsCount">0</b>Total applicants</div>
+                  <div><b id="adminProfileJoined">—</b>Joined</div>
+                </div>
+              </div>
+            </div>
+            <div class="admin-profile-contactcard">
+              <h4>Contact details</h4>
+              <div class="admin-detail-row"><span class="k">Contact person</span><span class="v" id="adminProfileContact">—</span></div>
+              <div class="admin-detail-row"><span class="k">Email</span><span class="v" id="adminProfileEmail">—</span></div>
+              <div class="admin-detail-row"><span class="k">Phone</span><span class="v" id="adminProfilePhone">—</span></div>
+              <div class="admin-detail-row"><span class="k">Website</span><span class="v" id="adminProfileWebsite">—</span></div>
+            </div>
+            <div class="admin-panel-head" style="padding:0 0 14px; border:none;">
+              <span>Jobs posted by this institution</span>
+              <button class="admin-viewbtn" style="background:#1D8A5E;" id="adminProfileDownloadBtn" onclick="downloadInstitutionApplicantsCSV()">⬇ Download applicants (CSV)</button>
+            </div>
+            <div class="admin-jobcards-grid" id="adminProfileJobsGrid"></div>
+          </div>
+
+          <!-- Jobs tab -->
+          <div id="adminPanelJobs" style="display:none;">
+            <div class="admin-panel">
+              <div class="admin-panel-head">
+                <span>Job Applications <span class="count" id="adminJobsCount" style="font-weight:600; color:var(--ink-faint); font-size:12.5px;"></span></span>
+                <button class="admin-viewbtn" style="background:#1D8A5E;" onclick="downloadJobsCSV()">⬇ Download list (CSV)</button>
+              </div>
+              <div class="admin-search-row">
+                <select id="adminJobsCategoryFilter" onchange="renderAdminJobs()" style="padding:9px 12px; border:1px solid var(--line); border-radius:var(--radius); font-family:inherit; font-size:13.5px; background:#fff;">
+                  <option value="">All categories</option>
+                  <option value="School faculty">School faculty</option>
+                  <option value="Junior college">Junior college</option>
+                  <option value="University faculty">University faculty</option>
+                  <option value="College faculty">College faculty</option>
+                  <option value="Vocational training">Vocational training</option>
+                </select>
+                <select id="adminJobsStatusFilter" onchange="renderAdminJobs()" style="padding:9px 12px; border:1px solid var(--line); border-radius:var(--radius); font-family:inherit; font-size:13.5px; background:#fff; max-width:160px;">
+                  <option value="">All statuses</option>
+                  <option value="live">Live only</option>
+                  <option value="closed">Closed only</option>
+                </select>
+              </div>
+              <div style="overflow-x:auto;">
+                <table class="admin-table">
+                  <thead><tr><th>Job Title</th><th>Institution</th><th>Category</th><th>Location</th><th>Status</th><th>Applicants</th></tr></thead>
+                  <tbody id="adminJobsBody"></tbody>
+                </table>
+              </div>
+            </div>
+          </div>
+
+        </div>
+        <div class="admin-footer">
+          <span>© <span id="adminFooterYear"></span> Upadyay — Demo admin panel, illustrative data only.</span>
+          <span>Built for internal demo purposes</span>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Admin row-detail modal (faculty) -->
+  <div class="admin-detail-overlay" id="adminDetailOverlay" onclick="if(event.target===this) closeAdminDetail()">
+    <div class="admin-detail-card">
+      <div class="admin-detail-head">
+        <div id="adminDetailAvatarWrap"></div>
+        <div>
+          <div style="font-weight:700; font-size:16px;" id="adminDetailName">—</div>
+          <div style="font-size:12.5px; color:var(--ink-faint);" id="adminDetailSub">—</div>
+        </div>
+        <button class="admin-detail-close" onclick="closeAdminDetail()">✕</button>
+      </div>
+      <div class="admin-detail-body" id="adminDetailBody"></div>
+    </div>
+  </div>
+
 </body>
 </html>
