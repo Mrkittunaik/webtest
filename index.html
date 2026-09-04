@@ -18,7 +18,7 @@
     --ink-faint:#8A93A3;
     --line:#E3E8F0;
     --paper:#FFFFFF;
-    --canvas:#90D5FF;
+    --canvas:#F7F9FC;
     --green:#1D8A5E;
     --radius:5px;
     --shadow-sm: 0 1px 2px rgba(16,36,84,0.06);
@@ -1175,6 +1175,9 @@
     <div class="dash-fullbleed" id="candidateListWrap" style="display:none;">
       <div class="candidates-section-head"><h3>Recommended candidates</h3><span class="count" id="candidateCount"></span></div>
       <div class="demo-grid dash-fullbleed-grid" id="candidateList"></div>
+      <div id="candidateShowMoreWrap" style="display:none; justify-content:center; margin-top:22px;">
+        <button class="btn btn-light" id="candidateShowMoreBtn" onclick="showMoreCandidates()">Show more</button>
+      </div>
     </div>
     <div class="dash-fullbleed" id="apListWrap" style="display:none;">
       <div class="candidates-section-head"><h3>Applicants</h3><span class="count" id="apCount"></span></div>
@@ -1599,14 +1602,34 @@
       </div>`;
   }
 
-  function renderCandidates(){
+  const CAND_PAGE_SIZE = 8;
+  let candVisibleCount = CAND_PAGE_SIZE;
+
+  function renderCandidates(resetPaging){
+    if(resetPaging !== false) candVisibleCount = CAND_PAGE_SIZE;
     const q = (document.getElementById('candSearch').value || '').toLowerCase();
     const ids = Object.keys(facultyProfiles).filter(id=>{
       const p = facultyProfiles[id];
       return !q || p.name.toLowerCase().includes(q) || p.role.toLowerCase().includes(q);
     });
-    document.getElementById('candidateList').innerHTML = ids.map(candidateCardHTML).join('') || '<p class="sub">No candidates match your search.</p>';
+    const visibleIds = ids.slice(0, candVisibleCount);
+    document.getElementById('candidateList').innerHTML = visibleIds.map(candidateCardHTML).join('') || '<p class="sub">No candidates match your search.</p>';
     document.getElementById('candidateCount').textContent = ids.length + (ids.length===1 ? ' profile found' : ' profiles found');
+
+    const moreWrap = document.getElementById('candidateShowMoreWrap');
+    if(moreWrap){
+      const remaining = ids.length - visibleIds.length;
+      if(remaining > 0){
+        moreWrap.style.display = 'flex';
+        document.getElementById('candidateShowMoreBtn').textContent = `Show ${Math.min(remaining, CAND_PAGE_SIZE)} more`;
+      } else {
+        moreWrap.style.display = 'none';
+      }
+    }
+  }
+  function showMoreCandidates(){
+    candVisibleCount += CAND_PAGE_SIZE;
+    renderCandidates(false);
   }
 
   // ---------- Jobs + applicants ----------
