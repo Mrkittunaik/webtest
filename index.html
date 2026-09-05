@@ -33,6 +33,7 @@
     color:var(--ink);
     background:var(--canvas);
     -webkit-font-smoothing:antialiased;
+    overflow-x:hidden;
   }
   h1,h2,h3,.serif{font-family:'Lora',serif;}
   .num, .tabular{font-variant-numeric: tabular-nums; letter-spacing:-0.01em;}
@@ -73,6 +74,17 @@
   .nav-links{display:flex; align-items:center; gap:28px;}
   .nav-links a{font-size:14.5px; color:var(--ink-soft); font-weight:500; transition:color .15s;}
   .nav-links a:hover{color:var(--blue-700);}
+  .nav-drop{position:relative;}
+  .nav-drop-menu{
+    display:none; position:absolute; top:calc(100% + 14px); left:0; transform:none;
+    background:#fff; border:1px solid var(--line); border-radius:5px; box-shadow:var(--shadow-lg);
+    padding:18px; gap:22px; min-width:560px; max-width:calc(100vw - 48px); z-index:50;
+  }
+  .nav-drop.open .nav-drop-menu, .nav-drop-menu.open{display:flex;}
+  .nav-drop-col{display:flex; flex-direction:column; gap:2px; flex:1;}
+  .nav-drop-label{font-size:11.5px; font-weight:700; color:var(--ink-faint); text-transform:uppercase; letter-spacing:.03em; margin-bottom:6px;}
+  .nav-drop-col a{font-size:13.5px; padding:7px 8px; border-radius:5px; color:var(--ink); font-weight:500;}
+  .nav-drop-col a:hover{background:var(--blue-50); color:var(--blue-700);}
   .nav-cta{display:flex; align-items:center; gap:10px;}
   .nav-user{display:flex; align-items:center; gap:14px;}
   .nav-bell{position:relative; width:36px; height:36px; border-radius:50%; border:1px solid var(--line); background:#fff; display:flex; align-items:center; justify-content:center; color:var(--ink-soft);}
@@ -305,7 +317,18 @@
   .modal-close{position:absolute; top:14px; right:16px; background:none; border:none; font-size:18px; color:var(--ink-faint); cursor:pointer;}
   .modal-tabs{display:flex; gap:6px; margin-bottom:22px; background:var(--canvas); border-radius:var(--radius); padding:4px;}
   .modal-tab{flex:1; padding:9px; border:none; background:none; border-radius:calc(var(--radius) - 2px); font-size:13.5px; font-weight:600; color:var(--ink-soft); cursor:pointer;}
-  .modal-tab.active{background:#fff; color:var(--blue-700); box-shadow:var(--shadow-sm);}
+  .modal-tab.active{background:#fff; color:var(--auth-accent, var(--blue-700)); box-shadow:var(--shadow-sm);}
+  .modal-tabs-icon .modal-tab{display:flex; align-items:center; justify-content:center; gap:6px;}
+  .role-popup-overlay{
+    display:none; position:fixed; inset:0; z-index:300;
+    background:rgba(11,29,58,0.55); backdrop-filter:blur(3px);
+    align-items:center; justify-content:center; padding:20px;
+  }
+  .role-popup-overlay.open{display:flex;}
+  .role-popup-card{
+    position:relative; background:#fff; border-radius:10px; padding:32px;
+    max-width:460px; width:100%; box-shadow:var(--shadow-lg);
+  }
   .modal-box h2{font-size:19px; margin:0 0 4px;}
   .modal-box .sub{font-size:13px; color:var(--ink-faint); margin:0 0 20px;}
   .modal-field{display:flex; flex-direction:column; gap:5px; margin-bottom:14px;}
@@ -313,14 +336,43 @@
   .modal-field input, .modal-field select{
     border:1px solid var(--line); border-radius:var(--radius); padding:10px 12px; font-family:inherit; font-size:14px; outline:none;
   }
-  .modal-field input:focus, .modal-field select:focus{border-color:var(--blue-500);}
+  .modal-field input:focus, .modal-field select:focus{border-color:var(--auth-accent, var(--blue-500));}
   .role-select{display:grid; grid-template-columns:1fr 1fr; gap:12px; margin-bottom:18px;}
   .modal-box .btn{width:100%; margin-top:6px;}
   .role-opt{border:1.5px solid var(--line); border-radius:var(--radius); padding:16px 12px; text-align:center; background:#fff; cursor:pointer; transition:border-color .15s, background .15s;}
   .role-opt .ric{font-size:22px; display:block; margin-bottom:6px;}
   .role-opt .rt{font-size:13.5px; font-weight:700; color:var(--ink);}
   .role-opt .rd{font-size:11.5px; color:var(--ink-faint); margin-top:2px;}
-  .role-opt.selected{border-color:var(--blue-600); background:var(--blue-50);}
+  .role-opt.selected{border-color:var(--green); background:#EAF7F0;}
+
+  /* ---------- Auth split page (apna-style, single screen, no scroll) ---------- */
+  .auth-page{
+    position:fixed; inset:0; z-index:100; display:none; background:#fff;
+    --auth-accent: var(--green);
+  }
+  .auth-page.open{display:grid; grid-template-columns:1.1fr 1fr;}
+  @media (max-width:860px){ .auth-page.open{grid-template-columns:1fr;} .auth-page .ap-left{display:none;} }
+  .ap-left{
+    background:linear-gradient(160deg, var(--blue-900), #142A54 60%, #0E2246);
+    color:#fff; padding:44px 46px; display:flex; flex-direction:column; justify-content:space-between; overflow:hidden; position:relative;
+  }
+  .ap-left::after{content:''; position:absolute; right:-120px; bottom:-120px; width:340px; height:340px; border-radius:50%; background:radial-gradient(circle, rgba(29,138,94,0.25), transparent 70%);}
+  .ap-brand{font-weight:700; font-size:18px; display:flex; align-items:center; gap:9px; position:relative; z-index:1;}
+  .ap-left-mid{position:relative; z-index:1;}
+  .ap-left-mid h1{font-size:clamp(24px,3vw,32px); line-height:1.2; margin:0 0 12px; font-family:'Lora',serif;}
+  .ap-left-mid p{font-size:14px; color:#AEBEDD; margin:0 0 22px; max-width:38ch;}
+  .ap-feature-list{display:flex; flex-direction:column; gap:14px;}
+  .ap-feature{display:flex; align-items:flex-start; gap:12px;}
+  .ap-feature .fi{width:30px; height:30px; border-radius:9px; background:rgba(29,138,94,0.22); color:#5FD79E; display:flex; align-items:center; justify-content:center; flex-shrink:0;}
+  .ap-feature .ft{font-size:13px; color:#DCE4F3; font-weight:600;}
+  .ap-feature .fs{font-size:11.5px; color:#8FA1C8; margin-top:1px;}
+  .ap-stats-row{display:flex; gap:26px; position:relative; z-index:1; border-top:1px solid rgba(255,255,255,0.12); padding-top:18px;}
+  .ap-stats-row .s-num{font-size:19px; font-weight:700; color:#fff; display:block;}
+  .ap-stats-row .s-lab{font-size:11px; color:#8FA1C8;}
+  .ap-right{display:flex; align-items:center; justify-content:center; padding:24px; overflow-y:auto;}
+  .ap-form-wrap{width:100%; max-width:380px;}
+  .ap-close{position:absolute; top:18px; right:22px; z-index:2; background:none; border:none; font-size:18px; color:var(--ink-faint); cursor:pointer;}
+  .ap-page-tag{display:inline-block; font-size:11px; font-weight:700; letter-spacing:.03em; text-transform:uppercase; color:var(--green); background:#EAF7F0; padding:5px 10px; border-radius:999px; margin-bottom:14px;}
 
   /* ---------- Profile dashboard ---------- */
   .dash-overlay{position:fixed; inset:0; background:var(--canvas); z-index:90; display:none; overflow-y:auto;}
@@ -328,6 +380,21 @@
   .dash-top{position:sticky; top:0; z-index:20; background:#fff; border-bottom:1px solid var(--line); padding:16px 24px; display:flex; align-items:center; justify-content:space-between;}
   .dash-top .brand{font-weight:700; font-size:18px; color:var(--blue-900); display:flex; align-items:center; gap:9px;}
   .dash-inner{max-width:840px; margin:0 auto; padding:40px 24px;}
+  .dash-inner-wide{max-width:1080px; margin:0 auto; padding:40px 24px;}
+  .pf-layout{display:grid; grid-template-columns:300px 1fr; gap:28px; align-items:start;}
+  .pf-side{position:sticky; top:96px; border-radius:var(--radius); overflow:hidden; background:linear-gradient(160deg,var(--blue-900),var(--blue-700)); box-shadow:var(--shadow-md); color:#fff;}
+  .pf-side-img{width:100%; aspect-ratio:4/3; object-fit:cover; display:block; opacity:0.92;}
+  .pf-side-body{padding:22px 22px 26px;}
+  .pf-side-body h4{margin:0 0 8px; font-size:16px; font-family:'Lora',serif;}
+  .pf-side-body p{margin:0 0 16px; font-size:13px; line-height:1.55; color:rgba(255,255,255,0.82);}
+  .pf-side-steps{display:flex; flex-direction:column; gap:12px;}
+  .pf-side-step{display:flex; align-items:flex-start; gap:10px; font-size:12.5px; color:rgba(255,255,255,0.9);}
+  .pf-side-step .dot{width:20px; height:20px; border-radius:50%; background:rgba(255,255,255,0.16); border:1px solid rgba(255,255,255,0.3); flex-shrink:0; display:flex; align-items:center; justify-content:center; font-size:11px; font-weight:700;}
+  .pf-side-step.done .dot{background:#1D8A5E; border-color:#1D8A5E;}
+  .pf-progress-track{height:6px; border-radius:5px; background:rgba(255,255,255,0.18); overflow:hidden; margin:16px 0 4px;}
+  .pf-progress-fill{height:100%; background:#fff; border-radius:5px; transition:width .3s ease;}
+  .pf-progress-label{font-size:11.5px; color:rgba(255,255,255,0.75);}
+  @media (max-width:860px){ .pf-layout{grid-template-columns:1fr;} .pf-side{position:static;} }
   .dash-fullbleed{width:100%; padding:0 24px 40px; box-sizing:border-box;}
   .dash-fullbleed-grid{grid-template-columns:repeat(auto-fill, minmax(260px,1fr)); max-width:none;}
   .dash-head{display:flex; align-items:center; gap:16px; margin-bottom:30px;}
@@ -335,10 +402,24 @@
   .dash-head h2{margin:0 0 4px; font-size:22px;}
   .dash-head p{margin:0; color:var(--ink-faint); font-size:13.5px;}
   .dash-panel{
-    background:#90D5FF;
-    border:1px solid var(--line); border-radius:var(--radius); box-shadow:var(--shadow-sm); padding:26px; margin-bottom:22px;
+    background:transparent;
+    border:none; box-shadow:none; padding:0; margin-bottom:0;
   }
   .dash-panel h3{margin:0 0 16px; font-size:16px;}
+  .pf-section{border:1px solid var(--line); border-radius:14px; padding:26px 28px; margin-bottom:20px; background:#fff; box-shadow:var(--shadow-sm);}
+  .pf-section-head{display:flex; align-items:center; gap:12px; margin-bottom:20px; padding-bottom:16px; border-bottom:1px solid var(--line);}
+  .pf-section-head .pf-ico{width:38px; height:38px; border-radius:10px; background:var(--blue-50); display:flex; align-items:center; justify-content:center; flex-shrink:0; color:var(--blue-700);}
+  .pf-section-head h3{margin:0; font-size:16px; font-weight:700;}
+  .pf-section-sub{margin:-10px 0 18px; font-size:12.5px; color:var(--ink-faint);}
+  .pf-field{display:flex; flex-direction:column; gap:6px;}
+  .pf-field label{font-size:12px; font-weight:600; color:var(--ink-soft);}
+  .pf-input, .dash-form-row input, .dash-form-row select, #pfLocation{
+    border:1px solid var(--line); border-radius:10px; padding:11px 13px; font-family:inherit; font-size:13.5px;
+    background:#fff; transition:border-color .15s, box-shadow .15s; width:100%;
+  }
+  .dash-form-row input:focus, .dash-form-row select:focus, #pfLocation:focus{
+    outline:none; border-color:var(--blue-500); box-shadow:0 0 0 3px var(--blue-50);
+  }
   .dash-tabs{display:flex; margin-bottom:22px; border:1px solid var(--line); border-radius:8px; padding:4px; background:#fff; overflow:hidden; position:sticky; top:65px; z-index:15;}
   .dash-subtab{flex:1; padding:10px 15px; border-radius:6px; border:none; background:transparent; font-size:13.5px; font-weight:600; color:var(--ink-soft); text-align:center;}
   .dash-subtab.active{background:var(--blue-900); color:#fff; box-shadow:var(--shadow-sm);}
@@ -384,10 +465,31 @@
   .mini-scrim{position:fixed; inset:0; background:rgba(11,29,58,0.4); z-index:96; opacity:0; pointer-events:none; transition:opacity .2s ease;}
   .mini-scrim.open{opacity:1; pointer-events:auto;}
   .mini-panel{
-    position:fixed; top:0; right:0; bottom:0; width:380px; max-width:90vw; background:#fff; z-index:97;
-    box-shadow:var(--shadow-lg); transform:translateX(100%); transition:transform .25s ease; padding:26px; overflow-y:auto;
+    position:fixed; top:16px; right:16px; bottom:16px; width:380px; max-width:calc(90vw - 16px); background:#fff; z-index:97;
+    border-radius:var(--radius); box-shadow:var(--shadow-lg); transform:translateX(calc(100% + 16px)); transition:transform .25s ease; padding:26px; overflow-y:auto;
   }
   .mini-panel.open{transform:translateX(0);}
+  .notif-panel{
+    position:fixed; top:16px; right:16px; width:340px; max-width:calc(90vw - 16px); max-height:70vh; background:#fff; z-index:97;
+    border-radius:var(--radius); box-shadow:var(--shadow-lg); transform:translateY(-16px) scale(.98); opacity:0; pointer-events:none;
+    transition:transform .18s ease, opacity .18s ease; overflow:hidden; display:flex; flex-direction:column;
+  }
+  .notif-panel.open{transform:translateY(0) scale(1); opacity:1; pointer-events:auto;}
+  .notif-panel-head{padding:14px 18px; border-bottom:1px solid var(--line); font-weight:700; font-size:14px; display:flex; align-items:center; justify-content:space-between;}
+  .notif-panel-list{overflow-y:auto;}
+  .notif-panel-item{padding:12px 18px; border-bottom:1px solid var(--line); font-size:13px; color:var(--ink-soft);}
+  .notif-panel-empty{padding:22px 18px; font-size:13px; color:var(--ink-faint); text-align:center;}
+  .dash-dropdown{
+    position:absolute; top:46px; background:#fff; border:1px solid var(--line);
+    border-radius:var(--radius); box-shadow:var(--shadow-lg); z-index:60; overflow:hidden;
+    width:max-content; max-width:calc(100vw - 24px);
+  }
+  .dash-dropdown-notif{ right:56px; min-width:260px; }
+  .dash-dropdown-account{ right:0; min-width:220px; }
+  @media (max-width:480px){
+    .dash-dropdown{ position:fixed; top:64px; left:12px; right:12px; width:auto; max-width:none; }
+    .dash-dropdown-notif, .dash-dropdown-account{ min-width:0; }
+  }
   .mini-close{position:absolute; top:18px; right:18px; width:30px; height:30px; border-radius:50%; border:1px solid var(--line); background:#fff; color:var(--ink-soft);}
   .mini-head{display:flex; gap:14px; align-items:flex-start; margin:6px 0 20px; padding-right:26px;}
   .mini-avatar{width:64px; height:64px; border-radius:50%; object-fit:cover; border:2px solid var(--blue-100); flex-shrink:0;}
@@ -428,9 +530,80 @@
   .fp-edit{font-size:12px; font-weight:700; color:var(--blue-700); background:var(--blue-50); border:none; padding:5px 11px; border-radius:var(--radius);}
   .fp-grid2{display:grid; grid-template-columns:1fr 1fr; gap:16px;}
   .fp-grid2 label{font-size:11.5px; color:var(--ink-faint); display:block; margin-bottom:3px;}
+  /* editable fields inside the profile view page */
+  .fp-editable{border:1px solid transparent; border-radius:7px; padding:6px 8px; margin:-6px -8px; font-family:inherit; font-size:14px; color:var(--ink); width:100%; background:transparent; cursor:text; transition:border-color .15s, background .15s;}
+  .fp-editable:hover{background:var(--canvas);}
+  .fp-editable:focus{outline:none; border-color:var(--green); background:#fff; box-shadow:0 0 0 3px #EAF7F0;}
+  select.fp-editable{cursor:pointer; appearance:auto;}
+  .fp-links-edit .modal-field{margin-bottom:10px;}
+  .fp-avatar-wrap{position:relative; flex-shrink:0;}
+  .fp-avatar-upload{position:absolute; bottom:0; right:0; width:26px; height:26px; border-radius:50%; background:var(--green); border:2px solid #fff; display:flex; align-items:center; justify-content:center; color:#fff; cursor:pointer;}
+
+  /* ---------- Apna-style profile summary + preferences (View Profile page) ---------- */
+  .ap2-card{background:#fff; border:1px solid var(--line); border-radius:14px; padding:26px 28px; margin-bottom:20px; box-shadow:var(--shadow-sm);}
+  .ap2-summary{display:flex; align-items:center; gap:20px;}
+  .ap2-summary-info{flex:1; min-width:0;}
+  .ap2-summary-info h2{margin:0 0 4px; font-size:21px;}
+  .ap2-summary-info p{margin:0 0 6px; font-size:13.5px; color:var(--ink-faint);}
+  .ap2-summary-loc{font-size:13px; color:var(--ink-soft);}
+  .ap2-card-head{margin-bottom:18px; padding-bottom:16px; border-bottom:1px solid var(--line);}
+  .ap2-card-head h3{margin:0 0 4px; font-size:16px; font-weight:700;}
+  .ap2-card-head p{margin:0; font-size:12.5px; color:var(--ink-faint);}
+  .ap2-pref-grid{display:grid; grid-template-columns:1fr 1fr; gap:18px 20px;}
+  .ap2-pref-field label{display:block; font-size:12px; font-weight:600; color:var(--ink-soft); margin-bottom:6px;}
+  .ap2-pref-input{display:block; min-height:20px;}
+  .ap2-pref-link{border:1px solid var(--line); border-radius:9px; padding:9px 11px; font-size:13px;}
+  @media (max-width:560px){ .ap2-pref-grid{grid-template-columns:1fr;} .ap2-summary{flex-wrap:wrap;} }
+
+  /* ---------- Browse jobs page (apna-style 3-column) ---------- */
+  .bj-inner{max-width:1280px; margin:0 auto; padding:24px 24px 60px;}
+  .bj-searchbar{display:flex; gap:10px; background:#fff; border:1px solid var(--line); border-radius:12px; padding:10px; margin-bottom:22px; box-shadow:var(--shadow-sm); flex-wrap:wrap;}
+  .bj-searchbar .bj-field{flex:1; min-width:180px; display:flex; align-items:center; gap:8px; border-right:1px solid var(--line); padding:6px 14px;}
+  .bj-searchbar .bj-field:last-of-type{border-right:none;}
+  .bj-searchbar input, .bj-searchbar select{border:none; outline:none; font-family:inherit; font-size:13.5px; width:100%; background:transparent; color:var(--ink);}
+  .bj-layout{display:grid; grid-template-columns:250px 1fr 300px; gap:20px; align-items:start;}
+  @media (max-width:1100px){ .bj-layout{grid-template-columns:1fr; } .bj-filters, .bj-side{position:static;} }
+  .bj-filters{background:#fff; border:1px solid var(--line); border-radius:14px; padding:20px; position:sticky; top:82px;}
+  .bj-filters-head{display:flex; align-items:center; justify-content:space-between; margin-bottom:16px;}
+  .bj-filters-head h4{margin:0; font-size:15px; font-weight:700; display:flex; align-items:center; gap:8px;}
+  .bj-clear-link{font-size:12.5px; font-weight:600; color:var(--green); background:none; border:none; cursor:pointer;}
+  .bj-filter-group{border-top:1px solid var(--line); padding:16px 0;}
+  .bj-filter-group:first-of-type{border-top:none; padding-top:0;}
+  .bj-filter-group h5{margin:0 0 10px; font-size:13.5px; font-weight:700;}
+  .bj-filter-opt{display:flex; align-items:center; gap:9px; font-size:13px; color:var(--ink-soft); padding:5px 0; cursor:pointer;}
+  .bj-filter-opt input{accent-color:var(--green);}
+  .bj-range-row{display:flex; justify-content:space-between; font-size:11.5px; color:var(--ink-faint); margin-top:6px;}
+  .bj-results-head{display:flex; align-items:center; justify-content:space-between; margin-bottom:16px;}
+  .bj-results-head h3{margin:0; font-size:18px;}
+  .bj-results-head span{font-size:12.5px; color:var(--ink-faint);}
+  .bj-job-list{display:flex; flex-direction:column; gap:14px;}
+  .bj-side{position:sticky; top:82px; display:flex; flex-direction:column; gap:18px;}
+  .bj-side .ap2-card{margin-bottom:0;}
+  .bj-side .ap2-summary{flex-direction:column; text-align:center; gap:10px;}
+  .bj-side .ap2-summary-info{text-align:center;}
+  .bj-side .fp-complete{width:100%; margin-top:4px;}
+  .bj-pref-tags{display:flex; flex-wrap:wrap; gap:8px; margin-top:12px;}
+  .bj-pref-tag{background:var(--blue-50); color:var(--blue-700); font-size:12px; font-weight:600; padding:6px 11px; border-radius:999px;}
+  .bj-empty{text-align:center; padding:50px 20px; color:var(--ink-faint); font-size:13.5px; background:#fff; border:1px dashed var(--line); border-radius:14px;}
+
+  /* ---------- Green scope: auth page + profile view page ---------- */
+  .auth-page .btn-primary, #fullProfileOverlay .btn-primary, #dashOverlay .btn-primary#pfSaveBtn{
+    background:var(--green);
+  }
+  .auth-page .btn-primary:hover, #fullProfileOverlay .btn-primary:hover, #dashOverlay .btn-primary#pfSaveBtn:hover{
+    background:#166B49;
+  }
+  .auth-page .modal-tab.active{color:var(--green);}
+  .auth-page .role-opt.selected{border-color:var(--green); background:#EAF7F0;}
+  #fullProfileOverlay .fp-complete{background:#EAF7F0;}
+  #fullProfileOverlay .fp-complete .num{color:var(--green);}
+  #fullProfileOverlay .fp-side a:hover{color:var(--green);}
+  #fullProfileOverlay .fp-avatar{border-color:#CDEEDC;}
+  #fullProfileOverlay .fp-edit{color:var(--green); background:#EAF7F0;}
   .fp-grid2 p{margin:0; font-size:14px; font-weight:600;}
   .fp-edu-item{display:flex; gap:12px;}
-  .dash-form-row{display:grid; grid-template-columns:1fr 1fr; gap:14px; margin-bottom:14px;}
+  .dash-form-row{display:grid; grid-template-columns:1fr 1fr; gap:16px; margin-bottom:16px;}
+  .pf-actions{display:flex; align-items:center; justify-content:flex-end; gap:14px; padding:4px 2px;}
   .job-list-item{display:flex; align-items:center; justify-content:space-between; padding:14px 0; border-bottom:1px solid var(--line);}
   .job-list-item:last-child{border-bottom:none;}
   .job-list-item .jt{font-weight:600; font-size:14.5px;}
@@ -520,6 +693,61 @@
     .footer-grid{grid-template-columns:1fr 1fr;}
     .nav-links{display:none;}
   }
+
+  /* ---------- True mobile fit ---------- */
+  @media (max-width:640px){
+    .nav-inner{padding:12px 16px; gap:10px;}
+    .brand{font-size:16px; gap:7px;}
+    .brand-mark{width:26px; height:26px;}
+    .nav-cta{gap:6px;}
+    .nav-cta .btn{padding:7px 10px; font-size:12px;}
+    .nav-user{gap:8px;}
+    .nav-bell, .nav-avatar-btn{width:32px; height:32px;}
+    #navBrowseJobsLink{display:none;}
+
+    .hero-inner{padding:56px 16px 40px; gap:28px;}
+    .hero h1{font-size:28px; max-width:none;}
+    .hero p.lead{font-size:14.5px; max-width:none;}
+    .hero-search{flex-wrap:wrap;}
+    .hero-stats{flex-wrap:wrap; gap:18px;}
+    .hero-stat .num{font-size:21px;}
+    .hero-actions{flex-wrap:wrap;}
+    .hero-actions .btn{flex:1 1 auto; text-align:center;}
+
+    section{padding:48px 16px;}
+    .section-head h2{font-size:22px;}
+    .flow-grid{grid-template-columns:1fr; row-gap:22px;}
+    .footer-grid{grid-template-columns:1fr; gap:24px;}
+    .footer-bottom{flex-direction:column; align-items:flex-start;}
+    .trust-strip{flex-wrap:wrap; gap:20px; justify-content:flex-start;}
+
+    .nav-drop-menu{min-width:0; width:calc(100vw - 32px); flex-direction:column; gap:16px; padding:14px;}
+
+    .dash-top{padding:12px 14px; gap:8px; flex-wrap:wrap;}
+    .dash-top .brand{font-size:15px;}
+    .dash-inner, .dash-inner-wide{padding:24px 14px;}
+    .dash-form-row{grid-template-columns:1fr;}
+    .pf-section{padding:18px 16px;}
+    .pf-side-img{aspect-ratio:16/9;}
+
+    .bj-searchbar{flex-direction:column; align-items:stretch;}
+    .bj-searchbar .bj-field{width:100%;}
+
+    .mini-panel{top:8px; right:8px; bottom:8px; width:calc(100vw - 16px); padding:20px;}
+    .notif-panel{top:8px; right:8px; width:calc(100vw - 16px);}
+
+    .auth-page .ap-form-wrap{padding:0 4px;}
+    .modal-tabs{flex-wrap:wrap;}
+
+    .role-card, .cat-card{padding:22px 18px;}
+    .job-card{padding:16px;}
+    .jc-title{font-size:14.5px;}
+  }
+  @media (max-width:400px){
+    .hero h1{font-size:24px;}
+    .nav-cta .btn{padding:6px 8px; font-size:11.5px;}
+  }
+
   /* ---------- Admin dashboard ---------- */
   .admin-overlay{position:fixed; inset:0; background:var(--canvas); z-index:100; display:none;}
   .admin-overlay.open{display:flex;}
@@ -558,7 +786,7 @@
   .admin-mini-stat .n{font-size:21px; font-weight:800; color:var(--ink);}
   .admin-mini-stat .n small{font-size:12px; font-weight:600; color:var(--ink-faint); margin-left:4px;}
   .admin-panel{background:#fff; border:1px solid var(--line); border-radius:var(--radius); box-shadow:var(--shadow-sm); margin-bottom:22px; overflow:hidden;}
-  .admin-panel-head{padding:14px 18px; border-bottom:1px solid var(--line); font-weight:700; font-size:14px; display:flex; align-items:center; justify-content:space-between;}
+  .admin-panel-head{padding:14px 18px; border-bottom:1px solid var(--line); font-weight:700; font-size:14px; display:flex; align-items:center; justify-content:space-between; flex-wrap:wrap; gap:10px;}
   .admin-two-col{display:grid; grid-template-columns:1.4fr 1fr; gap:20px; align-items:start;}
   @media (max-width:980px){ .admin-two-col{grid-template-columns:1fr;} }
   .admin-table{width:100%; border-collapse:collapse; font-size:13.5px; table-layout:fixed;}
@@ -591,8 +819,8 @@
   .admin-table-institutions th:nth-child(7), .admin-table-institutions td:nth-child(7){width:70px; text-align:center;}
   .admin-viewall{padding:12px 18px; text-align:center; border-top:1px solid var(--line); font-size:13px; font-weight:600; color:var(--blue-700); cursor:pointer;}
   .admin-viewall:hover{background:var(--blue-50);}
-  .admin-search-row{display:flex; gap:10px; padding:14px 18px; border-bottom:1px solid var(--line); align-items:center;}
-  .admin-search-row input{flex:1; padding:9px 12px; border:1px solid var(--line); border-radius:var(--radius); font-family:inherit; font-size:13.5px;}
+  .admin-search-row{display:flex; gap:10px; padding:14px 18px; border-bottom:1px solid var(--line); align-items:center; flex-wrap:wrap;}
+  .admin-search-row input{flex:1; min-width:160px; padding:9px 12px; border:1px solid var(--line); border-radius:var(--radius); font-family:inherit; font-size:13.5px;}
   .admin-footer{padding:14px 26px; border-top:1px solid var(--line); font-size:12.5px; color:var(--ink-faint); display:flex; align-items:center; justify-content:space-between; background:#fff;}
   .admin-detail-overlay{position:fixed; inset:0; background:rgba(11,29,58,0.45); z-index:110; display:none; align-items:center; justify-content:center; padding:20px;}
   .admin-detail-overlay.open{display:flex;}
@@ -625,7 +853,7 @@
   .admin-jobcard-meta{font-size:12.5px; color:var(--ink-faint);}
   .admin-jobcard-foot{display:flex; align-items:center; justify-content:space-between; margin-top:14px; padding-top:12px; border-top:1px solid var(--line);}
   .admin-jobcard-applicants{font-size:12.5px; color:var(--ink-soft); font-weight:600; display:flex; align-items:center; gap:5px;}
-  @media (max-width:760px){ .admin-side{width:64px;} .admin-side-brand{padding:16px 10px; justify-content:center; font-size:0;} .admin-side-brand svg{margin:0;} .admin-nav-item span{display:none;} .admin-nav-item{justify-content:center;} .admin-side-foot{display:none;} .admin-nav-group-label{display:none;} .admin-profile-hero{flex-direction:column; text-align:center;} }
+  @media (max-width:760px){ .admin-side{width:64px;} .admin-side-brand{padding:16px 10px; justify-content:center; font-size:0;} .admin-side-brand svg{margin:0;} .admin-nav-item span{display:none;} .admin-nav-item{justify-content:center;} .admin-side-foot{display:none;} .admin-nav-group-label{display:none;} .admin-profile-hero{flex-direction:column; text-align:center;} .admin-top{padding:12px 14px;} .admin-top-title{font-size:13.5px;} }
 </style>
 </head>
 <body>
@@ -635,17 +863,38 @@
       <div class="nav-links">
         <a href="#faculty">For Faculty</a>
         <a href="#employers">For Employers</a>
-        <a href="#categories">Categories</a>
+        <div class="nav-drop" onmouseenter="openNavDrop()" onmouseleave="closeNavDrop()">
+          <a href="javascript:void(0)" onclick="openNavDrop()">Browse jobs by type ▾</a>
+          <div class="nav-drop-menu" id="navDropMenu">
+            <div class="nav-drop-col">
+              <span class="nav-drop-label">Schools</span>
+              <a href="javascript:void(0)" onclick="quickBrowse('Schools')">PGT / TGT / PRT teacher jobs</a>
+              <a href="javascript:void(0)" onclick="quickBrowse('Schools')">CBSE &amp; ICSE school jobs</a>
+              <a href="javascript:void(0)" onclick="quickBrowse('Schools')">Principal &amp; coordinator jobs</a>
+            </div>
+            <div class="nav-drop-col">
+              <span class="nav-drop-label">Junior Colleges</span>
+              <a href="javascript:void(0)" onclick="quickBrowse('Intermediate')">Junior lecturer jobs</a>
+              <a href="javascript:void(0)" onclick="quickBrowse('Intermediate')">MPC / BiPC / CEC faculty</a>
+            </div>
+            <div class="nav-drop-col">
+              <span class="nav-drop-label">Universities &amp; Colleges</span>
+              <a href="javascript:void(0)" onclick="quickBrowse('Higher Education')">Assistant Professor jobs</a>
+              <a href="javascript:void(0)" onclick="quickBrowse('Higher Education')">Associate / full professor jobs</a>
+            </div>
+          </div>
+        </div>
         <a href="#how">How it works</a>
       </div>
       <div class="nav-cta" id="navCta">
         <button class="btn btn-ghost btn-sm" style="padding:7px 12px; font-size:12.5px; color:var(--ink-faint); border-color:var(--line);" onclick="openAuth('search')">Log in</button>
-        <button class="btn btn-primary btn-sm" onclick="openAuth('search'); setAuthTab('register');">Register free</button>
+        <button class="btn btn-primary btn-sm" onclick="openRolePopup('register');">Register free</button>
       </div>
       <div class="nav-user" id="navUser" style="display:none;">
-        <button class="nav-bell" onclick="openMiniProfile()">
+        <a href="javascript:void(0)" id="navBrowseJobsLink" onclick="openBrowseJobs()" style="font-size:13.5px; font-weight:600; color:var(--ink-soft); margin-right:4px;">Browse jobs</a>
+        <button class="nav-bell" onclick="openNotifPanel()">
           <svg width="18" height="18" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg"><path d="M18 8A6 6 0 0 0 6 8C6 15 3 17 3 17H21C21 17 18 15 18 8Z" stroke="currentColor" stroke-width="1.7" stroke-linejoin="round"/><path d="M13.73 21A2 2 0 0 1 10.27 21" stroke="currentColor" stroke-width="1.7" stroke-linecap="round"/></svg>
-          <span class="nav-bell-dot"></span>
+          <span class="nav-bell-dot" id="navBellDot" style="display:none;"></span>
         </button>
         <button class="nav-avatar-btn" id="navAvatarBtn" onclick="openMiniProfile()">
           <img id="navAvatarImg" src="">
@@ -675,12 +924,12 @@
             <span class="hs-ic"><svg width="15" height="15" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg"><circle cx="11" cy="11" r="7" stroke="currentColor" stroke-width="2"/><path d="M21 21L16.65 16.65" stroke="currentColor" stroke-width="2" stroke-linecap="round"/></svg></span>
             <input type="text" placeholder="Subject, role or keyword — e.g. Physics, PGT, Assistant Professor">
           </div>
-          <button class="btn btn-primary" style="margin:2px;">Search</button>
+          <button class="btn btn-primary" style="margin:2px;" onclick="openAuth('search')">Search</button>
         </div>
 
         <div class="hero-actions" style="margin-bottom:30px;">
-          <button class="btn btn-primary" onclick="openAuth('search'); setAuthTab('register');">Register as Faculty</button>
-          <button class="btn btn-light" onclick="openAuth('post'); setAuthTab('register');">Hire on Upadyay</button>
+          <button class="btn btn-primary" onclick="openRolePopup('register');">Register as Faculty</button>
+          <button class="btn btn-light" onclick="openRolePopup('register');">Hire on Upadyay</button>
         </div>
         <div class="hero-stats">
           <div class="hero-stat"><span class="num tabular" data-count="18400" data-suffix="+">0</span><span class="label">Registered faculty</span></div>
@@ -726,7 +975,7 @@
       </div>
       <div class="cat-grid reveal-stagger reveal">
         <div class="cat-card">
-          <span class="cat-tag">Category 1</span>
+          <span class="cat-tag">K–12</span>
           <h3>Schools</h3>
           <p>Primary and secondary teaching positions across CBSE, ICSE, State Board and international curricula.</p>
           <ul class="cat-list">
@@ -734,10 +983,10 @@
             <li>Coordinators and vice-principals</li>
             <li>Qualification, board experience shown upfront</li>
           </ul>
-          <a class="btn btn-ghost btn-sm" href="javascript:void(0)">Browse school roles</a>
+          <a class="btn btn-ghost btn-sm" href="javascript:void(0)" onclick="quickBrowse('Schools')">Browse school roles</a>
         </div>
         <div class="cat-card">
-          <span class="cat-tag">Category 2</span>
+          <span class="cat-tag">Junior College</span>
           <h3>Intermediate</h3>
           <p>Junior college and pre-university lecturers for MPC, BiPC, CEC and commerce streams.</p>
           <ul class="cat-list">
@@ -745,10 +994,10 @@
             <li>Entrance-exam coaching experience valued</li>
             <li>Full and part-time openings</li>
           </ul>
-          <a class="btn btn-ghost btn-sm" href="javascript:void(0)">Browse intermediate roles</a>
+          <a class="btn btn-ghost btn-sm" href="javascript:void(0)" onclick="quickBrowse('Intermediate')">Browse intermediate roles</a>
         </div>
         <div class="cat-card">
-          <span class="cat-tag">Category 3</span>
+          <span class="cat-tag">University</span>
           <h3>Higher Education</h3>
           <p>University and college faculty — Assistant, Associate and Professor positions across departments.</p>
           <ul class="cat-list">
@@ -756,7 +1005,7 @@
             <li>Publications, patents and grants on profile</li>
             <li>National and international experience noted</li>
           </ul>
-          <a class="btn btn-ghost btn-sm" href="javascript:void(0)">Browse university roles</a>
+          <a class="btn btn-ghost btn-sm" href="javascript:void(0)" onclick="quickBrowse('Higher Education')">Browse university roles</a>
         </div>
       </div>
     </div>
@@ -958,7 +1207,7 @@
             <li><span class="check"><svg width="11" height="11" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg"><path d="M5 13L9.5 17.5L19 6.5" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"/></svg></span>Publications, patents and citations tracked</li>
             <li><span class="check"><svg width="11" height="11" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg"><path d="M5 13L9.5 17.5L19 6.5" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"/></svg></span>Direct contact from hiring institutions</li>
           </ul>
-          <button class="btn btn-primary">Register as Faculty</button>
+          <button class="btn btn-primary" onclick="openRolePopup('register');">Register as Faculty</button>
         </div>
         <div class="role-card employer" id="employers">
           <div class="role-eyebrow">FOR EMPLOYERS</div>
@@ -970,7 +1219,7 @@
             <li><span class="check"><svg width="11" height="11" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg"><path d="M5 13L9.5 17.5L19 6.5" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"/></svg></span>Filter by School, Intermediate or Higher Ed</li>
             <li><span class="check"><svg width="11" height="11" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg"><path d="M5 13L9.5 17.5L19 6.5" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"/></svg></span>Dedicated HR dashboard and shortlist tools</li>
           </ul>
-          <button class="btn btn-primary">Hire on Upadyay</button>
+          <button class="btn btn-primary" onclick="openRolePopup('register');">Hire on Upadyay</button>
         </div>
       </div>
     </div>
@@ -1000,14 +1249,14 @@
         </div>
         <div class="footer-col">
           <h5>Company</h5>
-          <a href="javascript:void(0)">About</a>
-          <a href="javascript:void(0)">Contact</a>
-          <a href="javascript:void(0)">Help centre</a>
+          <a href="javascript:void(0)" onclick="showGenericToast('About Upadyay — coming soon')">About</a>
+          <a href="javascript:void(0)" onclick="showGenericToast('Contact page — coming soon')">Contact</a>
+          <a href="javascript:void(0)" onclick="showGenericToast('Help centre — coming soon')">Help centre</a>
         </div>
         <div class="footer-col">
           <h5>Legal</h5>
-          <a href="javascript:void(0)">Privacy policy</a>
-          <a href="javascript:void(0)">Terms</a>
+          <a href="javascript:void(0)" onclick="showGenericToast('Privacy policy — coming soon')">Privacy policy</a>
+          <a href="javascript:void(0)" onclick="showGenericToast('Terms of service — coming soon')">Terms</a>
         </div>
       </div>
       <div class="footer-bottom">
@@ -1020,45 +1269,124 @@
     </div>
   </footer>
 
-  <!-- Auth modal -->
-  <div class="modal-overlay" id="authOverlay">
-    <div class="modal-box">
-      <button class="modal-close" onclick="closeAuth()"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg"><path d="M5 5L19 19M19 5L5 19" stroke="currentColor" stroke-width="2" stroke-linecap="round"/></svg></button>
-      <div class="modal-tabs">
-        <button class="modal-tab active" id="tabLogin" onclick="setAuthTab('login')">Log in</button>
-        <button class="modal-tab" id="tabRegister" onclick="setAuthTab('register')">Register</button>
-      </div>
-      <h2 id="authTitle">Welcome back</h2>
-      <p class="sub" id="authSub">Log in to continue</p>
+  <div id="genericToast" style="position:fixed; bottom:24px; left:50%; transform:translateX(-50%) translateY(12px); background:var(--blue-900); color:#fff; font-size:13.5px; font-weight:600; padding:11px 20px; border-radius:5px; box-shadow:var(--shadow-lg); z-index:200; opacity:0; pointer-events:none; transition:opacity .2s ease, transform .2s ease;"></div>
 
-      <div class="role-select" id="roleSelect" style="display:none;">
-        <div class="role-opt" id="roleSeeker" onclick="selectRole('seeker')">
+  <!-- Role picker popup (shown when user clicks Login or Register) -->
+  <div class="role-popup-overlay" id="rolePopupOverlay" onclick="if(event.target===this) closeRolePopup()">
+    <div class="role-popup-card">
+      <button class="ap-close" style="position:absolute; top:14px; right:14px;" onclick="closeRolePopup()"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg"><path d="M5 5L19 19M19 5L5 19" stroke="currentColor" stroke-width="2" stroke-linecap="round"/></svg></button>
+      <h2 style="margin:0 0 6px;" id="rolePopupTitle">Join Upadyay as</h2>
+      <p class="sub" style="margin:0 0 22px;" id="rolePopupSub">Choose how you want to use Upadyay</p>
+      <div class="role-select" style="display:grid; margin-bottom:0;">
+        <div class="role-opt" id="popupRoleSeeker" onclick="pickRoleFromPopup('seeker')">
           <span class="ric"><svg width="15" height="15" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg"><path d="M12 3L1 8.5L12 14L23 8.5L12 3Z" stroke="currentColor" stroke-width="1.6" stroke-linejoin="round"/><path d="M5 11.5V16.5C5 16.5 5 20 12 20C19 20 19 16.5 19 16.5V11.5" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"/><path d="M23 8.5V15" stroke="currentColor" stroke-width="1.6" stroke-linecap="round"/></svg></span>
           <div class="rt">Job Seeker</div>
-          <div class="rd">Find faculty roles</div>
+          <div class="rd" id="popupRoleSeekerDesc">Find faculty roles</div>
         </div>
-        <div class="role-opt" id="roleCompany" onclick="selectRole('company')">
+        <div class="role-opt" id="popupRoleCompany" onclick="pickRoleFromPopup('company')">
           <span class="ric"><svg width="22" height="22" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg"><path d="M4 21V4.5L12 2L20 4.5V21" stroke="currentColor" stroke-width="1.6" stroke-linejoin="round"/><path d="M9 21V16H15V21" stroke="currentColor" stroke-width="1.6" stroke-linejoin="round"/><path d="M9 8H9.01M15 8H15.01M9 12H9.01M15 12H15.01" stroke="currentColor" stroke-width="2" stroke-linecap="round"/></svg></span>
           <div class="rt">Company</div>
-          <div class="rd">Hire faculty</div>
+          <div class="rd" id="popupRoleCompanyDesc">Hire faculty</div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Auth page (split screen, no scroll) -->
+  <div class="auth-page" id="authOverlay">
+    <button class="ap-close" onclick="closeAuth()"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg"><path d="M5 5L19 19M19 5L5 19" stroke="currentColor" stroke-width="2" stroke-linecap="round"/></svg></button>
+
+    <div class="ap-left">
+      <div class="ap-brand"><div class="brand-mark" style="width:26px;height:26px;"><svg width="15" height="15" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg"><path d="M12 3L1 8.5L12 14L23 8.5L12 3Z" stroke="currentColor" stroke-width="1.6" stroke-linejoin="round"/><path d="M5 11.5V16.5C5 16.5 5 20 12 20C19 20 19 16.5 19 16.5V11.5" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"/><path d="M23 8.5V15" stroke="currentColor" stroke-width="1.6" stroke-linecap="round"/></svg></div>Upadyay</div>
+
+      <div class="ap-left-mid">
+        <h1 id="apLeftHeading">India's dedicated faculty recruitment platform</h1>
+        <p id="apLeftSub">Built only for teaching roles — schools, junior colleges and universities hiring verified faculty, with no middlemen.</p>
+        <div class="ap-feature-list" id="apFeatureList">
+          <div class="ap-feature">
+            <span class="fi"><svg width="15" height="15" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg"><path d="M12 3L1 8.5L12 14L23 8.5L12 3Z" stroke="currentColor" stroke-width="1.6" stroke-linejoin="round"/><path d="M5 11.5V16.5C5 16.5 5 20 12 20C19 20 19 16.5 19 16.5V11.5" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"/></svg></span>
+            <div><div class="ft">One profile, every opportunity</div><div class="fs">Build your faculty profile once and apply across schools, colleges and universities.</div></div>
+          </div>
+          <div class="ap-feature">
+            <span class="fi"><svg width="15" height="15" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg"><path d="M9 12L11 14L15 9" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"/><circle cx="12" cy="12" r="9" stroke="currentColor" stroke-width="1.7"/></svg></span>
+            <div><div class="ft">Verified institutions only</div><div class="fs">Every employer on Upadyay is a genuine school, junior college or university.</div></div>
+          </div>
+          <div class="ap-feature">
+            <span class="fi"><svg width="15" height="15" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg"><path d="M4 6H20M4 12H20M4 18H14" stroke="currentColor" stroke-width="1.7" stroke-linecap="round"/></svg></span>
+            <div><div class="ft">Category-first search</div><div class="fs">Filter by Schools, Intermediate or Higher Education to find the right fit fast.</div></div>
+          </div>
         </div>
       </div>
 
-      <form onsubmit="return submitAuth(event)">
-        <div class="modal-field" id="fieldName" style="display:none;">
-          <label>Full name</label>
-          <input type="text" placeholder="Your name" required>
-        </div>
-        <div class="modal-field">
-          <label>Email</label>
-          <input type="email" placeholder="you@example.com" required>
-        </div>
-        <div class="modal-field">
-          <label>Password</label>
-          <input type="password" placeholder="••••••••" required>
-        </div>
-        <button type="submit" class="btn btn-primary" id="authSubmitBtn">Log in</button>
-      </form>
+      <div class="ap-stats-row">
+        <div><span class="s-num tabular">18,400+</span><span class="s-lab">Registered faculty</span></div>
+        <div><span class="s-num tabular">1,200+</span><span class="s-lab">Institutions hiring</span></div>
+        <div><span class="s-num tabular">2 yrs</span><span class="s-lab">Free for employers</span></div>
+      </div>
+    </div>
+
+    <div class="ap-right">
+      <div class="ap-form-wrap">
+        <span class="ap-page-tag" id="apPageTag">Faculty account</span>
+        <div id="backToLoginLink" style="display:none; margin-bottom:14px;"></div>
+        <h2 id="authTitle">Welcome back</h2>
+        <p class="sub" id="authSub">Log in to continue</p>
+
+        <form onsubmit="return submitAuth(event)">
+          <div class="modal-field" id="fieldName" style="display:none;">
+            <label>Full name</label>
+            <input type="text" id="authNameInput" placeholder="Your name">
+          </div>
+          <div class="modal-field" id="fieldCompanyName" style="display:none;">
+            <label>Institution / Company name</label>
+            <input type="text" id="authCompanyNameInput" placeholder="e.g. Radha Krishna Junior College">
+          </div>
+          <div class="modal-field" id="fieldContactPerson" style="display:none;">
+            <label>Contact person</label>
+            <input type="text" id="authContactPersonInput" placeholder="Your name">
+          </div>
+
+          <div class="modal-tabs modal-tabs-icon" id="authMethodTabs" style="margin-bottom:16px;">
+            <button type="button" class="modal-tab active" id="methodEmail" onclick="setAuthMethod('email')">
+              <svg width="15" height="15" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg"><path d="M3 6.5L12 13L21 6.5" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"/><rect x="3" y="5" width="18" height="14" rx="2" stroke="currentColor" stroke-width="1.7"/></svg>
+              <span>Email</span>
+            </button>
+            <button type="button" class="modal-tab" id="methodPhone" onclick="setAuthMethod('phone')">
+              <svg width="15" height="15" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg"><rect x="7" y="2.5" width="10" height="19" rx="2" stroke="currentColor" stroke-width="1.7"/><path d="M11 18H13" stroke="currentColor" stroke-width="1.7" stroke-linecap="round"/></svg>
+              <span>Phone</span>
+            </button>
+          </div>
+
+          <div id="authEmailFields">
+            <div class="modal-field">
+              <label>Email</label>
+              <input type="email" id="authEmailInput" placeholder="you@example.com">
+            </div>
+            <div class="modal-field">
+              <label>Password</label>
+              <input type="password" id="authPasswordInput" placeholder="••••••••">
+            </div>
+          </div>
+
+          <div id="authPhoneFields" style="display:none;">
+            <div class="modal-field">
+              <label>Mobile number</label>
+              <div style="display:flex; gap:8px;">
+                <input type="tel" id="authPhoneInput" placeholder="10-digit mobile number" maxlength="10" style="flex:1;">
+                <button type="button" class="btn btn-light btn-sm" id="authSendOtpBtn" onclick="sendAuthOtp()" style="white-space:nowrap;">Send OTP</button>
+              </div>
+            </div>
+            <div class="modal-field" id="authOtpField" style="display:none;">
+              <label>Enter OTP</label>
+              <input type="text" id="authOtpInput" placeholder="6-digit OTP" maxlength="6" inputmode="numeric">
+              <span style="font-size:12px; color:var(--ink-faint);">Demo mode — enter any 6-digit code to continue.</span>
+            </div>
+          </div>
+
+          <p id="authError" style="display:none; font-size:12.5px; color:#B3261E; margin:-6px 0 10px;"></p>
+          <button type="submit" class="btn btn-primary" id="authSubmitBtn">Log in</button>
+        </form>
+      </div>
     </div>
   </div>
 
@@ -1072,7 +1400,7 @@
           <svg width="17" height="17" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg"><path d="M12 3C9.5 3 7.5 5 7.5 7.5V11L5.5 15H18.5L16.5 11V7.5C16.5 5 14.5 3 12 3Z" stroke="currentColor" stroke-width="1.6" stroke-linejoin="round"/><path d="M9.5 18C9.5 19.4 10.6 20.5 12 20.5C13.4 20.5 14.5 19.4 14.5 18" stroke="currentColor" stroke-width="1.6" stroke-linecap="round"/></svg>
           <span class="nav-bell-dot" id="dashBellDot" style="position:absolute; top:5px; right:6px; width:7px; height:7px; border-radius:50%; background:#E0432B; border:1.5px solid #fff; display:none;"></span>
         </button>
-        <div id="dashNotifMenu" style="display:none; position:absolute; top:46px; right:56px; background:#fff; border:1px solid var(--line); border-radius:var(--radius); box-shadow:var(--shadow-lg); min-width:260px; z-index:60; overflow:hidden;">
+        <div id="dashNotifMenu" class="dash-dropdown dash-dropdown-notif" style="display:none;">
           <div style="padding:12px 14px; border-bottom:1px solid var(--line); font-weight:700; font-size:13.5px;">Notifications</div>
           <div id="dashNotifList" style="max-height:220px; overflow:auto;"></div>
         </div>
@@ -1080,7 +1408,7 @@
           <img id="dashTopAvatarImg" src="" style="width:100%; height:100%; object-fit:cover; display:none;">
           <span id="dashTopAvatarInit" style="display:flex; align-items:center; justify-content:center; width:100%; height:100%; font-weight:700; color:var(--blue-700); font-size:13px;"></span>
         </button>
-        <div id="dashAccountMenu" style="display:none; position:absolute; top:46px; right:0; background:#fff; border:1px solid var(--line); border-radius:var(--radius); box-shadow:var(--shadow-lg); min-width:220px; z-index:60; overflow:hidden;">
+        <div id="dashAccountMenu" class="dash-dropdown dash-dropdown-account" style="display:none;">
           <div style="padding:12px 14px; border-bottom:1px solid var(--line);">
             <div id="dashMenuName" style="font-weight:700; font-size:14px; color:var(--ink);">—</div>
             <div id="dashMenuMeta" style="font-size:12.5px; color:var(--ink-faint);">—</div>
@@ -1091,7 +1419,7 @@
         </div>
       </div>
     </div>
-    <div class="dash-inner">
+    <div class="dash-inner-wide" id="dashInnerWide">
       <div class="dash-head">
         <div class="dash-avatar" id="dashAvatar">U</div>
         <div>
@@ -1101,87 +1429,83 @@
       </div>
 
       <div class="dash-panel" id="panelSearch">
-        <div class="dash-tabs">
-          <button class="dash-subtab active" id="subtabProfile" onclick="switchDashTab('profile')">My profile</button>
-          <button class="dash-subtab" id="subtabBrowse" onclick="switchDashTab('browse')">Browse jobs</button>
-        </div>
-
-        <div id="dashProfileTab">
-          <h3>Your profile</h3>
-          <div class="dash-form-row">
-            <input type="text" id="pfName" placeholder="Full name" style="border:1px solid var(--line); border-radius:var(--radius); padding:10px 12px; font-family:inherit;">
-            <input type="text" id="pfSubject" placeholder="Subject / specialisation" style="border:1px solid var(--line); border-radius:var(--radius); padding:10px 12px; font-family:inherit;">
-          </div>
-          <div class="dash-form-row">
-            <select id="pfQualification" style="border:1px solid var(--line); border-radius:var(--radius); padding:10px 12px; font-family:inherit;">
-              <option value="">Highest qualification</option>
-              <option>UG</option><option>PG</option><option>PhD</option>
-            </select>
-            <select id="pfCategory" style="border:1px solid var(--line); border-radius:var(--radius); padding:10px 12px; font-family:inherit;">
-              <option value="">Category</option>
-              <option>Schools</option><option>Intermediate</option><option>Higher Education</option>
-            </select>
-          </div>
-          <div class="dash-form-row">
-            <input type="text" id="pfCollege" placeholder="College / university — e.g. IIIT Nagpur" style="border:1px solid var(--line); border-radius:var(--radius); padding:10px 12px; font-family:inherit;">
-            <input type="text" id="pfExperience" placeholder="Years of experience" style="border:1px solid var(--line); border-radius:var(--radius); padding:10px 12px; font-family:inherit;">
-          </div>
-          <input type="text" id="pfLocation" placeholder="Location" style="width:100%; border:1px solid var(--line); border-radius:var(--radius); padding:10px 12px; font-family:inherit; margin-bottom:14px;">
-
-          <h3 style="margin-top:8px;">Certifications &amp; documents</h3>
-          <p style="font-size:12.5px; color:var(--ink-faint); margin:-8px 0 12px;">Add links to your resume, degree certificates, and publications.</p>
-          <div class="dash-form-row">
-            <input type="text" id="pfResume" placeholder="Resume / CV link" style="border:1px solid var(--line); border-radius:var(--radius); padding:10px 12px; font-family:inherit;">
-            <input type="text" id="pfDegreeCert" placeholder="Highest degree certificate link" style="border:1px solid var(--line); border-radius:var(--radius); padding:10px 12px; font-family:inherit;">
-          </div>
-          <div class="dash-form-row">
-            <input type="text" id="pfPublications" placeholder="Publications / Google Scholar link" style="border:1px solid var(--line); border-radius:var(--radius); padding:10px 12px; font-family:inherit;">
-            <input type="text" id="pfPatent" placeholder="Patent / additional document link" style="border:1px solid var(--line); border-radius:var(--radius); padding:10px 12px; font-family:inherit;">
-          </div>
-          <button class="btn btn-primary btn-sm" id="pfSaveBtn" onclick="saveProfile()">Save profile</button>
-          <span id="pfSavedNote" style="display:none; margin-left:12px; font-size:12.5px; font-weight:600; color:var(--green);">✓ Profile saved</span>
-        </div>
-
-        <div id="dashBrowseTab" style="display:none;">
-          <h3>Browse jobs</h3>
-          <div class="dash-form-row">
-            <input type="text" placeholder="Subject, role or keyword" style="border:1px solid var(--line); border-radius:var(--radius); padding:10px 12px; font-family:inherit;">
-            <select style="border:1px solid var(--line); border-radius:var(--radius); padding:10px 12px; font-family:inherit;">
-              <option value="">All categories</option>
-              <option>Schools</option>
-              <option>Intermediate</option>
-              <option>Higher Education</option>
-            </select>
-          </div>
-          <button class="btn btn-primary btn-sm" style="margin-bottom:18px;">Search jobs</button>
-
-          <div class="demo-grid" style="grid-template-columns:1fr;">
-            <div class="job-card">
-              <div class="job-card-top">
-                <div class="job-logo" style="background:var(--blue-700);">KL</div>
-                <div><p class="jc-title">Assistant Professor — CSE</p><p class="jc-org">KL University · Vijayawada</p></div>
-                <span class="jc-cat">Higher Ed</span>
+        <div id="dashProfileTab" style="display:block;">
+          <div class="pf-layout">
+            <aside class="pf-side">
+              <img class="pf-side-img" src="https://images.unsplash.com/photo-1524178232363-1fb2b075b655?auto=format&fit=crop&w=700&q=80" alt="">
+              <div class="pf-side-body">
+                <h4>Build a profile recruiters trust</h4>
+                <p>Complete profiles get up to 3× more recruiter views. Add your qualification, experience and documents so the right institutions can find you.</p>
+                <div class="pf-progress-track"><div class="pf-progress-fill" id="pfSideProgressFill" style="width:15%;"></div></div>
+                <p class="pf-progress-label"><span id="pfSideProgressLabel">15% complete</span></p>
+                <div class="pf-side-steps">
+                  <div class="pf-side-step done"><span class="dot">✓</span><span>Create your account</span></div>
+                  <div class="pf-side-step" id="pfStepBasics"><span class="dot">2</span><span>Add your basic profile details</span></div>
+                  <div class="pf-side-step" id="pfStepDocs"><span class="dot">3</span><span>Attach resume &amp; certificates</span></div>
+                  <div class="pf-side-step"><span class="dot">4</span><span>Start browsing &amp; applying to jobs</span></div>
+                </div>
               </div>
-              <div class="jc-tags"><span class="hp-tag">PhD required</span><span class="hp-tag">Full-time</span></div>
-              <div class="jc-foot"><span class="jc-posted">Posted 2 days ago · 34 applicants</span><button class="btn btn-primary btn-sm">Apply</button></div>
-            </div>
-            <div class="job-card">
-              <div class="job-card-top">
-                <div class="job-logo" style="background:var(--green);">DP</div>
-                <div><p class="jc-title">PGT Physics</p><p class="jc-org">Delhi Public School · Hyderabad</p></div>
-                <span class="jc-cat">Schools</span>
+            </aside>
+
+            <div>
+              <div class="pf-section">
+                <div class="pf-section-head">
+                  <div class="pf-ico">
+                    <svg width="17" height="17" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg"><path d="M12 12C14.5 12 16.5 10 16.5 7.5C16.5 5 14.5 3 12 3C9.5 3 7.5 5 7.5 7.5C7.5 10 9.5 12 12 12Z" stroke="currentColor" stroke-width="1.6"/><path d="M4 20.5C4 16.9 7.6 14 12 14C16.4 14 20 16.9 20 20.5" stroke="currentColor" stroke-width="1.6" stroke-linecap="round"/></svg>
+                  </div>
+                  <h3>Your profile</h3>
+                </div>
+                <div class="dash-form-row">
+                  <div class="pf-field"><label>Full name</label><input type="text" id="pfName" class="pf-input" placeholder="e.g. Priya Menon" oninput="pfOnInputProgress()"></div>
+                  <div class="pf-field"><label>Subject / specialisation</label><input type="text" id="pfSubject" class="pf-input" placeholder="e.g. Physics, Data Science" oninput="pfOnInputProgress()"></div>
+                </div>
+                <div class="dash-form-row">
+                  <div class="pf-field"><label>Highest qualification</label>
+                    <select id="pfQualification" class="pf-input" onchange="pfOnInputProgress()">
+                      <option value="">Select qualification</option>
+                      <option>UG</option><option>PG</option><option>PhD</option>
+                    </select>
+                  </div>
+                  <div class="pf-field"><label>Category</label>
+                    <select id="pfCategory" class="pf-input" onchange="pfOnInputProgress()">
+                      <option value="">Select category</option>
+                      <option>Schools</option><option>Intermediate</option><option>Higher Education</option>
+                    </select>
+                  </div>
+                </div>
+                <div class="dash-form-row">
+                  <div class="pf-field"><label>College / university</label><input type="text" id="pfCollege" class="pf-input" placeholder="e.g. IIIT Nagpur" oninput="pfOnInputProgress()"></div>
+                  <div class="pf-field"><label>Years of experience</label><input type="text" id="pfExperience" class="pf-input" placeholder="e.g. 3" oninput="pfOnInputProgress()"></div>
+                </div>
+                <div class="pf-field"><label>Location</label><input type="text" id="pfLocation" class="pf-input" placeholder="e.g. Hyderabad, Telangana" oninput="pfOnInputProgress()"></div>
+                <div class="dash-form-row" style="margin-top:16px;">
+                  <div class="pf-field"><label>Email</label><input type="email" id="pfEmail" class="pf-input" placeholder="you@example.com" oninput="pfOnInputProgress()"></div>
+                  <div class="pf-field"><label>Mobile number</label><input type="tel" id="pfPhone" class="pf-input" placeholder="10-digit mobile number" maxlength="10" oninput="pfOnInputProgress()"></div>
+                </div>
+                <p class="pf-contact-note" id="pfContactNote" style="display:none; font-size:12.5px; color:var(--blue-700); background:var(--blue-50); border-radius:5px; padding:8px 12px; margin:10px 0 0;"></p>
               </div>
-              <div class="jc-tags"><span class="hp-tag">PG required</span><span class="hp-tag">CBSE</span></div>
-              <div class="jc-foot"><span class="jc-posted">Posted 5 days ago · 61 applicants</span><button class="btn btn-primary btn-sm">Apply</button></div>
-            </div>
-            <div class="job-card">
-              <div class="job-card-top">
-                <div class="job-logo" style="background:var(--blue-500);">NR</div>
-                <div><p class="jc-title">Senior Lecturer — Commerce</p><p class="jc-org">Narayana Junior College · Chennai</p></div>
-                <span class="jc-cat">Intermediate</span>
+
+              <div class="pf-section">
+                <div class="pf-section-head">
+                  <div class="pf-ico">
+                    <svg width="17" height="17" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg"><path d="M8 3H14L19 8V19C19 20.1 18.1 21 17 21H8C6.9 21 6 20.1 6 19V5C6 3.9 6.9 3 8 3Z" stroke="currentColor" stroke-width="1.6" stroke-linejoin="round"/><path d="M14 3V8H19" stroke="currentColor" stroke-width="1.6" stroke-linejoin="round"/></svg>
+                  </div>
+                  <h3>Certifications &amp; documents</h3>
+                </div>
+                <p class="pf-section-sub">Add links to your resume, degree certificates, and publications.</p>
+                <div class="dash-form-row">
+                  <div class="pf-field"><label>Resume / CV link</label><input type="text" id="pfResume" class="pf-input" placeholder="https://..." oninput="pfOnInputProgress()"></div>
+                  <div class="pf-field"><label>Highest degree certificate link</label><input type="text" id="pfDegreeCert" class="pf-input" placeholder="https://..." oninput="pfOnInputProgress()"></div>
+                </div>
+                <div class="dash-form-row" style="margin-bottom:0;">
+                  <div class="pf-field"><label>Publications / Google Scholar link</label><input type="text" id="pfPublications" class="pf-input" placeholder="https://..."></div>
+                  <div class="pf-field"><label>Patent / additional document link</label><input type="text" id="pfPatent" class="pf-input" placeholder="https://..."></div>
+                </div>
               </div>
-              <div class="jc-tags"><span class="hp-tag">PG required</span><span class="hp-tag">MPC/CEC</span></div>
-              <div class="jc-foot"><span class="jc-posted">Posted 1 week ago · 22 applicants</span><button class="btn btn-primary btn-sm">Apply</button></div>
+
+              <div class="pf-actions">
+                <button class="btn btn-primary btn-sm" id="pfSaveBtn" onclick="saveProfile()">Save profile &amp; browse jobs</button>
+              </div>
             </div>
           </div>
         </div>
@@ -1278,20 +1602,21 @@
           </div>
           <button class="btn btn-primary btn-sm" onclick="renderCandidates()">Search candidates</button>
         </div>
+
+        <div class="dash-fullbleed" id="candidateListWrap" style="display:none; padding:0;">
+          <div class="candidates-section-head"><h3>Recommended candidates</h3><span class="count" id="candidateCount"></span></div>
+          <div class="demo-grid dash-fullbleed-grid" id="candidateList"></div>
+          <div id="candidateShowMoreWrap" style="display:none; justify-content:center; margin-top:22px;">
+            <button class="btn btn-light" id="candidateShowMoreBtn" onclick="showMoreCandidates()">Show more</button>
+          </div>
+        </div>
+        <div class="dash-fullbleed" id="apListWrap" style="display:none; padding:0;">
+          <div class="candidates-section-head"><h3>Applicants</h3><span class="count" id="apCount"></span></div>
+          <div class="demo-grid dash-fullbleed-grid" id="apList"></div>
+        </div>
       </div>
     </div>
 
-    <div class="dash-fullbleed" id="candidateListWrap" style="display:none;">
-      <div class="candidates-section-head"><h3>Recommended candidates</h3><span class="count" id="candidateCount"></span></div>
-      <div class="demo-grid dash-fullbleed-grid" id="candidateList"></div>
-      <div id="candidateShowMoreWrap" style="display:none; justify-content:center; margin-top:22px;">
-        <button class="btn btn-light" id="candidateShowMoreBtn" onclick="showMoreCandidates()">Show more</button>
-      </div>
-    </div>
-    <div class="dash-fullbleed" id="apListWrap" style="display:none;">
-      <div class="candidates-section-head"><h3>Applicants</h3><span class="count" id="apCount"></span></div>
-      <div class="demo-grid dash-fullbleed-grid" id="apList"></div>
-    </div>
   </div>
 
   <!-- Faculty profile modal -->
@@ -1335,9 +1660,9 @@
       <div>
         <h3 id="miniName">Your name</h3>
         <p id="miniDegree">Add your degree</p>
-        <a href="javascript:void(0)" onclick="openFullProfile()">View &amp; update profile</a>
       </div>
     </div>
+    <button class="btn btn-light btn-sm" style="width:100%; margin-bottom:4px;" onclick="openFullProfile()">Update profile</button>
     <div class="mini-section">
       <div class="mini-section-head">
         <h4>Your profile performance</h4>
@@ -1347,7 +1672,18 @@
         <div><span class="num tabular" id="miniActions">4</span><label>Recruiter actions</label></div>
       </div>
     </div>
+    <div class="mini-section">
+      <div class="mini-section-head">
+        <h4>Your preferences</h4>
+      </div>
+      <p style="font-size:12px; color:var(--ink-faint); margin:0 0 10px;">Matched roles are based on these.</p>
+      <div id="miniPrefTags" style="display:flex; flex-wrap:wrap; gap:6px;"></div>
+    </div>
     <div class="mini-links">
+      <a href="javascript:void(0)" id="miniBrowseJobsLink" onclick="closeMiniProfile(); openBrowseJobs();">
+        <svg width="17" height="17" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg"><circle cx="11" cy="11" r="7" stroke="currentColor" stroke-width="1.7"/><path d="M21 21L16.65 16.65" stroke="currentColor" stroke-width="1.7" stroke-linecap="round"/></svg>
+        Browse jobs
+      </a>
       <a href="javascript:void(0)" onclick="openFullProfile()">
         <svg width="17" height="17" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg"><path d="M9 18L15 12L9 6" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"/></svg>
         Career guidance
@@ -1363,22 +1699,39 @@
     </div>
   </div>
 
+  <!-- Notification card (opens only from the bell) -->
+  <div class="notif-panel" id="notifPanel">
+    <div class="notif-panel-head">
+      <span>Notifications</span>
+      <button class="mini-close" style="position:static; width:26px; height:26px;" onclick="closeNotifPanel()">✕</button>
+    </div>
+    <div class="notif-panel-list" id="notifPanelList"></div>
+  </div>
+
   <!-- Full profile page overlay -->
   <div class="dash-overlay" id="fullProfileOverlay">
     <div class="dash-top">
       <div class="brand"><div class="brand-mark" style="width:26px;height:26px;"><svg width="15" height="15" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg"><path d="M12 3L1 8.5L12 14L23 8.5L12 3Z" stroke="currentColor" stroke-width="1.6" stroke-linejoin="round"/><path d="M5 11.5V16.5C5 16.5 5 20 12 20C19 20 19 16.5 19 16.5V11.5" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"/><path d="M23 8.5V15" stroke="currentColor" stroke-width="1.6" stroke-linecap="round"/></svg></div>Upadyay</div>
-      <button class="btn btn-ghost btn-sm" onclick="closeFullProfile()">Back to site</button>
+      <div style="display:flex; align-items:center; gap:10px;">
+        <span id="fpAutosaveNote" style="font-size:12px; color:var(--ink-faint); margin-right:4px;">✓ Changes save automatically</span>
+        <button class="btn btn-primary btn-sm" onclick="closeFullProfile(); openBrowseJobs();">Save &amp; browse jobs</button>
+        <button class="btn btn-ghost btn-sm" onclick="closeFullProfile()">Done</button>
+      </div>
     </div>
-    <div class="fp-inner">
-      <div class="fp-header">
-        <img class="fp-avatar" id="fpAvatar" src="">
-        <div class="fp-header-info">
-          <h2 id="fpName">Your name</h2>
-          <p id="fpDegree">Degree · College</p>
-          <div class="fp-meta">
-            <span id="fpLocation">📍 Location</span>
-            <span id="fpEmail">✉️ email@example.com</span>
-          </div>
+    <div id="fpSaveToast" style="position:fixed; top:78px; left:50%; transform:translateX(-50%) translateY(-8px); background:var(--blue-900); color:#fff; font-size:13px; font-weight:600; padding:9px 16px; border-radius:5px; box-shadow:var(--shadow-md); z-index:120; opacity:0; pointer-events:none; transition:opacity .2s ease, transform .2s ease;">✓ Saved</div>
+    <div class="dash-inner" style="max-width:640px;">
+      <div class="ap2-card ap2-summary">
+        <div class="fp-avatar-wrap">
+          <img class="fp-avatar" id="fpAvatar" src="" style="width:76px; height:76px;">
+          <label class="fp-avatar-upload" title="Change photo">
+            <svg width="13" height="13" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg"><path d="M4 7H7L9 4H15L17 7H20C20.6 7 21 7.4 21 8V19C21 19.6 20.6 20 20 20H4C3.4 20 3 19.6 3 19V8C3 7.4 3.4 7 4 7Z" stroke="currentColor" stroke-width="1.6" stroke-linejoin="round"/><circle cx="12" cy="13.5" r="3.5" stroke="currentColor" stroke-width="1.6"/></svg>
+            <input type="file" accept="image/*" style="display:none;" onchange="fpUploadAvatar(event)">
+          </label>
+        </div>
+        <div class="ap2-summary-info">
+          <h2 id="fpName" class="fp-editable" contenteditable="true" onblur="fpSaveField('name', this.textContent)">Your name</h2>
+          <p id="fpDegree">Add your degree and specialisation</p>
+          <p class="ap2-summary-loc">📍 <span id="fpLocation" class="fp-editable" style="display:inline-block; margin:0;" contenteditable="true" onblur="fpSaveField('location', this.textContent)">Add location</span></p>
         </div>
         <div class="fp-complete">
           <span class="num tabular" id="fpPct">40%</span>
@@ -1386,62 +1739,169 @@
         </div>
       </div>
 
-      <div class="fp-body">
-        <div class="fp-side">
-          <h4>Quick links</h4>
-          <a href="javascript:void(0)">Preference</a>
-          <a href="javascript:void(0)">Education</a>
-          <a href="javascript:void(0)">Key skills</a>
-          <a href="javascript:void(0)">Certifications</a>
-          <a href="javascript:void(0)">Employment</a>
+      <div class="ap2-card">
+        <div class="ap2-card-head">
+          <div>
+            <h3>Edit your preferences</h3>
+            <p>Your personalised job feed is shown based on these preferences.</p>
+          </div>
         </div>
-        <div class="fp-main">
-          <div class="fp-card">
-            <h4>Career preferences <button class="fp-edit" onclick="switchDashTab('profile'); closeFullProfile(); openDash(currentUser.name||'User','search');">Edit</button></h4>
-            <div class="fp-grid2">
-              <div><label>Category</label><p id="fpCategory">—</p></div>
-              <div><label>Qualification</label><p id="fpQualification">—</p></div>
-              <div><label>Experience</label><p id="fpExperience">—</p></div>
-              <div><label>Subject</label><p id="fpSubject">—</p></div>
-            </div>
+        <div class="ap2-pref-grid">
+          <div class="ap2-pref-field">
+            <label>Category</label>
+            <select id="fpCategory" class="fp-editable ap2-pref-input" onchange="fpSaveField('category', this.value)">
+              <option value="">Not set</option>
+              <option>Schools</option><option>Intermediate</option><option>Higher Education</option>
+            </select>
+          </div>
+          <div class="ap2-pref-field">
+            <label>Qualification</label>
+            <select id="fpQualification" class="fp-editable ap2-pref-input" onchange="fpSaveField('qualification', this.value)">
+              <option value="">Not set</option>
+              <option>UG</option><option>PG</option><option>PhD</option>
+            </select>
+          </div>
+          <div class="ap2-pref-field">
+            <label>Subject / specialisation</label>
+            <p id="fpSubject" class="fp-editable ap2-pref-input" contenteditable="true" onblur="fpSaveField('subject', this.textContent)">Not set</p>
+          </div>
+          <div class="ap2-pref-field">
+            <label>Years of experience</label>
+            <p id="fpExperience" class="fp-editable ap2-pref-input" contenteditable="true" onblur="fpSaveField('experience', this.textContent)">Not set</p>
+          </div>
+          <div class="ap2-pref-field" style="grid-column:1 / -1;">
+            <label>College / university</label>
+            <p id="fpEduLine" class="fp-editable ap2-pref-input" contenteditable="true" onblur="fpSaveField('college', this.textContent)">Not set</p>
+          </div>
+        </div>
+      </div>
+
+      <div class="ap2-card">
+        <div class="ap2-card-head">
+          <div>
+            <h3>Certifications &amp; documents</h3>
+            <p>Add links to your resume, degree certificates, and publications.</p>
+          </div>
+        </div>
+        <div class="ap2-pref-grid">
+          <div class="ap2-pref-field"><label>Resume / CV link</label><input type="text" id="fpResume" class="fp-editable ap2-pref-input ap2-pref-link" placeholder="Not added" oninput="fpSaveLinkField('resume', this.value)"></div>
+          <div class="ap2-pref-field"><label>Highest degree certificate link</label><input type="text" id="fpDegreeCertLink" class="fp-editable ap2-pref-input ap2-pref-link" placeholder="Not added" oninput="fpSaveLinkField('degreeCert', this.value)"></div>
+          <div class="ap2-pref-field"><label>Publications / Google Scholar link</label><input type="text" id="fpPublicationsLink" class="fp-editable ap2-pref-input ap2-pref-link" placeholder="Not added" oninput="fpSaveLinkField('publications', this.value)"></div>
+          <div class="ap2-pref-field"><label>Patent / additional document link</label><input type="text" id="fpPatentLink" class="fp-editable ap2-pref-input ap2-pref-link" placeholder="Not added" oninput="fpSaveLinkField('patent', this.value)"></div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Browse jobs page (apna-style: filters left, job list middle, profile card right) -->
+  <div class="dash-overlay" id="browseJobsOverlay">
+    <div class="dash-top">
+      <div class="brand"><div class="brand-mark" style="width:26px;height:26px;"><svg width="15" height="15" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg"><path d="M12 3L1 8.5L12 14L23 8.5L12 3Z" stroke="currentColor" stroke-width="1.6" stroke-linejoin="round"/><path d="M5 11.5V16.5C5 16.5 5 20 12 20C19 20 19 16.5 19 16.5V11.5" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"/><path d="M23 8.5V15" stroke="currentColor" stroke-width="1.6" stroke-linecap="round"/></svg></div>Upadyay</div>
+      <div class="nav-drop" style="margin-left:28px;" onmouseenter="openNavDrop()" onmouseleave="closeNavDrop()">
+        <a href="javascript:void(0)" onclick="openNavDrop()" style="font-size:14.5px; color:var(--ink-soft); font-weight:500;">Browse jobs by type ▾</a>
+        <div class="nav-drop-menu" id="navDropMenuBj">
+          <div class="nav-drop-col">
+            <span class="nav-drop-label">Schools</span>
+            <a href="javascript:void(0)" onclick="quickBrowse('Schools')">PGT / TGT / PRT teacher jobs</a>
+            <a href="javascript:void(0)" onclick="quickBrowse('Schools')">CBSE &amp; ICSE school jobs</a>
+            <a href="javascript:void(0)" onclick="quickBrowse('Schools')">Principal &amp; coordinator jobs</a>
+          </div>
+          <div class="nav-drop-col">
+            <span class="nav-drop-label">Junior Colleges</span>
+            <a href="javascript:void(0)" onclick="quickBrowse('Intermediate')">Junior lecturer jobs</a>
+            <a href="javascript:void(0)" onclick="quickBrowse('Intermediate')">MPC / BiPC / CEC faculty</a>
+          </div>
+          <div class="nav-drop-col">
+            <span class="nav-drop-label">Universities &amp; Colleges</span>
+            <a href="javascript:void(0)" onclick="quickBrowse('Higher Education')">Assistant Professor jobs</a>
+            <a href="javascript:void(0)" onclick="quickBrowse('Higher Education')">Associate / full professor jobs</a>
+          </div>
+        </div>
+      </div>
+      <div style="flex:1;"></div>
+      <div style="display:flex; align-items:center; gap:14px;">
+        <button class="nav-bell" onclick="openNotifPanel()">
+          <svg width="17" height="17" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg"><path d="M18 8A6 6 0 0 0 6 8C6 15 3 17 3 17H21C21 17 18 15 18 8Z" stroke="currentColor" stroke-width="1.7" stroke-linejoin="round"/><path d="M13.73 21A2 2 0 0 1 10.27 21" stroke="currentColor" stroke-width="1.7" stroke-linecap="round"/></svg>
+          <span class="nav-bell-dot" style="display:none;" id="bjBellDot"></span>
+        </button>
+        <button class="nav-avatar-btn" onclick="openMiniProfile()">
+          <img id="bjTopAvatarImg" src="">
+        </button>
+        <button class="btn btn-ghost btn-sm" onclick="closeBrowseJobs()">Back to site</button>
+      </div>
+    </div>
+    <div class="bj-inner">
+      <div class="bj-searchbar">
+        <div class="bj-field">
+          <svg width="15" height="15" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg" style="flex-shrink:0; color:var(--ink-faint);"><circle cx="11" cy="11" r="7" stroke="currentColor" stroke-width="2"/><path d="M21 21L16.65 16.65" stroke="currentColor" stroke-width="2" stroke-linecap="round"/></svg>
+          <input type="text" id="bjKeyword" placeholder="Subject, role or keyword" oninput="renderBrowseJobs()">
+        </div>
+        <div class="bj-field">
+          <svg width="15" height="15" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg" style="flex-shrink:0; color:var(--ink-faint);"><path d="M4 21V4.5L12 2L20 4.5V21" stroke="currentColor" stroke-width="1.6" stroke-linejoin="round"/></svg>
+          <input type="text" id="bjLocation" placeholder="Location" oninput="renderBrowseJobs()">
+        </div>
+        <button class="btn btn-primary btn-sm" onclick="renderBrowseJobs()">Search jobs</button>
+      </div>
+
+      <div class="bj-layout">
+        <div class="bj-filters">
+          <div class="bj-filters-head">
+            <h4><svg width="15" height="15" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg"><path d="M4 6H20M7 12H17M10 18H14" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"/></svg> Filters</h4>
+            <button class="bj-clear-link" onclick="clearBrowseFilters()">Clear all</button>
           </div>
 
-          <div class="fp-card">
-            <h4>Education</h4>
-            <div class="fp-edu-item" id="fpEducation">
-              <div class="slide-exp-dot" style="margin-top:5px;"></div>
-              <div><div class="t1" id="fpEduLine">Add your education</div><div class="t2">Tap Edit above to add details</div></div>
-            </div>
+          <div class="bj-filter-group">
+            <h5>Category</h5>
+            <label class="bj-filter-opt"><input type="checkbox" class="bj-cat-check" value="Schools" onchange="renderBrowseJobs()"> Schools</label>
+            <label class="bj-filter-opt"><input type="checkbox" class="bj-cat-check" value="Intermediate" onchange="renderBrowseJobs()"> Intermediate</label>
+            <label class="bj-filter-opt"><input type="checkbox" class="bj-cat-check" value="Higher Education" onchange="renderBrowseJobs()"> Higher Education</label>
           </div>
 
-          <div class="fp-card">
-            <h4>Certifications &amp; documents</h4>
-            <div class="slide-links" id="fpLinks"></div>
+          <div class="bj-filter-group">
+            <h5>Experience</h5>
+            <input type="range" id="bjExpRange" min="0" max="20" value="20" style="width:100%; accent-color:var(--green);" oninput="document.getElementById('bjExpVal').textContent=this.value; renderBrowseJobs()">
+            <div class="bj-range-row"><span>0 yrs</span><span id="bjExpVal">20</span><span>20+ yrs</span></div>
           </div>
 
-          <div class="fp-card">
-            <h4>Recommended for you</h4>
-            <p style="font-size:13px; color:var(--ink-faint); margin:0 0 14px;">Roles matched to your profile category and qualification.</p>
-            <div class="demo-grid" style="grid-template-columns:1fr;">
-              <div class="job-card">
-                <div class="job-card-top">
-                  <div class="job-logo" style="background:var(--blue-700);">KL</div>
-                  <div><p class="jc-title">Assistant Professor — CSE</p><p class="jc-org">KL University · Vijayawada</p></div>
-                  <span class="jc-cat">Higher Ed</span>
-                </div>
-                <div class="jc-tags"><span class="hp-tag">PhD required</span><span class="hp-tag">Full-time</span></div>
-                <div class="jc-foot"><span class="jc-posted">Posted 2 days ago · 34 applicants</span><button class="btn btn-primary btn-sm">Apply</button></div>
-              </div>
-              <div class="job-card">
-                <div class="job-card-top">
-                  <div class="job-logo" style="background:var(--green);">DP</div>
-                  <div><p class="jc-title">PGT Physics</p><p class="jc-org">Delhi Public School · Hyderabad</p></div>
-                  <span class="jc-cat">Schools</span>
-                </div>
-                <div class="jc-tags"><span class="hp-tag">PG required</span><span class="hp-tag">CBSE</span></div>
-                <div class="jc-foot"><span class="jc-posted">Posted 5 days ago · 61 applicants</span><button class="btn btn-primary btn-sm">Apply</button></div>
-              </div>
+          <div class="bj-filter-group">
+            <h5>Date posted</h5>
+            <label class="bj-filter-opt"><input type="radio" name="bjDate" value="all" checked onchange="renderBrowseJobs()"> All</label>
+            <label class="bj-filter-opt"><input type="radio" name="bjDate" value="1" onchange="renderBrowseJobs()"> Last 24 hours</label>
+            <label class="bj-filter-opt"><input type="radio" name="bjDate" value="3" onchange="renderBrowseJobs()"> Last 3 days</label>
+            <label class="bj-filter-opt"><input type="radio" name="bjDate" value="7" onchange="renderBrowseJobs()"> Last 7 days</label>
+          </div>
+
+          <div class="bj-filter-group">
+            <h5>Distance</h5>
+            <label class="bj-filter-opt"><input type="radio" name="bjDist" value="all" checked onchange="renderBrowseJobs()"> All</label>
+            <label class="bj-filter-opt"><input type="radio" name="bjDist" value="5" onchange="renderBrowseJobs()"> Within 5 km</label>
+            <label class="bj-filter-opt"><input type="radio" name="bjDist" value="10" onchange="renderBrowseJobs()"> Within 10 km</label>
+            <label class="bj-filter-opt"><input type="radio" name="bjDist" value="20" onchange="renderBrowseJobs()"> Within 20 km</label>
+          </div>
+        </div>
+
+        <div class="bj-results">
+          <div class="bj-results-head">
+            <h3 id="bjResultsTitle">Jobs for you</h3>
+            <span id="bjResultsCount">— results</span>
+          </div>
+          <div class="bj-job-list" id="bjJobList"></div>
+        </div>
+
+        <div class="bj-side">
+          <div class="ap2-card ap2-summary">
+            <img class="fp-avatar" id="bjAvatar" src="" style="width:64px; height:64px;">
+            <div class="ap2-summary-info">
+              <h2 id="bjName" style="font-size:17px;">Your name</h2>
+              <p id="bjRole">Add your degree</p>
             </div>
+          </div>
+          <button class="btn btn-light" style="width:100%; justify-content:center;" onclick="closeBrowseJobs(); openFullProfile();">Update profile</button>
+          <div class="ap2-card">
+            <div class="ap2-card-head">
+              <div><h3 style="font-size:14.5px;">Your preferences</h3><p>Matched roles are based on these.</p></div>
+            </div>
+            <div class="bj-pref-tags" id="bjPrefTags"></div>
           </div>
         </div>
       </div>
@@ -1650,10 +2110,10 @@
   }
 
   function switchDashTab(which){
-    document.getElementById('dashProfileTab').style.display = which==='profile' ? 'block' : 'none';
-    document.getElementById('dashBrowseTab').style.display = which==='browse' ? 'block' : 'none';
-    document.getElementById('subtabProfile').classList.toggle('active', which==='profile');
-    document.getElementById('subtabBrowse').classList.toggle('active', which==='browse');
+    // Only "My profile" exists now — Browse jobs tab was removed. Kept as a no-op
+    // so any legacy calls to switchDashTab('profile') don't error.
+    const pf = document.getElementById('dashProfileTab');
+    if(pf) pf.style.display = 'block';
   }
 
   function switchEmployerTab(which){
@@ -1888,6 +2348,7 @@
     document.getElementById('adminOverlay').classList.remove('open');
     document.body.style.overflow = '';
   }
+
   function switchAdminTab(tab){
     const panels = ['overview','faculty','institutions','institutionProfile','jobs'];
     panels.forEach(t=>{
@@ -1973,14 +2434,36 @@
       </div>`).join('') || '<p class="sub" style="margin:0;">No recent activity.</p>';
   }
 
+  function populateAdminFacultyLocationFilter(){
+    const sel = document.getElementById('adminFacultyLocationFilter');
+    if(!sel || sel.options.length > 1) return;
+    const cities = [...new Set(Object.values(facultyProfiles).map(p=>p.tags[2]))].sort();
+    cities.forEach(city=>{
+      const opt = document.createElement('option');
+      opt.value = city; opt.textContent = city;
+      sel.appendChild(opt);
+    });
+  }
+
   function renderAdminFaculty(){
+    populateAdminFacultyLocationFilter();
     const q = (document.getElementById('adminFacultySearch').value || '').toLowerCase();
     const qualFilter = document.getElementById('adminFacultyQualFilter').value;
+    const locationFilter = document.getElementById('adminFacultyLocationFilter').value;
+    const expFilter = document.getElementById('adminFacultyExpFilter').value;
     const ids = Object.keys(facultyProfiles).filter(id=>{
       const p = facultyProfiles[id];
-      const matchesQ = !q || p.name.toLowerCase().includes(q) || p.role.toLowerCase().includes(q);
+      const collegeText = (p.experience||[]).map(e=>e[1]).join(' ').toLowerCase();
+      const expYrs = parseInt(p.tags[1], 10) || 0;
+      const matchesQ = !q || p.name.toLowerCase().includes(q) || p.role.toLowerCase().includes(q) || collegeText.includes(q);
       const matchesQual = !qualFilter || p.tags[0]===qualFilter;
-      return matchesQ && matchesQual;
+      const matchesLocation = !locationFilter || p.tags[2]===locationFilter;
+      let matchesExp = true;
+      if(expFilter){
+        const [lo,hi] = expFilter.split('-').map(Number);
+        matchesExp = expYrs >= lo && expYrs <= hi;
+      }
+      return matchesQ && matchesQual && matchesLocation && matchesExp;
     });
     document.getElementById('adminFacultyCount').textContent = ids.length + (ids.length===1 ? ' faculty' : ' faculty members');
     document.getElementById('adminFacultyBody').innerHTML = ids.map(id=>{
@@ -1992,17 +2475,34 @@
         <td>${p.tags[2]}</td>
         <td><span class="admin-pill open">Open to opportunities</span></td>
       </tr>`;
-    }).join('') || `<tr><td colspan="5" style="text-align:center; color:var(--ink-faint); padding:22px;">No faculty match your search.</td></tr>`;
+    }).join('') || `<tr><td colspan="5" style="text-align:center; color:var(--ink-faint); padding:22px;">No faculty match your filters.</td></tr>`;
+  }
+
+  function normalizeCity(raw){
+    return (raw || '').split(',')[0].trim();
+  }
+  function populateAdminInstitutionsLocationFilter(){
+    const sel = document.getElementById('adminInstitutionsLocationFilter');
+    if(!sel || sel.options.length > 1) return;
+    const cities = [...new Set(Object.values(institutionsData).map(inst=>normalizeCity(inst.city)).filter(Boolean))].sort();
+    cities.forEach(city=>{
+      const opt = document.createElement('option');
+      opt.value = city; opt.textContent = city;
+      sel.appendChild(opt);
+    });
   }
 
   function renderAdminInstitutions(){
+    populateAdminInstitutionsLocationFilter();
     const q = (document.getElementById('adminInstitutionsSearch').value || '').toLowerCase();
     const typeFilter = document.getElementById('adminInstitutionsTypeFilter').value;
+    const locationFilter = document.getElementById('adminInstitutionsLocationFilter').value;
     const ids = Object.keys(institutionsData).filter(id=>{
       const inst = institutionsData[id];
       const matchesQ = !q || inst.name.toLowerCase().includes(q) || inst.city.toLowerCase().includes(q);
       const matchesType = !typeFilter || inst.type===typeFilter;
-      return matchesQ && matchesType;
+      const matchesLocation = !locationFilter || normalizeCity(inst.city)===locationFilter;
+      return matchesQ && matchesType && matchesLocation;
     });
     document.getElementById('adminInstitutionsCount').textContent = ids.length + (ids.length===1 ? ' institution' : ' institutions');
     document.getElementById('adminInstitutionsBody').innerHTML = ids.map(id=>{
@@ -2017,7 +2517,7 @@
         <td>${(inst.jobs||[]).length}</td>
         <td><button class="admin-viewbtn" onclick="event.stopPropagation(); openInstitutionProfile('${id}')">View</button></td>
       </tr>`;
-    }).join('') || `<tr><td colspan="8" style="text-align:center; color:var(--ink-faint); padding:22px;">No institutions match your search.</td></tr>`;
+    }).join('') || `<tr><td colspan="8" style="text-align:center; color:var(--ink-faint); padding:22px;">No institutions match your filters.</td></tr>`;
   }
 
   function renderAdminJobs(){
@@ -2177,52 +2677,223 @@
 
   // ---------- Auth modal ----------
   let authMode = 'login';
+  let authMethod = 'email';
+  let authOtpSent = false;
   let intendedPanel = 'search';
   let selectedRole = null;
   let isLoggedIn = false;
   let currentRole = null;
   let currentUser = { name:'', email:'', avatar:'https://i.pravatar.cc/160?img=68', subject:'', qualification:'', category:'', experience:'', location:'', college:'' };
 
+  let popupMode = 'register';
+
   function openAuth(panel){
     intendedPanel = panel;
     authMode = 'login';
-    selectedRole = null;
+    selectedRole = panel==='post' ? 'company' : 'seeker';
+    authMethod = 'email';
+    authOtpSent = false;
     setAuthTab('login');
+    setAuthMethod('email');
+    updateAuthLeftPanel(panel);
     document.getElementById('authOverlay').classList.add('open');
+  }
+  function openAuthRegister(panel){
+    intendedPanel = panel;
+    selectedRole = panel==='post' ? 'company' : 'seeker';
+    authMethod = 'email';
+    authOtpSent = false;
+    updateAuthLeftPanel(panel);
+    document.getElementById('apPageTag').textContent = panel==='post' ? 'Employer account' : 'Faculty account';
+    document.getElementById('authOverlay').classList.add('open');
+    setAuthMethod('email');
+    setAuthTab('register');
   }
   function closeAuth(){ document.getElementById('authOverlay').classList.remove('open'); }
 
-  function setAuthTab(mode){
-    authMode = mode;
-    document.getElementById('tabLogin').classList.toggle('active', mode==='login');
-    document.getElementById('tabRegister').classList.toggle('active', mode==='register');
-    document.getElementById('fieldName').style.display = mode==='register' ? 'flex' : 'none';
-    document.getElementById('roleSelect').style.display = mode==='register' ? 'grid' : 'none';
-    document.querySelector('#authOverlay form').style.display = (mode==='register' && !selectedRole) ? 'none' : 'block';
-    document.getElementById('authTitle').textContent = mode==='register' ? 'Create your account' : 'Welcome back';
-    document.getElementById('authSub').textContent = mode==='register' ? (selectedRole ? 'Register free to continue' : 'Choose how you want to use Upadyay') : 'Log in to continue';
-    document.getElementById('authSubmitBtn').textContent = mode==='register' ? 'Register free' : 'Log in';
-    document.getElementById('roleSeeker').classList.toggle('selected', selectedRole==='seeker');
-    document.getElementById('roleCompany').classList.toggle('selected', selectedRole==='company');
+  function updateAuthLeftPanel(panel){
+    const isCompany = panel === 'post';
+    document.getElementById('apPageTag').textContent = isCompany ? 'Employer account' : 'Faculty account';
+    document.getElementById('apLeftHeading').textContent = isCompany
+      ? 'Hire verified faculty for your institution'
+      : "India's dedicated faculty recruitment platform";
+    document.getElementById('apLeftSub').textContent = isCompany
+      ? 'Post roles and reach qualified teachers across schools, junior colleges and universities — free while you get started.'
+      : 'Built only for teaching roles — schools, junior colleges and universities hiring verified faculty, with no middlemen.';
+    document.getElementById('apFeatureList').innerHTML = isCompany ? `
+      <div class="ap-feature">
+        <span class="fi"><svg width="15" height="15" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg"><path d="M4 21V4.5L12 2L20 4.5V21" stroke="currentColor" stroke-width="1.6" stroke-linejoin="round"/><path d="M9 21V16H15V21" stroke="currentColor" stroke-width="1.6" stroke-linejoin="round"/></svg></span>
+        <div><div class="ft">Post roles in minutes</div><div class="fs">Create an institution profile once, then post as many teaching roles as you need.</div></div>
+      </div>
+      <div class="ap-feature">
+        <span class="fi"><svg width="15" height="15" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg"><path d="M12 3L1 8.5L12 14L23 8.5L12 3Z" stroke="currentColor" stroke-width="1.6" stroke-linejoin="round"/><path d="M5 11.5V16.5C5 16.5 5 20 12 20C19 20 19 16.5 19 16.5V11.5" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"/></svg></span>
+        <div><div class="ft">Verified faculty profiles</div><div class="fs">Every candidate profile includes qualification, subject and experience up front.</div></div>
+      </div>
+      <div class="ap-feature">
+        <span class="fi"><svg width="15" height="15" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg"><path d="M9 12L11 14L15 9" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"/><circle cx="12" cy="12" r="9" stroke="currentColor" stroke-width="1.7"/></svg></span>
+        <div><div class="ft">Free for 2 years</div><div class="fs">No platform fee for institutions while Upadyay grows across India.</div></div>
+      </div>` : `
+      <div class="ap-feature">
+        <span class="fi"><svg width="15" height="15" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg"><path d="M12 3L1 8.5L12 14L23 8.5L12 3Z" stroke="currentColor" stroke-width="1.6" stroke-linejoin="round"/><path d="M5 11.5V16.5C5 16.5 5 20 12 20C19 20 19 16.5 19 16.5V11.5" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"/></svg></span>
+        <div><div class="ft">One profile, every opportunity</div><div class="fs">Build your faculty profile once and apply across schools, colleges and universities.</div></div>
+      </div>
+      <div class="ap-feature">
+        <span class="fi"><svg width="15" height="15" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg"><path d="M9 12L11 14L15 9" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"/><circle cx="12" cy="12" r="9" stroke="currentColor" stroke-width="1.7"/></svg></span>
+        <div><div class="ft">Verified institutions only</div><div class="fs">Every employer on Upadyay is a genuine school, junior college or university.</div></div>
+      </div>
+      <div class="ap-feature">
+        <span class="fi"><svg width="15" height="15" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg"><path d="M4 6H20M4 12H20M4 18H14" stroke="currentColor" stroke-width="1.7" stroke-linecap="round"/></svg></span>
+        <div><div class="ft">Category-first search</div><div class="fs">Filter by Schools, Intermediate or Higher Education to find the right fit fast.</div></div>
+      </div>`;
   }
 
-  function selectRole(role){
+  function setAuthMethod(method){
+    authMethod = method;
+    authOtpSent = false;
+    document.getElementById('methodEmail').classList.toggle('active', method==='email');
+    document.getElementById('methodPhone').classList.toggle('active', method==='phone');
+    document.getElementById('authEmailFields').style.display = method==='email' ? 'block' : 'none';
+    document.getElementById('authPhoneFields').style.display = method==='phone' ? 'block' : 'none';
+    document.getElementById('authOtpField').style.display = 'none';
+    document.getElementById('authSendOtpBtn').textContent = 'Send OTP';
+    document.getElementById('authError').style.display = 'none';
+  }
+  function sendAuthOtp(){
+    const phone = document.getElementById('authPhoneInput').value.trim();
+    const errEl = document.getElementById('authError');
+    if(phone.length < 10){
+      errEl.textContent = 'Enter a valid 10-digit mobile number.';
+      errEl.style.display = 'block';
+      return;
+    }
+    errEl.style.display = 'none';
+    authOtpSent = true;
+    document.getElementById('authOtpField').style.display = 'block';
+    document.getElementById('authSendOtpBtn').textContent = 'Resend OTP';
+    showGenericToast('OTP sent to +91 ' + phone + ' (demo)');
+  }
+
+  function setAuthTab(mode){
+    authMode = mode;
+    document.getElementById('backToLoginLink').style.display = 'block';
+    document.getElementById('backToLoginLink').innerHTML = mode==='register'
+      ? '<a href="javascript:void(0)" onclick="setAuthTab(\'login\')" style="font-size:13px; font-weight:600; color:var(--blue-700); display:inline-flex; align-items:center; gap:5px;"><svg width="13" height="13" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg"><path d="M19 12H5M5 12L11 6M5 12L11 18" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg>Already have an account? Log in</a>'
+      : '<a href="javascript:void(0)" onclick="openRolePopup(\'register\')" style="font-size:13px; font-weight:600; color:var(--blue-700);">New here? Create an account</a>';
+    const isCompany = selectedRole === 'company';
+    document.getElementById('fieldName').style.display = (mode==='register' && !isCompany) ? 'flex' : 'none';
+    document.getElementById('fieldCompanyName').style.display = (mode==='register' && isCompany) ? 'flex' : 'none';
+    document.getElementById('fieldContactPerson').style.display = (mode==='register' && isCompany) ? 'flex' : 'none';
+    document.querySelector('#authOverlay form').style.display = 'block';
+    document.getElementById('authTitle').textContent = mode==='register'
+      ? (isCompany ? 'Create your institution account' : 'Create your faculty account')
+      : (isCompany ? 'Welcome back' : 'Welcome back');
+    document.getElementById('authSub').textContent = mode==='register' ? 'Register free to continue' : 'Log in to continue';
+    document.getElementById('authSubmitBtn').textContent = mode==='register' ? 'Register free' : 'Log in';
+    document.getElementById('authError').style.display = 'none';
+  }
+
+  function openRolePopup(mode){
+    popupMode = mode || 'register';
+    const isLogin = popupMode === 'login';
+    document.getElementById('rolePopupTitle').textContent = isLogin ? 'Log in as' : 'Join Upadyay as';
+    document.getElementById('rolePopupSub').textContent = isLogin ? 'Choose your account type to continue' : 'Choose how you want to use Upadyay';
+    document.getElementById('popupRoleSeekerDesc').textContent = isLogin ? 'Faculty account' : 'Find faculty roles';
+    document.getElementById('popupRoleCompanyDesc').textContent = isLogin ? 'Institution account' : 'Hire faculty';
+    document.getElementById('rolePopupOverlay').classList.add('open');
+  }
+  function closeRolePopup(){
+    document.getElementById('rolePopupOverlay').classList.remove('open');
+  }
+  function pickRoleFromPopup(role){
     selectedRole = role;
     intendedPanel = role==='company' ? 'post' : 'search';
-    setAuthTab('register');
+    updateAuthLeftPanel(intendedPanel);
+    document.getElementById('apPageTag').textContent = role==='company' ? 'Employer account' : 'Faculty account';
+    closeRolePopup();
+    document.getElementById('authOverlay').classList.add('open');
+    setAuthMethod('email');
+    if(popupMode === 'login'){
+      setAuthTab('login');
+    } else {
+      setAuthTab('register');
+    }
   }
 
   function submitAuth(e){
     e.preventDefault();
-    const emailInput = e.target.querySelector('input[type=email]');
-    const nameInput = e.target.querySelector('input[type=text]');
-    const name = (authMode==='register' && nameInput && nameInput.value) ? nameInput.value : (emailInput.value.split('@')[0] || 'User');
+    const errEl = document.getElementById('authError');
+    errEl.style.display = 'none';
+    const wasRegister = authMode === 'register';
+    const isCompanyRole = selectedRole === 'company';
+    const nameInput = document.getElementById('authNameInput');
+    const companyNameInput = document.getElementById('authCompanyNameInput');
+    const contactPersonInput = document.getElementById('authContactPersonInput');
+    let name = '';
+    let companyName = '';
+    let emailVal = '';
+    let phoneVal = '';
+
+    if(wasRegister && isCompanyRole){
+      companyName = companyNameInput.value.trim();
+      const contactName = contactPersonInput.value.trim();
+      if(!companyName || !contactName){
+        errEl.textContent = 'Enter your institution name and contact person.';
+        errEl.style.display = 'block';
+        return false;
+      }
+      name = contactName;
+    }
+
+    if(authMethod === 'email'){
+      emailVal = document.getElementById('authEmailInput').value.trim();
+      const pass = document.getElementById('authPasswordInput').value;
+      if(!emailVal || !pass){
+        errEl.textContent = 'Enter your email and password.';
+        errEl.style.display = 'block';
+        return false;
+      }
+      if(!name) name = (wasRegister && nameInput.value.trim()) ? nameInput.value.trim() : (emailVal.split('@')[0] || 'User');
+    } else {
+      phoneVal = document.getElementById('authPhoneInput').value.trim();
+      const otp = document.getElementById('authOtpInput').value.trim();
+      if(phoneVal.length < 10){
+        errEl.textContent = 'Enter a valid 10-digit mobile number.';
+        errEl.style.display = 'block';
+        return false;
+      }
+      if(!authOtpSent){
+        errEl.textContent = 'Send and enter the OTP first.';
+        errEl.style.display = 'block';
+        return false;
+      }
+      if(otp.length < 6){
+        errEl.textContent = 'Enter the 6-digit OTP.';
+        errEl.style.display = 'block';
+        return false;
+      }
+      if(!name) name = (wasRegister && nameInput.value.trim()) ? nameInput.value.trim() : ('User ' + phoneVal.slice(-4));
+    }
+
     isLoggedIn = true;
     currentRole = intendedPanel==='post' ? 'company' : 'seeker';
     currentUser.name = name;
-    currentUser.email = emailInput.value;
+    if(companyName) currentUser.companyName = companyName;
+    currentUser.loginMethod = authMethod;
+    if(emailVal) currentUser.email = emailVal;
+    if(phoneVal) currentUser.phone = phoneVal;
+    const idKey = (emailVal || phoneVal || '').toLowerCase();
     closeAuth();
-    openDash(name, intendedPanel);
+
+    // Show the profile tab automatically once, permanently, for a brand-new account.
+    const seenKey = 'upadyay_profile_seen_' + idKey;
+    const isFirstEverLogin = wasRegister && !localStorage.getItem(seenKey);
+    const targetPanel = isFirstEverLogin ? 'search' : intendedPanel;
+    openDash(name, targetPanel);
+    if(isFirstEverLogin){
+      switchDashTab('profile');
+      localStorage.setItem(seenKey, '1');
+    }
+
     updateNavForLogin();
     return false;
   }
@@ -2234,6 +2905,10 @@
       document.getElementById('navAvatarImg').src = currentUser.avatar;
       refreshMiniProfile();
     }
+    const isSeeker = isLoggedIn && currentRole !== 'company';
+    document.getElementById('navBrowseJobsLink').style.display = isSeeker ? 'inline' : 'none';
+    const miniLink = document.getElementById('miniBrowseJobsLink');
+    if(miniLink) miniLink.style.display = isSeeker ? 'flex' : 'none';
   }
 
   function logoutUser(){
@@ -2245,7 +2920,66 @@
     updateNavForLogin();
   }
 
+  function showGenericToast(msg){
+    const t = document.getElementById('genericToast');
+    if(!t) return;
+    t.textContent = msg;
+    t.style.opacity = '1';
+    t.style.transform = 'translateX(-50%) translateY(0)';
+    clearTimeout(window._genericToastTimer);
+    window._genericToastTimer = setTimeout(()=>{
+      t.style.opacity = '0';
+      t.style.transform = 'translateX(-50%) translateY(12px)';
+    }, 1800);
+  }
+
+  function openNavDrop(){
+    const m1 = document.getElementById('navDropMenu'); if(m1) m1.classList.add('open');
+    const m2 = document.getElementById('navDropMenuBj'); if(m2) m2.classList.add('open');
+  }
+  function closeNavDrop(){
+    const m1 = document.getElementById('navDropMenu'); if(m1) m1.classList.remove('open');
+    const m2 = document.getElementById('navDropMenuBj'); if(m2) m2.classList.remove('open');
+  }
+  function quickBrowse(category){
+    closeNavDrop();
+    if(typeof isLoggedIn !== 'undefined' && isLoggedIn && currentRole !== 'company'){
+      openBrowseJobs();
+      setTimeout(()=>{
+        document.querySelectorAll('.bj-cat-check').forEach(cb=>{ cb.checked = (cb.value === category); });
+        renderBrowseJobs();
+      }, 0);
+    } else {
+      openRolePopup('register');
+    }
+  }
+
+  function renderNotifPanelList(){
+    const list = document.getElementById('notifPanelList');
+    list.innerHTML = dashNotifs.length
+      ? dashNotifs.map(n=>`<div class="notif-panel-item">${n.text}</div>`).join('')
+      : `<div class="notif-panel-empty">No notifications yet.</div>`;
+  }
+  function openNotifPanel(){
+    closeMiniProfile();
+    renderNotifPanelList();
+    document.getElementById('notifPanel').classList.add('open');
+    const navDot = document.getElementById('navBellDot'); if(navDot) navDot.style.display = 'none';
+    const bjDot = document.getElementById('bjBellDot'); if(bjDot) bjDot.style.display = 'none';
+  }
+  function closeNotifPanel(){
+    document.getElementById('notifPanel').classList.remove('open');
+  }
+  document.addEventListener('click', function(e){
+    const panel = document.getElementById('notifPanel');
+    if(!panel || !panel.classList.contains('open')) return;
+    if(panel.contains(e.target)) return;
+    if(e.target.closest('.nav-bell')) return;
+    closeNotifPanel();
+  });
+
   function openMiniProfile(){
+    closeNotifPanel();
     refreshMiniProfile();
     document.getElementById('miniScrim').classList.add('open');
     document.getElementById('miniPanel').classList.add('open');
@@ -2260,6 +2994,13 @@
     document.getElementById('miniDegree').textContent = currentUser.qualification
       ? `${currentUser.qualification}${currentUser.college ? ' · '+currentUser.college : ''}`
       : (currentRole==='company' ? 'Company account' : 'Add your qualification');
+    const tagsWrap = document.getElementById('miniPrefTags');
+    if(tagsWrap){
+      const tags = [currentUser.category, currentUser.subject, currentUser.location].filter(Boolean);
+      tagsWrap.innerHTML = tags.length
+        ? tags.map(t=>`<span class="bj-pref-tag">${t}</span>`).join('')
+        : `<span style="font-size:12px; color:var(--ink-faint);">Add preferences on your profile to see matches.</span>`;
+    }
   }
 
   function computeCompleteness(){
@@ -2275,15 +3016,17 @@
     document.getElementById('fpDegree').textContent = currentUser.qualification
       ? `${currentUser.qualification}${currentUser.subject ? ' · '+currentUser.subject : ''}`
       : 'Add your degree and specialisation';
-    document.getElementById('fpLocation').textContent = '📍 ' + (currentUser.location || 'Add location');
-    document.getElementById('fpEmail').textContent = '✉️ ' + (currentUser.email || 'no email');
-    document.getElementById('fpCategory').textContent = currentUser.category || '—';
-    document.getElementById('fpQualification').textContent = currentUser.qualification || '—';
-    document.getElementById('fpExperience').textContent = currentUser.experience || '—';
-    document.getElementById('fpSubject').textContent = currentUser.subject || '—';
-    document.getElementById('fpEduLine').textContent = currentUser.qualification
-      ? `${currentUser.qualification}${currentUser.college ? ' — '+currentUser.college : ''}`
-      : 'Add your education';
+    document.getElementById('fpLocation').textContent = currentUser.location || 'Add location';
+    document.getElementById('fpCategory').value = currentUser.category || '';
+    document.getElementById('fpQualification').value = currentUser.qualification || '';
+    document.getElementById('fpExperience').textContent = currentUser.experience || 'Not set';
+    document.getElementById('fpSubject').textContent = currentUser.subject || 'Not set';
+    document.getElementById('fpEduLine').textContent = currentUser.college || 'Not set';
+    const links = currentUser.links || {};
+    document.getElementById('fpResume').value = links.resume || '';
+    document.getElementById('fpDegreeCertLink').value = links.degreeCert || '';
+    document.getElementById('fpPublicationsLink').value = links.publications || '';
+    document.getElementById('fpPatentLink').value = links.patent || '';
     document.getElementById('fpPct').textContent = computeCompleteness() + '%';
     document.getElementById('fullProfileOverlay').classList.add('open');
     document.body.style.overflow = 'hidden';
@@ -2293,12 +3036,141 @@
     document.body.style.overflow = '';
   }
 
+  // ---------- Browse jobs page ----------
+  const bjJobs = [
+    { title:'Assistant Professor — CSE', org:'KL University · Vijayawada', cat:'Higher Education', tags:['PhD required','Full-time'], posted:2, applicants:34, color:'var(--blue-700)', initials:'KL', minExp:2 },
+    { title:'PGT Physics', org:'Delhi Public School · Hyderabad', cat:'Schools', tags:['PG required','CBSE'], posted:5, applicants:61, color:'var(--green)', initials:'DP', minExp:0 },
+    { title:'Senior Lecturer — Commerce', org:'Narayana Junior College · Chennai', cat:'Intermediate', tags:['PG required','MPC/CEC'], posted:6, applicants:22, color:'var(--blue-500)', initials:'NR', minExp:3 },
+    { title:'TGT Mathematics', org:'Ryan International School · Bengaluru', cat:'Schools', tags:['B.Ed required','CBSE'], posted:1, applicants:18, color:'var(--blue-900)', initials:'RI', minExp:1 },
+    { title:'Assistant Professor — English', org:'Osmania University · Hyderabad', cat:'Higher Education', tags:['PhD required','NET/SET'], posted:9, applicants:47, color:'var(--blue-700)', initials:'OU', minExp:4 },
+    { title:'Junior Lecturer — Botany', org:'Sri Chaitanya Junior College · Vijayawada', cat:'Intermediate', tags:['PG required','MPC/BiPC'], posted:3, applicants:15, color:'var(--blue-500)', initials:'SC', minExp:0 },
+    { title:'PRT Primary Teacher', org:'DAV Public School · Delhi', cat:'Schools', tags:['UG required','CBSE'], posted:1, applicants:29, color:'var(--green)', initials:'DA', minExp:0 },
+    { title:'Associate Professor — Management', org:'IIM Ranchi', cat:'Higher Education', tags:['PhD required','UGC-NET'], posted:14, applicants:53, color:'var(--blue-900)', initials:'IR', minExp:6 },
+  ];
+
+  function openBrowseJobs(){
+    closeMiniProfile();
+    document.getElementById('bjAvatar').src = currentUser.avatar;
+    const bjTopImg = document.getElementById('bjTopAvatarImg'); if(bjTopImg) bjTopImg.src = currentUser.avatar;
+    document.getElementById('bjName').textContent = currentUser.name || 'Your name';
+    document.getElementById('bjRole').textContent = currentUser.qualification
+      ? `${currentUser.qualification}${currentUser.subject ? ' · '+currentUser.subject : ''}`
+      : 'Add your degree and specialisation';
+    const tagsWrap = document.getElementById('bjPrefTags');
+    const tags = [currentUser.category, currentUser.qualification, currentUser.subject].filter(Boolean);
+    tagsWrap.innerHTML = tags.length
+      ? tags.map(t=>`<span class="bj-pref-tag">${t}</span>`).join('')
+      : `<span style="font-size:12.5px; color:var(--ink-faint);">Add preferences on your profile to see matches.</span>`;
+    // Pre-check the category filter matching the seeker's own profile category, first time only.
+    if(currentUser.category){
+      document.querySelectorAll('.bj-cat-check').forEach(cb=>{ if(cb.value === currentUser.category) cb.checked = true; });
+    }
+    renderBrowseJobs();
+    document.getElementById('browseJobsOverlay').classList.add('open');
+    document.body.style.overflow = 'hidden';
+  }
+  function closeBrowseJobs(){
+    document.getElementById('browseJobsOverlay').classList.remove('open');
+    document.body.style.overflow = '';
+  }
+  function clearBrowseFilters(){
+    document.querySelectorAll('.bj-cat-check').forEach(cb=> cb.checked = false);
+    document.getElementById('bjExpRange').value = 20;
+    document.getElementById('bjExpVal').textContent = '20';
+    document.querySelector('input[name=bjDate][value=all]').checked = true;
+    document.querySelector('input[name=bjDist][value=all]').checked = true;
+    document.getElementById('bjKeyword').value = '';
+    document.getElementById('bjLocation').value = '';
+    renderBrowseJobs();
+  }
+  function renderBrowseJobs(){
+    const keyword = (document.getElementById('bjKeyword').value || '').toLowerCase().trim();
+    const checkedCats = Array.from(document.querySelectorAll('.bj-cat-check:checked')).map(cb=>cb.value);
+    const maxExp = parseInt(document.getElementById('bjExpRange').value, 10);
+    const dateFilter = document.querySelector('input[name=bjDate]:checked').value;
+
+    const filtered = bjJobs.filter(j=>{
+      if(keyword && !(`${j.title} ${j.org}`.toLowerCase().includes(keyword))) return false;
+      if(checkedCats.length && !checkedCats.includes(j.cat)) return false;
+      if(j.minExp > maxExp) return false;
+      if(dateFilter !== 'all' && j.posted > parseInt(dateFilter,10)) return false;
+      return true;
+    });
+
+    document.getElementById('bjResultsCount').textContent = `${filtered.length} result${filtered.length===1?'':'s'}`;
+    const list = document.getElementById('bjJobList');
+    if(!filtered.length){
+      list.innerHTML = `<div class="bj-empty">No jobs match your filters right now. Try clearing a filter or broadening your search.</div>`;
+      return;
+    }
+    list.innerHTML = filtered.map(j=>`
+      <div class="job-card">
+        <div class="job-card-top">
+          <div class="job-logo" style="background:${j.color};">${j.initials}</div>
+          <div><p class="jc-title">${j.title}</p><p class="jc-org">${j.org}</p></div>
+          <span class="jc-cat">${j.cat === 'Higher Education' ? 'Higher Ed' : j.cat}</span>
+        </div>
+        <div class="jc-tags">${j.tags.map(t=>`<span class="hp-tag">${t}</span>`).join('')}</div>
+        <div class="jc-foot">
+          <span class="jc-posted">Posted ${j.posted} day${j.posted===1?'':'s'} ago · ${j.applicants} applicants</span>
+          <button class="btn btn-primary btn-sm" onclick="pushNotif('Application sent for ${j.title}'); closeBrowseJobs();">Apply</button>
+        </div>
+      </div>
+    `).join('');
+  }
+
+  // Inline-edit handlers for the View Profile page (image-5 style: edit in place, no separate form)
+  function showFpSaveToast(){
+    const t = document.getElementById('fpSaveToast');
+    if(!t) return;
+    t.style.opacity = '1';
+    t.style.transform = 'translateX(-50%) translateY(0)';
+    clearTimeout(window._fpToastTimer);
+    window._fpToastTimer = setTimeout(()=>{
+      t.style.opacity = '0';
+      t.style.transform = 'translateX(-50%) translateY(-8px)';
+    }, 1400);
+  }
+  function fpSaveField(key, value){
+    currentUser[key] = (value || '').trim();
+
+    // keep header/derived text in sync without a full re-render
+    document.getElementById('fpDegree').textContent = currentUser.qualification
+      ? `${currentUser.qualification}${currentUser.subject ? ' · '+currentUser.subject : ''}`
+      : 'Add your degree and specialisation';
+    if(key === 'college'){
+      document.getElementById('fpEduLine').textContent = currentUser.college || 'Add your education';
+    }
+    document.getElementById('fpPct').textContent = computeCompleteness() + '%';
+    document.getElementById('dashName').textContent = currentUser.name || 'User';
+    updateNavForLogin();
+    showFpSaveToast();
+  }
+  function fpSaveLinkField(key, value){
+    currentUser.links = currentUser.links || {};
+    currentUser.links[key] = value;
+    showFpSaveToast();
+  }
+  function fpUploadAvatar(e){
+    const file = e.target.files[0];
+    if(!file) return;
+    const reader = new FileReader();
+    reader.onload = function(ev){
+      currentUser.avatar = ev.target.result;
+      document.getElementById('fpAvatar').src = currentUser.avatar;
+      updateNavForLogin();
+    };
+    reader.readAsDataURL(file);
+  }
+
   // ---------- Dashboard top account + notifications ----------
   const dashNotifs = [];
   function pushNotif(text){
     dashNotifs.unshift({ text, time: 'Just now' });
     if(dashNotifs.length > 20) dashNotifs.pop();
     document.getElementById('dashBellDot').style.display = 'block';
+    const navDot = document.getElementById('navBellDot'); if(navDot) navDot.style.display = 'block';
+    const bjDot = document.getElementById('bjBellDot'); if(bjDot) bjDot.style.display = 'block';
   }
   function refreshDashTopAccount(){
     const isCompany = currentRole==='company';
@@ -2349,6 +3221,21 @@
       document.getElementById('pfCollege').value = currentUser.college || '';
       document.getElementById('pfExperience').value = currentUser.experience || '';
       document.getElementById('pfLocation').value = currentUser.location || '';
+      document.getElementById('pfEmail').value = currentUser.email || '';
+      document.getElementById('pfPhone').value = currentUser.phone || '';
+      const note = document.getElementById('pfContactNote');
+      if(!currentUser.email && currentUser.phone){
+        note.textContent = 'You signed up with your phone number — add your email so institutions can reach you both ways.';
+        note.style.display = 'block';
+      } else if(!currentUser.phone && currentUser.email){
+        note.textContent = 'You signed up with email — add your mobile number so institutions and Upadyay can reach you faster.';
+        note.style.display = 'block';
+      } else {
+        note.style.display = 'none';
+      }
+      document.getElementById('pfResume').value = (currentUser.links && currentUser.links.resume) || '';
+      document.getElementById('pfDegreeCert').value = (currentUser.links && currentUser.links.degreeCert) || '';
+      pfOnInputProgress();
     }
     if(panel==='post'){
       document.getElementById('employerTabsBar').style.display = currentCompany.saved ? 'flex' : 'none';
@@ -2378,6 +3265,22 @@
     document.body.style.overflow = '';
   }
 
+  function pfOnInputProgress(){
+    const basics = ['pfName','pfSubject','pfQualification','pfCategory','pfCollege','pfExperience','pfLocation','pfEmail','pfPhone']
+      .map(id=>document.getElementById(id).value.trim()).filter(Boolean).length;
+    const docs = ['pfResume','pfDegreeCert'].map(id=>document.getElementById(id).value.trim()).filter(Boolean).length;
+    const total = 9 + 2;
+    const pct = Math.min(100, Math.round(((basics + docs) / total) * 100)) || 15;
+    const fill = document.getElementById('pfSideProgressFill');
+    const label = document.getElementById('pfSideProgressLabel');
+    if(fill){ fill.style.width = pct + '%'; }
+    if(label){ label.textContent = pct + '% complete'; }
+    const stepBasics = document.getElementById('pfStepBasics');
+    const stepDocs = document.getElementById('pfStepDocs');
+    if(stepBasics){ stepBasics.classList.toggle('done', basics >= 4); if(basics>=4) stepBasics.querySelector('.dot').textContent = '✓'; }
+    if(stepDocs){ stepDocs.classList.toggle('done', docs >= 1); if(docs>=1) stepDocs.querySelector('.dot').textContent = '✓'; }
+  }
+
   function saveProfile(){
     currentUser.name = document.getElementById('pfName').value || currentUser.name || 'User';
     currentUser.subject = document.getElementById('pfSubject').value;
@@ -2386,6 +3289,8 @@
     currentUser.college = document.getElementById('pfCollege').value;
     currentUser.experience = document.getElementById('pfExperience').value;
     currentUser.location = document.getElementById('pfLocation').value;
+    currentUser.email = document.getElementById('pfEmail').value || currentUser.email;
+    currentUser.phone = document.getElementById('pfPhone').value || currentUser.phone;
     currentUser.links = {
       resume: document.getElementById('pfResume').value,
       degreeCert: document.getElementById('pfDegreeCert').value,
@@ -2395,9 +3300,9 @@
     document.getElementById('dashName').textContent = currentUser.name;
     document.getElementById('dashAvatar').textContent = currentUser.name.slice(0,2).toUpperCase();
     updateNavForLogin();
-    const note = document.getElementById('pfSavedNote');
-    note.style.display = 'inline';
-    setTimeout(()=>{ note.style.display = 'none'; }, 2500);
+    pushNotif('Profile saved — you can now browse and apply to jobs.');
+    closeDash();
+    openBrowseJobs();
   }
 
 
@@ -2547,12 +3452,22 @@
                 <button class="admin-viewbtn" style="background:#1D8A5E;" onclick="downloadFacultyCSV()">⬇ Download list (CSV)</button>
               </div>
               <div class="admin-search-row">
-                <input type="text" id="adminFacultySearch" placeholder="Search by name or subject…" oninput="renderAdminFaculty()">
+                <input type="text" id="adminFacultySearch" placeholder="Search by name, subject or college…" oninput="renderAdminFaculty()">
                 <select id="adminFacultyQualFilter" onchange="renderAdminFaculty()" style="padding:9px 12px; border:1px solid var(--line); border-radius:var(--radius); font-family:inherit; font-size:13.5px; background:#fff;">
                   <option value="">All qualifications</option>
                   <option value="PhD">PhD</option>
                   <option value="PG">PG</option>
                   <option value="UG">UG</option>
+                </select>
+                <select id="adminFacultyLocationFilter" onchange="renderAdminFaculty()" style="padding:9px 12px; border:1px solid var(--line); border-radius:var(--radius); font-family:inherit; font-size:13.5px; background:#fff;">
+                  <option value="">All locations</option>
+                </select>
+                <select id="adminFacultyExpFilter" onchange="renderAdminFaculty()" style="padding:9px 12px; border:1px solid var(--line); border-radius:var(--radius); font-family:inherit; font-size:13.5px; background:#fff;">
+                  <option value="">All experience</option>
+                  <option value="0-3">0 – 3 yrs</option>
+                  <option value="4-7">4 – 7 yrs</option>
+                  <option value="8-12">8 – 12 yrs</option>
+                  <option value="13-99">13+ yrs</option>
                 </select>
               </div>
               <div style="overflow-x:auto;">
@@ -2578,6 +3493,9 @@
                   <option value="school">Schools</option>
                   <option value="college">Junior Colleges</option>
                   <option value="university">Universities</option>
+                </select>
+                <select id="adminInstitutionsLocationFilter" onchange="renderAdminInstitutions()" style="padding:9px 12px; border:1px solid var(--line); border-radius:var(--radius); font-family:inherit; font-size:13.5px; background:#fff;">
+                  <option value="">All locations</option>
                 </select>
               </div>
               <div style="overflow-x:auto;">
