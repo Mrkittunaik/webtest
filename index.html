@@ -1,0 +1,1861 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>VERTIKAL — Elevator &amp; Interior Solutions</title>
+<style>
+:root{
+  --white:#ffffff;
+  --black:#0a0a0a;
+  --red:#d81f27;
+  --red-dark:#a3141b;
+  --gold:#b8924a;
+  --gold-light:#e4c98a;
+  --grey:#f4f4f2;
+  --grey-line:#e2e2df;
+  --radius:5px;
+  --serif: 'Georgia', 'Times New Roman', serif;
+  --sans: -apple-system, BlinkMacSystemFont, 'Segoe UI', Helvetica, Arial, sans-serif;
+}
+*{box-sizing:border-box;margin:0;padding:0;}
+html{scroll-behavior:smooth;}
+body{
+  font-family:var(--sans);
+  color:var(--black);
+  background:var(--white);
+  overflow-x:hidden;
+  line-height:1.5;
+}
+img{max-width:100%;display:block;object-fit:cover;}
+a{color:inherit;text-decoration:none;}
+button{font-family:inherit;cursor:pointer;border:none;background:none;}
+input,select,textarea{font-family:inherit;}
+.wrap{max-width:1360px;margin:0 auto;padding:0 40px;}
+@media(max-width:768px){.wrap{padding:0 20px;}}
+
+/* ---------- Buttons ---------- */
+.btn{
+  display:inline-flex;align-items:center;gap:10px;
+  padding:16px 28px;
+  border-radius:var(--radius);
+  font-weight:700;
+  font-size:14px;
+  letter-spacing:.02em;
+  transition:all .25s ease;
+  white-space:nowrap;
+}
+.btn svg{transition:transform .25s ease;flex-shrink:0;}
+.btn:hover svg{transform:translateX(4px);}
+.btn-primary{background:var(--red);color:var(--white);}
+.btn-primary:hover{background:var(--red-dark);}
+.btn-secondary{background:var(--white);color:var(--black);border:1.5px solid var(--black);}
+.btn-secondary:hover{background:var(--black);color:var(--white);}
+.btn-dark{background:var(--black);color:var(--white);}
+.btn-dark:hover{background:#1a1a1a;}
+.btn-ghost-white{background:transparent;color:var(--white);border:1.5px solid rgba(255,255,255,.4);}
+.btn-ghost-white:hover{border-color:#fff;}
+
+/* ---------- Header ---------- */
+header{
+  position:fixed;top:0;left:0;right:0;z-index:1000;
+  padding:16px 0;
+  transition:all .35s ease;
+  background:rgba(255,255,255,.96);
+  backdrop-filter:blur(14px);
+  box-shadow:0 1px 0 var(--grey-line);
+}
+header.scrolled{
+  background:rgba(255,255,255,.96);
+  backdrop-filter:blur(14px);
+  box-shadow:0 1px 0 var(--grey-line);
+  padding:16px 0;
+}
+header .wrap{display:flex;align-items:center;justify-content:space-between;}
+.logo{font-size:22px;font-weight:800;letter-spacing:.04em;transition:transform .35s cubic-bezier(.22,1,.36,1);}
+.logo:hover{transform:scale(1.04);}
+.logo img{transition:transform .4s cubic-bezier(.22,1,.36,1), filter .4s ease;}
+.logo:hover img{transform:rotate(-4deg);}
+.logo span{color:var(--red);}
+
+nav.main-nav{display:flex;gap:34px;position:relative;}
+.nav-pill{display:none;}
+nav.main-nav a{
+  font-size:14px;font-weight:600;
+  position:relative;padding:8px 14px;
+  color:var(--black);
+  transition:color .3s ease;
+  display:inline-block;z-index:1;
+  overflow:hidden;
+  border-radius:4px;
+}
+nav.main-nav a::before{
+  content:'';position:absolute;top:0;left:0;bottom:0;width:0;
+  background:var(--red);
+  transition:width .4s cubic-bezier(.22,1,.36,1);
+  z-index:-1;
+}
+nav.main-nav a:hover{color:var(--white);}
+nav.main-nav a:hover::before,nav.main-nav a.active::before{width:100%;}
+nav.main-nav a.active{color:var(--white);}
+nav.main-nav a:active{transform:scale(.97);}
+
+/* Ripple on nav links */
+nav.main-nav a{overflow:hidden;}
+nav.main-nav a .nav-ripple{
+  position:absolute;border-radius:50%;background:rgba(220,20,40,.18);
+  transform:scale(0);animation:navRipple .55s ease-out forwards;pointer-events:none;
+}
+@keyframes navRipple{
+  0%{transform:scale(0);opacity:.7;}
+  100%{transform:scale(3.2);opacity:0;}
+}
+
+.header-cta{display:flex;align-items:center;gap:24px;}
+.burger{display:none;flex-direction:column;gap:5px;cursor:pointer;transition:transform .3s ease;position:relative;z-index:1300;}
+.burger:hover{transform:scale(1.08);}
+.burger span{width:24px;height:2px;background:var(--black);transition:transform .35s cubic-bezier(.22,1,.36,1), opacity .25s ease, background .3s ease;}
+.burger.open span:nth-child(1){transform:translateY(7px) rotate(45deg);}
+.burger.open span:nth-child(2){opacity:0;}
+.burger.open span:nth-child(3){transform:translateY(-7px) rotate(-45deg);}
+
+@media(max-width:1000px){
+  .nav-pill{display:none;}
+  nav.main-nav{
+    display:flex;flex-direction:column;gap:0;position:fixed;top:0;right:0;
+    width:min(78vw,320px);height:100vh;background:#fff;
+    padding:100px 32px 40px;box-shadow:-10px 0 40px rgba(0,0,0,.12);
+    transform:translateX(100%);transition:transform .45s cubic-bezier(.22,1,.36,1);
+    z-index:1200;
+  }
+  nav.main-nav.open{transform:translateX(0);}
+  nav.main-nav a{
+    font-size:18px;padding:16px 0;border-bottom:1px solid var(--grey-line);
+    opacity:0;transform:translateX(24px);transition:opacity .4s ease, transform .4s ease, color .3s ease;
+  }
+  nav.main-nav.open a{opacity:1;transform:translateX(0);}
+  nav.main-nav.open a:nth-child(1){transition-delay:.08s;}
+  nav.main-nav.open a:nth-child(2){transition-delay:.14s;}
+  nav.main-nav.open a:nth-child(3){transition-delay:.2s;}
+  nav.main-nav.open a:nth-child(4){transition-delay:.26s;}
+  nav.main-nav.open a:nth-child(5){transition-delay:.32s;}
+  nav.main-nav.open a:nth-child(6){transition-delay:.38s;}
+  nav.main-nav.open a:nth-child(7){transition-delay:.44s;}
+  .nav-overlay{
+    position:fixed;inset:0;background:rgba(0,0,0,0);pointer-events:none;
+    transition:background .4s ease;z-index:1100;
+  }
+  .nav-overlay.open{background:rgba(0,0,0,.35);pointer-events:auto;}
+  .header-cta .btn{display:none;}
+  .burger{display:flex;}
+
+  /* Mobile nav: centered text, red highlight ONLY on the active/clicked link */
+  nav.main-nav a{
+    text-align:center;
+    border-radius:8px;
+    background:transparent;
+  }
+  nav.main-nav a::before{display:none;}
+  nav.main-nav a:hover{color:var(--black);}
+  nav.main-nav a.active{
+    background:var(--red);color:#fff;
+    border-bottom-color:transparent;
+  }
+}
+@media(prefers-reduced-motion:reduce){
+  nav.main-nav a,.burger span,nav.main-nav,.logo,.logo img{transition:none;}
+  nav.main-nav a .nav-ripple{animation:none;display:none;}
+}
+
+/* ---------- Hero ---------- */
+.hero{
+  position:relative;height:100vh;min-height:640px;
+  display:flex;align-items:flex-end;
+  color:var(--white);
+  overflow:hidden;
+}
+.hero-bg{
+  position:absolute;inset:0;
+  background:url('images/hero.jpg') center/cover no-repeat;
+}
+.hero-bg::after{
+  content:'';position:absolute;inset:0;
+  background:linear-gradient(0deg, rgba(0,0,0,.75) 0%, rgba(0,0,0,.25) 55%, rgba(0,0,0,.35) 100%);
+}
+.hero-content{position:relative;z-index:2;padding-bottom:90px;width:100%;}
+.hero-label{
+  display:inline-block;font-size:13px;font-weight:700;letter-spacing:.08em;
+  color:var(--red);background:rgba(255,255,255,.08);
+  border:1px solid rgba(255,255,255,.25);
+  padding:8px 16px;border-radius:var(--radius);
+  margin-bottom:28px;
+}
+.hero h1{
+  font-size:clamp(44px,7.2vw,104px);
+  font-weight:800;line-height:0.98;letter-spacing:-.02em;
+  max-width:920px;margin-bottom:28px;
+}
+.hero p{
+  max-width:520px;font-size:18px;color:rgba(255,255,255,.85);margin-bottom:40px;
+}
+.hero-btns{display:flex;gap:16px;flex-wrap:wrap;}
+.scroll-indicator{
+  position:absolute;bottom:32px;right:40px;z-index:2;
+  display:flex;flex-direction:column;align-items:center;gap:10px;
+  color:rgba(255,255,255,.7);font-size:12px;letter-spacing:.08em;
+}
+.scroll-line{width:1px;height:50px;background:rgba(255,255,255,.4);position:relative;overflow:hidden;}
+.scroll-line::after{
+  content:'';position:absolute;top:0;left:0;width:100%;height:14px;background:var(--red);
+  animation:scrollDown 2s infinite;
+}
+@keyframes scrollDown{0%{top:-14px;}100%{top:50px;}}
+@media(max-width:768px){.scroll-indicator{display:none;}}
+
+/* ---------- Section basics ---------- */
+section{position:relative;}
+.section-pad{padding:72px 0;}
+@media(max-width:768px){.section-pad{padding:48px 0;}}
+.eyebrow{
+  font-size:13px;font-weight:700;color:var(--red);letter-spacing:.04em;margin-bottom:18px;
+}
+.section-head{max-width:760px;margin-bottom:60px;}
+.section-head h2{
+  font-size:clamp(32px,4.5vw,58px);font-weight:800;line-height:1.04;letter-spacing:-.01em;
+}
+.section-head p{margin-top:22px;font-size:17px;color:#555;max-width:560px;}
+
+/* ---------- Intro ---------- */
+.intro-grid{display:grid;grid-template-columns:1fr 1fr;gap:80px;align-items:center;}
+.intro-text h2{font-size:clamp(30px,4vw,50px);font-weight:800;line-height:1.08;margin-bottom:28px;}
+.intro-text p{color:#555;font-size:16px;margin-bottom:16px;max-width:480px;}
+.intro-facts{display:grid;grid-template-columns:1fr 1fr;gap:24px;margin:36px 0 36px;}
+.intro-fact{border-top:2px solid var(--black);padding-top:14px;}
+.intro-fact strong{display:block;font-size:15px;font-weight:700;margin-bottom:4px;}
+.intro-fact span{font-size:13px;color:#777;}
+.intro-img{border-radius:0;height:480px;position:relative;z-index:2;}
+.intro-img .img-inner{width:100%;height:100%;border-radius:0;overflow:hidden;box-shadow:0 10px 40px rgba(0,0,0,.25), 0 2px 10px rgba(0,0,0,.15);position:relative;z-index:2;}
+.intro-img::before{content:'';position:absolute;inset:20px -20px -20px 20px;background:var(--grey);border-radius:0;z-index:1;
+  opacity:0;transform:translate(-16px,16px);transition:opacity .8s ease .25s, transform .8s ease .25s;}
+.intro-img img{border-radius:0;}
+.intro-img.in::before{opacity:1;transform:translate(0,0);}
+@media(prefers-reduced-motion:reduce){.intro-img::before{transition:none;}}
+.intro-img img{width:100%;height:100%;object-fit:cover;object-position:center;display:block;border-radius:0;}
+@media(max-width:900px){.intro-grid{grid-template-columns:1fr;gap:44px;}.intro-img{height:380px;order:-1;}}
+
+/* About section elevator-shaft backdrop */
+#about{position:relative;isolation:isolate;overflow:hidden;color:#fff;}
+#about .about-bg{position:absolute;inset:0;z-index:-2;background:url('images/hero.jpg') center/cover no-repeat;}
+#about .about-bg::after{
+  content:'';position:absolute;inset:0;
+  background:linear-gradient(100deg, rgba(10,10,12,.94) 0%, rgba(10,10,12,.88) 42%, rgba(10,10,12,.55) 72%, rgba(10,10,12,.3) 100%);
+}
+#about .intro-text h2{color:#fff;}
+#about .intro-text p{color:rgba(255,255,255,.72);}
+#about .eyebrow{color:var(--red);}
+#about .intro-fact{border-top:2px solid rgba(255,255,255,.3);}
+#about .intro-fact strong{color:#fff;}
+#about .intro-fact span{color:rgba(255,255,255,.6);}
+#about .btn-secondary{background:transparent;border-color:rgba(255,255,255,.5);color:#fff;}
+#about .btn-secondary:hover{background:#fff;color:var(--black);}
+
+/* ---------- Cards generic ---------- */
+.card{
+  border-radius:var(--radius);
+  overflow:hidden;
+  background:var(--white);
+  border:1px solid var(--grey-line);
+  transition:transform .3s ease, box-shadow .3s ease;
+  display:flex;flex-direction:column;
+}
+.card:hover{transform:translateY(-6px);box-shadow:0 20px 40px rgba(0,0,0,.12);}
+.card-img{aspect-ratio:4/3;overflow:hidden;position:relative;}
+.card-img img{width:100%;height:100%;transition:transform .5s ease;}
+.card:hover .card-img img{transform:scale(1.06);}
+
+/* Floating view button over card image */
+.card-img-btn{
+  position:absolute;top:16px;right:16px;z-index:2;
+  width:42px;height:42px;border-radius:50%;
+  background:rgba(255,255,255,.92);color:var(--black);
+  display:flex;align-items:center;justify-content:center;
+  box-shadow:0 6px 18px rgba(0,0,0,.18);
+  opacity:0;transform:translateY(-10px) scale(.85);
+  transition:opacity .35s cubic-bezier(.22,1,.36,1), transform .35s cubic-bezier(.22,1,.36,1), background .3s ease, color .3s ease;
+  cursor:pointer;text-decoration:none;overflow:hidden;
+}
+.card:hover .card-img-btn{opacity:1;transform:translateY(0) scale(1);}
+.card-img-btn:hover{background:var(--red);color:#fff;}
+.card-img-tag{
+  position:absolute;bottom:14px;left:14px;z-index:2;
+  background:rgba(10,10,12,.72);color:#fff;backdrop-filter:blur(6px);
+  font-size:11px;font-weight:700;letter-spacing:.05em;
+  padding:6px 12px;border-radius:999px;
+  opacity:0;transform:translateY(8px);
+  transition:opacity .35s cubic-bezier(.22,1,.36,1) .05s, transform .35s cubic-bezier(.22,1,.36,1) .05s;
+}
+.card:hover .card-img-tag{opacity:1;transform:translateY(0);}
+@media(prefers-reduced-motion:reduce){
+  .card-img-btn,.card-img-tag{transition:none;}
+}
+.card-body{padding:26px 26px 30px;flex:1;display:flex;flex-direction:column;}
+.card-cat{font-size:12px;font-weight:700;color:var(--red);letter-spacing:.05em;margin-bottom:10px;}
+.card-title{font-size:23px;font-weight:800;margin-bottom:10px;line-height:1.15;}
+.card-desc{font-size:14.5px;color:#5b5b5b;margin-bottom:16px;flex:1;}
+.card-specs{display:flex;gap:16px;flex-wrap:wrap;margin-bottom:20px;padding-top:16px;border-top:1px solid var(--grey-line);}
+.spec{font-size:12.5px;color:#444;}
+.spec b{display:block;font-size:14px;color:var(--black);}
+.card-link{
+  display:inline-flex;align-items:center;gap:8px;font-size:13px;font-weight:700;color:var(--black);
+}
+.card-link svg{transition:transform .25s ease;}
+.card:hover .card-link svg{transform:translateX(4px);}
+.card.card-dark{background:var(--black);color:var(--white);border-color:var(--black);}
+.card.card-dark .card-desc{color:rgba(255,255,255,.65);}
+.card.card-dark .card-specs{border-color:rgba(255,255,255,.15);}
+.card.card-dark .spec{color:rgba(255,255,255,.6);}
+.card.card-dark .spec b{color:#fff;}
+.card.card-dark .card-link{color:#fff;}
+
+/* ---------- Product grid — editorial mixed sizes ---------- */
+.product-grid{
+  display:grid;
+  grid-template-columns:repeat(6,1fr);
+  gap:24px;
+}
+.product-grid .card.span-4{grid-column:span 4;}
+.product-grid .card.span-2{grid-column:span 2;}
+.product-grid .card.span-3{grid-column:span 3;}
+.product-grid .card.span-6{grid-column:span 6;}
+.product-grid .card.span-4 .card-img,
+.product-grid .card.span-6 .card-img{aspect-ratio:16/8;}
+@media(max-width:900px){
+  .product-grid{grid-template-columns:1fr;}
+  .product-grid .card{grid-column:span 1 !important;}
+}
+
+/* ---------- Interior showcase ---------- */
+.interior-grid{
+  display:grid;grid-template-columns:repeat(4,1fr);gap:20px;
+}
+.interior-card{
+  position:relative;border-radius:var(--radius);overflow:hidden;
+  aspect-ratio:3/4;
+}
+.interior-card:nth-child(1),.interior-card:nth-child(6){grid-row:span 2;aspect-ratio:auto;}
+.interior-card img{width:100%;height:100%;transition:transform .6s ease;}
+.interior-card:hover img{transform:scale(1.08);}
+.interior-card::after{
+  content:'';position:absolute;inset:0;
+  background:linear-gradient(0deg, rgba(0,0,0,.8) 0%, rgba(0,0,0,0) 55%);
+}
+.interior-card-text{
+  position:absolute;bottom:0;left:0;right:0;z-index:2;padding:24px;color:#fff;
+}
+.interior-card-text .cat{font-size:11px;font-weight:700;letter-spacing:.06em;color:var(--red);margin-bottom:6px;}
+.interior-card-text h3{font-size:21px;font-weight:800;margin-bottom:10px;}
+.interior-card-link{display:inline-flex;align-items:center;gap:6px;font-size:12.5px;font-weight:700;opacity:0;transform:translateY(6px);transition:all .3s ease;}
+.interior-card:hover .interior-card-link{opacity:1;transform:translateY(0);}
+@media(max-width:900px){
+  .interior-grid{grid-template-columns:repeat(2,1fr);}
+  .interior-card:nth-child(1),.interior-card:nth-child(6){grid-row:span 1;aspect-ratio:3/4;}
+}
+
+/* ---------- Configurator ---------- */
+.configurator{
+  background:var(--grey);border-radius:var(--radius);
+  padding:60px;display:grid;grid-template-columns:1fr 1.15fr;gap:60px;align-items:center;
+}
+@media(max-width:900px){.configurator{grid-template-columns:1fr;padding:32px 24px;gap:36px;}}
+.cabin-preview{
+  border-radius:var(--radius);overflow:hidden;position:relative;
+  aspect-ratio:3/4;background:#111;
+}
+.cabin-preview img{width:100%;height:100%;transition:filter .4s ease;}
+.cabin-preview .cabin-tag{
+  position:absolute;top:18px;left:18px;background:rgba(0,0,0,.55);color:#fff;
+  padding:8px 14px;border-radius:var(--radius);font-size:12px;font-weight:700;backdrop-filter:blur(6px);
+}
+.config-group{margin-bottom:26px;}
+.config-group h4{font-size:12px;font-weight:700;letter-spacing:.06em;color:#777;margin-bottom:12px;}
+.config-options{display:flex;gap:10px;flex-wrap:wrap;}
+.config-opt{
+  padding:11px 18px;border-radius:var(--radius);border:1.5px solid var(--grey-line);
+  background:#fff;font-size:13.5px;font-weight:600;transition:all .2s ease;
+}
+.config-opt:hover{border-color:var(--black);}
+.config-opt.active{background:var(--black);color:#fff;border-color:var(--black);}
+
+/* ---------- Black feature ---------- */
+.black-feature{
+  background:var(--black);color:#fff;
+  padding:90px 0;position:relative;overflow:hidden;
+}
+.black-feature .wrap{position:relative;z-index:2;}
+.black-feature h2{
+  font-size:clamp(34px,5.5vw,68px);font-weight:800;line-height:1.06;max-width:760px;margin-bottom:36px;
+}
+.black-feature-img{
+  margin-top:56px;border-radius:var(--radius);overflow:hidden;height:440px;
+}
+.black-feature-img img{width:100%;height:100%;}
+
+/* ---------- Projects ---------- */
+.project-toolbar{
+  display:flex;align-items:center;justify-content:space-between;gap:20px;
+  flex-wrap:wrap;margin-bottom:28px;
+}
+.project-search{
+  position:relative;flex-shrink:0;width:280px;max-width:100%;
+}
+.project-search input{
+  width:100%;padding:12px 16px 12px 42px;border-radius:var(--radius);
+  border:1.5px solid var(--grey-line);font-size:14px;background:var(--white);
+  color:var(--black);transition:border-color .2s ease, box-shadow .2s ease;
+}
+.project-search input::placeholder{color:#9a9a95;}
+.project-search input:focus{outline:none;border-color:var(--gold);box-shadow:0 0 0 3px rgba(184,146,74,.14);}
+.project-search svg{position:absolute;left:14px;top:50%;transform:translateY(-50%);color:#9a9a95;pointer-events:none;}
+.filters{display:flex;gap:10px;flex-wrap:wrap;}
+.filter-btn{
+  padding:9px 18px;border-radius:var(--radius);border:1.5px solid var(--grey-line);
+  font-size:13px;font-weight:600;transition:all .2s ease;
+}
+.filter-btn:hover{border-color:var(--black);}
+.filter-btn.active{background:var(--black);color:#fff;border-color:var(--black);}
+.project-count{font-size:13px;color:#79796f;margin-bottom:20px;}
+.project-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:18px;}
+.project-card{
+  position:relative;border-radius:var(--radius);overflow:hidden;height:260px;
+  transition:opacity .25s ease, transform .25s ease;
+}
+.project-card img{width:100%;height:100%;transition:transform .6s ease;}
+.project-card:hover img{transform:scale(1.06);}
+.project-card::after{content:'';position:absolute;inset:0;background:linear-gradient(0deg, rgba(0,0,0,.82) 0%, rgba(0,0,0,0) 58%);}
+.project-card::before{
+  content:'';position:absolute;inset:0;border:1px solid rgba(184,146,74,0);
+  transition:border-color .3s ease;z-index:3;pointer-events:none;border-radius:var(--radius);
+}
+.project-card:hover::before{border-color:rgba(184,146,74,.55);}
+.project-info{position:absolute;bottom:0;left:0;right:0;z-index:2;padding:18px;color:#fff;display:flex;justify-content:space-between;align-items:flex-end;gap:10px;}
+.project-info .cat{font-size:10px;font-weight:700;color:var(--gold-light);letter-spacing:.06em;margin-bottom:5px;}
+.project-info h3{font-size:16px;font-weight:800;margin-bottom:3px;line-height:1.2;}
+.project-info .loc{font-size:12px;color:rgba(255,255,255,.72);}
+.project-card.hidden{display:none;}
+@media(max-width:900px){
+  .project-grid{grid-template-columns:repeat(2,1fr);}
+  .project-toolbar{flex-direction:column;align-items:stretch;}
+  .project-search{width:100%;}
+}
+@media(max-width:520px){.project-grid{grid-template-columns:1fr;}}
+
+/* ---------- Services ---------- */
+.services-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:24px;}
+.service-card{
+  border:1px solid var(--grey-line);border-radius:var(--radius);padding:36px 30px;
+  transition:all .25s ease;
+}
+.service-card:hover{border-color:var(--red);box-shadow:0 14px 30px rgba(0,0,0,.08);}
+.service-icon{
+  width:54px;height:54px;border-radius:var(--radius);background:var(--grey);
+  display:flex;align-items:center;justify-content:center;margin-bottom:24px;color:var(--red);
+}
+.service-card h3{font-size:20px;font-weight:800;margin-bottom:10px;}
+.service-card p{font-size:14.5px;color:#5b5b5b;margin-bottom:20px;}
+@media(max-width:900px){.services-grid{grid-template-columns:1fr;}}
+
+/* ---------- Stats ---------- */
+.stats-section{background:var(--grey);}
+.stats-grid{display:grid;grid-template-columns:repeat(4,1fr);gap:40px;text-align:left;}
+.stat-num{font-size:clamp(42px,5vw,64px);font-weight:800;color:var(--black);line-height:1;}
+.stat-num span{color:var(--red);}
+.stat-label{font-size:14px;color:#666;margin-top:10px;font-weight:600;}
+@media(max-width:768px){.stats-grid{grid-template-columns:repeat(2,1fr);gap:36px;}}
+
+/* ---------- Info accordion ---------- */
+.info-layout{display:grid;grid-template-columns:.9fr 1.4fr;gap:70px;}
+.accordion-item{border-bottom:1px solid var(--grey-line);}
+.accordion-head{
+  display:flex;justify-content:space-between;align-items:center;
+  padding:24px 0;cursor:pointer;
+}
+.accordion-head h4{font-size:18px;font-weight:700;}
+.accordion-icon{width:22px;height:22px;flex-shrink:0;position:relative;}
+.accordion-icon::before,.accordion-icon::after{
+  content:'';position:absolute;background:var(--black);transition:all .25s ease;
+}
+.accordion-icon::before{top:50%;left:0;width:100%;height:2px;transform:translateY(-50%);}
+.accordion-icon::after{left:50%;top:0;width:2px;height:100%;transform:translateX(-50%);}
+.accordion-item.open .accordion-icon::after{transform:translateX(-50%) rotate(90deg);opacity:0;}
+.accordion-body{max-height:0;overflow:hidden;transition:max-height .3s ease;}
+.accordion-item.open .accordion-body{max-height:200px;}
+.accordion-body p{font-size:14.5px;color:#5b5b5b;padding-bottom:22px;max-width:460px;}
+@media(max-width:900px){.info-layout{grid-template-columns:1fr;gap:36px;}}
+
+/* ---------- Booking ---------- */
+.booking-layout{display:grid;grid-template-columns:1.3fr 1fr;gap:70px;align-items:stretch;}
+.form-row{display:grid;grid-template-columns:1fr 1fr;gap:16px;margin-bottom:14px;}
+.form-field{margin-bottom:0;}
+.form-field label{display:block;font-size:12.5px;font-weight:700;letter-spacing:.03em;margin-bottom:6px;color:#444;}
+.form-field input,.form-field select,.form-field textarea{
+  width:100%;padding:11px 16px;border:1.5px solid var(--grey-line);border-radius:var(--radius);
+  font-size:14.5px;transition:border-color .2s ease;background:#fff;
+}
+.form-field input:focus,.form-field select:focus,.form-field textarea:focus{outline:none;border-color:var(--black);}
+.form-field textarea{resize:vertical;min-height:110px;}
+.contact-panel{background:var(--black);color:#fff;border-radius:var(--radius);padding:44px;height:100%;display:flex;flex-direction:column;justify-content:space-between;}
+.contact-panel h3{font-size:22px;font-weight:800;margin-bottom:28px;}
+.contact-row{display:flex;gap:16px;padding:18px 0;border-top:1px solid rgba(255,255,255,.12);}
+.contact-row:first-of-type{border-top:none;}
+.contact-row .ic{color:var(--red);flex-shrink:0;margin-top:2px;}
+.contact-row b{display:block;font-size:14px;margin-bottom:3px;}
+.contact-row span{font-size:13.5px;color:rgba(255,255,255,.65);}
+@media(max-width:900px){.booking-layout{grid-template-columns:1fr;gap:36px;}.form-row{grid-template-columns:1fr;}}
+
+/* ---------- Gallery ---------- */
+.masonry{columns:4 220px;column-gap:20px;}
+.masonry img{width:100%;border-radius:var(--radius);margin-bottom:20px;cursor:pointer;transition:opacity .2s ease;}
+.masonry img:hover{opacity:.85;}
+@media(max-width:768px){.masonry{columns:2 160px;}}
+
+/* ---------- Final CTA ---------- */
+.final-cta{
+  background:var(--black);color:#fff;position:relative;overflow:hidden;
+  padding:100px 0;text-align:center;
+}
+.final-cta .wrap{position:relative;z-index:2;display:flex;flex-direction:column;align-items:center;}
+.final-cta .eyebrow{color:var(--red);}
+.final-cta h2{font-size:clamp(40px,7vw,88px);font-weight:800;line-height:1.02;margin-bottom:32px;}
+.final-cta .btn{margin-bottom:56px;}
+.final-cta-img{
+  width:100%;border-radius:var(--radius);overflow:hidden;height:360px;
+}
+.final-cta-img img{width:100%;height:100%;object-fit:cover;display:block;}
+@media(max-width:768px){.final-cta-img{height:220px;}.final-cta{padding:64px 0;}}
+
+/* ---------- Footer ---------- */
+footer{background:linear-gradient(160deg, #1a0405 0%, var(--black) 45%, var(--black) 100%);color:rgba(255,255,255,.7);padding:56px 0 26px;}
+.footer-top{display:grid;grid-template-columns:1.4fr 1fr 1fr 1fr;gap:40px;padding-bottom:36px;border-bottom:1px solid rgba(255,255,255,.12);}
+.footer-logo{font-size:34px;font-weight:800;letter-spacing:-.01em;color:#fff;margin-bottom:16px;line-height:1;font-family:var(--serif);}
+.footer-logo .fl-eyebrow{display:block;font-family:var(--sans);font-size:11px;font-weight:700;letter-spacing:.18em;color:rgba(255,255,255,.5);margin-bottom:6px;}
+.footer-logo span{color:var(--red);}
+.footer-col h5{color:#fff;font-size:13px;font-weight:700;letter-spacing:.04em;margin-bottom:20px;}
+.footer-col a{display:block;font-size:14px;margin-bottom:13px;transition:color .2s ease;}
+.footer-col a:hover{color:var(--red);}
+.footer-bottom{display:flex;justify-content:space-between;align-items:center;padding-top:26px;font-size:13px;flex-wrap:wrap;gap:16px;}
+.social-links{display:flex;gap:14px;}
+.social-links a{
+  width:42px;height:42px;border:1px solid rgba(255,255,255,.18);border-radius:50%;
+  display:flex;align-items:center;justify-content:center;color:rgba(255,255,255,.75);
+  transition:all .3s cubic-bezier(.4,0,.2,1);position:relative;overflow:hidden;
+}
+.social-links a svg{width:18px;height:18px;position:relative;z-index:2;transition:transform .35s ease;}
+.social-links a::before{
+  content:'';position:absolute;inset:0;background:var(--red);border-radius:50%;
+  transform:scale(0);transition:transform .35s cubic-bezier(.4,0,.2,1);z-index:1;
+}
+.social-links a:hover{border-color:var(--red);color:#fff;transform:translateY(-4px);}
+.social-links a:hover::before{transform:scale(1);}
+.social-links a:hover svg{transform:scale(1.1) rotate(-6deg);}
+
+/* ---------- Footer brand marquee ---------- */
+.footer-marquee{
+  overflow:hidden;padding:22px 0;margin-bottom:8px;
+  border-top:1px solid rgba(255,255,255,.1);border-bottom:1px solid rgba(255,255,255,.1);
+  -webkit-mask-image:linear-gradient(90deg, transparent, #000 8%, #000 92%, transparent);
+  mask-image:linear-gradient(90deg, transparent, #000 8%, #000 92%, transparent);
+}
+.footer-marquee-track{display:flex;width:max-content;animation:marqueeLoop 26s linear infinite;}
+.footer-marquee:hover .footer-marquee-track{animation-play-state:paused;}
+.footer-marquee-item{
+  display:flex;align-items:center;gap:10px;padding:0 44px;
+  font-family:var(--serif);font-size:20px;font-weight:700;color:rgba(255,255,255,.4);
+  white-space:nowrap;letter-spacing:.02em;transition:color .3s ease;
+}
+.footer-marquee-item:hover{color:#fff;}
+.footer-marquee-item .dot{width:5px;height:5px;border-radius:50%;background:var(--red);}
+@keyframes marqueeLoop{0%{transform:translateX(0);}100%{transform:translateX(-50%);}}
+@media(prefers-reduced-motion:reduce){.footer-marquee-track{animation:none;}}
+@media(max-width:900px){.footer-top{grid-template-columns:1fr 1fr;}}
+
+/* ---------- Reveal animation ---------- */
+.reveal{opacity:0;transform:translateY(28px);transition:opacity .7s cubic-bezier(.22,1,.36,1), transform .7s cubic-bezier(.22,1,.36,1);}
+.reveal.in{opacity:1;transform:translateY(0);}
+
+/* Extra reveal variants */
+.reveal-left{opacity:0;transform:translateX(-46px);transition:opacity .75s cubic-bezier(.22,1,.36,1), transform .75s cubic-bezier(.22,1,.36,1);}
+.reveal-left.in{opacity:1;transform:translateX(0);}
+.reveal-right{opacity:0;transform:translateX(46px);transition:opacity .75s cubic-bezier(.22,1,.36,1), transform .75s cubic-bezier(.22,1,.36,1);}
+.reveal-right.in{opacity:1;transform:translateX(0);}
+.reveal-zoom{opacity:0;transform:scale(.88);transition:opacity .7s ease, transform .7s cubic-bezier(.22,1,.36,1);}
+.reveal-zoom.in{opacity:1;transform:scale(1);}
+.reveal-stagger > *{opacity:0;transform:translateY(24px);transition:opacity .6s cubic-bezier(.22,1,.36,1), transform .6s cubic-bezier(.22,1,.36,1);}
+.reveal-stagger.in > *{opacity:1;transform:translateY(0);}
+.reveal-stagger.in > *:nth-child(1){transition-delay:.05s;}
+.reveal-stagger.in > *:nth-child(2){transition-delay:.15s;}
+.reveal-stagger.in > *:nth-child(3){transition-delay:.25s;}
+.reveal-stagger.in > *:nth-child(4){transition-delay:.35s;}
+.reveal-stagger.in > *:nth-child(5){transition-delay:.45s;}
+.reveal-stagger.in > *:nth-child(6){transition-delay:.55s;}
+
+@media(prefers-reduced-motion:reduce){
+  .reveal,.reveal-left,.reveal-right,.reveal-zoom,.reveal-stagger > *{opacity:1;transform:none;transition:none;}
+  html{scroll-behavior:auto;}
+}
+
+/* ---------- Button ripple / water-drop animation ---------- */
+.btn{position:relative;overflow:hidden;}
+.btn .ripple{
+  position:absolute;border-radius:50%;
+  background:rgba(255,255,255,.55);
+  transform:scale(0);
+  animation:rippleDrop .65s ease-out forwards;
+  pointer-events:none;
+}
+.btn-ghost-white .ripple,.btn-secondary .ripple{background:rgba(220,20,40,.18);}
+@keyframes rippleDrop{
+  0%{transform:scale(0);opacity:.65;}
+  60%{opacity:.35;}
+  100%{transform:scale(2.6);opacity:0;}
+}
+.btn::after{
+  content:'';position:absolute;inset:0;border-radius:inherit;
+  box-shadow:0 0 0 0 rgba(220,20,40,.35);
+  transition:box-shadow .5s ease;pointer-events:none;
+}
+.btn:active::after{box-shadow:0 0 0 14px rgba(220,20,40,0);}
+@media(prefers-reduced-motion:reduce){
+  .btn .ripple{animation:none;display:none;}
+}
+
+/* ---------- Card hover micro-interactions ---------- */
+.product-card,.project-card,.service-card,.gallery-grid img,.testimonial-card{
+  transition:transform .45s cubic-bezier(.22,1,.36,1), box-shadow .45s ease;
+}
+.product-card:hover,.project-card:hover,.service-card:hover,.testimonial-card:hover{
+  transform:translateY(-8px);
+  box-shadow:0 22px 44px rgba(0,0,0,.14);
+}
+.gallery-grid img{transition:transform .6s cubic-bezier(.22,1,.36,1), filter .6s ease;}
+.gallery-grid img:hover{transform:scale(1.06);filter:brightness(1.05);}
+
+/* ---------- Testimonials section ---------- */
+.testimonials-wrap{display:grid;grid-template-columns:repeat(3,1fr);gap:28px 28px;row-gap:28px;}
+.testimonial-card{
+  background:#fff;border:1px solid var(--grey-line);border-radius:var(--radius);
+  padding:32px;display:flex;flex-direction:column;gap:18px;
+}
+.testimonial-stars{color:var(--red);font-size:16px;letter-spacing:2px;}
+.testimonial-quote{font-size:15.5px;line-height:1.65;color:#333;}
+.testimonial-person{display:flex;align-items:center;gap:12px;margin-top:auto;}
+.testimonial-avatar{
+  width:44px;height:44px;border-radius:50%;background:var(--black);color:#fff;
+  display:flex;align-items:center;justify-content:center;font-weight:800;font-size:15px;flex-shrink:0;
+}
+.testimonial-name{font-weight:800;font-size:14.5px;}
+.testimonial-role{font-size:12.5px;color:#777;}
+@media(max-width:900px){.testimonials-wrap{grid-template-columns:1fr;}}
+
+/* ---------- Water ripple background accent (decorative) ---------- */
+.water-accent{position:relative;overflow:hidden;}
+.water-accent::before,.water-accent::after{
+  content:'';position:absolute;border-radius:50%;
+  border:1px solid rgba(220,20,40,.15);
+  animation:waterPulse 4.5s ease-out infinite;
+  pointer-events:none;
+}
+.water-accent::before{width:120px;height:120px;top:-40px;right:8%;}
+.water-accent::after{width:180px;height:180px;bottom:-60px;left:4%;animation-delay:1.8s;}
+@keyframes waterPulse{
+  0%{transform:scale(.6);opacity:0;}
+  35%{opacity:.55;}
+  100%{transform:scale(1.6);opacity:0;}
+}
+@media(prefers-reduced-motion:reduce){
+  .water-accent::before,.water-accent::after{animation:none;display:none;}
+}
+
+/* Focus visibility */
+a:focus-visible,button:focus-visible,input:focus-visible,select:focus-visible,textarea:focus-visible{
+  outline:2px solid var(--red);outline-offset:2px;
+}
+
+/* =========================================================
+   MOBILE OPTIMIZATION PATCH — nav, hero, buttons & sections
+   auto-fit for phones/tablets. Placed last to win cascade.
+========================================================= */
+html{-webkit-text-size-adjust:100%;text-size-adjust:100%;}
+*{max-width:100%;}
+body{overflow-x:hidden;width:100%;}
+
+/* ---- Tablet (≤1000px) ---- */
+@media(max-width:1000px){
+  .wrap{padding:0 24px;}
+  .stats-grid{grid-template-columns:repeat(2,1fr);}
+  .info-layout{grid-template-columns:1fr;gap:32px;}
+  .detail-grid{grid-template-columns:repeat(2,1fr);}
+  .detail-info-grid{grid-template-columns:repeat(2,1fr);gap:20px;}
+}
+
+/* ---- Mobile (≤768px) ---- */
+@media(max-width:768px){
+  .wrap{padding:0 18px;}
+  header{padding:12px 0;}
+  .logo{font-size:19px;}
+  .logo img{height:32px;}
+  .header-cta{gap:12px;}
+
+  /* Hero — shorter/compact on mobile instead of full-screen */
+  .hero{height:78vh;min-height:460px;max-height:620px;}
+  .hero-content{padding-bottom:36px;}
+  .hero-label{font-size:10.5px;padding:6px 12px;margin-bottom:14px;}
+  .hero h1{font-size:clamp(28px,8vw,42px);line-height:1.05;margin-bottom:14px;}
+  .hero p{font-size:14px;max-width:100%;margin-bottom:20px;}
+  .hero-btns{width:100%;}
+  .hero-btns .btn{flex:1 1 auto;justify-content:center;}
+
+  /* Founder / intro text — smaller heading, not oversized on mobile */
+  .intro-text h2{font-size:clamp(22px,6.5vw,28px);line-height:1.15;margin-bottom:16px;}
+  .intro-text p{font-size:14px;line-height:1.6;margin-bottom:14px;}
+
+  /* Subhero (inner pages) */
+  .subhero{padding:120px 0 48px;}
+  .subhero h1{font-size:clamp(28px,8vw,40px);margin:10px 0 14px;}
+  .subhero p{font-size:14.5px;}
+
+  /* Buttons — comfortable tap targets everywhere */
+  .btn{padding:14px 22px;font-size:13.5px;min-height:48px;}
+
+  /* Section rhythm */
+  .section-pad{padding:40px 0;}
+  .section-head{margin-bottom:22px;}
+
+  /* Two-card / grid rows — tightened gaps for mobile */
+  .intro-grid{grid-template-columns:1fr;gap:26px;}
+  .intro-facts{grid-template-columns:1fr 1fr;gap:10px;}
+  .project-grid{grid-template-columns:1fr 1fr;gap:8px;}
+  .services-grid{grid-template-columns:1fr 1fr;gap:10px;}
+  .service-card{padding:16px 14px;}
+  .service-icon{width:38px;height:38px;margin-bottom:12px;}
+  .service-icon svg{width:18px;height:18px;}
+  .service-card h3{font-size:15px;margin-bottom:6px;}
+  .service-card p{font-size:12px;line-height:1.45;margin-bottom:10px;}
+  .service-card .card-link{font-size:11px;}
+  .stats-grid{grid-template-columns:repeat(2,1fr);gap:16px;}
+  .booking-layout{grid-template-columns:1fr;gap:22px;}
+  .form-row{grid-template-columns:1fr 1fr;gap:8px;}
+  .footer-top{grid-template-columns:1fr 1fr;gap:20px;}
+  .testimonials-wrap{grid-template-columns:1fr;gap:14px;}
+  .detail-grid{grid-template-columns:1fr 1fr;gap:8px;}
+  .detail-info-grid{grid-template-columns:1fr 1fr;gap:10px;}
+  .interior-grid{grid-template-columns:repeat(2,1fr);gap:8px;}
+  .masonry{columns:2 140px;column-gap:8px;}
+
+  /* Card content — smaller and tighter to fit two-up */
+  .card-body{padding:14px;}
+  .card-title{font-size:15px;}
+  .card-desc{font-size:12.5px;line-height:1.4;}
+  .card-cat,.cat{font-size:10px;}
+  .stat-num{font-size:26px;}
+  .stat-label{font-size:11px;}
+  .interior-card-text{padding:14px;}
+  .interior-card-text h3{font-size:15px;margin-bottom:5px;}
+  .interior-card-text .cat{font-size:10px;margin-bottom:3px;}
+  .detail-info-item{padding:14px;}
+
+
+/* ---- Product carousel (scroll left/right) ≤900px ---- */
+.product-nav{display:none;align-items:center;gap:8px;flex-shrink:0;}
+.product-nav-btn{
+  width:34px;height:34px;border-radius:50%;
+  display:flex;align-items:center;justify-content:center;
+  border:1.5px solid var(--grey-line);background:#fff;color:var(--black);
+  transition:all .2s ease;flex-shrink:0;
+}
+.product-nav-btn:hover{background:var(--red);border-color:var(--red);color:#fff;}
+.product-nav-btn:active{transform:scale(.94);}
+@media(max-width:900px){
+  .product-nav{display:flex;}
+  .product-grid{
+    display:flex !important;grid-template-columns:unset !important;
+    overflow-x:auto;scroll-snap-type:x mandatory;-webkit-overflow-scrolling:touch;
+    gap:14px;padding-bottom:6px;scrollbar-width:none;
+  }
+  .product-grid::-webkit-scrollbar{display:none;}
+  .product-grid .card{
+    grid-column:unset !important;scroll-snap-align:start;
+    flex:0 0 46%;min-width:46%;
+  }
+}
+@media(max-width:600px){
+  .product-grid .card{flex:0 0 58%;min-width:58%;}
+  .product-nav-btn{width:30px;height:30px;}
+}
+
+/* ---- Testimonials carousel (2-up) ---- */
+.testi-viewmore{display:none;text-align:center;margin-top:20px;}
+@media(max-width:900px){
+  .testimonials-wrap{
+    display:flex !important;grid-template-columns:unset !important;
+    overflow-x:auto;scroll-snap-type:x mandatory;-webkit-overflow-scrolling:touch;
+    gap:12px;padding-bottom:6px;scrollbar-width:none;
+  }
+  .testimonials-wrap::-webkit-scrollbar{display:none;}
+  .testimonial-card{scroll-snap-align:start;flex:0 0 47%;min-width:47%;}
+  .testi-viewmore{display:block;}
+  .testimonials-wrap.expanded{
+    display:grid !important;overflow-x:visible;flex-wrap:wrap;
+    grid-template-columns:1fr 1fr !important;
+  }
+  .testimonials-wrap.expanded .testimonial-card{flex:unset;min-width:unset;}
+}
+@media(max-width:600px){
+  .testimonial-card{flex:0 0 78%;min-width:78%;padding:16px 14px;}
+  .testimonial-quote{font-size:13px;line-height:1.5;}
+  .testimonial-stars{font-size:13px;margin-bottom:8px;}
+  .testimonial-avatar{width:34px;height:34px;font-size:12px;}
+  .testimonial-name{font-size:13px;}
+  .testimonial-role{font-size:11px;}
+}
+@media(max-width:480px){
+  .testimonials-wrap.expanded{grid-template-columns:1fr !important;}
+}
+@media(max-width:480px){
+  .product-grid .card{flex:0 0 72%;min-width:72%;}
+  .product-nav-btn{width:28px;height:28px;}
+  .product-nav-btn svg{width:13px;height:13px;}
+}
+
+  /* Select-type option pills — smaller, tighter on mobile */
+  .config-options{gap:6px;}
+  .config-opt{padding:9px 12px;font-size:12px;}
+
+  /* Forms full width, larger tap targets */
+  .form-field{margin-bottom:10px;}
+  .form-field input,.form-field select,.form-field textarea{font-size:16px;padding:12px;}
+}
+
+/* ---- Small phones (≤480px) ---- */
+@media(max-width:480px){
+  .wrap{padding:0 16px;}
+  .burger span{width:22px;}
+  nav.main-nav{width:82vw;padding:90px 24px 32px;}
+
+  .hero{height:66vh;min-height:400px;max-height:480px;}
+  .hero h1{font-size:clamp(30px,10vw,40px);}
+  .hero p{font-size:14px;}
+  .hero-btns{flex-direction:column;gap:10px;}
+  .hero-btns .btn{width:100%;}
+
+  .subhero h1{font-size:clamp(24px,9vw,32px);}
+
+  .btn{width:100%;justify-content:center;}
+  header .header-cta .btn{width:auto;}
+
+  /* Tighten every two-card/select row further */
+  .intro-facts{gap:8px;}
+  .project-grid{gap:6px;}
+  .services-grid{gap:8px;}
+  .service-card{padding:13px 11px;}
+  .service-icon{width:32px;height:32px;margin-bottom:9px;}
+  .service-card h3{font-size:13.5px;}
+  .service-card p{font-size:11px;}
+  .stats-grid{grid-template-columns:1fr 1fr;gap:10px;}
+  .footer-top{grid-template-columns:1fr 1fr;gap:14px;}
+  .interior-grid{gap:6px;}
+  .detail-grid{gap:6px;}
+  .detail-info-grid{grid-template-columns:1fr 1fr;gap:8px;}
+  .form-row{gap:6px;}
+  .masonry{columns:2 120px;column-gap:6px;}
+  .configurator{padding:20px 14px !important;gap:20px;}
+
+  .card-body{padding:11px;}
+  .card-title,.interior-card-text h3{font-size:13.5px;}
+  .card-desc{font-size:11.5px;}
+  .stat-num{font-size:22px;}
+  .stat-label{font-size:10px;}
+  .detail-info-item{padding:11px;}
+  .config-options{gap:5px;}
+  .config-opt{padding:8px 10px;font-size:11px;}
+  section .wrap{overflow-x:hidden;}
+}
+
+/* ---- Very small phones (≤360px) ---- */
+@media(max-width:360px){
+  .hero h1{font-size:28px;}
+  .btn{font-size:12.5px;padding:13px 18px;}
+  .logo{font-size:17px;}
+  .project-grid,.interior-grid,.detail-grid{grid-template-columns:1fr 1fr;gap:5px;}
+  .stats-grid,.footer-top,.detail-info-grid{grid-template-columns:1fr 1fr;gap:8px;}
+  .card-body{padding:9px;}
+  .card-title,.interior-card-text h3{font-size:12.5px;}
+  .config-opt{padding:7px 9px;font-size:10.5px;}
+}
+
+</style>
+</head>
+<body>
+
+<!-- ================= HEADER ================= -->
+<header id="siteHeader">
+  <div class="wrap">
+    <div class="logo" style="display:flex;align-items:center;gap:10px;">
+      <img src="images/nandaas-logo.png" alt="Nandaas Interior Studio" style="height:34px;width:auto;display:block;">
+    </div>
+    <nav class="main-nav">
+      <span class="nav-pill"></span>
+      <a href="index.html" class="active">Home</a>
+      <a href="elevators.html">Elevators</a>
+      <a href="interiors.html">Interiors</a>
+      <a href="projects.html">Projects</a>
+      <a href="services.html">Services</a>
+      <a href="about.html">About</a>
+      <a href="contact.html">Contact</a>
+    </nav>
+    <div class="header-cta">
+      <a href="#booking" class="btn btn-primary">Book a Consultation
+        <svg width="14" height="14" viewBox="0 0 24 24" fill="none"><path d="M5 12H19M19 12L13 6M19 12L13 18" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"/></svg>
+      </a>
+      <button class="burger" aria-label="Open menu"><span></span><span></span><span></span></button>
+    </div>
+  </div>
+  <div class="nav-overlay"></div>
+</header>
+
+<!-- ================= HERO ================= -->
+<section class="hero" id="home">
+  <div class="hero-bg"></div>
+  <div class="wrap hero-content">
+    <div class="hero-label">ELEVATOR &amp; INTERIOR SOLUTIONS</div>
+    <h1>Engineered to move.<br>Designed to impress.</h1>
+    <p>Premium interiors, Häfele kitchens &amp; custom-crafted spaces built for elegant lifestyles. Discover German engineering paired with minimalist luxury.</p>
+    <div class="hero-btns">
+      <a href="#elevators" class="btn btn-primary">Explore Elevators
+        <svg width="14" height="14" viewBox="0 0 24 24" fill="none"><path d="M5 12H19M19 12L13 6M19 12L13 18" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"/></svg>
+      </a>
+      <a href="#booking" class="btn btn-ghost-white">Book a Consultation
+        <svg width="14" height="14" viewBox="0 0 24 24" fill="none"><path d="M5 12H19M19 12L13 6M19 12L13 18" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"/></svg>
+      </a>
+    </div>
+  </div>
+  <div class="scroll-indicator"><span>SCROLL</span><div class="scroll-line"></div></div>
+</section>
+
+<!-- ================= INTRODUCTION ================= -->
+<section class="section-pad" id="about">
+  <div class="about-bg"></div>
+  <div class="wrap intro-grid">
+    <div class="intro-text reveal-left">
+      <div class="eyebrow">Established 2016</div>
+      <h2>The Founder's Touch.</h2>
+      <p>Nandaas creates modern luxury interiors that combine functionality, elegance, and timeless design. Based out of Hyderabad and Vijayawada, Nandaas represents a commitment to world-class bespoke living. We believe that a space should form a stunning landscape of your character, operating with complete design precision.</p>
+      <p>Every drawer, custom wardrobe cabinet, and open layout is curated carefully using material engineering to blend visual grandiosity with pure ergonomics.</p>
+      <div class="intro-facts">
+        <div class="intro-fact"><strong>8+ Years</strong><span>of Arch Mastery</span></div>
+        <div class="intro-fact"><strong>500+ Spaces</strong><span>Exquisite Spaces Crafted</span></div>
+        <div class="intro-fact"><strong>100+ Projects</strong><span>Premium Projects Delivered</span></div>
+        <div class="intro-fact"><strong>100%</strong><span>Official Häfele Partner</span></div>
+      </div>
+      <div class="hero-btns" style="margin-top:8px;">
+        <a href="#projects" class="btn btn-ghost-white">View More Options
+          <svg width="14" height="14" viewBox="0 0 24 24" fill="none"><path d="M5 12H19M19 12L13 6M19 12L13 18" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"/></svg>
+        </a>
+      </div>
+    </div>
+    <div class="intro-img reveal-right">
+      <div class="img-inner">
+      <img src="images/founder.jpg" alt="Nandaas founder">
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ================= ELEVATOR PRODUCTS ================= -->
+<section class="section-pad" id="elevators" style="background:var(--grey);">
+  <div class="wrap">
+    <div class="section-head reveal" style="display:flex;align-items:flex-end;justify-content:space-between;gap:20px;">
+      <div>
+        <div class="eyebrow">Our Products</div>
+        <h2>Elevators for every space.</h2>
+        <p>From compact home lifts to full-glass panoramic cabins, every Vertikal elevator is engineered for smooth performance, safety compliance, and a finish that matches your building's character.</p>
+      </div>
+      <div class="product-nav">
+        <button class="product-nav-btn" id="productPrev" aria-label="Scroll left">
+          <svg width="16" height="16" viewBox="0 0 24 24" fill="none"><path d="M19 12H5M5 12L11 6M5 12L11 18" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"/></svg>
+        </button>
+        <button class="product-nav-btn" id="productNext" aria-label="Scroll right">
+          <svg width="16" height="16" viewBox="0 0 24 24" fill="none"><path d="M5 12H19M19 12L13 6M19 12L13 18" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"/></svg>
+        </button>
+      </div>
+    </div>
+
+    <div class="product-grid reveal" id="productGrid">
+      <div class="card span-4">
+        <div class="card-img"><img src="images/product-panoramic.jpg" alt="Panoramic passenger elevator"><a href="#" class="card-img-btn" aria-label="Quick view"><svg width="17" height="17" viewBox="0 0 24 24" fill="none"><path d="M12 5C6.5 5 2.7 8.6 1 12c1.7 3.4 5.5 7 11 7s9.3-3.6 11-7c-1.7-3.4-5.5-7-11-7z" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/><circle cx="12" cy="12" r="3" stroke="currentColor" stroke-width="2"/></svg></a><span class="card-img-tag">Quick View</span></div>
+        <div class="card-body">
+          <div class="card-cat">PANORAMIC ELEVATORS</div>
+          <div class="card-title">Skyline Series</div>
+          <p class="card-desc">Full-glass panoramic cabins that turn the ride itself into a feature — built for atriums, malls, and buildings that want the elevator seen, not hidden.</p>
+          <div class="card-specs">
+            <div class="spec"><b>1000 kg</b>Capacity</div>
+            <div class="spec"><b>1.5 m/s</b>Speed</div>
+            <div class="spec"><b>20</b>Max Floors</div>
+          </div>
+          <a href="#" class="card-link">VIEW PRODUCT
+            <svg width="13" height="13" viewBox="0 0 24 24" fill="none"><path d="M5 12H19M19 12L13 6M19 12L13 18" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"/></svg>
+          </a>
+        </div>
+      </div>
+
+      <div class="card span-2">
+        <div class="card-img"><img src="images/product-home.jpg" alt="Home residential elevator"><a href="#" class="card-img-btn" aria-label="Quick view"><svg width="17" height="17" viewBox="0 0 24 24" fill="none"><path d="M12 5C6.5 5 2.7 8.6 1 12c1.7 3.4 5.5 7 11 7s9.3-3.6 11-7c-1.7-3.4-5.5-7-11-7z" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/><circle cx="12" cy="12" r="3" stroke="currentColor" stroke-width="2"/></svg></a><span class="card-img-tag">Quick View</span></div>
+        <div class="card-body">
+          <div class="card-cat">HOME ELEVATORS</div>
+          <div class="card-title">Villa Compact</div>
+          <p class="card-desc">Space-saving residential lifts designed for homes, duplexes, and villas — quiet operation with a small footprint.</p>
+          <a href="#" class="card-link">VIEW PRODUCT
+            <svg width="13" height="13" viewBox="0 0 24 24" fill="none"><path d="M5 12H19M19 12L13 6M19 12L13 18" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"/></svg>
+          </a>
+        </div>
+      </div>
+
+      <div class="card span-2">
+        <div class="card-img"><img src="images/product-mrl.jpg" alt="Commercial MRL elevator"><a href="#" class="card-img-btn" aria-label="Quick view"><svg width="17" height="17" viewBox="0 0 24 24" fill="none"><path d="M12 5C6.5 5 2.7 8.6 1 12c1.7 3.4 5.5 7 11 7s9.3-3.6 11-7c-1.7-3.4-5.5-7-11-7z" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/><circle cx="12" cy="12" r="3" stroke="currentColor" stroke-width="2"/></svg></a><span class="card-img-tag">Quick View</span></div>
+        <div class="card-body">
+          <div class="card-cat">MRL ELEVATORS</div>
+          <div class="card-title">Urban MRL</div>
+          <p class="card-desc">Machine-room-less systems that free up building space — ideal for offices and mid-rise commercial sites.</p>
+          <a href="#" class="card-link">VIEW PRODUCT
+            <svg width="13" height="13" viewBox="0 0 24 24" fill="none"><path d="M5 12H19M19 12L13 6M19 12L13 18" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"/></svg>
+          </a>
+        </div>
+      </div>
+
+      <div class="card span-2">
+        <div class="card-img"><img src="images/product-hospital.jpg" alt="Hospital bed elevator"><a href="#" class="card-img-btn" aria-label="Quick view"><svg width="17" height="17" viewBox="0 0 24 24" fill="none"><path d="M12 5C6.5 5 2.7 8.6 1 12c1.7 3.4 5.5 7 11 7s9.3-3.6 11-7c-1.7-3.4-5.5-7-11-7z" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/><circle cx="12" cy="12" r="3" stroke="currentColor" stroke-width="2"/></svg></a><span class="card-img-tag">Quick View</span></div>
+        <div class="card-body">
+          <div class="card-cat">HOSPITAL ELEVATORS</div>
+          <div class="card-title">MedLift Pro</div>
+          <p class="card-desc">Bed-and-stretcher-rated cabins built for smooth, vibration-free transport in hospitals and clinics.</p>
+          <a href="#" class="card-link">VIEW PRODUCT
+            <svg width="13" height="13" viewBox="0 0 24 24" fill="none"><path d="M5 12H19M19 12L13 6M19 12L13 18" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"/></svg>
+          </a>
+        </div>
+      </div>
+
+      <div class="card card-dark span-2">
+        <div class="card-img"><img src="images/product-freight.jpg" alt="Freight cargo elevator"><a href="#" class="card-img-btn" aria-label="Quick view"><svg width="17" height="17" viewBox="0 0 24 24" fill="none"><path d="M12 5C6.5 5 2.7 8.6 1 12c1.7 3.4 5.5 7 11 7s9.3-3.6 11-7c-1.7-3.4-5.5-7-11-7z" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/><circle cx="12" cy="12" r="3" stroke="currentColor" stroke-width="2"/></svg></a><span class="card-img-tag">Quick View</span></div>
+        <div class="card-body">
+          <div class="card-cat">FREIGHT ELEVATORS</div>
+          <div class="card-title">Cargo Max</div>
+          <p class="card-desc">Heavy-duty goods lifts built for warehouses, factories, and logistics facilities that need daily-load durability.</p>
+          <a href="#" class="card-link">VIEW PRODUCT
+            <svg width="13" height="13" viewBox="0 0 24 24" fill="none"><path d="M5 12H19M19 12L13 6M19 12L13 18" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"/></svg>
+          </a>
+        </div>
+      </div>
+
+      <div class="card span-3">
+        <div class="card-img"><img src="images/product-capsule.jpg" alt="Capsule scenic elevator"><a href="#" class="card-img-btn" aria-label="Quick view"><svg width="17" height="17" viewBox="0 0 24 24" fill="none"><path d="M12 5C6.5 5 2.7 8.6 1 12c1.7 3.4 5.5 7 11 7s9.3-3.6 11-7c-1.7-3.4-5.5-7-11-7z" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/><circle cx="12" cy="12" r="3" stroke="currentColor" stroke-width="2"/></svg></a><span class="card-img-tag">Quick View</span></div>
+        <div class="card-body">
+          <div class="card-cat">CAPSULE ELEVATORS</div>
+          <div class="card-title">Orbit Capsule</div>
+          <p class="card-desc">Freestanding, all-round-glass capsules that stand out inside malls, hotel atriums, and public spaces.</p>
+          <a href="#" class="card-link">VIEW PRODUCT
+            <svg width="13" height="13" viewBox="0 0 24 24" fill="none"><path d="M5 12H19M19 12L13 6M19 12L13 18" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"/></svg>
+          </a>
+        </div>
+      </div>
+
+      <div class="card span-3">
+        <div class="card-img"><img src="images/product-customized.jpg" alt="Customized elevator interior"><a href="#" class="card-img-btn" aria-label="Quick view"><svg width="17" height="17" viewBox="0 0 24 24" fill="none"><path d="M12 5C6.5 5 2.7 8.6 1 12c1.7 3.4 5.5 7 11 7s9.3-3.6 11-7c-1.7-3.4-5.5-7-11-7z" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/><circle cx="12" cy="12" r="3" stroke="currentColor" stroke-width="2"/></svg></a><span class="card-img-tag">Quick View</span></div>
+        <div class="card-body">
+          <div class="card-cat">CUSTOMIZED ELEVATORS</div>
+          <div class="card-title">Bespoke Series</div>
+          <p class="card-desc">Fully custom cabins — size, finish, and controls built to your architect's exact specification.</p>
+          <a href="#" class="card-link">VIEW PRODUCT
+            <svg width="13" height="13" viewBox="0 0 24 24" fill="none"><path d="M5 12H19M19 12L13 6M19 12L13 18" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"/></svg>
+          </a>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ================= INTERIORS ================= -->
+<section class="section-pad" id="interiors">
+  <div class="wrap">
+    <div class="section-head reveal">
+      <div class="eyebrow">Interior Solutions</div>
+      <h2>Interiors that define the journey.</h2>
+      <p>Choose from a curated range of wall panels, flooring, lighting, and hardware finishes to design a cabin interior that matches your building's style.</p>
+    </div>
+
+    <div class="interior-grid reveal">
+      <div class="interior-card">
+        <img src="images/interior-wall-panels.jpg" alt="Stainless steel wall panel finish">
+        <a href="#" class="card-img-btn" aria-label="Quick view"><svg width="17" height="17" viewBox="0 0 24 24" fill="none"><path d="M12 5C6.5 5 2.7 8.6 1 12c1.7 3.4 5.5 7 11 7s9.3-3.6 11-7c-1.7-3.4-5.5-7-11-7z" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/><circle cx="12" cy="12" r="3" stroke="currentColor" stroke-width="2"/></svg></a>
+        <div class="interior-card-text">
+          <div class="cat">WALL PANELS</div>
+          <h3>Brushed Steel</h3>
+          <a href="#" class="interior-card-link">EXPLORE INTERIOR
+            <svg width="12" height="12" viewBox="0 0 24 24" fill="none"><path d="M5 12H19M19 12L13 6M19 12L13 18" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"/></svg>
+          </a>
+        </div>
+      </div>
+      <div class="interior-card">
+        <img src="images/interior-flooring.jpg" alt="Marble flooring finish">
+        <a href="#" class="card-img-btn" aria-label="Quick view"><svg width="17" height="17" viewBox="0 0 24 24" fill="none"><path d="M12 5C6.5 5 2.7 8.6 1 12c1.7 3.4 5.5 7 11 7s9.3-3.6 11-7c-1.7-3.4-5.5-7-11-7z" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/><circle cx="12" cy="12" r="3" stroke="currentColor" stroke-width="2"/></svg></a>
+        <div class="interior-card-text">
+          <div class="cat">FLOORING</div>
+          <h3>Marble Stone</h3>
+          <a href="#" class="interior-card-link">EXPLORE INTERIOR
+            <svg width="12" height="12" viewBox="0 0 24 24" fill="none"><path d="M5 12H19M19 12L13 6M19 12L13 18" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"/></svg>
+          </a>
+        </div>
+      </div>
+      <div class="interior-card">
+        <img src="images/interior-ceiling.jpg" alt="LED ceiling lighting finish">
+        <a href="#" class="card-img-btn" aria-label="Quick view"><svg width="17" height="17" viewBox="0 0 24 24" fill="none"><path d="M12 5C6.5 5 2.7 8.6 1 12c1.7 3.4 5.5 7 11 7s9.3-3.6 11-7c-1.7-3.4-5.5-7-11-7z" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/><circle cx="12" cy="12" r="3" stroke="currentColor" stroke-width="2"/></svg></a>
+        <div class="interior-card-text">
+          <div class="cat">CEILING &amp; LIGHTING</div>
+          <h3>LED Halo</h3>
+          <a href="#" class="interior-card-link">EXPLORE INTERIOR
+            <svg width="12" height="12" viewBox="0 0 24 24" fill="none"><path d="M5 12H19M19 12L13 6M19 12L13 18" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"/></svg>
+          </a>
+        </div>
+      </div>
+      <div class="interior-card">
+        <img src="images/interior-handrail.jpg" alt="Handrail and control panel detail">
+        <a href="#" class="card-img-btn" aria-label="Quick view"><svg width="17" height="17" viewBox="0 0 24 24" fill="none"><path d="M12 5C6.5 5 2.7 8.6 1 12c1.7 3.4 5.5 7 11 7s9.3-3.6 11-7c-1.7-3.4-5.5-7-11-7z" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/><circle cx="12" cy="12" r="3" stroke="currentColor" stroke-width="2"/></svg></a>
+        <div class="interior-card-text">
+          <div class="cat">HANDRAILS &amp; PANELS</div>
+          <h3>Steel Rail</h3>
+          <a href="#" class="interior-card-link">EXPLORE INTERIOR
+            <svg width="12" height="12" viewBox="0 0 24 24" fill="none"><path d="M5 12H19M19 12L13 6M19 12L13 18" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"/></svg>
+          </a>
+        </div>
+      </div>
+      <div class="interior-card">
+        <img src="images/interior-doors.jpg" alt="Glass door finish">
+        <a href="#" class="card-img-btn" aria-label="Quick view"><svg width="17" height="17" viewBox="0 0 24 24" fill="none"><path d="M12 5C6.5 5 2.7 8.6 1 12c1.7 3.4 5.5 7 11 7s9.3-3.6 11-7c-1.7-3.4-5.5-7-11-7z" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/><circle cx="12" cy="12" r="3" stroke="currentColor" stroke-width="2"/></svg></a>
+        <div class="interior-card-text">
+          <div class="cat">ELEVATOR DOORS</div>
+          <h3>Clear Glass</h3>
+          <a href="#" class="interior-card-link">EXPLORE INTERIOR
+            <svg width="12" height="12" viewBox="0 0 24 24" fill="none"><path d="M5 12H19M19 12L13 6M19 12L13 18" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"/></svg>
+          </a>
+        </div>
+      </div>
+      <div class="interior-card">
+        <img src="images/interior-decorative.jpg" alt="Wood veneer decorative finish">
+        <a href="#" class="card-img-btn" aria-label="Quick view"><svg width="17" height="17" viewBox="0 0 24 24" fill="none"><path d="M12 5C6.5 5 2.7 8.6 1 12c1.7 3.4 5.5 7 11 7s9.3-3.6 11-7c-1.7-3.4-5.5-7-11-7z" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/><circle cx="12" cy="12" r="3" stroke="currentColor" stroke-width="2"/></svg></a>
+        <div class="interior-card-text">
+          <div class="cat">DECORATIVE FINISHES</div>
+          <h3>Wood Veneer</h3>
+          <a href="#" class="interior-card-link">EXPLORE INTERIOR
+            <svg width="12" height="12" viewBox="0 0 24 24" fill="none"><path d="M5 12H19M19 12L13 6M19 12L13 18" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"/></svg>
+          </a>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ================= CONFIGURATOR ================= -->
+<section class="section-pad" style="background:var(--white);">
+  <div class="wrap">
+    <div class="section-head reveal">
+      <div class="eyebrow">Design Your Elevator</div>
+      <h2>Build your ideal cabin.</h2>
+      <p>Select materials and finishes below to preview a sample configuration. Final designs are confirmed with our design team.</p>
+    </div>
+
+    <div class="configurator reveal">
+      <div class="cabin-preview" id="cabinPreview">
+        <span class="cabin-tag" id="cabinTag">Stainless Steel · Stone Floor</span>
+        <img id="cabinImg" src="images/configurator-preview.jpg" alt="Elevator cabin interior preview">
+      </div>
+      <div>
+        <div class="config-group">
+          <h4>WALL FINISH</h4>
+          <div class="config-options" data-group="wall">
+            <button class="config-opt active">Stainless Steel</button>
+            <button class="config-opt">Glass</button>
+            <button class="config-opt">Wood</button>
+            <button class="config-opt">Decorative</button>
+          </div>
+        </div>
+        <div class="config-group">
+          <h4>FLOOR FINISH</h4>
+          <div class="config-options" data-group="floor">
+            <button class="config-opt active">Stone</button>
+            <button class="config-opt">Vinyl</button>
+            <button class="config-opt">Marble</button>
+            <button class="config-opt">Custom</button>
+          </div>
+        </div>
+        <div class="config-group">
+          <h4>CEILING</h4>
+          <div class="config-options" data-group="ceiling">
+            <button class="config-opt active">Standard</button>
+            <button class="config-opt">LED</button>
+            <button class="config-opt">Premium</button>
+            <button class="config-opt">Custom</button>
+          </div>
+        </div>
+        <div class="config-group">
+          <h4>LIGHTING</h4>
+          <div class="config-options" data-group="lighting">
+            <button class="config-opt active">Warm</button>
+            <button class="config-opt">Neutral</button>
+            <button class="config-opt">Modern</button>
+          </div>
+        </div>
+        <div class="config-group">
+          <h4>HANDRAIL</h4>
+          <div class="config-options" data-group="handrail">
+            <button class="config-opt active">Stainless Steel</button>
+            <button class="config-opt">Black</button>
+            <button class="config-opt">Custom</button>
+          </div>
+        </div>
+        <a href="#booking" class="btn btn-primary">Request This Design
+          <svg width="14" height="14" viewBox="0 0 24 24" fill="none"><path d="M5 12H19M19 12L13 6M19 12L13 18" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"/></svg>
+        </a>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ================= BLACK FEATURE ================= -->
+<section class="black-feature">
+  <div class="wrap reveal">
+    <div class="eyebrow">Interior Philosophy</div>
+    <h2>Your elevator should feel like part of the building.</h2>
+    <a href="#interiors" class="btn btn-primary">Explore Interiors
+      <svg width="14" height="14" viewBox="0 0 24 24" fill="none"><path d="M5 12H19M19 12L13 6M19 12L13 18" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"/></svg>
+    </a>
+    <div class="black-feature-img">
+      <img src="images/philosophy-feature.jpg" alt="Elevator interior integrated with architecture">
+    </div>
+  </div>
+</section>
+
+<!-- ================= PROJECTS ================= -->
+<section class="section-pad" id="projects" style="background:var(--grey);">
+  <div class="wrap">
+    <div class="section-head reveal">
+      <div class="eyebrow">Portfolio</div>
+      <h2>Projects that move people.</h2>
+      <p>A look at the buildings we've fitted — from commercial towers to boutique hotels — each project engineered and finished by our in-house team.</p>
+    </div>
+
+    <div class="project-toolbar reveal">
+      <div class="project-search">
+        <svg width="16" height="16" viewBox="0 0 24 24" fill="none"><circle cx="11" cy="11" r="7" stroke="currentColor" stroke-width="2"/><path d="M20 20L16.5 16.5" stroke="currentColor" stroke-width="2" stroke-linecap="round"/></svg>
+        <input type="text" id="projectSearch" placeholder="Search projects (name, city, type)…">
+      </div>
+      <div class="filters">
+        <button class="filter-btn active" data-cat="all">All</button>
+        <button class="filter-btn" data-cat="residential">Residential</button>
+        <button class="filter-btn" data-cat="commercial">Commercial</button>
+        <button class="filter-btn" data-cat="hospitality">Hospitality</button>
+      </div>
+    </div>
+    <div class="project-count" id="projectCount">Showing 3 of 3 projects</div>
+
+    <div class="project-grid reveal" id="projectGrid">
+      <div class="project-card" data-cat="commercial" data-search="meridian business tower hyderabad commercial">
+        <img src="images/project-commercial-tower.jpg" alt="Commercial tower project">
+        <div class="project-info">
+          <div>
+            <div class="cat">COMMERCIAL</div>
+            <h3>Meridian Business Tower</h3>
+            <div class="loc">Hyderabad, India</div>
+          </div>
+        </div>
+      </div>
+      <div class="project-card" data-cat="hospitality" data-search="the regency hotel hyderabad hospitality">
+        <img src="images/project-hotel.jpg" alt="Hospitality hotel project">
+        <div class="project-info">
+          <div>
+            <div class="cat">HOSPITALITY</div>
+            <h3>The Regency Hotel</h3>
+            <div class="loc">Hyderabad, India</div>
+          </div>
+        </div>
+      </div>
+      <div class="project-card" data-cat="residential" data-search="palm residency hyderabad residential">
+        <img src="images/project-residential.jpg" alt="Residential building project">
+        <div class="project-info">
+          <div>
+            <div class="cat">RESIDENTIAL</div>
+            <h3>Palm Residency</h3>
+            <div class="loc">Hyderabad, India</div>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="project-count" id="projectEmpty" style="display:none;">No projects match your search.</div>
+  </div>
+</section>
+
+<!-- ================= TESTIMONIALS ================= -->
+<section class="section-pad water-accent" id="testimonials" style="background:var(--white);">
+  <div class="wrap">
+    <div class="section-head reveal" style="display:flex;align-items:flex-end;justify-content:space-between;gap:20px;">
+      <div>
+        <div class="eyebrow">Client Voices</div>
+        <h2>Trusted by builders, architects, and homeowners.</h2>
+      </div>
+      <div class="product-nav">
+        <button class="product-nav-btn" id="testiPrev" aria-label="Scroll left">
+          <svg width="16" height="16" viewBox="0 0 24 24" fill="none"><path d="M19 12H5M5 12L11 6M5 12L11 18" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"/></svg>
+        </button>
+        <button class="product-nav-btn" id="testiNext" aria-label="Scroll right">
+          <svg width="16" height="16" viewBox="0 0 24 24" fill="none"><path d="M5 12H19M19 12L13 6M19 12L13 18" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"/></svg>
+        </button>
+      </div>
+    </div>
+    <div class="testimonials-wrap reveal-stagger" id="testimonialsWrap">
+      <div class="testimonial-card reveal-left">
+        <div class="testimonial-stars">★★★★★</div>
+        <p class="testimonial-quote">"Nandaas handled our tower's elevator and lobby interiors end-to-end. Precise installation, zero delays, and the finish looks better than the renders."</p>
+        <div class="testimonial-person">
+          <div class="testimonial-avatar">RK</div>
+          <div>
+            <div class="testimonial-name">Ravi Kumar</div>
+            <div class="testimonial-role">Developer, Hyderabad</div>
+          </div>
+        </div>
+      </div>
+      <div class="testimonial-card reveal-zoom">
+        <div class="testimonial-stars">★★★★★</div>
+        <p class="testimonial-quote">"The Häfele kitchen and wardrobe work was flawless. Every drawer, every hinge — it's the kind of detail you notice only when it's done right."</p>
+        <div class="testimonial-person">
+          <div class="testimonial-avatar">SP</div>
+          <div>
+            <div class="testimonial-name">Sowmya Prasad</div>
+            <div class="testimonial-role">Homeowner, Vijayawada</div>
+          </div>
+        </div>
+      </div>
+      <div class="testimonial-card reveal-right">
+        <div class="testimonial-stars">★★★★★</div>
+        <p class="testimonial-quote">"We've used Nandaas across three hospitality projects now. Their panoramic elevators consistently become a talking point for guests."</p>
+        <div class="testimonial-person">
+          <div class="testimonial-avatar">AM</div>
+          <div>
+            <div class="testimonial-name">Arjun Mehta</div>
+            <div class="testimonial-role">Hotel Group Owner</div>
+          </div>
+        </div>
+      </div>
+      <div class="testimonial-card reveal-left">
+        <div class="testimonial-stars">★★★★★</div>
+        <p class="testimonial-quote">"Their MRL elevator saved us real headroom on a tight retrofit. The team explained every technical trade-off clearly before we committed."</p>
+        <div class="testimonial-person">
+          <div class="testimonial-avatar">VN</div>
+          <div>
+            <div class="testimonial-name">Vikram Nair</div>
+            <div class="testimonial-role">Facilities Head, Commercial Tower</div>
+          </div>
+        </div>
+      </div>
+      <div class="testimonial-card reveal-zoom">
+        <div class="testimonial-stars">★★★★★</div>
+        <p class="testimonial-quote">"From the wall panels to the handrail finish, the interiors team matched our architect's mood board almost exactly. Genuinely impressive."</p>
+        <div class="testimonial-person">
+          <div class="testimonial-avatar">DP</div>
+          <div>
+            <div class="testimonial-name">Divya Pillai</div>
+            <div class="testimonial-role">Interior Architect</div>
+          </div>
+        </div>
+      </div>
+      <div class="testimonial-card reveal-right">
+        <div class="testimonial-stars">★★★★★</div>
+        <p class="testimonial-quote">"Post-installation support has been excellent — service calls are answered same day, and the elevators haven't skipped a beat in two years."</p>
+        <div class="testimonial-person">
+          <div class="testimonial-avatar">KS</div>
+          <div>
+            <div class="testimonial-name">Kiran Shetty</div>
+            <div class="testimonial-role">Society Secretary, Palm Residency</div>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="testi-viewmore">
+      <button class="btn btn-secondary" id="testiViewMore">View More Reviews
+        <svg width="14" height="14" viewBox="0 0 24 24" fill="none"><path d="M5 12H19M19 12L13 6M19 12L13 18" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"/></svg>
+      </button>
+    </div>
+  </div>
+</section>
+
+<!-- ================= SERVICES ================= -->
+<section class="section-pad" id="services">
+  <div class="wrap">
+    <div class="section-head reveal">
+      <div class="eyebrow">Services</div>
+      <h2>From installation to long-term care.</h2>
+      <p>We support your elevator through its entire lifecycle — from first installation to years of reliable maintenance and modernization.</p>
+    </div>
+
+    <div class="services-grid reveal">
+      <div class="service-card">
+        <div class="service-icon"><svg width="24" height="24" viewBox="0 0 24 24" fill="none"><path d="M12 2L2 7L12 12L22 7L12 2Z" stroke="currentColor" stroke-width="1.8" stroke-linejoin="round"/><path d="M2 17L12 22L22 17" stroke="currentColor" stroke-width="1.8" stroke-linejoin="round"/><path d="M2 12L12 17L22 12" stroke="currentColor" stroke-width="1.8" stroke-linejoin="round"/></svg></div>
+        <h3>Installation</h3>
+        <p>End-to-end installation — from site survey and planning to final commissioning and handover.</p>
+        <a href="#" class="card-link">VIEW SERVICE
+          <svg width="13" height="13" viewBox="0 0 24 24" fill="none"><path d="M5 12H19M19 12L13 6M19 12L13 18" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"/></svg>
+        </a>
+      </div>
+      <div class="service-card">
+        <div class="service-icon"><svg width="24" height="24" viewBox="0 0 24 24" fill="none"><path d="M12 2V22M2 12H22" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"/><circle cx="12" cy="12" r="9" stroke="currentColor" stroke-width="1.8"/></svg></div>
+        <h3>Maintenance</h3>
+        <p>Scheduled maintenance visits that catch issues early and keep your elevator running reliably.</p>
+        <a href="#" class="card-link">VIEW SERVICE
+          <svg width="13" height="13" viewBox="0 0 24 24" fill="none"><path d="M5 12H19M19 12L13 6M19 12L13 18" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"/></svg>
+        </a>
+      </div>
+      <div class="service-card">
+        <div class="service-icon"><svg width="24" height="24" viewBox="0 0 24 24" fill="none"><path d="M14.7 6.3a4 4 0 0 0-5.6 5.6L3 18v3h3l6.1-6.1a4 4 0 0 0 5.6-5.6l-2.7 2.7-2-2 2.7-2.7z" stroke="currentColor" stroke-width="1.8" stroke-linejoin="round"/></svg></div>
+        <h3>Repair</h3>
+        <p>Fast-response troubleshooting and repair when something needs fixing, day or night.</p>
+        <a href="#" class="card-link">VIEW SERVICE
+          <svg width="13" height="13" viewBox="0 0 24 24" fill="none"><path d="M5 12H19M19 12L13 6M19 12L13 18" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"/></svg>
+        </a>
+      </div>
+      <div class="service-card">
+        <div class="service-icon"><svg width="24" height="24" viewBox="0 0 24 24" fill="none"><path d="M3 3V21H21" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"/><path d="M7 15L11 10L14 13L20 6" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/></svg></div>
+        <h3>Modernization</h3>
+        <p>Upgrade ageing elevator systems with modern controls, motors, and safety components.</p>
+        <a href="#" class="card-link">VIEW SERVICE
+          <svg width="13" height="13" viewBox="0 0 24 24" fill="none"><path d="M5 12H19M19 12L13 6M19 12L13 18" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"/></svg>
+        </a>
+      </div>
+      <div class="service-card">
+        <div class="service-icon"><svg width="24" height="24" viewBox="0 0 24 24" fill="none"><rect x="3" y="3" width="18" height="18" rx="1" stroke="currentColor" stroke-width="1.8"/><path d="M3 9H21M9 21V9" stroke="currentColor" stroke-width="1.8"/></svg></div>
+        <h3>Interior Customization</h3>
+        <p>Bespoke cabin design and finishing — panels, flooring, and lighting matched to your space.</p>
+        <a href="#" class="card-link">VIEW SERVICE
+          <svg width="13" height="13" viewBox="0 0 24 24" fill="none"><path d="M5 12H19M19 12L13 6M19 12L13 18" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"/></svg>
+        </a>
+      </div>
+      <div class="service-card">
+        <div class="service-icon"><svg width="24" height="24" viewBox="0 0 24 24" fill="none"><path d="M12 22C16 18 20 14.4 20 9.5A8 8 0 1 0 4 9.5C4 14.4 8 18 12 22Z" stroke="currentColor" stroke-width="1.8"/><circle cx="12" cy="9.5" r="2.5" stroke="currentColor" stroke-width="1.8"/></svg></div>
+        <h3>Consultation</h3>
+        <p>Technical planning and consultation from initial concept through to final delivery.</p>
+        <a href="#" class="card-link">VIEW SERVICE
+          <svg width="13" height="13" viewBox="0 0 24 24" fill="none"><path d="M5 12H19M19 12L13 6M19 12L13 18" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"/></svg>
+        </a>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ================= STATS ================= -->
+<section class="section-pad stats-section">
+  <div class="wrap">
+    <div class="stats-grid reveal">
+      <div><div class="stat-num">150<span>+</span></div><div class="stat-label">Projects Completed</div></div>
+      <div><div class="stat-num">12<span>+</span></div><div class="stat-label">Years Experience</div></div>
+      <div><div class="stat-num">400<span>+</span></div><div class="stat-label">Elevators Installed</div></div>
+      <div><div class="stat-num">25<span>+</span></div><div class="stat-label">Locations Served</div></div>
+    </div>
+  </div>
+</section>
+
+<!-- ================= INFO / FAQ ================= -->
+<section class="section-pad">
+  <div class="wrap info-layout">
+    <div class="reveal">
+      <div class="eyebrow">Information</div>
+      <h2 style="font-size:clamp(28px,3.6vw,42px);font-weight:800;line-height:1.1;">Everything you need to know before starting your project.</h2>
+    </div>
+    <div class="reveal">
+      <div class="accordion-item open">
+        <div class="accordion-head"><h4>Elevator Types &amp; Applications</h4><div class="accordion-icon"></div></div>
+        <div class="accordion-body"><p>We offer panoramic, home, MRL, hospital, freight, capsule, and fully customized elevators — each suited to a different building type, from private villas to hospitals and warehouses.</p></div>
+      </div>
+      <div class="accordion-item">
+        <div class="accordion-head"><h4>Technical Specifications</h4><div class="accordion-icon"></div></div>
+        <div class="accordion-body"><p>Key specs to plan around include cabin capacity (kg), travel speed (m/s), number of floors served, and shaft/pit dimensions — our team confirms exact figures during a site visit.</p></div>
+      </div>
+      <div class="accordion-item">
+        <div class="accordion-head"><h4>Safety &amp; Compliance</h4><div class="accordion-icon"></div></div>
+        <div class="accordion-body"><p>All installations follow relevant national elevator safety codes, with certified components, emergency backup systems, and regular safety inspections.</p></div>
+      </div>
+      <div class="accordion-item">
+        <div class="accordion-head"><h4>Installation Process</h4><div class="accordion-icon"></div></div>
+        <div class="accordion-body"><p>Installation typically runs through site survey, shaft preparation, equipment delivery, mechanical and electrical fit-out, testing, and final commissioning.</p></div>
+      </div>
+      <div class="accordion-item">
+        <div class="accordion-head"><h4>Interior Materials &amp; Customization</h4><div class="accordion-icon"></div></div>
+        <div class="accordion-body"><p>Choose from stainless steel, glass, wood, and decorative wall panels, plus stone, marble, or vinyl flooring — our design team helps you finalize a combination that fits your space.</p></div>
+      </div>
+      <div class="accordion-item">
+        <div class="accordion-head"><h4>Maintenance &amp; Support</h4><div class="accordion-icon"></div></div>
+        <div class="accordion-body"><p>We offer scheduled maintenance contracts with routine inspections, priority breakdown response, and genuine spare parts to keep your elevator running smoothly.</p></div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ================= GALLERY ================= -->
+<section class="section-pad" style="background:var(--grey);">
+  <div class="wrap">
+    <div class="section-head reveal">
+      <div class="eyebrow">Gallery</div>
+      <h2>A closer look at our work.</h2>
+    </div>
+    <div class="masonry reveal">
+      <img src="images/gallery-01.jpg" alt="Elevator cabin">
+      <img src="images/gallery-02.jpg" alt="Passenger elevator">
+      <img src="images/gallery-03.jpg" alt="Home elevator">
+      <img src="images/gallery-04.jpg" alt="Capsule elevator">
+      <img src="images/gallery-05.jpg" alt="Wall panel finish">
+      <img src="images/gallery-06.jpg" alt="Freight elevator">
+      <img src="images/gallery-07.jpg" alt="Handrail detail">
+      <img src="images/gallery-08.jpg" alt="Elevator architecture">
+      <img src="images/gallery-09.jpg" alt="Elevator shaft under construction">
+      <img src="images/gallery-10.jpg" alt="Panoramic elevator technical drawing">
+    </div>
+  </div>
+</section>
+
+<!-- ================= BOOKING ================= -->
+<section class="section-pad" id="booking" style="padding-top:56px;">
+  <div class="wrap booking-layout">
+    <div class="reveal" style="display:flex;flex-direction:column;">
+      <div class="eyebrow">Book a Consultation</div>
+      <h2 style="font-size:clamp(28px,3.6vw,42px);font-weight:800;margin-bottom:32px;">Let's discuss your project.</h2>
+      <form onsubmit="event.preventDefault(); alert('Thank you — form wiring to be connected to your backend/CRM.');" style="flex:1;display:flex;flex-direction:column;">
+        <div class="form-row">
+          <div class="form-field"><label>Name</label><input type="text" required></div>
+          <div class="form-field"><label>Phone Number</label><input type="tel" required></div>
+        </div>
+        <div class="form-row">
+          <div class="form-field"><label>Email</label><input type="email" required></div>
+          <div class="form-field"><label>Company</label><input type="text"></div>
+        </div>
+        <div class="form-row">
+          <div class="form-field">
+            <label>Project Type</label>
+            <select><option>Residential</option><option>Commercial</option><option>Hospitality</option><option>Healthcare</option><option>Retail</option><option>Industrial</option></select>
+          </div>
+          <div class="form-field">
+            <label>Elevator Requirement</label>
+            <select><option>Passenger</option><option>Home</option><option>Hospital</option><option>Freight</option><option>Capsule</option><option>Panoramic</option><option>MRL</option><option>Customized</option></select>
+          </div>
+        </div>
+        <div class="form-row">
+          <div class="form-field"><label>Number of Floors</label><input type="number" min="1"></div>
+          <div class="form-field"><label>Preferred Date</label><input type="date"></div>
+        </div>
+        <div class="form-row" style="flex:1;">
+          <div class="form-field"><label>Preferred Time</label><input type="time"></div>
+          <div class="form-field"><label>Message</label><input type="text" placeholder="Tell us about your project..."></div>
+        </div>
+        <button type="submit" class="btn btn-primary" style="width:100%;justify-content:center;margin-top:8px;">Book a Consultation
+          <svg width="14" height="14" viewBox="0 0 24 24" fill="none"><path d="M5 12H19M19 12L13 6M19 12L13 18" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"/></svg>
+        </button>
+      </form>
+    </div>
+
+    <div class="reveal" style="height:100%;">
+      <div class="contact-panel">
+        <h3>Contact Information</h3>
+        <div class="contact-row">
+          <div class="ic"><svg width="20" height="20" viewBox="0 0 24 24" fill="none"><path d="M22 16.92V19.9C22 20.45 21.55 20.9 21 20.9C9.4 20.9 0 11.5 0 -0.1C0 -0.65 0.45 -1.1 1 -1.1H3.98C4.53 -1.1 4.98 -0.65 4.98 -0.1C4.98 1.85 5.3 3.73 5.9 5.47C6.05 5.93 5.93 6.44 5.58 6.79L3.7 8.67C5.05 11.7 7.3 13.95 10.33 15.3L12.21 13.42C12.56 13.07 13.07 12.95 13.53 13.1C15.27 13.7 17.15 14.02 19.1 14.02C19.65 14.02 20.1 14.47 20.1 15.02V16.92" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/></svg></div>
+          <div><b>+91 99887 73888</b><span>Immediate Callback</span></div>
+        </div>
+        <div class="contact-row">
+          <div class="ic"><svg width="20" height="20" viewBox="0 0 24 24" fill="none"><path d="M17.6 6.32A7.85 7.85 0 0 0 12.05 4A7.9 7.9 0 0 0 4.15 11.9C4.15 13.35 4.55 14.75 5.3 15.95L4.05 20.4L8.6 19.15C9.75 19.85 11.05 20.2 12.05 20.2C16.35 20.2 19.95 16.6 19.95 12.3C19.95 10.15 19 8.1 17.6 6.32Z" stroke="currentColor" stroke-width="1.8" stroke-linejoin="round"/></svg></div>
+          <div><b>+91 99887 73888</b><span>WhatsApp Chat — Start Conversation</span></div>
+        </div>
+        <div class="contact-row">
+          <div class="ic"><svg width="20" height="20" viewBox="0 0 24 24" fill="none"><rect x="2" y="4" width="20" height="16" rx="1" stroke="currentColor" stroke-width="1.8"/><path d="M2 6L12 13L22 6" stroke="currentColor" stroke-width="1.8"/></svg></div>
+          <div><b>office@nandaas.com</b><span>General &amp; project inquiries</span></div>
+        </div>
+        <div class="contact-row">
+          <div class="ic"><svg width="20" height="20" viewBox="0 0 24 24" fill="none"><path d="M12 22C16 18 20 14.4 20 9.5A8 8 0 1 0 4 9.5C4 14.4 8 18 12 22Z" stroke="currentColor" stroke-width="1.8"/><circle cx="12" cy="9.5" r="2.5" stroke="currentColor" stroke-width="1.8"/></svg></div>
+          <div><b>#59A-20-7/7, Gurunanak Nagar Main Road</b><span>Beside Silver Spoon Restaurant, Vijayawada, Andhra Pradesh</span></div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ================= CONTACT ================= -->
+<section class="section-pad" id="contact" style="background:var(--grey);">
+  <div class="wrap" style="text-align:left;">
+    <div class="reveal" style="max-width:640px;">
+      <div class="eyebrow">Get in Touch</div>
+      <h2 style="font-size:clamp(30px,4.2vw,50px);font-weight:800;margin-bottom:20px;">Have a project in mind?</h2>
+      <p style="color:#555;font-size:16px;margin-bottom:36px;">Reach out to our team for a quote, a technical consultation, or to talk through your building's requirements.</p>
+      <div style="display:flex;gap:16px;flex-wrap:wrap;">
+        <a href="#booking" class="btn btn-primary">Contact Us
+          <svg width="14" height="14" viewBox="0 0 24 24" fill="none"><path d="M5 12H19M19 12L13 6M19 12L13 18" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"/></svg>
+        </a>
+        <a href="#booking" class="btn btn-secondary">Get a Quote
+          <svg width="14" height="14" viewBox="0 0 24 24" fill="none"><path d="M5 12H19M19 12L13 6M19 12L13 18" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"/></svg>
+        </a>
+        <a href="#" class="btn btn-dark">WhatsApp Us
+          <svg width="14" height="14" viewBox="0 0 24 24" fill="none"><path d="M5 12H19M19 12L13 6M19 12L13 18" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"/></svg>
+        </a>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ================= FINAL CTA ================= -->
+<section class="final-cta">
+  <div class="wrap reveal">
+    <div class="eyebrow">Start Your Project</div>
+    <h2>Let's build<br>the next journey.</h2>
+    <a href="#booking" class="btn btn-primary">Start Your Project
+      <svg width="14" height="14" viewBox="0 0 24 24" fill="none"><path d="M5 12H19M19 12L13 6M19 12L13 18" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"/></svg>
+    </a>
+    <div class="final-cta-img">
+      <img src="images/final-cta.jpg" alt="Elevator engineering detail">
+    </div>
+  </div>
+</section>
+
+<!-- ================= FOOTER ================= -->
+<footer>
+  <div class="wrap">
+    <div class="footer-top">
+      <div>
+        <div class="footer-logo"><span class="fl-eyebrow">ARCH.</span>NAND<span>AAS.</span></div>
+        <p style="font-size:14px;max-width:280px;color:rgba(255,255,255,.55);">Award-winning luxury bespoke interiors and official Häfele modular kitchens in Hyderabad and Vijayawada. German engineering meets minimalist aesthetics.</p>
+      </div>
+      <div class="footer-col">
+        <h5>COMPANY</h5>
+        <a href="#home">Home</a>
+        <a href="#projects">Projects</a>
+        <a href="#services">Services</a>
+        <a href="#process">Process</a>
+        <a href="#estimator">Estimator</a>
+        <a href="#contact">Contact</a>
+      </div>
+      <div class="footer-col">
+        <h5>CONTACT</h5>
+        <a href="#">+91 99887 73888</a>
+        <a href="#">office@nandaas.com</a>
+        <a href="#">#59A-20-7/7, Gurunanak Nagar Main Road, Beside Silver Spoon Restaurant, Vijayawada, Andhra Pradesh</a>
+      </div>
+      <div class="footer-col">
+        <h5>LEGAL</h5>
+        <a href="#">Privacy Policy</a>
+        <a href="#">Terms of Service</a>
+      </div>
+    </div>
+
+    <div class="footer-marquee">
+      <div class="footer-marquee-track">
+        <span class="footer-marquee-item">Häfele <span class="dot"></span></span>
+        <span class="footer-marquee-item">Blum <span class="dot"></span></span>
+        <span class="footer-marquee-item">Siemens <span class="dot"></span></span>
+        <span class="footer-marquee-item">Bosch <span class="dot"></span></span>
+        <span class="footer-marquee-item">Liebherr <span class="dot"></span></span>
+        <span class="footer-marquee-item">Häfele <span class="dot"></span></span>
+        <span class="footer-marquee-item">Blum <span class="dot"></span></span>
+        <span class="footer-marquee-item">Siemens <span class="dot"></span></span>
+        <span class="footer-marquee-item">Bosch <span class="dot"></span></span>
+        <span class="footer-marquee-item">Liebherr <span class="dot"></span></span>
+      </div>
+    </div>
+
+    <div class="footer-bottom">
+      <span>© 2026 Nandaas Interior Studio. All rights reserved.</span>
+      <div class="social-links">
+        <a href="#" aria-label="LinkedIn"><svg viewBox="0 0 24 24" fill="currentColor"><path d="M20.45 20.45h-3.55v-5.57c0-1.33-.02-3.03-1.85-3.03-1.86 0-2.14 1.45-2.14 2.94v5.66H9.36V9h3.41v1.56h.05c.48-.9 1.64-1.85 3.38-1.85 3.6 0 4.27 2.37 4.27 5.46v6.28zM5.34 7.43a2.06 2.06 0 1 1 0-4.12 2.06 2.06 0 0 1 0 4.12zM7.12 20.45H3.56V9h3.56v11.45z"/></svg></a>
+        <a href="#" aria-label="Instagram"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><rect x="3" y="3" width="18" height="18" rx="5"/><circle cx="12" cy="12" r="4"/><circle cx="17.2" cy="6.8" r="1" fill="currentColor" stroke="none"/></svg></a>
+        <a href="#" aria-label="Facebook"><svg viewBox="0 0 24 24" fill="currentColor"><path d="M13.5 21v-8.4h2.8l.42-3.27h-3.22V7.2c0-.95.26-1.6 1.63-1.6h1.74V2.68C16.56 2.6 15.53 2.5 14.32 2.5c-2.53 0-4.26 1.54-4.26 4.37v2.46H7.24v3.27h2.82V21h3.44z"/></svg></a>
+        <a href="#" aria-label="YouTube"><svg viewBox="0 0 24 24" fill="currentColor"><path d="M22 12s0-3.14-.4-4.64a2.5 2.5 0 0 0-1.76-1.77C18.34 5.2 12 5.2 12 5.2s-6.34 0-7.84.4a2.5 2.5 0 0 0-1.76 1.76C2 8.85 2 12 2 12s0 3.14.4 4.64a2.5 2.5 0 0 0 1.76 1.76c1.5.4 7.84.4 7.84.4s6.34 0 7.84-.4a2.5 2.5 0 0 0 1.76-1.76C22 15.15 22 12 22 12z"/><path d="M10 15.2 15.4 12 10 8.8v6.4z" fill="var(--black)"/></svg></a>
+      </div>
+    </div>
+  </div>
+</footer>
+
+<script>
+// Header scroll state
+const header = document.getElementById('siteHeader');
+window.addEventListener('scroll', () => {
+  header.classList.toggle('scrolled', window.scrollY > 40);
+});
+
+// Mobile nav toggle
+const burger = document.querySelector('.burger');
+const mainNav = document.querySelector('nav.main-nav');
+const navOverlay = document.querySelector('.nav-overlay');
+function closeMobileNav(){
+  burger.classList.remove('open');
+  mainNav.classList.remove('open');
+  navOverlay.classList.remove('open');
+  document.body.style.overflow = '';
+}
+function toggleMobileNav(){
+  const isOpen = mainNav.classList.toggle('open');
+  burger.classList.toggle('open', isOpen);
+  navOverlay.classList.toggle('open', isOpen);
+  document.body.style.overflow = isOpen ? 'hidden' : '';
+}
+if (burger) burger.addEventListener('click', toggleMobileNav);
+if (navOverlay) navOverlay.addEventListener('click', closeMobileNav);
+
+// Nav link ripple + active-state + close mobile menu on click
+document.querySelectorAll('nav.main-nav a').forEach(link => {
+  link.addEventListener('click', function (e) {
+    const rect = this.getBoundingClientRect();
+    const size = Math.max(rect.width, rect.height) * 2.2;
+    const ripple = document.createElement('span');
+    ripple.className = 'nav-ripple';
+    ripple.style.width = ripple.style.height = size + 'px';
+    ripple.style.left = (e.clientX - rect.left - size / 2) + 'px';
+    ripple.style.top = (e.clientY - rect.top - size / 2) + 'px';
+    this.appendChild(ripple);
+    setTimeout(() => ripple.remove(), 600);
+
+    document.querySelectorAll('nav.main-nav a').forEach(a => a.classList.remove('active'));
+    this.classList.add('active');
+    closeMobileNav();
+  });
+});
+
+// Highlight nav link matching the section currently in view
+const navLinks = document.querySelectorAll('nav.main-nav a[href^="#"]');
+const sectionMap = Array.from(navLinks).map(a => document.querySelector(a.getAttribute('href'))).filter(Boolean);
+const sectionObserver = new IntersectionObserver((entries) => {
+  entries.forEach(entry => {
+    if (entry.isIntersecting) {
+      const id = '#' + entry.target.id;
+      navLinks.forEach(a => a.classList.toggle('active', a.getAttribute('href') === id));
+    }
+  });
+}, { rootMargin: '-40% 0px -55% 0px', threshold: 0 });
+sectionMap.forEach(sec => sectionObserver.observe(sec));
+
+// Scroll reveal (covers .reveal, .reveal-left, .reveal-right, .reveal-zoom, .reveal-stagger)
+const revealEls = document.querySelectorAll('.reveal, .reveal-left, .reveal-right, .reveal-zoom, .reveal-stagger');
+const io = new IntersectionObserver((entries) => {
+  entries.forEach(e => { if (e.isIntersecting) { e.target.classList.add('in'); io.unobserve(e.target); } });
+}, { threshold: 0.12 });
+revealEls.forEach(el => io.observe(el));
+
+// Button ripple / water-drop click effect
+document.querySelectorAll('.btn, .card-img-btn').forEach(btn => {  btn.addEventListener('click', function (e) {
+    const rect = this.getBoundingClientRect();
+    const size = Math.max(rect.width, rect.height) * 1.4;
+    const ripple = document.createElement('span');
+    ripple.className = 'ripple';
+    ripple.style.width = ripple.style.height = size + 'px';
+    ripple.style.left = (e.clientX - rect.left - size / 2) + 'px';
+    ripple.style.top = (e.clientY - rect.top - size / 2) + 'px';
+    this.appendChild(ripple);
+    setTimeout(() => ripple.remove(), 700);
+  });
+});
+
+// Accordion
+document.querySelectorAll('.accordion-item').forEach(item => {
+  item.querySelector('.accordion-head').addEventListener('click', () => {
+    const wasOpen = item.classList.contains('open');
+    document.querySelectorAll('.accordion-item').forEach(i => i.classList.remove('open'));
+    if (!wasOpen) item.classList.add('open');
+  });
+});
+
+// Project search + filter
+const projectGrid = document.getElementById('projectGrid');
+const projectSearch = document.getElementById('projectSearch');
+const projectCount = document.getElementById('projectCount');
+const projectEmpty = document.getElementById('projectEmpty');
+let activeCat = 'all';
+
+function applyProjectFilters(){
+  if (!projectGrid) return;
+  const cards = Array.from(projectGrid.querySelectorAll('.project-card'));
+  const q = (projectSearch?.value || '').trim().toLowerCase();
+  let visible = 0;
+  cards.forEach(card => {
+    const matchesCat = activeCat === 'all' || card.dataset.cat === activeCat;
+    const matchesSearch = !q || card.dataset.search.includes(q);
+    const show = matchesCat && matchesSearch;
+    card.classList.toggle('hidden', !show);
+    if (show) visible++;
+  });
+  if (projectCount) projectCount.style.display = visible ? '' : 'none';
+  if (projectEmpty) projectEmpty.style.display = visible ? 'none' : '';
+  if (projectCount) projectCount.textContent = `Showing ${visible} of ${cards.length} projects`;
+}
+
+document.querySelectorAll('.filter-btn').forEach(btn => {
+  btn.addEventListener('click', () => {
+    document.querySelectorAll('.filter-btn').forEach(b => b.classList.remove('active'));
+    btn.classList.add('active');
+    activeCat = btn.dataset.cat || 'all';
+    applyProjectFilters();
+  });
+});
+if (projectSearch) projectSearch.addEventListener('input', applyProjectFilters);
+applyProjectFilters();
+
+// Configurator interactivity
+const cabinTags = {
+  wall: 'Stainless Steel', floor: 'Stone', ceiling: 'Standard', lighting: 'Warm', handrail: 'Stainless Steel'
+};
+document.querySelectorAll('.config-options').forEach(group => {
+  const key = group.dataset.group;
+  group.querySelectorAll('.config-opt').forEach(opt => {
+    opt.addEventListener('click', () => {
+      group.querySelectorAll('.config-opt').forEach(o => o.classList.remove('active'));
+      opt.classList.add('active');
+      cabinTags[key] = opt.textContent;
+      document.getElementById('cabinTag').textContent = `${cabinTags.wall} · ${cabinTags.floor} Floor`;
+    });
+  });
+});
+</script>
+
+<script>
+(function(){
+  var grid = document.getElementById('productGrid');
+  var prev = document.getElementById('productPrev');
+  var next = document.getElementById('productNext');
+  if(!grid || !prev || !next) return;
+  function step(){
+    var card = grid.querySelector('.card');
+    var gap = parseFloat(getComputedStyle(grid).gap) || 12;
+    return card ? card.getBoundingClientRect().width + gap : grid.clientWidth * 0.5;
+  }
+  prev.addEventListener('click', function(){ grid.scrollBy({left:-step(), behavior:'smooth'}); });
+  next.addEventListener('click', function(){ grid.scrollBy({left:step(), behavior:'smooth'}); });
+})();
+(function(){
+  var wrap = document.getElementById('testimonialsWrap');
+  var prev = document.getElementById('testiPrev');
+  var next = document.getElementById('testiNext');
+  var viewMoreBtn = document.getElementById('testiViewMore');
+  if(!wrap || !prev || !next) return;
+  function step(){
+    var card = wrap.querySelector('.testimonial-card');
+    var gap = parseFloat(getComputedStyle(wrap).gap) || 14;
+    return card ? card.getBoundingClientRect().width + gap : wrap.clientWidth * 0.5;
+  }
+  prev.addEventListener('click', function(){ wrap.scrollBy({left:-step(), behavior:'smooth'}); });
+  next.addEventListener('click', function(){ wrap.scrollBy({left:step(), behavior:'smooth'}); });
+  if(viewMoreBtn){
+    viewMoreBtn.addEventListener('click', function(){
+      var expanded = wrap.classList.toggle('expanded');
+      viewMoreBtn.firstChild.textContent = expanded ? 'View Less Reviews' : 'View More Reviews';
+    });
+  }
+})();
+</script>
+</body>
+</html>
